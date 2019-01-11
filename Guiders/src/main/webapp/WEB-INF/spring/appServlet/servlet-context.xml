@@ -12,6 +12,7 @@
   <mvc:resources mapping="/css/**" location="/resources/css/" />
   <mvc:resources mapping="/js/**" location="/resources/js/" />
   <mvc:resources mapping="/img/**" location="/resources/img/" />
+  <mvc:resources mapping="/font/**" location="/resources/font/" />
   
   <mvc:annotation-driven> <!-- json 한글깨짐 방지 -->
    <mvc:message-converters>
@@ -37,6 +38,6 @@
     <beans:property name="maxInMemorySize" value="1048576" /> 
   </beans:bean>
 	
-	<context:component-scan base-package="com.guilders.web" />
+	<context:component-scan base-package="com.guiders.web" />
 	
 </beans:beans>
