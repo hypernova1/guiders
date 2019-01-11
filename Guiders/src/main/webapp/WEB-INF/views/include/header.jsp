@@ -55,7 +55,7 @@ nav {
 }
 #logo {
   width: 120px;
-  height: 40px;
+  height: 50px;
   padding: 10px 0;
   cursor: pointer;
 }
@@ -77,6 +77,10 @@ nav {
   background: #dcdde1;
   transition: 0.3s;
 }
+a{
+  text-decoration: none;
+  color: black;
+}
 </style>
 </head>
 <body>
@@ -85,12 +89,12 @@ nav {
       <nav>
         <div class="menu-content"><span>Guiders</span></div>
         <div class="menu-content"><span>Meeting</span></div>
-        <div class="menu-content"><span>Essay</span></div>
+        <div class="menu-content"><span id="essay">Essay</span></div>
         <div class="menu-content"><span id="mypage">My Page</span>
           <ul id="mypage-list">
             <li>My Guiders</li>
             <li>에세이</li>
-            <li>정보수정</li>
+            <li><a href="/mypage/edit">정보수정</a></li>
             <li>로그아웃</li>
           </ul>
         </div>
@@ -104,5 +108,13 @@ nav {
       mypageList.classList.toggle('active');
       mypageList.style.height = mypageList.classList.contains('active') ? mypageList.scrollHeight + 'px' : 0;
       mypageList.style.borderColor = mypageList.classList.contains('active') ? '#f5f6fa' : '';
+    });
+    
+    document.querySelector('#logo').addEventListener('click', function(){
+        location.href = '/';
+    });
+    
+    document.querySelector('#essay').addEventListener('click', function(){
+        location.href = '/essay/list'
     })
   </script>

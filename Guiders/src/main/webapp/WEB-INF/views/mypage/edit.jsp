@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
   <style>
     *, *::before, *::after{
@@ -6,11 +8,11 @@
       box-sizing: border-box;
     }
     #wrapper{
-      margin: 5% 5%;
+      margin: 8% 5%;
     }
     aside{
       float: left;
-      height: 800px;
+      height: 700px;
     }
     aside>ul{
       list-style: none;
@@ -144,7 +146,6 @@
         </div>
         <div id="btn-wrap">
           <button type="submit" class="btn">수정</button>
-          <button type="button" class="btn">취소</button>
         </div>
       </form>
     </section>

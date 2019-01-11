@@ -15,4 +15,9 @@ public class MainController {
   public String edit() {
     return "mypage/edit";
   }
+  
+  @GetMapping("/essay/list")
+  public String essayList() {
+    return "essay/list";
+  }
 }
