@@ -14,9 +14,9 @@ footer>div{
 }
 </style>
 <footer>
-    <div>
-      © Copyright 2019 BROKERS
-    </div>
+  <div>
+    © Copyright 2019 BROKERS
+  </div>
 </footer>
 </body>
 </html>

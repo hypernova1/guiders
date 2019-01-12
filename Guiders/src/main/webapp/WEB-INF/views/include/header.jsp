@@ -87,15 +87,15 @@ a{
 <header>
     <div id="header-content">
       <nav>
-        <div class="menu-content"><span>Guiders</span></div>
+        <div class="menu-content"><span id="guiders">Guiders</span></div>
         <div class="menu-content"><span>Meeting</span></div>
         <div class="menu-content"><span id="essay">Essay</span></div>
         <div class="menu-content"><span id="mypage">My Page</span>
           <ul id="mypage-list">
             <li>My Guiders</li>
-            <li>에세이</li>
+            <li>Like Essay</li>
             <li><a href="/mypage/edit">정보수정</a></li>
-            <li>로그아웃</li>
+            <li>Logout</li>
           </ul>
         </div>
       </nav>
@@ -115,6 +115,10 @@ a{
     });
     
     document.querySelector('#essay').addEventListener('click', function(){
-        location.href = '/essay/list'
+        location.href = '/essay/list';
+    });
+    
+    document.querySelector('#guiders').addEventListener('click', function(){
+        location.href = '/guiders';
     })
   </script>

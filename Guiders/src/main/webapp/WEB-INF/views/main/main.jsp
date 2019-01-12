@@ -114,7 +114,7 @@ article {
 <div id="header-img">
     <div>
       <p>지금 바로 가입하세요.</p>
-      <button type="button" class="btn">가입하기</button>
+      <button type="button" class="btn" id="join">가입하기</button>
     </div>
   </div>
   <section id="article">
@@ -250,5 +250,11 @@ article {
       <h3 class="maker-name">슈베르트</h3>
     </div>
   </section>
+  
+  <script>
+    document.querySelector('#join').addEventListener('click', () => {
+        location.href = '/join';
+    })
+  </script>
   
   <%@ include file="../include/footer.jsp" %>
