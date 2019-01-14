@@ -172,11 +172,94 @@ a{
     top: 50%;
   }
 }
+.search-box {
+    top: 18%;
+    left: 22%;
+    position: absolute;
+    /* transform: translate(-50%, -50%); */
+    background: white;
+    height: 50px;
+    border-radius: 40px;
+    padding: 10px;
+}
+
+.span-word{
+    font-weight: bold;
+    position: relative;
+    top: 2px;
+}
+
+.search-box:hover{
+    border: 3px solid #ff2d55;
+}
+
+.search-box:hover>.search-txt {
+    width: 240px;
+    padding: 0 6px;
+}
+
+.search-box:hover>.search-btn {
+    background: white;
+    color: black;
+}
+.search-box:hover>.span-word{
+    display: none;
+}
+
+.search-btn {
+    color: #e84118;
+    float: right;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background:white;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    transition: 0.4s;
+    color: white;
+    cursor: pointer;
+}
+
+.search-btn>i {
+    position: relative;
+    font-size: 20px;
+    color: #ff2d55;
+}
+
+.search-txt {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: black;
+    font-size: 15px;
+    transition: 0.4s;
+    width: 0px;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+.logo, .search-box{
+  float: left;
+}
+
 </style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <header>
     <div id="header-content">
+      <div class="search-box">
+          <span class="span-word">검색</span>
+          <input type="text" name="searchText" class="search-txt" placeholder="검색어 입력" />
+          <a class="search-btn">
+              <i class="fas fa-search"></i>
+          </a>
+      </div>
       <nav>
         <div class="menu-content"><span id="guiders">Guiders</span></div>
         <div class="menu-content"><span>Meeting</span></div>

@@ -11,15 +11,15 @@
 	
 	<bean id="ds" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
    <property name="driverClass" value="org.mariadb.jdbc.Driver" />
-   <property name="url" value="jdbc:mariadb://localhost:3306/dbname?useSSL=false&amp;serverTimezone=Asia/Seoul" />
-   <property name="username" value="" />
-   <property name="password" value="" />
+   <property name="url" value="jdbc:mariadb://localhost:3306/studydb?useSSL=false&amp;serverTimezone=Asia/Seoul" />
+   <property name="username" value="root" />
+   <property name="password" value="1111" />
   </bean>
    
   <bean id="ssfb" class="org.mybatis.spring.SqlSessionFactoryBean">
    <property name="dataSource" ref="ds" />
    <property name="configLocation" value="classpath:com/guiders/config/mybatis/config/configuration.xml" />
-   <property name="mapperLocations" value="classpath:com/guiders/config/mybatis/mapper/**Mapper.xml"/>
+   <!-- <property name="mapperLocations" value="classpath:com/guiders/config/mybatis/mapper/**Mapper.xml"/> -->
   </bean>
    
     <bean id="ss" class="org.mybatis.spring.SqlSessionTemplate">
