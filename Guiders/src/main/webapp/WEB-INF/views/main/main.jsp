@@ -8,7 +8,6 @@
   background-image: url("https://www.womeninoilandgas.com.au/wp-content/uploads/2016/11/Mentoring-banner.jpg");
   background-repeat: none;
   background-size: cover;
-  z-index: 100;
 }
 #header-img>div{
   position: absolute;
@@ -43,7 +42,7 @@ section {
 #article>h2 {
   text-align: left;
   margin-top: 30px;
-  margin-left: 8%;
+  margin-left: 10%;
 }
 img {
   width: 120px;
@@ -118,7 +117,7 @@ article {
     </div>
   </div>
   <section id="article">
-    <h2>꼭 짚고 넘어가야할.. 건 아니지만.. 그래도 좀 필요한 거 같은..</h2>
+    <h2>인기 에세이</h2>
     <article>
       <img class="article-img" src="https://t1.daumcdn.net/cfile/tistory/1112763C4F78EAB610" alt="">
       <h3 class="article-title">
@@ -138,7 +137,7 @@ article {
     <article>
       <img class="article-img" src="https://t1.daumcdn.net/cfile/tistory/2625CC40588CBDE913">
       <h3 class="article-title">
-        바흐가 최고시다.
+        좌절하지 않는 법.
       </h3>
       <div class="article-content">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas qui hic inventore cum rerum impedit provident
@@ -154,7 +153,7 @@ article {
     <article>
       <img class="article-img" src="http://www.nzkoreapost.com/data/editor/1503/3734505848_1427323781.5205.jpg">
       <h3 class="article-title">
-        구텐탁 블리츠크랭크 구텐베레크
+        노력의 말로..
       </h3>
       <div class="article-content">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas qui hic inventore cum rerum impedit provident
@@ -254,7 +253,7 @@ article {
   <script>
     document.querySelector('#join').addEventListener('click', () => {
         location.href = '/join';
-    })
+    });
   </script>
   
   <%@ include file="../include/footer.jsp" %>

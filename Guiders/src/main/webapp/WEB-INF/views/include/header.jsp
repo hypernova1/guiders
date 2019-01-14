@@ -11,9 +11,7 @@
   font-family: 'yoon';
   src: url('/font/HANYOONGOTHIC760.TTF') format('truetype');
 }
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -38,8 +36,8 @@ header {
 }
 
 nav {
+  display:flex;
   float: right;
-  margin-right: 20px;
 }
 .menu-content {
   display: inline-block;
@@ -49,6 +47,9 @@ nav {
   cursor: pointer;
   user-select: none;
 }
+.menu-content:nth-child(4) {
+  margin-left: 30px;
+}
 .menu-content>span:hover {
   color: #ff2d55;
   transition: 0.3s;
@@ -56,8 +57,12 @@ nav {
 #logo {
   width: 120px;
   height: 50px;
-  padding: 10px 0;
+  margin-left: 20px;
   cursor: pointer;
+}
+#mypage{
+  width: 30px;
+  height: 30px;
 }
 #mypage-list {
   overflow: hidden;
@@ -81,6 +86,92 @@ a{
   text-decoration: none;
   color: black;
 }
+#login-modal{
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+#login-modal-content{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 450px;
+  height: 420px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  border: 1px solid #95a5a6;
+  border-radius: 4px;
+  box-shadow: 1px 1px 2px;
+  padding: 10px;
+  background: white;
+  animation: 0.5s move;
+}
+#modal-title{
+  margin: 20px 0 40px 0;
+}
+#id, #password{
+  font-weight: bold;
+  margin: 20px;
+}
+#id>label, #password>label{
+  display: block;
+  margin-left: 70px;
+  text-align: left;
+  font-size: 1.2rem;
+}
+#id>input, #password>input{
+  margin-top: 10px;
+  width: 250px;
+  height: 40px;
+  border-radius: 4px;
+  padding: 8px;
+  border: 1px solid#95a5a6;
+}
+#modal-content>div:nth-child(3){
+  margin-top: 20px;
+}
+#login-modal-content button{
+  all: unset;
+  border: 1px solid white;
+  background: #ff2d55;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#login-modal-content button:hover{
+  background: black;
+  color: #ff2d55;
+  transition: 0.3s;
+}
+#etc{
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+#join-btn, #pwd-btn{
+  cursor: pointer;
+}
+#join-btn:hover, #pwd-btn:hover{
+  text-decoration: underline;
+}
+@keyframes move {
+  0%{
+    top: 0;
+  }
+  50% {
+    top: 70%;
+  }
+  100%{
+    top: 50%;
+  }
+}
 </style>
 </head>
 <body>
@@ -90,35 +181,99 @@ a{
         <div class="menu-content"><span id="guiders">Guiders</span></div>
         <div class="menu-content"><span>Meeting</span></div>
         <div class="menu-content"><span id="essay">Essay</span></div>
-        <div class="menu-content"><span id="mypage">My Page</span>
+        <div class="menu-content"><img src="/img/iconmonstr-user-circle-thin.svg" id="mypage">
+        <c:choose>
+          <c:when test="${sessionScope.mno ne null}">
           <ul id="mypage-list">
             <li>My Guiders</li>
-            <li>Like Essay</li>
+            <li><a href="/mypage/likeEssay">Like Essay</a></li>
             <li><a href="/mypage/edit">정보수정</a></li>
             <li>Logout</li>
           </ul>
+          </c:when>
+          <c:otherwise>
+           <ul id="mypage-list">
+            <li id="login">Login</li>
+          </ul>
+          </c:otherwise>
+        </c:choose>
         </div>
       </nav>
       <img src="/img/logo.png" id="logo">
     </div>
   </header>
-  <script>
-    document.querySelector('#mypage').addEventListener('click', function () {
-      const mypageList = document.querySelector('#mypage-list');
+  
+  <div id="login-modal">
+    <div id="login-modal-content">
+      <h1 id="modal-title">Login</h1>
+      <div id="id">
+        <label>아이디</label>
+        <input type="text">
+      </div>
+      <div id="password">
+        <label>비밀번호</label>
+        <input type="password">
+      </div>
+      <div>
+        <button>로그인</button>
+        
+      </div>
+      <div id="etc">
+        <span id="join-btn">회원가입</span>
+        l
+        <span id="pwd-btn">비밀번호 찾기</span>
+      </div>
+    </div>
+  </div>
+<script>
+  const mypageList = document.querySelector('#mypage-list');
+  document.querySelector('#mypage').addEventListener('click', function () {
+    mypageList.classList.toggle('active');
+    mypageList.style.height = mypageList.classList.contains('active') ? mypageList.scrollHeight + 'px' : 0;
+    mypageList.style.borderColor = mypageList.classList.contains('active') ? '#f5f6fa' : '';
+  });
+  
+  document.querySelector('#logo').addEventListener('click', function(){
+      location.href = '/';
+  });
+  
+  document.querySelector('#essay').addEventListener('click', function(){
+      location.href = '/essay/list';
+  });
+  
+  document.querySelector('#guiders').addEventListener('click', function(){
+      location.href = '/guiders';
+  });
+  
+  const modal = document.querySelector('#login-modal');
+  document.querySelector('#login').addEventListener('click', function(){
       mypageList.classList.toggle('active');
       mypageList.style.height = mypageList.classList.contains('active') ? mypageList.scrollHeight + 'px' : 0;
       mypageList.style.borderColor = mypageList.classList.contains('active') ? '#f5f6fa' : '';
+      let i = 1;
+      modal.style.display = 'block';
+      const increase = setInterval(function(){
+        if (i == 51) {
+          clearInterval(increase);
+        } else {
+          modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
+          i++;
+        }
+      }, 10);
     });
-    
-    document.querySelector('#logo').addEventListener('click', function(){
-        location.href = '/';
+
+    window.addEventListener('click', function(e) {
+      if(e.target.id == 'login-modal') {
+        let i = 50;
+        const decrease = setInterval(function(){
+          if(i == -1) {
+            modal.style.display = 'none';
+            clearInterval(decrease);
+          } else {
+            modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
+            i--;
+          }
+        }, 10);
+      }
     });
-    
-    document.querySelector('#essay').addEventListener('click', function(){
-        location.href = '/essay/list';
-    });
-    
-    document.querySelector('#guiders').addEventListener('click', function(){
-        location.href = '/guiders';
-    })
-  </script>
+</script>

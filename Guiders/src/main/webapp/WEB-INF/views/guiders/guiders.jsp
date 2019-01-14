@@ -2,40 +2,40 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <style>
-       section {
-           margin: 130px 5%;
-           text-align: center;
-       }
-  
-       .select-type {
-           text-align: left;
-           margin: 0px 0px 100px 45px;
-       }
+section {
+    margin: 130px 5%;
+    text-align: center;
+}
 
-       .select-type button{
-           all: unset;
-           display: inline-block;
-           font-size: 1rem;
-           padding: 10px 15px;
-           margin: 2px;
-           border: 2px solid #ff2d55;
-           border-radius: 4px;
-           background-color: white;
-           user-select: none;
-           cursor: pointer;
-           box-shadow: 0 2px 10px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+.select-type {
+    text-align: left;
+    margin: 0px 0px 100px 45px;
+}
 
-       }
+.select-type button{
+    all: unset;
+    display: inline-block;
+    font-size: 1rem;
+    padding: 10px 15px;
+    margin: 2px;
+    border: 2px solid #ff2d55;
+    border-radius: 4px;
+    background-color: white;
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 
-       .select-type button:hover{
-           color: #ff2d55;
-           font-weight: bold;
-       }
+}
 
-       .select-type li {
-           display: inline-block;
-           /* padding: 0px 5px 0px 5px; */
-       }
+.select-type button:hover{
+    color: #ff2d55;
+    font-weight: bold;
+}
+
+.select-type li {
+    display: inline-block;
+    /* padding: 0px 5px 0px 5px; */
+}
 </style>
     <link rel="stylesheet" href="/css/guiders/styles.css">
     <link rel="stylesheet" href="/css/guiders/search.css">
@@ -343,7 +343,7 @@
   <%@ include file="../include/footer.jsp" %>
     <script>
         var body = document.body;
-        var modal = document.getElementById("modal");
+        var guiderModal = document.getElementById("modal");
             
         var profileImg = document.getElementsByClassName("profile-img")[0];
         
@@ -351,18 +351,18 @@
         var modalSpan = document.getElementsByClassName("close")[0];
             
         profileImg.addEventListener("click",function(){
-            modal.style.display = "block";
+            guiderModal.style.display = "block";
             body.style.overflow = "hidden";
         });
             
         modalSpan.addEventListener("click", function(){
-             modal.style.display = "none";
+             guiderModal.style.display = "none";
              body.style.overflow = "";
         });
             
         window.addEventListener("click", function(){
-            if(event.target == modal){
-                modal.style.display = "none";
+            if(event.target == guiderModal){
+                guiderModal.style.display = "none";
                 body.style.overflow = "";
             }
         });
