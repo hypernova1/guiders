@@ -45,4 +45,10 @@ public class MainController {
   public String likeEssay() {
     return "mypage/likeEssay";
   }
+  
+  @GetMapping("/mypage/myGuider")
+  public String myGuider(){
+	  
+	  return "mypage/myGuider";
+  }
 }
