@@ -8,6 +8,7 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
+    transition: all 0.3s ease-out;
 }
 
 
