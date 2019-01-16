@@ -1,0 +1,124 @@
+h2{
+  margin-bottom: 2rem;
+  margin-left: 100px;
+}
+input{
+  display: inline-block;
+  font-size: 1.2rem;
+  padding: 0 1rem;
+  margin: 10px 5px;
+  border:1px solid #95a5a6;
+  border-radius: 4x;
+}
+::placeholder {
+  color: #bdc3c7;
+}
+button {
+  background-color: #ff2d55;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+  border-radius: 4px;
+  margin-left: 100px;
+}
+button:hover {
+  opacity:1;
+}
+section{
+  margin: 10%;
+  text-align: center;
+}
+.emailInput {
+    width: 50%;
+}
+input[type="text"], input[type="password"]{
+  width: 300px;
+  height: 40px;
+  border-radius: 4px;
+}
+
+/* IE 10, 11의 네이티브 화살표 숨기기 */
+select::-ms-expand {
+display: none;
+}
+select {
+width: 200px; /* 원하는 너비설정 */
+padding: .8em .5em; /* 여백으로 높이 설정 */
+font-family: inherit;  /* 폰트 상속 */
+background: url('이미지 경로') no-repeat 95% 50%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+border: 1px solid #999;
+border-radius: 0px; /* iOS 둥근모서리 제거 */
+-moz-appearance: none;
+appearance: none;
+-webkit-appearance: none;  /* 네이티브 외형 감추기 */
+-moz-appearance: none;
+appearance: none;
+background: url no-repeat 95% 50%;  
+margin-right:10px;
+}
+input[type="checkbox"] , input[type="radio"] {
+    display:none;
+}
+input[type="checkbox"] + label , input[type="radio"] + label {
+    color: black;
+}
+input[type="checkbox"] + label span , input[type="radio"] + label span {
+  display:inline-block;
+  width:19px;
+  height:19px;
+  vertical-align:middle;
+  background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) left top no-repeat;
+  cursor:pointer;
+}
+
+input[type="checkbox"]:checked + label span , input[type="radio"]:checked + label span{
+  background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -19px top no-repeat;
+}
+textarea{
+  resize: none;
+  width: 400px;
+  height: 200px;
+  border-radius: 4px;
+  padding: 5px;
+}
+#phone>input{
+  width: 83px;
+}
+div>label{
+  display: inline-block;
+  font-weight: bold;
+  width: 100px;
+  text-align: right;
+}
+#identity>input{
+  width: 132.5px;
+}
+#identity>input:nth-child(3){
+  width: 50px;
+}
+#field, #lang{
+  text-align: center;
+  margin: 1.5rem 0 1.5rem 100px;
+}
+#field>label, #lang>label{
+  width: auto;
+}
+#field>div>label, #lang>div>label{
+  text-align: center;
+}
+#intro{
+  margin-top: 10px;
+}
+#quote, #intro{
+  margin-left: 100px;
+}
+#quote>div, #intro>div{
+  text-align: center;
+}
+#quote>div>label, #intro>div>label{
+  text-align: center;
+  margin: 10px 0;
+}

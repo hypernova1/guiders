@@ -1,114 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<style>
-#header-img {
-  margin-top: 64px;
-  width: 100%;
-  height: 400px;
-  background-image: url("/img/main.jpg");
-  background-size: cover;
-}
-#header-img>div{
-  position: absolute;
-  top: 200px;
-  left: 200px;
-  font-size: 2rem;
-  color: white;
-}
-#header-img>div>p{
-  margin-bottom: 30px;
-}
-.btn{
-  all: unset;
-  display: inline-block;
-  font-size: 1rem;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 4px;
-  border-color: white;
-  background-color: #ff2d55;
-  user-select: none;
-  cursor: pointer;
-}
-.btn:hover{
-  color: #ff2d55;
-  background-color: black;
-  transition: 0.3s;
-}
-section {
-  text-align: center;
-}
-#article>h2 {
-  text-align: left;
-  margin-top: 30px;
-  margin-left: 10%;
-}
-img {
-  width: 120px;
-  height: 60px;
-}
-article {
-  display: inline-block;
-  margin: 10px;
-  width: 412px;
-  height: 490px;
-  border: 1px solid #dfe6e9;
-  border-radius: 4px;
-}
-.article-title {
-  margin: 5px;
-}
-.article-content {
-  text-align: left;
-  padding: 20px;
-  color: #6d6d72;
-  height: 190px;
-  overflow: hidden;
-}
-.article-img {
-  width: 100%;
-  height: 200px;
-}
-#article-header {
-  text-align: left;
-}
-.line {
-  text-align: center;
-}
-.line>div {
-  display: inline-block;
-  width: 90%;
-  border-top: 1px solid #f5f6fa;
-}
 
-#makers-title{
-  text-align: center;
-  margin-top: 30px;
-}
-#makers {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
-.maker {
-  display: inline-block;
-  width: 300px;
-  height: 400px;
-  margin: 4px;
-  border: 1px solid #dcdde1;
-  border-radius: 4px;
-}
-.maker-img {
-  padding: 20px;
-}
-.maker-img>img {
-  display: inline-block;
-  border-radius: 100%;
-  width: 150px;
-  height: 150px;
-}
-</style>
 <%@ include file="../include/header.jsp" %>
+<link rel="stylesheet" href="/css/main/main.css">
+<script src="/js/main/main.js" defer></script>
 <div id="header-img">
     <div>
       <p>지금 바로 가입하세요.</p>
@@ -248,11 +143,5 @@ article {
       <h3 class="maker-name">슈베르트</h3>
     </div>
   </section>
-  
-  <script>
-    document.querySelector('#join').addEventListener('click', () => {
-        location.href = '/join';
-    });
-  </script>
   
   <%@ include file="../include/footer.jsp" %>
