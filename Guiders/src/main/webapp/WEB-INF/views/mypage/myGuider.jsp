@@ -134,12 +134,12 @@ section {
 	font-weight: bold;
 }
 
-.explain li {
+.explain div {
 	display: inline-block;
 	width: 35%;
 }
 
-.explain li:nth-child(1) {
+.explain div:nth-child(1) {
 	padding-left: 130px;
 }
 </style>
@@ -160,10 +160,10 @@ section {
 
 	<div class="title">
 		<ul class="follower-content">
-			<ul class="explain">
-				<li>멘토 정보</li>
-				<li>질문글 : 3개</li>
-			</ul>
+			<li class="explain">
+				<div>멘토 정보</div>
+				<div>질문글 : 3개</div>
+			</li>
 			<li><img src="/img/naruto.jpg"></li>
 			<li>
 				<p>근무 회사 : Coupang</p>
@@ -210,7 +210,7 @@ section {
 				<p>나선환쪽 말고 다른 인술 사용할 생각은 없으신가..</p>
 
 			</li>
-			<li><button class="unfollow-btn">UNFOLLOW</button> </a></li>
+			<li><button class="unfollow-btn">UNFOLLOW</button></li>
 		</ul>
 
 
@@ -218,7 +218,4 @@ section {
 </section>
 </body>
 
-</html>
-
-</body>
 </html>
