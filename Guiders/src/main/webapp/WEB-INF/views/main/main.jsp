@@ -5,8 +5,7 @@
   margin-top: 64px;
   width: 100%;
   height: 400px;
-  background-image: url("https://www.womeninoilandgas.com.au/wp-content/uploads/2016/11/Mentoring-banner.jpg");
-  background-repeat: none;
+  background-image: url("/img/main.jpg");
   background-size: cover;
 }
 #header-img>div{
