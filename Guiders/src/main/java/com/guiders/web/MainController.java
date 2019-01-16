@@ -26,16 +26,6 @@ public class MainController {
     return "essay/post";
   }
   
-  @GetMapping("/join")
-  public String join() {
-    return "main/join";
-  }
-  
-  @GetMapping("/joinform")
-  public String joinForm() {
-    return "main/joinForm";
-  }
-  
   @GetMapping("/guiders")
   public String guiders() {
     return "guiders/guiders";

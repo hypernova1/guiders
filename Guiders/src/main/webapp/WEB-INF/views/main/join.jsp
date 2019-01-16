@@ -163,20 +163,20 @@ dir {
       회원 유형에 따라 가입 절차가 다르니, 본인에 해당하는 유형을 선택하여 주세요.
     </div>
     <div class="item2">
-      <h1>멘토로 가입하기</h1>
+      <h1>가이더로 가입하기</h1>
       <h3>여러분의 도움을 필요로 하는 멘티들이 있습니다.</h3>
       <div class="row">
         <div class="col three">
-          <a href="/joinform" class="btn btn-sunflower">바로가기</a>
+          <a href="/joinform?guider=true" class="btn btn-sunflower">바로가기</a>
         </div>
       </div>
     </div>
     <div class="item4">
-      <h1>멘티로 가입하기</h1>
+      <h1>팔로워로 가입하기</h1>
       <h3>원하는 멘토와 팔로우를 맺고, 도움을 받아보세요.</h3>
       <div class="row">
         <div class="col three">
-          <a href="joinform" class="btn btn-sunflower">바로가기</a>
+          <a href="joinform?guider=false" class="btn btn-sunflower">바로가기</a>
         </div>
       </div>
     </div>
