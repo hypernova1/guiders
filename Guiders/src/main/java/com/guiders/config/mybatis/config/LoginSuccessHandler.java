@@ -17,8 +17,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
 			throws IOException, ServletException {
 		String accept = request.getHeader("accept");
-		String referer = (String) request.getHeader("referer");
-		System.out.println(referer);
+		/*String referer = (String) request.getHeader("referer");*/
+		String loginRedirect = request.getParameter("loginRedirect");
+		System.out.println("loginRedirect : " + loginRedirect);
 		
 		if (StringUtils.indexOf(accept, "json") > -1) {
 			response.setContentType("application/json");
