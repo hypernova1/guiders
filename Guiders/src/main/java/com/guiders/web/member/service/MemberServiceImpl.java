@@ -1,4 +1,4 @@
-package com.guiders.member.service;
+package com.guiders.web.member.service;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.guiders.member.dao.MemberDAO;
-import com.guiders.member.domain.MemberVO;
+import com.guiders.web.member.dao.MemberDAO;
+import com.guiders.web.member.domain.MemberVO;
 
 @Service
 public class MemberServiceImpl implements MemberService{

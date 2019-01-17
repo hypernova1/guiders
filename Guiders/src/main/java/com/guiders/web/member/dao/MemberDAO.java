@@ -6,12 +6,18 @@ import com.guiders.web.member.domain.MemberVO;
 
 public interface MemberDAO {
 
-  int selectEmail(String email);
-  int insertMember(GuiderVO guiderVO);
-  int updateMember(GuiderVO guiderVO);
-  int deleteMember(String email);
-  MemberVO selectMember(String email);
-  GuiderVO selectGuider(String email);
-  List<GuiderVO> selectGuiderList();
-  
+	public List<MemberVO> selectMemberList();
+
+	public void insertMember(MemberVO memberVO);
+
+	public MemberVO selectMember(String email);
+
+	public void updateMember(MemberVO memberVO);
+
+	public void insertAuth(String email);
+
+	public List<String> getAuthList(String email);
+
+	List<GuiderVO> selectGuiderList();
+
 }

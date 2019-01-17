@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.guiders.member.domain.MemberVO;
-import com.guiders.member.service.MemberService;
+import com.guiders.web.member.domain.MemberVO;
+import com.guiders.web.member.service.MemberService;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService{
@@ -30,6 +30,8 @@ public class CustomUserDetailService implements UserDetailsService{
 			throw new 
 			UsernameNotFoundException("no user found with username : "+ email);
 		}
+		
+		System.out.println(memberService.readMember(email).getMname());
 		
 		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 		

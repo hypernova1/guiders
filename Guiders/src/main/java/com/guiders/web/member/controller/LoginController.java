@@ -28,4 +28,9 @@ public class LoginController {
     return mav;
   }
   
+  @GetMapping("/login")
+  public String login() {
+	  return "main/invalid_login";
+  }
+  
 }

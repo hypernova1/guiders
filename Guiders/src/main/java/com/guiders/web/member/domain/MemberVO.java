@@ -4,7 +4,7 @@ public class MemberVO {
 
   private String email;
   private String password;
-  private String ename;
+  private String mname;
   private int gender;
   private String phone;
   private String photo;
@@ -23,11 +23,11 @@ public class MemberVO {
   public void setPassword(String password) {
     this.password = password;
   }
-  public String getEname() {
-    return ename;
+  public String getMname() {
+    return mname;
   }
-  public void setEname(String ename) {
-    this.ename = ename;
+  public void setMname(String mname) {
+    this.mname = mname;
   }
   public int getGender() {
     return gender;

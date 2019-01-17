@@ -10,7 +10,7 @@
 		   <intercept-url pattern="/mypage/*" access="hasAnyRole('ROLE_MEMBER','ROLE_GUIDER','ROLE_ADMIN')"/>
 		
 			<form-login 
-			  login-page="/signin"
+			  login-page="/login"
 			  login-processing-url="/login"
 				username-parameter="email" 
 				password-parameter="password"

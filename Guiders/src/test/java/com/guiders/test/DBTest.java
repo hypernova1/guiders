@@ -10,8 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.guiders.member.dao.MemberDAO;
-import com.guiders.member.domain.MemberVO;
+import com.guiders.web.member.dao.MemberDAO;
+import com.guiders.web.member.domain.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" })
@@ -40,6 +40,12 @@ public class DBTest {
 		
 		sqlSession.getMapper(MemberDAO.class).insertMember(vo);
 		sqlSession.getMapper(MemberDAO.class).selectMemberList();
+	}
+	
+	@Test
+	public void selectMemberTest() {
+		
+		System.out.println(sqlSession.getMapper(MemberDAO.class).selectMember("test@naver.com").getEmail());
 	}
 	
 	@Test

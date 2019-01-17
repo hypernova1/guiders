@@ -10,7 +10,6 @@ public class MainController {
 
 	@GetMapping("/")
 	public String main() {
-
 		return "main/main";
 	}
 
@@ -48,11 +47,6 @@ public class MainController {
 	@GetMapping("/signin")
 	public String login() {
 		return "mypage/myGuider";
-	}
-
-	@GetMapping("/signin")
-	public String login(HttpServletRequest req) {
-		return "signin";
 	}
 
 }

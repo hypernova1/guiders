@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <meta charset="utf-8" />
 <title>Page Title</title>
 <style>
@@ -80,20 +81,48 @@ button {
 </style>
 </head>
 <body>
-	<img src="/logo.png" id="logo">
+	<img src="/img/logo.png" id="logo">
 	<form>
 		<h1 id="msg">권한이 없습니다. 로그인 해주세요.</h1>
 		<div id="login-body">
 			<div>
 				<div id="email">
-					<label>아이디</label> <input type="text">
+					<label>아이디</label> <input type="text" name="email">
 				</div>
 				<div id="password">
-					<label>비밀번호</label> <input type="password">
+					<label>비밀번호</label> <input type="password" name="password">
 				</div>
 			</div>
-			<button type="submit">로그인</button>
+			<button type="button" onclick="signin()">로그인</button>
 		</div>
 	</form>
+
+	<script>
+		function signin() {
+			$.ajax({
+				url : '/login',
+				data : $('form input').serialize(),
+				type : 'POST',
+				dataType : 'json',
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader("Accept", "application/json");
+					xhr.setRequestHeader('x-CSRFToken', '${_csrf.token}');
+				}
+			}).done(function(result) {
+				var error = result.error;
+				var url = result.url;
+				if (error) {
+					console.log("error : " + error)
+				}
+				if (error == false) {
+					if (url == '') {
+						url = '<c:url value="/" />';
+					}
+					console.log(url);
+					location.href = url;
+				}
+			});
+		}
+	</script>
 </body>
 </html>
