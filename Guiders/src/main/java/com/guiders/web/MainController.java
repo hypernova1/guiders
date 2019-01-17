@@ -52,4 +52,9 @@ public class MainController {
 
 		return "mypage/myGuider";
 	}
+	@GetMapping("/signin")
+	public String login() {
+		
+		return "signin";
+	}
 }

@@ -261,7 +261,6 @@ a{
           </a>
       </div>
       <nav>
-        <div class="menu-content"><span id="guiders"><a href="/login">로그인</a></span></div>
         <div class="menu-content"><span id="guiders">Guiders</span></div>
         <div class="menu-content"><span>Meeting</span></div>
         <div class="menu-content"><span id="essay">Essay</span></div>
