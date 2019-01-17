@@ -24,11 +24,11 @@
 	</http>
 	
 	<beans:bean id="loginSuccessHandler"
-		          class="com.guiders.config.mybatis.config.LoginSuccessHandler">
+		          class="com.guiders.config.LoginSuccessHandler">
       <beans:property name="targetUrlParameter" value="loginRedirect"></beans:property>
   </beans:bean>
 	<beans:bean id="loginFailureHandler"
-		          class="com.guiders.config.mybatis.config.LoginFailureHandler">
+		          class="com.guiders.config.LoginFailureHandler">
 		<beans:property name="defaultFailureUrl"
 			              value="/signin?error=true" />
 	</beans:bean>

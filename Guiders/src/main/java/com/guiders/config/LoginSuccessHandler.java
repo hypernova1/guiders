@@ -1,4 +1,4 @@
-package com.guiders.config.mybatis.config;
+package com.guiders.config;
 
 import java.io.IOException;
 import java.io.PrintWriter;
