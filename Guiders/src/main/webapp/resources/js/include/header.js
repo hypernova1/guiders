@@ -49,3 +49,37 @@ window.addEventListener('click', function(e) {
     }, 10);
   }
 });
+
+function get_msg(message) {
+	var move = '70px';
+	jQuery('#message').text(message);
+	jQuery('#message').animate({
+		top : '+=' + move
+	}, 'slow', function() {
+		jQuery('#message').delay(1000).animate({
+			top : '-=' + move
+		}, 'slow');
+	});
+}
+
+function signin() {
+	console.log("........");
+	$.ajax({
+		url : '/login',
+		data : $('form input').serialize(),
+		type : 'POST',
+		dataType : 'json',
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader("Accept", "application/json");
+			xhr.setRequestHeader('x-CSRFToken','${_csrf.token}');
+		}
+	}).success(function(result) {
+		console.log("........2");
+		var error = result.error;
+		if (error)
+			alert('로그인 실패');
+		if (!error) {
+			location.reload();
+		}
+	});
+}

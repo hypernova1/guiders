@@ -4,32 +4,34 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd ">
-	<http auto-config="true" use-expressions="true">
-	   <intercept-url pattern="/essay/write" access="hasRole('ROLE_MEMBER')"/>
-	   <intercept-url pattern="/mypage/*" access="hasAnyRole('ROLE_MEMBER', 'ROLE_GUIDER', 'ROLE_ADMIN')"/>
 	
-	  <!-- 폼 로그인 -->
-		<form-login 
-		  login-page="/signin"
-			username-parameter="user_id" 
-			password-parameter="password"
-			authentication-success-handler-ref="loginSuccessHandler"
-			authentication-failure-handler-ref="loginFailureHandler"
-			default-target-url="/mypage" 
-			always-use-default-target="false" 
-		/>
-			
-		<logout invalidate-session="true" 
-		        logout-success-url="/" 
-		        logout-url="/signout" 
-		        delete-cookies="JSESSIONID"
-		/>
+	<http auto-config="true" use-expressions="true">
+		   <intercept-url pattern="/essay/write" access="hasAnyRole('ROLE_GUIDER','ROLE_ADMIN')"/>
+		   <intercept-url pattern="/mypage/*" access="hasAnyRole('ROLE_MEMBER','ROLE_GUIDER','ROLE_ADMIN')"/>
 		
-		<csrf disabled="true"/>	
+			<form-login 
+			  login-page="/signin"
+			  login-processing-url="/login"
+				username-parameter="email" 
+				password-parameter="password"
+				default-target-url="/"
+				authentication-failure-url="/"
+				authentication-success-handler-ref="loginSuccessHandler"
+				authentication-failure-handler-ref="loginFailureHandler"
+			/>
+				
+			<logout 
+				invalidate-session="true" 
+				logout-success-url="/" 
+				logout-url="/signout" 
+				delete-cookies="JSESSIONID"
+			/>
+			<csrf disabled="true"/>	
 	</http>
 	
 	<beans:bean id="loginSuccessHandler" class="com.guiders.security.config.LoginSuccessHandler">
-      <beans:property name="targetUrlParameter" value="loginRedirect"></beans:property>
+      <beans:property name="targetUrlParameter" value="loginRedirect" />
+      <beans:property name="useReferer" value="false"></beans:property>
   </beans:bean>
   
 	<beans:bean id="loginFailureHandler" class="com.guiders.security.config.LoginFailureHandler">
@@ -38,14 +40,13 @@
 	
 	<authentication-manager>
 	   <authentication-provider user-service-ref="customUserDetailService">
-			<password-encoder ref="passwordEncoder" />
+			 <password-encoder ref="passwordEncoder"/>
 	   </authentication-provider>
 	</authentication-manager>
 	
-	<beans:bean
-	   class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"
-	   id="passwordEncoder" />
-	   
-	<beans:bean id="customUserDetailService" class="com.guiders.security.config.CustomUserDetailService">
-	</beans:bean>
+	<beans:bean id="passwordEncoder"
+	            class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<beans:bean id="customUserDetailService" 
+	            class="com.guiders.security.config.CustomUserDetailService"/>
+	            
 </beans:beans>

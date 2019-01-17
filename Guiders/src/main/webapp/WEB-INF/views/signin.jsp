@@ -39,16 +39,17 @@
 					xhr.setRequestHeader("Accept", "application/json");
 					xhr.setRequestHeader('x-CSRFToken','${_csrf.token}');
 				}
-			}).done(function(body) {
-				var message = body.response.message;
-				var error = body.response.error;
-				if (error)
-					get_msg(message);
+			}).done(function(result) {
+				var error = result.error;
+				var url = result.url;
+				if (error){
+					console.log("error : " + error)
+				}
 				if (error == false) {
-					var url = '${referer}';
-					if (url == '')
+					if (url == ''){
 						url = '<c:url value="/" />';
-						console.log(message);
+					}
+					console.log(url);
 					location.href = url;
 				}
 			});
@@ -60,11 +61,11 @@
 	</div>
 	<div style="margin-top: 100px;">
 		<form id="form" action="./j_spring_security_check" method="post">
-			아이디 : <input type="text" id="user_id" name="user_id"> 비밀번호 :
+			아이디 : <input type="text" id="user_id" name="email"> 비밀번호 :
 			<input type="password" id="password" name="password">
+			<input id="loginRedirect"  type="hidden" name="loginRedirect" value="${loginRedirect}" />
 			<button type="button" onclick="signin();">Ajax Sign in</button>
 			<button type="submit">Submit Sign in</button>
-			<input type="hidden" name="loginRedirect" value="${loginRedirect}">
 		</form>
 	</div>
 </body>
