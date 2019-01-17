@@ -5,6 +5,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd ">
 	<http auto-config="true" use-expressions="true">
+	   <intercept-url pattern="/essay/write" access="hasRole('ROLE_MEMBER')"/>
+	   <intercept-url pattern="/mypage/*" access="hasAnyRole('ROLE_MEMBER', 'ROLE_GUIDER', 'ROLE_ADMIN')"/>
+	
 	  <!-- 폼 로그인 -->
 		<form-login 
 		  login-page="/signin"
@@ -19,35 +22,30 @@
 		<logout invalidate-session="true" 
 		        logout-success-url="/" 
 		        logout-url="/signout" 
+		        delete-cookies="JSESSIONID"
 		/>
+		
 		<csrf disabled="true"/>	
 	</http>
 	
-	<beans:bean id="loginSuccessHandler"
-		          class="com.guiders.config.mybatis.config.LoginSuccessHandler">
+	<beans:bean id="loginSuccessHandler" class="com.guiders.security.config.LoginSuccessHandler">
       <beans:property name="targetUrlParameter" value="loginRedirect"></beans:property>
   </beans:bean>
-	<beans:bean id="loginFailureHandler"
-		          class="com.guiders.config.mybatis.config.LoginFailureHandler">
-		<beans:property name="defaultFailureUrl"
-			              value="/signin?error=true" />
+  
+	<beans:bean id="loginFailureHandler" class="com.guiders.security.config.LoginFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/signin?error=true" />
 	</beans:bean>
 	
 	<authentication-manager>
-	   <authentication-provider>
-			<!-- <password-encoder ref="passwordEncoder" /> -->
-			<user-service>
-				<user name="guest"
-					    password="1234"
-					    authorities="ROLE_USER" />
-				<user name="admin"
-					    password="4321"
-					    authorities="ROLE_ADMIN" />
-			</user-service>
+	   <authentication-provider user-service-ref="customUserDetailService">
+			<password-encoder ref="passwordEncoder" />
 	   </authentication-provider>
 	</authentication-manager>
 	
 	<beans:bean
 	   class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"
 	   id="passwordEncoder" />
+	   
+	<beans:bean id="customUserDetailService" class="com.guiders.security.config.CustomUserDetailService">
+	</beans:bean>
 </beans:beans>

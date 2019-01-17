@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guiders.member.dao.MemberDAO">
+
+  <select id="selectMemberList" resultType="com.guiders.member.domain.MemberVO">
+	  select email, password, mname, gender, phone, photo, ctno, 
+	  date_format(regdate,'%Y-%m-%d')regdate 
+	  from member
+  </select>
+  
+	<insert id="insertMember" parameterType="com.guiders.member.domain.MemberVO">
+		insert into member(email, password, mname, gender, phone, photo, ctno)
+	  values(#{email}, #{password}, #{mname}, #{gender}, #{phone}, #{photo}, #{ctno})
+	</insert>
+	
+	<select id="selectMember" resultType="com.guiders.member.domain.MemberVO" parameterType="string">
+	   select * from member
+	   where email = #{email}
+	</select>
+	
+	<update id="updateMember" parameterType="com.guiders.member.domain.MemberVO">
+	   update member
+	   set password = #{password},
+	   mname = #{mname},
+	   gender = #{gender},
+	   phone = #{phone},
+	   photo = #{photo},
+	   ctno = #{ctno}
+	</update>
+	
+	<insert id="insertAuth" parameterType="string">
+		insert into member_auth(email, auth)
+		values(#{email}, ROLE_MEMBER) <!-- 멘티/가이더일때 다른 권한을 주는 동적쿼리를 넣는 부분 -->
+	</insert>
+	
+	<select id="getAuthList" parameterType="string" resultType="string">
+		select auth from member_auth
+	  where email = #{email}
+  </select>
+
+</mapper>
