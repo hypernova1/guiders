@@ -25,27 +25,10 @@
           </a>
       </div>
       <nav>
-<<<<<<< HEAD
-        <!-- div class="menu-content">
-          <span id="guiders"><a href="/login">로그인</a></span>
-        </div> -->
-        <div class="menu-content">
-          <span id="guiders">Guiders</span>
-        </div>
-        <div class="menu-content">
-          <span>Meeting</span>
-        </div>
-        <div class="menu-content">
-          <span id="essay">Essay</span>
-        </div>
-        <div class="menu-content">
-          <img src="/img/iconmonstr-user-circle-thin.svg" id="mypage">
-=======
         <div class="menu-content"><span id="guiders">Guiders</span></div>
         <div class="menu-content"><span>Meeting</span></div>
         <div class="menu-content"><span id="essay">Essay</span></div>
         <div class="menu-content"><img src="/img/iconmonstr-user-circle-thin.svg" id="mypage">
->>>>>>> work1
         <c:if test="${pageContext.request.userPrincipal.name != null}">
         <div class="menu-content">
           <span>${pageContext.request.userPrincipal.name}님</span>

@@ -4,7 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <typeAliases>
-  <!-- <typeAlias alias="boardDto" type="com.bit.board.model.BoardDto" /> (예시)  -->
+    <typeAlias alias="guiderVO" type="com.guiders.web.member.domain.GuiderVO" />
+    <typeAlias alias="memberVO" type="com.guiders.web.member.domain.MemberVO" />
   
   </typeAliases>
 </configuration>
