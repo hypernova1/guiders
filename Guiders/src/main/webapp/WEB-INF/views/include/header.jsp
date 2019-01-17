@@ -27,7 +27,6 @@
           </a>
       </div>
       <nav>
-      <a href="/mypage/myGuider">내 가이더</a>
         <div class="menu-content"><span id="guiders">Guiders</span></div>
         <div class="menu-content"><span>Meeting</span></div>
         <div class="menu-content"><span id="essay">Essay</span></div>

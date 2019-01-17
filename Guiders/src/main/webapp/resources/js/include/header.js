@@ -23,6 +23,7 @@ document.querySelector('#login').addEventListener('click', function(){
   mypageList.classList.toggle('active');
   mypageList.style.height = mypageList.classList.contains('active') ? mypageList.scrollHeight + 'px' : 0;
   mypageList.style.borderColor = mypageList.classList.contains('active') ? '#f5f6fa' : '';
+  
   let i = 1;
   modal.style.display = 'block';
   const increase = setInterval(function(){
@@ -36,14 +37,17 @@ document.querySelector('#login').addEventListener('click', function(){
 });
 
 window.addEventListener('click', function(e) {
+  const modalBody = document.querySelector('#login-modal-content');
   if(e.target.id == 'login-modal') {
     let i = 50;
     const decrease = setInterval(function(){
       if(i == -1) {
         modal.style.display = 'none';
+        modalBody.style.opacity = 1;
         clearInterval(decrease);
       } else {
         modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
+        modalBody.style.opacity = 0.02 * i;
         i--;
       }
     }, 10);

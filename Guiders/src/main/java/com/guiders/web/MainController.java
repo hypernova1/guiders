@@ -29,15 +29,11 @@ public class MainController {
 		return "essay/post";
 	}
 
-/*	@GetMapping("/join")
-	public String join() {
-		return "main/join";
-	}
-
-	@GetMapping("/joinform")
-	public String joinForm() {
-		return "main/joinForm";
-	}*/
+	/*
+	 * @GetMapping("/join") public String join() { return "main/join"; }
+	 * 
+	 * @GetMapping("/joinform") public String joinForm() { return "main/joinForm"; }
+	 */
 
 	@GetMapping("/guiders")
 	public String guiders() {
@@ -49,9 +45,8 @@ public class MainController {
 		return "mypage/likeEssay";
 	}
 
-	@GetMapping("/mypage/myGuider")
-	public String myGuider() {
-
+	@GetMapping("/signin")
+	public String login() {
 		return "mypage/myGuider";
 	}
 
@@ -59,4 +54,5 @@ public class MainController {
 	public String login(HttpServletRequest req) {
 		return "signin";
 	}
+
 }
