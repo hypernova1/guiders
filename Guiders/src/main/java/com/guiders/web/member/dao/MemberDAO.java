@@ -10,7 +10,7 @@ public interface MemberDAO {
 
 	public void insertMember(MemberVO memberVO);
 
-	public GuiderVO selectMember(String email);
+	public MemberVO selectMember(String email);
 
 	public void updateMember(GuiderVO guiderVO);
 

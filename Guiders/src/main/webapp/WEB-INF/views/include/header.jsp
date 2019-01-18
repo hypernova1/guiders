@@ -32,7 +32,6 @@
         <div class="menu-content"><span>Meeting</span></div>
         <div class="menu-content"><span id="essay">Essay</span></div>
         <div class="menu-content"><img src="/img/iconmonstr-user-circle-thin.svg" id="mypage">
-        ${pageContext.request.userPrincipal.name}
         <c:if test="${pageContext.request.userPrincipal.name != null}">
 	        <div class="menu-content">
 	          <span>${pageContext.request.userPrincipal.name}님</span>
@@ -41,7 +40,7 @@
         <c:choose>
           <c:when test="${pageContext.request.userPrincipal.name != null}">
           <ul id="mypage-list">
-            <li>My Guiders</li>
+            <li><a href="/mypage/myGuider">My Guiders</a></li>
             <li><a href="/mypage/likeEssay">Like Essay</a></li>
             <li><a href="/mypage/edit">정보수정</a></li>
             <li><a href="/signout">Logout</a></li>

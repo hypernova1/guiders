@@ -6,7 +6,7 @@
 	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd ">
 	
 	<http auto-config="true" use-expressions="true">
-		   <intercept-url pattern="/essay/write" access="hasAnyRole('ROLE_GUIDER','ROLE_ADMIN')"/>
+		   <!-- <intercept-url pattern="/essay/write" access="hasAnyRole('ROLE_GUIDER')"/> -->
 		   <intercept-url pattern="/mypage/*" access="hasAnyRole('ROLE_MEMBER','ROLE_GUIDER','ROLE_ADMIN')"/>
 		
 			<form-login 

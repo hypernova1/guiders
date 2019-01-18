@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 
 <link rel="stylesheet" href="/css/essay/write.css">
@@ -15,6 +17,5 @@
     <button type="button">취소</button>
   </div>
 </form>
-
 
 <%@ include file="../include/footer.jsp" %>

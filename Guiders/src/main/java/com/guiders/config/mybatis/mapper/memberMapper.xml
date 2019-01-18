@@ -15,7 +15,7 @@
     values(#{email}, #{password}, #{mname}, #{gender}, #{phone}, #{photo}, #{ctno})
   </insert>
   
-  <select id="selectMember" resultType="guiderVO" parameterType="string">
+  <select id="selectMember" resultType="memberVO" parameterType="string">
 		select m.EMAIL, m.MNAME, m.PASSWORD, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
 		       g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
 		from member m
@@ -58,10 +58,11 @@
     where email = #{email}
   </select>
 
-  <insert id="insertMember">
+
+<!--   <insert id="insertMember">
     INSERT INTO member (email, password, mname, gender, phone, photo, ctno, regdate)
                 VALUES (#{email}, #{password}, #{manme}, #{gender}, #{phone},
                        #{photo}, #{photo}, #{ctno}, now())
-  </insert>
+  </insert> -->
 
 </mapper>

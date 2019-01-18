@@ -30,10 +30,12 @@ public class MemberController {
 	
 	@PostMapping("/mypage/edit")
 	public String edit(GuiderVO vo) {
+		System.out.println("vo : " + vo.getEmail());
+		
 		if(vo != null) {
 			memberService.modifyMember(vo);
 		}
-		return "mypage/edit";
+		return "redirect:/mypage/edit";
 	}
 	
 }

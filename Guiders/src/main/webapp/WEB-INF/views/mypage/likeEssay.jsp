@@ -3,6 +3,7 @@
 <%@ include file="../include/header.jsp" %>
 
 <link rel="stylesheet" href="/css/mypage/likeEssay.css">
+<script src="/js/mypage/likeEssay.js" defer></script>
 <section>
     <article>
       <ul>

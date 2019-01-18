@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public GuiderVO readMember(String email) {
+	public MemberVO readMember(String email) {
 		return sqlSession.getMapper(MemberDAO.class).selectMember(email);
 	}
 

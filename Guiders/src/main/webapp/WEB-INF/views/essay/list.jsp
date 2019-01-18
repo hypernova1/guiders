@@ -75,9 +75,18 @@
         </div>
       </li>
     </ul>
-    <button type="button">글쓰기</button>
+    <button id="writeBtn" type="button">글쓰기</button>
   </article>
 </section>
+
+<script>
+
+
+document.querySelector('#writeBtn').addEventListener('click', function(){
+	location.href = '/essay/write';
+});
+
+</script>
   
 <%@ include file="../include/footer.jsp" %>
   

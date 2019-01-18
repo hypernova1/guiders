@@ -9,7 +9,7 @@ public interface MemberService {
 	
 	public List<MemberVO> selectMemberList();
 	public void joinMember(MemberVO memberVO);
-	public GuiderVO readMember(String email);
+	public MemberVO readMember(String email);
 	public void modifyMember(GuiderVO guiderVO);
 	public List<String> getAuthList(String email);
 	

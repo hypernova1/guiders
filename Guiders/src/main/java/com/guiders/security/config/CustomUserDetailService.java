@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.guiders.web.member.domain.GuiderVO;
+import com.guiders.web.member.domain.MemberVO;
 import com.guiders.web.member.service.MemberService;
 
 @Service
@@ -24,15 +24,15 @@ public class CustomUserDetailService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
 
-		GuiderVO guiderVO = memberService.readMember(email);
+		MemberVO memberVO = memberService.readMember(email);
 		
-		if(guiderVO == null) {
+		if(memberVO == null) {
 			throw new 
 			UsernameNotFoundException("no user found with username : "+ email);
 		}
 		
-		System.out.println(guiderVO.getEmail());
-		System.out.println(guiderVO.getMname());
+		System.out.println(memberVO.getEmail());
+		System.out.println(memberVO.getMname());
 		
 		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 		
@@ -43,7 +43,7 @@ public class CustomUserDetailService implements UserDetailsService{
 			roles.add(new SimpleGrantedAuthority(list.get(i)));
 		}
 		
-		UserDetails user = new User(guiderVO.getMname(), guiderVO.getPassword(), roles);
+		UserDetails user = new User(memberVO.getMname(), memberVO.getPassword(), roles);
 		
 		System.out.println("User : " + user);
 		
