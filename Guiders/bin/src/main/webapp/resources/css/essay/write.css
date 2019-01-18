@@ -1,0 +1,40 @@
+form{
+  margin: 5% 25%;
+  text-align: center;
+}
+#title>input{
+  all: unset;
+  margin: 15px 5px 10px;
+  padding: 0 10px;
+  width: 90%;
+  height: 35px;
+  border: 1px solid #b2bec3;
+  border-radius: 4px;
+  text-align: left;
+  background: white;
+}
+#content>textarea{
+  all:unset;
+  width: 90%;
+  height: 600px;
+  margin: 5px 0 15px;
+  padding: 10px;
+  border: 1px solid #b2bec3;
+  border-radius: 4px;
+  resize: none;
+  text-align: left;
+  background: white;
+}
+#btn-wrap>button{
+  all: unset;
+  display: inline-block;
+  font-size: 1rem;
+  color: white;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 4px;
+  border-color: white;
+  background-color: #ff2d55;
+  user-select: none;
+  cursor: pointer;
+}
