@@ -75,6 +75,7 @@
         </div>
       </li>
     </ul>
+    <button type="button">글쓰기</button>
   </article>
 </section>
   

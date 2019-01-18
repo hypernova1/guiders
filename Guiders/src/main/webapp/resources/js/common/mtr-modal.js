@@ -11,7 +11,7 @@ document.querySelector('body>button').addEventListener('click', () => {
       i++;
     }
   }, 10);
-
+q
   document.querySelector('button[type="button"]').addEventListener('click', function () {
 let i = 50;
 const decrease = setInterval(function () {

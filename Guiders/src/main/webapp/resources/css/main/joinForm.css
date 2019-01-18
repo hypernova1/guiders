@@ -84,7 +84,7 @@ textarea{
   border-radius: 4px;
   padding: 5px;
 }
-#phone>input{
+#phone-wrap>input{
   width: 83px;
 }
 div>label{
@@ -109,16 +109,16 @@ div>label{
 #field>div>label, #lang>div>label{
   text-align: center;
 }
-#intro{
+#indrodution-wrap{
   margin-top: 10px;
 }
-#quote, #intro{
+#quote-wrap, #introdution-wrap{
   margin-left: 100px;
 }
-#quote>div, #intro>div{
+#quote-wrap>div, #introdution-wrap>div{
   text-align: center;
 }
-#quote>div>label, #intro>div>label{
+#quote-wrap>div>label, #introdution-wrap>div>label{
   text-align: center;
   margin: 10px 0;
 }
