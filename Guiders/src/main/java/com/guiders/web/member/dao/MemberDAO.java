@@ -10,14 +10,16 @@ public interface MemberDAO {
 
 	public void insertMember(MemberVO memberVO);
 
-	public MemberVO selectMember(String email);
+	public GuiderVO selectMember(String email);
 
-	public void updateMember(MemberVO memberVO);
+	public void updateMember(GuiderVO guiderVO);
 
 	public void insertAuth(String email);
 
 	public List<String> getAuthList(String email);
 
 	List<GuiderVO> selectGuiderList();
+	
+	public GuiderVO selectByName(String name);
 
 }

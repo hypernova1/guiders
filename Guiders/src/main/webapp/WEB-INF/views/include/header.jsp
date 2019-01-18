@@ -31,10 +31,11 @@
         <div class="menu-content"><span>Meeting</span></div>
         <div class="menu-content"><span id="essay">Essay</span></div>
         <div class="menu-content"><img src="/img/iconmonstr-user-circle-thin.svg" id="mypage">
+        ${pageContext.request.userPrincipal.name}
         <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <div class="menu-content">
-          <span>${pageContext.request.userPrincipal.name}님</span>
-        </div>
+	        <div class="menu-content">
+	          <span>${pageContext.request.userPrincipal.name}님</span>
+	        </div>
         </c:if>
         <c:choose>
           <c:when test="${pageContext.request.userPrincipal.name != null}">

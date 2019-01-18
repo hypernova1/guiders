@@ -23,13 +23,13 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 	private String targetUrlParameter;
 
 	private String defaultUrl;
-
-	private boolean useReferer;
+	
+	/*private boolean useReferer;*/
 
 	public LoginSuccessHandler() {
 		targetUrlParameter = "";
 		defaultUrl = "/";
-		useReferer = false;
+		/*useReferer = false;*/
 	}
 
 	public String getTargetUrlParameter() {
@@ -48,14 +48,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		this.defaultUrl = defaultUrl;
 	}
 
-	public boolean isUseReferer() {
-		return useReferer;
-	}
-
-	public void setUseReferer(boolean useReferer) {
-		this.useReferer = useReferer;
-	}
-
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
 			throws IOException, ServletException {
@@ -67,7 +59,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 			targetUrl = defaultUrl;
 		}
 		
-		System.out.println("targetUrl.................: " + targetUrl);
 		String accept = request.getHeader("accept");
 
 		if (StringUtils.indexOf(accept, "json") > -1) {
@@ -77,7 +68,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 			JSONObject responseInfo = new JSONObject();
 			responseInfo.put("error", false);
 			responseInfo.put("url", targetUrl);
-			
 			
 			PrintWriter out = response.getWriter();
 			out.print(responseInfo);

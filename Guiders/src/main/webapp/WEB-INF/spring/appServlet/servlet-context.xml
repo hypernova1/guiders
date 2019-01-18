@@ -38,6 +38,15 @@
     <beans:property name="maxInMemorySize" value="1048576" /> 
   </beans:bean>
 	
+	
+<!-- 	<beans:bean id="LoginInterceptor" class="com.guiders.security.config.LoginInterceptor"/>
+	<mvc:interceptors>
+	   <mvc:interceptor>
+	       <mvc:mapping path="/*"/>
+	       <beans:ref bean="LoginInterceptor"/>
+	   </mvc:interceptor>
+	</mvc:interceptors> -->
+	
 	<context:component-scan base-package="com.guiders.web" />
 	
 </beans:beans>

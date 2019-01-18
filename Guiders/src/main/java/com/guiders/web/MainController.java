@@ -1,6 +1,6 @@
 package com.guiders.web;
 
-import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
 	@GetMapping("/")
-	public String main() {
+	public String main(Principal prin) {
+		if(prin != null) {
+			String name = prin.getName();
+			System.out.println("............." + name);	
+		}
 		return "main/main";
-	}
-
-	@GetMapping("/mypage/edit")
-	public String edit() {
-		return "mypage/edit";
 	}
 
 	@GetMapping("/essay/list")

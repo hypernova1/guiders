@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
+  <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.guiders.web.member.dao.MemberDAO">
@@ -15,19 +15,37 @@
     values(#{email}, #{password}, #{mname}, #{gender}, #{phone}, #{photo}, #{ctno})
   </insert>
   
-  <select id="selectMember" resultType="memberVO" parameterType="string">
-     select * from member
-     where email = #{email}
+  <select id="selectMember" resultType="guiderVO" parameterType="string">
+		select m.EMAIL, m.MNAME, m.PASSWORD, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
+		       g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
+		from member m
+		join guider g
+		on m.email = g.email
+		where m.email = #{email}
+  </select>
+  
+   <select id="selectByName" resultType="guiderVO" parameterType="string">
+    select m.EMAIL, m.MNAME, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
+           g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
+    from member m
+    join guider g
+    on m.email = g.email
+    where m.MNAME = #{mname}
   </select>
   
   <update id="updateMember" parameterType="memberVO">
-     update member
-     set password = #{password},
-     mname = #{mname},
-     gender = #{gender},
-     phone = #{phone},
-     photo = #{photo},
-     ctno = #{ctno}
+		update member m, guider g
+		set  m.MNAME = #{mname},
+		     m.PASSWORD = #{password},
+		     m.phone = #{phone},
+		     g.INTRODUTION = #{introdution},
+		     g.QUOTE = #{quote},
+		     g.FIELD = #{field},
+		     g.LANG = #{lang}
+		     <!-- m.gender = #{gender}, --> 
+		     <!-- m.photo = #{photo}, -->
+         <!-- m.ctno = #{ctno}, -->
+		    where m.email= #{email}
   </update>
   
   <insert id="insertAuth" parameterType="string">
@@ -39,5 +57,5 @@
     select auth from member_auth
     where email = #{email}
   </select>
-
+  
 </mapper>
