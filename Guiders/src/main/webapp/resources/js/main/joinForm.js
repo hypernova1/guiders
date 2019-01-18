@@ -57,8 +57,10 @@ $('#city').change(function () {
     
     document.querySelector('#join-btn2').addEventListener('click', () => {
         
-        ajax('/join', 'POST', {}).then((result) => {
-            console.log(result);
+        ajax('/join', 'POST', member).then((result) => {
+            if(result) {
+                location.href = '/';
+            }
         });
     })
     

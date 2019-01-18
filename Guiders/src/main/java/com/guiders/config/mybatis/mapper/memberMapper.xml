@@ -15,6 +15,11 @@
     values(#{email}, #{password}, #{mname}, #{gender}, #{phone}, #{photo}, #{ctno})
   </insert>
   
+  <insert id="insertGuider">
+    INSERT INTO guider (email, introdution, quote, field, lang)
+    VALUES (#{email}, #{introdution}, #{quote}, #{field}, #{lang})
+  </insert>
+  
   <select id="selectMember" resultType="memberVO" parameterType="string">
 		select m.EMAIL, m.MNAME, m.PASSWORD, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
 		       g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
@@ -48,21 +53,14 @@
 		    WHERE m.email= #{email}
   </update>
   
-  <insert id="insertAuth" parameterType="string">
+  <insert id="insertAuth" parameterType="map">
     insert into member_auth(email, auth)
-    values(#{email}, ROLE_MEMBER) <!-- 멘티/가이더일때 다른 권한을 주는 동적쿼리를 넣는 부분 -->
+    values(#{email}, #{auth}) <!-- 멘티/가이더일때 다른 권한을 주는 동적쿼리를 넣는 부분 -->
   </insert>
   
   <select id="getAuthList" parameterType="string" resultType="string">
     select auth from member_auth
     where email = #{email}
   </select>
-
-
-<!--   <insert id="insertMember">
-    INSERT INTO member (email, password, mname, gender, phone, photo, ctno, regdate)
-                VALUES (#{email}, #{password}, #{manme}, #{gender}, #{phone},
-                       #{photo}, #{photo}, #{ctno}, now())
-  </insert> -->
 
 </mapper>

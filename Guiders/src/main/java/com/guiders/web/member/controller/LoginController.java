@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.guiders.web.member.domain.GuiderVO;
 import com.guiders.web.member.service.LoginService;
@@ -22,7 +23,7 @@ public class LoginController {
   }
   
   @PostMapping("join")
-  public ResponseEntity<Boolean> join(GuiderVO guiderVO) {
+  public ResponseEntity<Boolean> join(@RequestBody GuiderVO guiderVO) {
     
     loginService.join(guiderVO);
     return new ResponseEntity<Boolean>(true, HttpStatus.OK);

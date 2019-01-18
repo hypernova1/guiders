@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guiders.web.member.dao.MyPageDAO">
+
+  <select id="selectGuiderNameList" parameterType="string" resultType="string">
+    SELECT guider FROM follower WHERE follow=#{value}
+  </select>
+  
+
+</mapper>
