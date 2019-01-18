@@ -15,6 +15,7 @@
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="/js/include/header.js" defer></script>
+<script src="/js/common/ajax.js"></script>
 </head>
 <body>
 <header>

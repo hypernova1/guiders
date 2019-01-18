@@ -36,7 +36,7 @@ public class CustomUserDetailService implements UserDetailsService{
 		
 		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 		
-		List<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<String>();
 		list = memberService.getAuthList(email); //로그인한 사용자의 권한 리스트 가져오기
 		
 		for(int i = 0; i < list.size(); i++) {

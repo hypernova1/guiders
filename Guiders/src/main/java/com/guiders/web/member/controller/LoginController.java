@@ -1,13 +1,20 @@
 package com.guiders.web.member.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.guiders.web.member.domain.GuiderVO;
+import com.guiders.web.member.service.LoginService;
 
 @Controller
 public class LoginController {
+  
+  @Autowired
+  private LoginService loginService;
   
   @GetMapping("join")
   public String join() {
@@ -15,9 +22,10 @@ public class LoginController {
   }
   
   @PostMapping("join")
-  public String join(GuiderVO guiderVO) {
+  public ResponseEntity<Boolean> join(GuiderVO guiderVO) {
     
-    return "redirect:/";
+    loginService.join(guiderVO);
+    return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     
   }
   @GetMapping("joinform")
