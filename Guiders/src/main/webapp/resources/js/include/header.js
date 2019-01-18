@@ -35,7 +35,7 @@ if(document.querySelector('#login')){
 		      i++;
 		    }
 		  }, 10);
-		});s
+		});
 }
 
 window.addEventListener('click', function(e) {

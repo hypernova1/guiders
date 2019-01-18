@@ -8,8 +8,8 @@ section {
 }
 
 .select-type {
-    text-align: left;
-    margin: 0px 0px 100px 45px;
+    /* text-align: left; */
+    margin: 0px 880px 100px 0;
 }
 
 .select-type button{

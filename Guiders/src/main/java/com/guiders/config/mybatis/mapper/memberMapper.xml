@@ -34,8 +34,8 @@
   </select>
   
   <update id="updateMember" parameterType="memberVO">
-		update member m, guider g
-		set  m.MNAME = #{mname},
+		UPDATE member m, guider g
+		SET  m.MNAME = #{mname},
 		     m.PASSWORD = #{password},
 		     m.phone = #{phone},
 		     g.INTRODUTION = #{introdution},
@@ -45,7 +45,7 @@
 		     <!-- m.gender = #{gender}, --> 
 		     <!-- m.photo = #{photo}, -->
          <!-- m.ctno = #{ctno}, -->
-		    where m.email= #{email}
+		    WHERE m.email= #{email}
   </update>
   
   <insert id="insertAuth" parameterType="string">

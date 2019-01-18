@@ -1,7 +1,5 @@
 package com.guiders.web;
 
-import java.security.Principal;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,11 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
 	@GetMapping("/")
-	public String main(Principal prin) {
-		if(prin != null) {
-			String name = prin.getName();
-			System.out.println("............." + name);	
-		}
+	public String main() {
+
 		return "main/main";
 	}
 

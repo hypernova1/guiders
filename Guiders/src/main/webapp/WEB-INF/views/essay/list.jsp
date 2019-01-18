@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="/css/essay/list.css">
 <section>
-  <h1>에쎄이</h1>
+  <h1>Essay</h1>
   <div id="select-wrap">
     <select name="">
       <option value="" selected>분야</option>

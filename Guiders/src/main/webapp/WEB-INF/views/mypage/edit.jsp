@@ -6,9 +6,9 @@
 <div id="wrapper">
   <aside>
     <ul>
-      <li>My Guiders</li>
-      <li>Like Essay</li>
-      <li>Edit Infomation</li>
+      <li><a href="/mypage/myGuider">My Guiders</a></li>
+      <li><a href="/mypage/likeEssay">Like Essay</a></li>
+      <li><a href="/mypage/edit">Edit Infomation</a></li>
     </ul>
   </aside>
   <section>

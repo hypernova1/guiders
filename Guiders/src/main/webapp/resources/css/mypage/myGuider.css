@@ -130,11 +130,11 @@ section {
   font-weight: bold;
 }
 
-.explain li {
+.explain div {
   display: inline-block;
   width: 35%;
 }
 
-.explain li:nth-child(1) {
+.explain div:nth-child(1) {
   padding-left: 130px;
 }

@@ -31,9 +31,6 @@ public class CustomUserDetailService implements UserDetailsService{
 			UsernameNotFoundException("no user found with username : "+ email);
 		}
 		
-		System.out.println(memberVO.getEmail());
-		System.out.println(memberVO.getMname());
-		
 		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 		
 		List<String> list = new ArrayList<String>();
@@ -45,7 +42,7 @@ public class CustomUserDetailService implements UserDetailsService{
 		
 		UserDetails user = new User(memberVO.getMname(), memberVO.getPassword(), roles);
 		
-		System.out.println("User : " + user);
+		/*System.out.println("User : " + user);*/
 		
 		return user;
 	}

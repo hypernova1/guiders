@@ -9,6 +9,7 @@
 }
 body {
   font-family: 'yoon';
+  /* background: linear-gradient(135deg, #b3cae5 12%, #dbdde4 46%, #e4e3e4 70%, #f7ddbb 94%, #efcab2 100%); */
 }
 header {
   top: 0;
