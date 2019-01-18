@@ -58,11 +58,11 @@
     where email = #{email}
   </select>
 
-
 <!--   <insert id="insertMember">
     INSERT INTO member (email, password, mname, gender, phone, photo, ctno, regdate)
                 VALUES (#{email}, #{password}, #{manme}, #{gender}, #{phone},
                        #{photo}, #{photo}, #{ctno}, now())
   </insert> -->
+  
 
 </mapper>

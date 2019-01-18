@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.guiders.web.essay.dao.EssayDAO;
+import com.guiders.web.essay.domain.EssayVO;
 import com.guiders.web.member.dao.MemberDAO;
 import com.guiders.web.member.domain.MemberVO;
 
@@ -61,4 +63,17 @@ public class DBTest {
 						));
 	}
 	
+	
+	@Test
+	public void essayInsertTest() {
+		EssayVO vo = new EssayVO();
+		vo.setEmail("test@naver.com");
+		vo.setEtitle("안녕하세요!");
+		vo.setEcontent("미세먼지 그으켬이네요오.....");
+		vo.setField("잡담전문");
+		vo.setLang("Java");
+		
+		sqlSession.getMapper(EssayDAO.class).insertEssay(vo);
+		
+	}
 }

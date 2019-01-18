@@ -22,10 +22,8 @@ public class MemberController {
 	@GetMapping("/mypage/edit")
 	public String edit(Model model, HttpSession session, Principal prin) {
 		String name = prin.getName();
-		System.out.println("name: " + name);
 		GuiderVO vo = memberService.selectByName(name);
 		model.addAttribute("vo", vo);
-		System.out.println(vo.getEmail());
 		
 		return "mypage/edit";
 	}

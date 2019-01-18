@@ -4,7 +4,10 @@ form{
 }
 #title>input{
   all: unset;
-  margin: 15px 5px 10px;
+ /*  margin: 15px 70px 10px 0; */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: left;
   padding: 0 10px;
   width: 90%;
   height: 35px;
@@ -19,10 +22,10 @@ form{
   height: 600px;
   margin: 5px 0 15px;
   padding: 10px;
-  border: 1px solid #b2bec3;
+/*   border: 1px solid #b2bec3;
   border-radius: 4px;
   resize: none;
-  text-align: left;
+  text-align: left; */
   background: white;
 }
 #btn-wrap>button{

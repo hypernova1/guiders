@@ -13,6 +13,7 @@
   <mvc:resources mapping="/js/**" location="/resources/js/" />
   <mvc:resources mapping="/img/**" location="/resources/img/" />
   <mvc:resources mapping="/font/**" location="/resources/font/" />
+  <mvc:resources mapping="/editor/**" location="/resources/editor/" />
   
   <mvc:annotation-driven> <!-- json 한글깨짐 방지 -->
    <mvc:message-converters>

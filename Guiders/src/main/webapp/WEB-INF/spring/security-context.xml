@@ -27,6 +27,10 @@
 				delete-cookies="JSESSIONID"
 			/>
 			<csrf disabled="true"/>	
+			
+			<headers>
+			   <frame-options disabled="true"/>
+			</headers>
 	</http>
 	
 	<beans:bean id="loginSuccessHandler" class="com.guiders.security.config.LoginSuccessHandler">
