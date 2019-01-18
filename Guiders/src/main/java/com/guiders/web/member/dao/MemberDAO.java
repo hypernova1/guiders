@@ -8,6 +8,7 @@ public interface MemberDAO {
 
   int selectEmail(String email);
   int insertMember(GuiderVO guiderVO);
+  int insertAuth(String email);
   int updateMember(GuiderVO guiderVO);
   int deleteMember(String email);
   MemberVO selectMember(String email);
