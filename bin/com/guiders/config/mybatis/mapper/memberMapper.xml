@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guiders.web.member.dao.MemberDAO">
+
+  <select id="selectMemberList" resultType="memberVO">
+    select email, password, mname, gender, phone, photo, ctno, 
+    date_format(regdate,'%Y-%m-%d')regdate 
+    from member
+  </select>
+  
+  <insert id="insertMember" parameterType="memberVO">
+    insert into member(email, password, mname, gender, phone, photo, ctno)
+    values(#{email}, #{password}, #{mname}, #{gender}, #{phone}, #{photo}, #{ctno})
+  </insert>
+  
+  <select id="selectMember" resultType="memberVO" parameterType="string">
+		select m.EMAIL, m.MNAME, m.PASSWORD, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
+		       g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
+		from member m
+		join guider g
+		on m.email = g.email
+		where m.email = #{email}
+  </select>
+  
+   <select id="selectByName" resultType="guiderVO" parameterType="string">
+    select m.EMAIL, m.MNAME, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
+           g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
+    from member m
+    join guider g
+    on m.email = g.email
+    where m.MNAME = #{mname}
+  </select>
+  
+  <update id="updateMember" parameterType="memberVO">
+		UPDATE member m, guider g
+		SET  m.MNAME = #{mname},
+		     m.PASSWORD = #{password},
+		     m.phone = #{phone},
+		     g.INTRODUTION = #{introdution},
+		     g.QUOTE = #{quote},
+		     g.FIELD = #{field},
+		     g.LANG = #{lang}
+		     <!-- m.gender = #{gender}, --> 
+		     <!-- m.photo = #{photo}, -->
+         <!-- m.ctno = #{ctno}, -->
+		    WHERE m.email= #{email}
+  </update>
+  
+  <insert id="insertAuth" parameterType="string">
+    insert into member_auth(email, auth)
+    values(#{email}, ROLE_MEMBER) <!-- 멘티/가이더일때 다른 권한을 주는 동적쿼리를 넣는 부분 -->
+  </insert>
+  
+  <select id="getAuthList" parameterType="string" resultType="string">
+    select auth from member_auth
+    where email = #{email}
+  </select>
+
+
+<!--   <insert id="insertMember">
+    INSERT INTO member (email, password, mname, gender, phone, photo, ctno, regdate)
+                VALUES (#{email}, #{password}, #{manme}, #{gender}, #{phone},
+                       #{photo}, #{photo}, #{ctno}, now())
+  </insert> -->
+
+</mapper>

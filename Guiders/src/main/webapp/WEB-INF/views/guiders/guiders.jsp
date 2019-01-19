@@ -8,7 +8,6 @@ section {
 }
 
 .select-type {
-    /* text-align: left; */
     margin: 0px 880px 100px 0;
 }
 
