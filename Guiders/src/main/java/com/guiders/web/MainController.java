@@ -1,13 +1,27 @@
 package com.guiders.web;
 
+import java.security.Principal;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.guiders.security.config.UserCustom;
 
 @Controller
 public class MainController {
 
 	@GetMapping("/")
-	public String main() {
+	public String main(Authentication authentication) {
+		/* 접속한 사람의 IP 주소
+		 * Object principal =
+		 * SecurityContextHolder.getContext().getAuthentication().getDetails();
+		 */
+		
+		if (authentication != null) {
+			UserCustom userCustom = (UserCustom) authentication.getPrincipal();
+			System.out.println(userCustom.getEmail());
+		}
 
 		return "main/main";
 	}

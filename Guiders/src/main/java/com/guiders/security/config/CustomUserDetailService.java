@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,7 +39,7 @@ public class CustomUserDetailService implements UserDetailsService{
 			roles.add(new SimpleGrantedAuthority(list.get(i)));
 		}
 		
-		UserDetails user = new User(memberVO.getMname(), memberVO.getPassword(), roles);
+		UserCustom user = new UserCustom(memberVO.getEmail(),memberVO.getMname(), memberVO.getPassword(), roles);
 		
 		/*System.out.println("User : " + user);*/
 		

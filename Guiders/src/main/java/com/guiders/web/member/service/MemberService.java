@@ -12,7 +12,6 @@ public interface MemberService {
 	public MemberVO readMember(String email);
 	public void modifyMember(GuiderVO guiderVO);
 	public List<String> getAuthList(String email);
-	
 	public GuiderVO selectByName(String name);
 
 }

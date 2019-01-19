@@ -6,8 +6,16 @@
 <mapper namespace="com.guiders.web.essay.dao.EssayDAO">
 
 <insert id="insertEssay" parameterType="essayVO">
-		insert into ESSAY(EMAIL, FIELD, LANG, ETITLE, ECONTENT)
+		INSERT INTO ESSAY(EMAIL, FIELD, LANG, ETITLE, ECONTENT)
 		VALUES(#{email}, #{field},#{lang}, #{etitle}, #{econtent})
 </insert>
+
+<select id="selectEssay" resultType="map" parameterType="int">
+		SELECT e.eno, e.email, e.field, e.lang, e.etitle, e.econtent, e.likecnt, e.regdate, m.mname, m.PHOTO 
+		FROM essay E
+		JOIN member m
+		ON e.email = m.email
+		WHERE e.eno = #{eno}
+</select>
 
 </mapper>

@@ -75,4 +75,10 @@ public class EssayVO {
 		this.regdate = regdate;
 	}
 
+	@Override
+	public String toString() {
+		return "EssayVO [eno=" + eno + ", email=" + email + ", field=" + field + ", lang=" + lang + ", etitle=" + etitle
+				+ ", econtent=" + econtent + ", likecnt=" + likecnt + ", regdate=" + regdate + "]";
+	}
+
 }

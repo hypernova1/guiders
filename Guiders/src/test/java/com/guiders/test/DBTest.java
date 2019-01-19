@@ -1,6 +1,7 @@
 package com.guiders.test;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
@@ -63,7 +64,6 @@ public class DBTest {
 						));
 	}
 	
-	
 	@Test
 	public void essayInsertTest() {
 		EssayVO vo = new EssayVO();
@@ -75,5 +75,12 @@ public class DBTest {
 		
 		sqlSession.getMapper(EssayDAO.class).insertEssay(vo);
 		
+	}
+	
+	@Test
+	public void testEssay() {
+		int eno = 6;
+		Map<String, String> map = sqlSession.getMapper(EssayDAO.class).selectEssay(eno);
+		System.out.println(map.toString());
 	}
 }
