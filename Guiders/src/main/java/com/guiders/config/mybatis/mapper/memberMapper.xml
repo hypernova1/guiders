@@ -20,6 +20,10 @@
     VALUES (#{email}, #{introdution}, #{quote}, #{field}, #{lang})
   </insert>
   
+  <select id="loginCheck" parameterType="string" resultType="memberVO"> 
+    SELECT email, password, mname FROM member WHERE email=#{email}  
+  </select>
+  
   <select id="selectMember" resultType="memberVO" parameterType="string">
 		select m.EMAIL, m.MNAME, m.PASSWORD, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
 		       g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
@@ -61,6 +65,15 @@
   <select id="getAuthList" parameterType="string" resultType="string">
     select auth from member_auth
     where email = #{email}
+  </select>
+  
+  <select id="getMyGuider" parameterType="string" resultType="guiderVO">
+    SELECT *
+    FROM member m
+    JOIN guider g ON
+    m.email = g.email
+    WHERE m.email
+    IN (SELECT guider FROM follower WHERE follow=#{email});
   </select>
 
 </mapper>

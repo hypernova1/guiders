@@ -47,8 +47,16 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   public void joinMember(MemberVO memberVO) {
-    // TODO Auto-generated method stub
+  }
 
+  @Override
+  public MemberVO loginCheck(String email) {
+    return sqlSession.getMapper(MemberDAO.class).loginCheck(email);
+  }
+
+  @Override
+  public List<GuiderVO> getMyGuider(String email) {
+    return sqlSession.getMapper(MemberDAO.class).getMyGuider(email);
   }
 
 

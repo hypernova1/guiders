@@ -11,6 +11,8 @@ public interface MemberDAO {
 
 	public void insertMember(GuiderVO guiderVO);
 	
+	public MemberVO loginCheck(String email);
+	
 	public void insertGuider(GuiderVO guiderVO);
 
 	public MemberVO selectMember(String email);
@@ -21,8 +23,9 @@ public interface MemberDAO {
 
 	public List<String> getAuthList(String email);
 
-	List<GuiderVO> selectGuiderList();
+	public GuiderVO selectGuider();
 	
 	public GuiderVO selectByName(String name);
-
+	
+	public List<GuiderVO> getMyGuider(String email);
 }
