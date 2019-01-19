@@ -26,6 +26,7 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
+	  System.out.println(request.getParameter("password"));
 		String accept = request.getHeader("accept");
 		String error = "true";
 		String message = "로그인실패하였습니다.";

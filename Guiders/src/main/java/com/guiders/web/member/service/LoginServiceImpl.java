@@ -14,13 +14,17 @@ public class LoginServiceImpl implements LoginService {
 
   @Autowired
   private SqlSession sqlSession;
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
   
   @Override
   public void join(GuiderVO guiderVO) {
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    
     guiderVO.setCtno(1);
     guiderVO.setPassword(bCryptPasswordEncoder.encode(guiderVO.getPassword()));
+    
     String auth = null;
+    
     Map<String, String> param = new HashMap<>();
     sqlSession.getMapper(MemberDAO.class).insertMember(guiderVO);
     
