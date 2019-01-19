@@ -18,12 +18,9 @@ import com.guiders.web.member.domain.GuiderVO;
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class DBTest {
 
-
-
   @Inject
   private SqlSession sqlSession;
 
-  
   @Test
   public void insertTest() {
 
