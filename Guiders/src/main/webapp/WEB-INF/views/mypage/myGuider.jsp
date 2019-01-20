@@ -20,60 +20,6 @@
 	</div>
 
 	<div class="title">
-		<ul class="follower-content">
-			<li class="explain">
-				<div>멘토 정보</div>
-				<div>질문글 : 3개</div>
-			</li>
-			<li><img class="profile-img" src="/img/naruto.jpg"></li>
-			<li>
-				<p>근무 회사 : Coupang</p>
-				<p>담당 부서 : UI Design</p>
-				<p>가이드 분야 : 취업 상담</p>
-			</li>
-			<li>
-				<p>호카게가 되려면 어떤 라인을 타야 할까요?</p>
-				<p>3대 호카게 할아버지가 재산 꿀꺽한거 알고 있긴 하신가요</p>
-				<p>나선환쪽 말고 다른 인술 사용할 생각은 없으신가요?</p>
-			</li>
-			<li>
-				<button class="unfollow-btn">UNFOLLOW</button>
-			</li>
-		</ul>
-
-		<ul class="follower-content">
-			<li><img class="profile-img" src="/img/naruto.jpg"></li>
-			<li>
-				<p>근무 회사 : Coupang</p>
-				<p>담당 부서 : UI Design</p>
-				<p>가이드 분야 : 취업 상담</p>
-			</li>
-			<li>
-				<p>호카게가 되려면 어떤 라인을 타야 할까요??...</p>
-				<p>3대 호카게 할아버지가 재산 꿀꺽한거 알고 있긴 하신가요...</p>
-				<p>나선환쪽 말고 다른 인술 사용할 생각은 없으신가...</p>
-
-			</li>
-			<li><button class="unfollow-btn">UNFOLLOW</button></li>
-		</ul>
-
-
-		<ul class="follower-content">
-			<li><img class="profile-img" src="/img/naruto.jpg"></li>
-			<li>
-				<p>근무 회사 : Coupang</p>
-				<p>담당 부서 : UI Design</p>
-				<p>가이드 분야 : 취업 상담</p>
-			</li>
-			<li>
-				<p>호카게가 되려면 어떤 라인을 타야 할까요?</p>
-				<p>3대 호카게 할아버지가 재산 꿀꺽한거 알고 있긴 하신...</p>
-				<p>나선환쪽 말고 다른 인술 사용할 생각은 없으신가..</p>
-
-			</li>
-			<li><button class="unfollow-btn">UNFOLLOW</button></li>
-		</ul>
-
 
 	</div>
 	<div id="modal" class="modal">
@@ -104,45 +50,7 @@
 	</div>
 </section>
 
-<script>
-        var body = document.body;
-        var guiderModal = document.getElementById("modal");
-            
-        var profileImg = document.getElementsByClassName("profile-img")[0];
-        
-            
-        var modalSpan = document.getElementsByClassName("close")[0];
-            
-        profileImg.addEventListener("click",function(){
-            guiderModal.style.display = "block";
-            body.style.overflow = "hidden";
-        });
-            
-        modalSpan.addEventListener("click", function(){
-             guiderModal.style.display = "none";
-             body.style.overflow = "";
-        });
-            
-        window.addEventListener("click", function(){
-            if(event.target == guiderModal){
-                guiderModal.style.display = "none";
-                body.style.overflow = "";
-            }
-            
-/*             let i = 1;
-            guiderModal.style.display = 'block';
-            const increase = setInterval(function(){
-              if (i == 51) {
-                clearInterval(increase);
-              } else {
-                guiderModal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
-                i++;
-              }
-            }, 10); */
-            
-        });
-
-     </script>
+<script src="/js/mypage/myGuider.js" defer></script>
 
 </body>
 

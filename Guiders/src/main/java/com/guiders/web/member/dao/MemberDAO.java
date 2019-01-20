@@ -27,5 +27,4 @@ public interface MemberDAO {
 	
 	public GuiderVO selectByName(String name);
 	
-	public List<GuiderVO> getMyGuider(String email);
 }

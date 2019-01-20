@@ -1,10 +1,9 @@
 package com.guiders.web.member.dao;
 
 import java.util.List;
-import com.guiders.web.member.domain.GuiderVO;
+import java.util.Map;
 
 public interface MyPageDAO {
 
-  List<String> selectGuiderNameList(String follower);
-  List<GuiderVO> getMyGuider(String follower);
+  List<Map<String, String>> getMyGuiders(String follower);
 }

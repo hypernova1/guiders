@@ -67,13 +67,4 @@
     where email = #{email}
   </select>
   
-  <select id="getMyGuider" parameterType="string" resultType="guiderVO">
-    SELECT *
-    FROM member m
-    JOIN guider g ON
-    m.email = g.email
-    WHERE m.email
-    IN (SELECT guider FROM follower WHERE follow=#{email});
-  </select>
-
 </mapper>

@@ -21,7 +21,7 @@ public class CustomUserDetailService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
 
-		MemberVO memberVO = memberService.readMember(email);
+		MemberVO memberVO = memberService.loginCheck(email);
 		
 		if(memberVO == null) {
 			throw new 

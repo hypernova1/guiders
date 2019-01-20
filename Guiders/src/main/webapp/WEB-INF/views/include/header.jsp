@@ -82,3 +82,32 @@
       </div>
     </div>
   </div>
+  
+  <form id="mtr-modal">
+    <section id="mtr-modal-body">
+      <h2><span> ** </span>가이더에게 질문</h2>
+      <article>
+        <div id="select-wrap">
+          <select name="" id="">
+            <option value="">멘토링</option>
+            <option value="">진로</option>
+            <option value="">언어</option>
+          </select>
+          <select name="" id="">
+            <option value="">언어</option>
+            <option value="">C++</option>
+          </select>
+        </div>
+        <div id="title">
+          <input type="text" name="mtitle">
+        </div>
+        <div id="content">
+          <textarea name="mcontent"></textarea>
+        </div>
+      </article>
+      <div id="btn-wrap">
+        <button type="submit" id="mtr-submit">등록</button>
+        <button type="button" id="mtr-cancel">취소</button>
+      </div>
+    </section>
+  </form>

@@ -1,11 +1,13 @@
 package com.guiders.web.member.service;
 
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.guiders.web.member.dao.MemberDAO;
+import com.guiders.web.member.dao.MyPageDAO;
 import com.guiders.web.member.domain.GuiderVO;
 import com.guiders.web.member.domain.MemberVO;
 
@@ -55,8 +57,8 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public List<GuiderVO> getMyGuider(String email) {
-    return sqlSession.getMapper(MemberDAO.class).getMyGuider(email);
+  public List<Map<String, String>> getMyGuider(String email) {
+    return sqlSession.getMapper(MyPageDAO.class).getMyGuiders(email);
   }
 
 
