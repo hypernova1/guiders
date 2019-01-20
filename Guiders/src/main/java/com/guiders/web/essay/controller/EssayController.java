@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.guiders.security.config.UserCustom;
 import com.guiders.web.essay.domain.EssayVO;
 import com.guiders.web.essay.service.EssayService;
 import com.guiders.web.member.domain.GuiderVO;
@@ -38,7 +40,7 @@ public class EssayController {
 	@Autowired
 	private MemberService memberService;
 
-	@GetMapping("essay/write")
+	@GetMapping("/essay/write")
 	public String writeEssay(Model model, Principal prin) {
 		if (prin != null) {
 			String name = prin.getName();
@@ -48,7 +50,7 @@ public class EssayController {
 		return "/essay/write";
 	}
 
-	@PostMapping("essay/write")
+	@PostMapping("/essay/write")
 	public String writeEssay(EssayVO essayVO) {
 		if (essayVO != null) {
 			essayService.writeEssay(essayVO);
@@ -57,12 +59,53 @@ public class EssayController {
 			return "/essay/write"; // 글작성 실패
 		}
 	}
+	
+	@GetMapping("/essay/list")
+	public String essayList(Model model) { //페이징 관련 parameter 받을 예정
+		List<EssayVO> list = essayService.essayList();
+		for(int i = 0; i < list.size(); i ++) {
+			String econtent = list.get(i).getEcontent();
+			econtent = econtent.replaceAll("<[^>]*>","");
+			econtent = econtent.replaceAll("&nbsp;"," ");
+			econtent = econtent.replaceAll("&lt;","<");
+			econtent = econtent.replaceAll("&gt;",">");
+			econtent = econtent.replaceAll("&amp;","&");
+			list.get(i).setEcontent(econtent);
+		}
+		
+		model.addAttribute("essayList", list);
+		
+		return "/essay/list";
+	}
 
-	@GetMapping("essay/read")
-	public String readEssay(@Param("eno") Integer eno, Model model) throws Exception {
-		Map<String, String> map = essayService.readEssay(eno);
-		model.addAttribute("map", map);
+	@GetMapping("/essay/read")
+	public String readEssay(@Param("eno") Integer eno, Model model, Authentication authentication){
+		if (authentication != null) {
+			UserCustom userCustom = (UserCustom) authentication.getPrincipal();
+			model.addAttribute("userInfo", userCustom);
+		}
+		
+		EssayVO essayVO = essayService.readEssay(eno);
+		model.addAttribute("essayVO", essayVO);
 		return "/essay/post";
+	}
+	
+	@GetMapping("/essay/modify")
+	public String modifyEssay(@Param("eno") Integer eno, Model model) {
+		
+		EssayVO essayVO = essayService.readEssay(eno);
+		model.addAttribute("essayVO", essayVO);
+		
+		return "/essay/modify";
+	}
+	
+	@PostMapping("/essay/modify")
+	public String modifyEssay(EssayVO essayVO, @Param("eno") String eno) {
+		if(essayVO != null) {
+			essayService.modifyEssay(essayVO);
+		}
+		
+		return "redirect:/essay/read?eno=" + eno;
 	}
 
 	// 다중파일업로드

@@ -1,12 +1,14 @@
 package com.guiders.web.essay.service;
 
-import java.util.Map;
+import java.util.List;
 
 import com.guiders.web.essay.domain.EssayVO;
 
 public interface EssayService {
 	
 	public void writeEssay(EssayVO essayVO);
-	public Map<String, String> readEssay(int eno);
+	public EssayVO readEssay(int eno);
+	public List<EssayVO> essayList();
+	public void modifyEssay(EssayVO essayVO);
 
 }

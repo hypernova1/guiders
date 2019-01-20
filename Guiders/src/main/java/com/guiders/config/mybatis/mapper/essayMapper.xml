@@ -10,12 +10,35 @@
 		VALUES(#{email}, #{field},#{lang}, #{etitle}, #{econtent})
 </insert>
 
-<select id="selectEssay" resultType="map" parameterType="int">
-		SELECT e.eno, e.email, e.field, e.lang, e.etitle, e.econtent, e.likecnt, e.regdate, m.mname, m.PHOTO 
-		FROM essay E
-		JOIN member m
-		ON e.email = m.email
-		WHERE e.eno = #{eno}
+<select id="selectEssay" resultType="essayVO" parameterType="int">
+	SELECT e.eno, e.email, e.field, e.lang, e.etitle, e.econtent, m.photo,
+	(SELECT count(*) FROM recommend WHERE eno = #{eno})likecnt, e.regdate 
+	FROM essay e
+	JOIN member m
+	ON e.EMAIL = m.email
+	WHERE eno = #{eno}
 </select>
+
+<select id="selectEssayList" resultType="essayVO"> <!-- parameterType 추가 예정(페이지) -->
+  SELECT e.eno, e.email, m.mname, g.field, g.lang, e.etitle, e.econtent, 
+	  (SELECT (SELECT count(*) 
+	  FROM recommend r 
+	  WHERE r.email = essay.email AND r.eno = essay.eno)likecnt 
+	  FROM essay WHERE essay.eno = e.eno)likecnt, 
+  e.regdate 
+  FROM essay e
+  JOIN member m
+  ON e.email = m.email
+  JOIN guider g
+  ON e.email = g.email
+  ORDER BY e.eno DESC
+  LIMIT 0,4
+</select>
+
+<update id="updateEssay" parameterType="essayVO">
+	UPDATE essay
+	SET etitle = #{etitle}, econtent = #{econtent}
+	WHERE eno = #{eno}
+</update>
 
 </mapper>

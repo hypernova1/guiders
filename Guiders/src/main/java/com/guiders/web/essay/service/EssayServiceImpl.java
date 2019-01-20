@@ -1,6 +1,6 @@
 package com.guiders.web.essay.service;
 
-import java.util.Map;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,18 @@ public class EssayServiceImpl implements EssayService{
 	}
 
 	@Override
-	public Map<String, String> readEssay(int eno) {
+	public EssayVO readEssay(int eno) {
 		return sqlSession.getMapper(EssayDAO.class).selectEssay(eno);
+	}
+
+	@Override
+	public List<EssayVO> essayList() {
+		return sqlSession.getMapper(EssayDAO.class).selectEssayList();
+	}
+
+	@Override
+	public void modifyEssay(EssayVO essayVO) {
+		sqlSession.getMapper(EssayDAO.class).updateEssay(essayVO);
 	}
 
 	

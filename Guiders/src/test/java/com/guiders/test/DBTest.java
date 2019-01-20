@@ -51,8 +51,8 @@ public class DBTest {
 	@Test
 	public void testEssay() {
 		int eno = 6;
-		Map<String, String> map = sqlSession.getMapper(EssayDAO.class).selectEssay(eno);
-		System.out.println(map.toString());
+		EssayVO vo = sqlSession.getMapper(EssayDAO.class).selectEssay(eno);
+		System.out.println(vo);
 	}
   
   @Test
@@ -90,5 +90,24 @@ public class DBTest {
     System.out.println(Arrays.toString(
         sqlSession.getMapper(MemberDAO.class).getAuthList("admin@guiders.com").toArray()));
   }
+  
+  @Test
+  public void essaySelect() {
+	  System.out.println(sqlSession.getMapper(EssayDAO.class).selectEssay(7));
+  }
+  
+  @Test
+  public void essayListTest() {
+	  System.out.println(sqlSession.getMapper(EssayDAO.class).selectEssayList());
+  }
 
+  @Test
+  public void essayUpdateTest() {
+	  EssayVO vo = new EssayVO();
+	  vo.setEno(10);
+	  vo.setEtitle("으잉....?");
+	  vo.setEcontent("<p>으윽..........................</p>");
+	  sqlSession.getMapper(EssayDAO.class).updateEssay(vo);
+	  
+  }
 }

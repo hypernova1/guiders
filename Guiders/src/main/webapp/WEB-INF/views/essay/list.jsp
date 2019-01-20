@@ -23,7 +23,24 @@
   </div>
     <article>
       <ul id="essay-list">
-        <li>
+      <c:forEach var="essay" items="${essayList}">
+	      <li>
+	        <div class="mtr-info">
+	          <img  class="mtr-img" src="https://media.wnyc.org/i/800/0/l/85/1/bach.png">
+	          <span class="guider">${essay.mname}</span>
+	          <span class="etype">${essay.field}</span>
+	        </div>
+	        <div class="essay">
+	           <div>
+			          <h2 class="title"><a href="/essay/read?eno=${essay.eno}">${essay.etitle}</a></h2>
+			          <span class="like">♥ ${essay.likecnt}</span>
+			          <span class="regdate">${essay.regdate}</span>
+	          </div>
+	          <div class="content"><c:out value="${essay.econtent}"/></div>
+	        </div>
+	      </li>
+      </c:forEach>
+<!--        <li>
         <div class="mtr-info">
           <img  class="mtr-img" src="https://media.wnyc.org/i/800/0/l/85/1/bach.png">
           <span class="guider">바흐</span>
@@ -73,7 +90,7 @@
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum omnis temporibus neque, maiores, repellat expedita facilis aliquid ducimus, repudiandae delectus eum? Incidunt placeat fugit voluptas blanditiis praesentium consequuntur possimus nemo?
           </div>
         </div>
-      </li>
+      </li> -->
     </ul>
     <button id="writeBtn" type="button">글쓰기</button>
   </article>

@@ -1,7 +1,5 @@
 package com.guiders.web;
 
-import java.security.Principal;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,16 +18,11 @@ public class MainController {
 		
 		if (authentication != null) {
 			UserCustom userCustom = (UserCustom) authentication.getPrincipal();
-			System.out.println(userCustom.getEmail());
 		}
 
 		return "main/main";
 	}
 
-	@GetMapping("/essay/list")
-	public String essayList() {
-		return "essay/list";
-	}
 
 	@GetMapping("/essay/post")
 	public String post() {

@@ -1,6 +1,8 @@
 package com.guiders.web.essay.domain;
 
-public class EssayVO {
+import com.guiders.web.member.domain.GuiderVO;
+
+public class EssayVO extends GuiderVO{
 
 	private Integer eno;
 	private String email;
