@@ -29,7 +29,9 @@ $('#city').change(function () {
             introdution: null,
             quote: null,
             field: null,
-            lang:null,
+            lang: null,
+            currentjob: null,
+            dept: null,
             };
     
     const phone = [];
@@ -47,13 +49,25 @@ $('#city').change(function () {
     });
     
     document.querySelector('#join_form').addEventListener('change', ({target}) => {
+        let checkedInput = document.querySelectorAll('input[name="' + target.name + '"]:checked');
         switch(target.id){
-        case "email": case "password": case "mname": case "gender": case "phone": case "birth": 
-        case "photo": case "ctno": case "introdution": case "quote": case "field": case "lang": 
+        case "mname": case "gender": case "phone": case "birth": 
+        case "photo": case "ctno": case "introdution": case "quote":
+        case "currentjob": case "dept":
             member[target.id] = target.value;
         }
-        console.log(member);
-    })
+        switch(target.name){
+        case "email": case "password": 
+            member[target.name] = target.value;
+        case "field": case "lang":
+            if(checkedInput.length == 2){
+                checkedInput[0].checked = false;
+                checkedInput[1].checked = false;
+                target.checked = true;
+            }
+            member[target.name] = target.value;
+        }
+    });
     
     document.querySelector('#join-btn2').addEventListener('click', () => {
         

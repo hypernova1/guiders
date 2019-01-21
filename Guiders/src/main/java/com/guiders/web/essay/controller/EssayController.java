@@ -3,16 +3,14 @@ package com.guiders.web.essay.controller;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.UUID;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.guiders.security.config.UserCustom;
 import com.guiders.web.essay.domain.EssayVO;
 import com.guiders.web.essay.service.EssayService;
-import com.guiders.web.member.domain.GuiderVO;
-import com.guiders.web.member.service.MemberService;
 
 @Controller
 public class EssayController {
@@ -35,15 +31,11 @@ public class EssayController {
 	@Autowired
 	private EssayService essayService;
 
-	@Autowired
-	private MemberService memberService;
-
 	@GetMapping("essay/write")
-	public String writeEssay(Model model, Principal prin) {
-		if (prin != null) {
-			String name = prin.getName();
-			GuiderVO vo = memberService.selectByName(name);
-			model.addAttribute("email", vo.getEmail());
+	public String writeEssay(Model model, Authentication authentication) {
+		if (authentication != null) {
+			UserCustom user = (UserCustom) authentication.getPrincipal();
+			model.addAttribute("email", user.getEmail());
 		}
 		return "/essay/write";
 	}

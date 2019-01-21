@@ -5,12 +5,26 @@
 <mapper namespace="com.guiders.web.member.dao.MyPageDAO">
 
   <select id="getMyGuiders" parameterType="string" resultType="map">
-    SELECT m.email, m.mname, m.photo, g.field, g.quote
+    SELECT m.email, m.mname, m.photo, g.currentjob, g.dept, g.field, g.quote, g.field, g.lang
     FROM member m
     JOIN guider g ON
     m.email = g.email
     WHERE m.email
-    IN (SELECT guider FROM follower WHERE follow=#{email});
+    IN (SELECT guider FROM follower WHERE follow=#{email})
+
+  </select>
+  
+  <select id="getMyQuestions" parameterType="string" resultType="map">
+    SELECT mtr.guider, mtr.mtitle, mtr.mtrno, mtr.field, mtr.lang
+    FROM member m
+    JOIN guider g ON
+    m.email = g.email
+    JOIN mentoring mtr
+    ON g.email = mtr.guider
+    WHERE m.email
+    IN (SELECT guider FROM follower WHERE follow=#{email})
+    ORDER BY mtr.mtrno DESC
+    LIMIT 4
   </select>
 
 </mapper>

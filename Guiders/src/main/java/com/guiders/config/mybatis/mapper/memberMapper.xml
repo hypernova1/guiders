@@ -16,8 +16,8 @@
   </insert>
   
   <insert id="insertGuider">
-    INSERT INTO guider (email, introdution, quote, field, lang)
-    VALUES (#{email}, #{introdution}, #{quote}, #{field}, #{lang})
+    INSERT INTO guider (email, introdution, quote, field, lang, currentjob, dept)
+    VALUES (#{email}, #{introdution}, #{quote}, #{field}, #{lang}, #{currentjob}, #{dept});
   </insert>
   
   <select id="loginCheck" parameterType="string" resultType="memberVO"> 
@@ -33,28 +33,39 @@
 		where m.email = #{email}
   </select>
   
-   <select id="selectByName" resultType="guiderVO" parameterType="string">
+   <select id="selectByEmail" resultType="guiderVO" parameterType="string">
     select m.EMAIL, m.MNAME, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
-           g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
+           g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG, g.currentjob, g.dept
     from member m
     join guider g
     on m.email = g.email
-    where m.MNAME = #{mname}
+    where m.email = #{email}
   </select>
   
-  <update id="updateMember" parameterType="memberVO">
-		UPDATE member m, guider g
-		SET  m.MNAME = #{mname},
-		     m.PASSWORD = #{password},
-		     m.phone = #{phone},
-		     g.INTRODUTION = #{introdution},
-		     g.QUOTE = #{quote},
-		     g.FIELD = #{field},
-		     g.LANG = #{lang}
-		     <!-- m.gender = #{gender}, --> 
-		     <!-- m.photo = #{photo}, -->
-         <!-- m.ctno = #{ctno}, -->
-		    WHERE m.email= #{email}
+  <update id="updateMember" parameterType="guiderVO">
+		UPDATE member m
+    <if test="dept != ''">
+		, guider g
+		</if>
+		
+		SET m.MNAME = #{mname},
+    <if test="password != ''">
+        m.password = #{password},
+    </if>
+        m.phone = #{phone},
+    <if test="dept != ''">
+		    g.INTRODUTION = #{introdution},
+		    g.QUOTE = #{quote},
+		    g.FIELD = #{field},
+		    g.LANG = #{lang},
+		    g.currentjob = #{currentjob},
+		    g.dept = #{dept}
+		</if>
+    WHERE m.email = #{email}
+		    
+    <if test="dept != ''">
+    AND g.email = #{email}
+    </if>
   </update>
   
   <insert id="insertAuth" parameterType="map">
