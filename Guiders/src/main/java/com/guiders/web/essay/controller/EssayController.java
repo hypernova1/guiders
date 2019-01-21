@@ -5,7 +5,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -80,13 +83,17 @@ public class EssayController {
 
 	@GetMapping("/essay/read")
 	public String readEssay(@Param("eno") Integer eno, Model model, Authentication authentication){
+		Map<String, String> map = new HashMap<>();
 		if (authentication != null) {
 			UserCustom userCustom = (UserCustom) authentication.getPrincipal();
 			model.addAttribute("userInfo", userCustom);
+			map.put("email", userCustom.getEmail());
 		}
-		
 		EssayVO essayVO = essayService.readEssay(eno);
+		map.put("eno", eno.toString());
+		boolean confirmLike = essayService.confirmLike(map);
 		model.addAttribute("essayVO", essayVO);
+		model.addAttribute("confirmLike", confirmLike);
 		return "/essay/post";
 	}
 	
@@ -106,6 +113,12 @@ public class EssayController {
 		}
 		
 		return "redirect:/essay/read?eno=" + eno;
+	}
+	
+	@PostMapping("/essay/delete")
+	public String removeEssay(Integer eno) {
+		essayService.removeEssay(eno);
+		return "redirect:/essay/list";
 	}
 
 	// 다중파일업로드
@@ -142,6 +155,14 @@ public class EssayController {
 			e.printStackTrace();
 		}
 		return sb.toString();
+	}
+	
+	
+	@RequestMapping(value= "/essay/{eno}", method= RequestMethod.PUT, 
+			produces= "application/json;charset=utf-8")
+	public @ResponseBody Integer addLikecnt(@RequestBody Map<String, String> map) {
+		int result = essayService.addRecommend(map);
+		return result; //갱신된 좋아요 갯수 return
 	}
 
 }

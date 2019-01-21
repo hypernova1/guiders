@@ -11,7 +11,7 @@
 </insert>
 
 <select id="selectEssay" resultType="essayVO" parameterType="int">
-	SELECT e.eno, e.email, e.field, e.lang, e.etitle, e.econtent, m.photo,
+	SELECT e.eno, e.email, m.mname,e.field, e.lang, e.etitle, e.econtent, m.photo,
 	(SELECT count(*) FROM recommend WHERE eno = #{eno})likecnt, e.regdate 
 	FROM essay e
 	JOIN member m
@@ -23,7 +23,7 @@
   SELECT e.eno, e.email, m.mname, g.field, g.lang, e.etitle, e.econtent, 
 	  (SELECT (SELECT count(*) 
 	  FROM recommend r 
-	  WHERE r.email = essay.email AND r.eno = essay.eno)likecnt 
+	  WHERE r.eno = essay.eno AND r.eno = essay.eno)likecnt 
 	  FROM essay WHERE essay.eno = e.eno)likecnt, 
   e.regdate 
   FROM essay e
@@ -40,5 +40,30 @@
 	SET etitle = #{etitle}, econtent = #{econtent}
 	WHERE eno = #{eno}
 </update>
+
+<delete id="deleteEssay" parameterType="integer">
+	DELETE FROM essay
+	WHERE eno = #{eno}
+</delete>
+
+<select id="selectLikeCnt" resultType="integer" parameterType="map">
+	SELECT count(*) FROM recommend
+	WHERE eno = #{eno} AND email = #{email}
+</select>
+
+<insert id="insertRecommend" parameterType="map">
+	INSERT INTO recommend
+	VALUES(#{eno}, #{email})
+</insert>
+
+<delete id="deleteRecommend" parameterType="map">
+	DELETE FROM recommend
+	where eno = #{eno} and email = #{email}
+</delete>
+
+<select id="getCount" resultType="integer">
+  SELECT count(*) FROM recommend
+  WHERE eno = #{eno}
+</select>
 
 </mapper>

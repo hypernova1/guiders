@@ -34,7 +34,6 @@ public class DBTest {
 		/*sqlSession.getMapper(MemberDAO.class).insertAuth("admin@guiders.com");*/
 	}
 	
-	
 	@Test
 	public void essayInsertTest() {
 		EssayVO vo = new EssayVO();
@@ -108,6 +107,26 @@ public class DBTest {
 	  vo.setEtitle("으잉....?");
 	  vo.setEcontent("<p>으윽..........................</p>");
 	  sqlSession.getMapper(EssayDAO.class).updateEssay(vo);
-	  
+  }
+  
+  @Test
+  public void likecntSelectTest() {
+	  Map<String, String> map = new HashMap<>();
+	  map.put("eno", "13");
+	  map.put("email", "test@naver.com");
+	  System.out.println(sqlSession.getMapper(EssayDAO.class).selectLikeCnt(map));
+  }
+  
+  @Test
+  public void insertRecommendTest() {
+	  Map<String, String> map = new HashMap<>();
+	  map.put("eno", "13");
+	  map.put("email", "swon9@naver.com");
+	  sqlSession.getMapper(EssayDAO.class).insertRecommend(map);
+  }
+  
+  @Test
+  public void getCountTest() {
+	  System.out.println(sqlSession.getMapper(EssayDAO.class).getCount("13"));
   }
 }

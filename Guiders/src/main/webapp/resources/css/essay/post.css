@@ -112,6 +112,9 @@ section{
 	float: right;
 }
 
-#likeBtn:hover{
+#likeSpan:hover{
 	cursor: pointer;
+}
+#essayPostForm{
+	all: unset;
 }
