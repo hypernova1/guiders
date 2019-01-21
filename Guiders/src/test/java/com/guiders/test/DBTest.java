@@ -129,4 +129,5 @@ public class DBTest {
   public void getCountTest() {
 	  System.out.println(sqlSession.getMapper(EssayDAO.class).getCount("13"));
   }
+
 }
