@@ -61,6 +61,17 @@
 		const email = '${userInfo.email}';
 		if(!email){
 			alert('로그인이 필요합니다.');
+			/* console.log(document.querySelector('#login-modal')); */
+			let i = 1;
+      modal.style.display = 'block';
+      const increase = setInterval(function(){
+        if (i == 51) {
+	          clearInterval(increase);
+	      } else {
+	          modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
+	          i++;
+	      }
+      }, 10);
 			return;
 		}
 		const eno = '${param.eno}';

@@ -10,7 +10,21 @@
     JOIN guider g ON
     m.email = g.email
     WHERE m.email
-    IN (SELECT guider FROM follower WHERE follow=#{email});
+    IN (SELECT guider FROM follower WHERE follow=#{email})
+  </select>
+  
+  <select id="selectMyLikeEssay" resultType="essayVO" parameterType="string">
+		SELECT e.eno, e.email, m.mname, e.field, e.lang, e.etitle, e.regdate 
+		FROM essay e
+		JOIN member m
+		ON e.email = m.email
+		WHERE e.eno IN (SELECT eno FROM recommend WHERE email = #{email})
+  </select>
+  
+  <select id="selectEssayContent" resultType="string" parameterType="integer">
+    SELECT econtent 
+    FROM essay 
+    WHERE eno = #{eno}
   </select>
 
 </mapper>

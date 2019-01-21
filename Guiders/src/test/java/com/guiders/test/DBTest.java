@@ -2,6 +2,7 @@ package com.guiders.test;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.guiders.web.essay.dao.EssayDAO;
 import com.guiders.web.essay.domain.EssayVO;
 import com.guiders.web.member.dao.MemberDAO;
+import com.guiders.web.member.dao.MyPageDAO;
 import com.guiders.web.member.domain.GuiderVO;
 
 
@@ -131,4 +133,10 @@ public class DBTest {
 	  System.out.println(sqlSession.getMapper(EssayDAO.class).getCount("13"));
   }
 
+  @Test
+  public void getLikeEssayTest() {
+	  List<EssayVO> list = sqlSession.getMapper(MyPageDAO.class).selectMyLikeEssay("test@naver.com");
+	  
+	  System.out.println(Arrays.toString(list.toArray()));
+  }
 }

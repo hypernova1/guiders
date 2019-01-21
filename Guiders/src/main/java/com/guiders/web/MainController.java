@@ -39,10 +39,6 @@ public class MainController {
 		return "guiders/guiders";
 	}
 
-	@GetMapping("/mypage/likeEssay")
-	public String likeEssay() {
-		return "mypage/likeEssay";
-	}
 
 	@GetMapping("/signin")
 	public String login() {

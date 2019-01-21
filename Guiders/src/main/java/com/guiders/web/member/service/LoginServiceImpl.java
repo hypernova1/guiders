@@ -19,7 +19,6 @@ public class LoginServiceImpl implements LoginService {
   
   @Override
   public void join(GuiderVO guiderVO) {
-    
     guiderVO.setCtno(1);
     guiderVO.setPassword(bCryptPasswordEncoder.encode(guiderVO.getPassword()));
     

@@ -7,7 +7,23 @@
 <section>
     <article>
       <ul>
-        <li id="li-head">
+	      <li id="li-head">
+	          <div class="writer">가이더</div>
+	          <div class="field">분야</div>
+	          <div class="lang">언어</div>
+	          <div class="title">제목</div>
+	          <div class="regdate">등록일</div>
+	      </li>
+	      <c:forEach var="essay" items="${essayList}">
+		        <li data-eno="${essay.eno}">
+		          <div class="writer">${essay.mname}</div>
+		          <div class="field">${essay.field}</div>
+		          <div class="lang">${essay.lang}</div>
+		          <div class="title">${essay.etitle}</div>
+		          <div class="regdate">${essay.regdate}</div>
+		        </li>
+	      </c:forEach>
+<!--         <li id="li-head">
           <div class="writer">가이더</div>
           <div class="field">분야</div>
           <div class="lang">언어</div>
@@ -27,7 +43,7 @@
           <div class="lang">JAVA</div>
           <div class="title">오페라로 대화하는 법</div>
           <div class="regdate">2018-01-01</div>
-        </li>
+        </li> -->
       </ul>
     </article>
   </section>
