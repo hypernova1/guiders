@@ -9,6 +9,13 @@
     }
   },
   "libs": [
+<<<<<<< HEAD
     "browser"
+=======
+    "ecma5",
+    "ecma6",
+    "browser",
+    "jquery"
+>>>>>>> work
   ]
 }

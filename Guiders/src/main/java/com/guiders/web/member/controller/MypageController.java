@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.guiders.security.config.UserCustom;
 import com.guiders.web.essay.domain.EssayVO;
+import com.guiders.web.guiders.service.MentoringService;
+import com.guiders.web.member.domain.GuiderVO;
+import com.guiders.web.member.service.MemberService;
 import com.guiders.web.member.service.MyPageService;
 
 @RequestMapping("mypage")
@@ -25,6 +28,10 @@ public class MypageController {
 
   @Autowired
   private MyPageService myPageService;
+  @Autowired
+  private MentoringService mentoringService;
+  @Autowired
+  private MemberService memberService;
   
   @GetMapping("likeEssay")
   public String likeEssay(Authentication authentication, Model model) {
@@ -43,8 +50,8 @@ public class MypageController {
   }
   
   @GetMapping("myGuiders")
-  public @ResponseBody ResponseEntity<List<Map<String, String>>> myGuiderList(Authentication authentication) {
-    List<Map<String, String>> list = null;
+  public @ResponseBody ResponseEntity<List<Map<String, Object>>> myGuiderList(Authentication authentication) {
+    List<Map<String, Object>> list = null;
     if(authentication.isAuthenticated()) {
       UserCustom user = (UserCustom) authentication.getPrincipal();
       list = myPageService.getMyGuiderList(user.getEmail());
@@ -59,4 +66,23 @@ public class MypageController {
 	  return econtent;
   }
   
+
+  @GetMapping("guider/{email}")
+  public @ResponseBody ResponseEntity<GuiderVO> guider(@PathVariable String email){
+    
+    return new ResponseEntity<>(memberService.selectByEmail(email), HttpStatus.OK);
+  }
+  
+  @GetMapping("questions")
+  public String questions(Authentication authentication, Model model) {
+    List<Map<String, Object>> mentorings = null;
+    if(authentication != null) {
+      UserCustom user = (UserCustom) authentication.getPrincipal();
+      mentorings = mentoringService.getMyQuestions(user.getEmail());
+      
+    }
+    model.addAttribute("mentorings", mentorings);
+    return "mypage/questions";
+  }
+
 }

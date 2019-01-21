@@ -1,5 +1,6 @@
 package com.guiders.security.config;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -38,7 +39,6 @@ public class CustomUserDetailService implements UserDetailsService{
 		}
 		
 		UserCustom user = new UserCustom(memberVO.getEmail(),memberVO.getMname(), memberVO.getPassword(), roles);
-		
 		/*System.out.println("User : " + user);*/
 		
 		return user;

@@ -7,6 +7,7 @@
     <typeAlias alias="guiderVO" type="com.guiders.web.member.domain.GuiderVO" />
     <typeAlias alias="memberVO" type="com.guiders.web.member.domain.MemberVO" />
     <typeAlias alias="essayVO" type="com.guiders.web.essay.domain.EssayVO" />
+    <typeAlias alias="mentoringVO" type="com.guiders.web.guiders.domain.MentoringVO" />
   
   </typeAliases>
 </configuration>

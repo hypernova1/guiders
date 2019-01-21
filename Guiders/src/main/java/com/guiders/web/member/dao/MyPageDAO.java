@@ -7,8 +7,8 @@ import com.guiders.web.essay.domain.EssayVO;
 
 public interface MyPageDAO {
 
-  List<Map<String, String>> getMyGuiders(String follower);
   public List<EssayVO> selectMyLikeEssay(String email);
   public String selectEssayContent(Integer eno);
-  
+  List<Map<String, Object>> getMyGuiders(String follower);
+  List<Map<String, Object>> getMyQuestions(String follower);
 }

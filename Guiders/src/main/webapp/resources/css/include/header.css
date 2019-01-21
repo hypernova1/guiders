@@ -51,7 +51,7 @@ nav {
   margin-left: 30px;
 }
 
-.menu-content>span:hover {
+.menu-content>span:hover:not(.menu-content>span:nth-child(5)) {
   color: #ff2d55;
   transition: 0.3s;
 }
@@ -341,6 +341,13 @@ a {
 form h2 {
   margin: 10px 0;
   color: #2c3e50;
+}
+#field, #lang{
+	margin: 3px;
+	padding: 3px;
+	border: 1.5px solid #ff2d55;
+  border-radius: 4px;	
+  background-color: white;
 }
 
 @keyframes move {
