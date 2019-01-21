@@ -1,7 +1,7 @@
 package com.guiders.web.member.service;
 
 import java.util.List;
-
+import java.util.Map;
 import com.guiders.web.member.domain.GuiderVO;
 import com.guiders.web.member.domain.MemberVO;
 
@@ -12,6 +12,8 @@ public interface MemberService {
 	public MemberVO readMember(String email);
 	public void modifyMember(GuiderVO guiderVO);
 	public List<String> getAuthList(String email);
+	public MemberVO loginCheck(String email);
 	public GuiderVO selectByName(String name);
+	public List<Map<String, String>> getMyGuider(String email);
 
 }

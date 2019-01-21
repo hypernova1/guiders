@@ -4,21 +4,12 @@
 }
 
 section {
-  /*margin: 130px 5%;
-    text-align: center;*/
-  top: 0;
-  width: 100%;
+  margin: 120px 15%;
   position: relative;
-}
-
-section {
-  top: 0;
-  margin: 130px 5%;
+  text-align:center;
 }
 
 .title { /* 팔로워 리스트 크기 조정 */
-  width: 1000px;
-  margin-left: 190px;
   display: flex;
   flex-direction: column;
 }
@@ -64,9 +55,6 @@ section {
 }
 
 .filter { /* 필터 크기 조정 */
-  width: 1000px;
-  margin-left: 190px;
-  margin-bottom: 50px;
 }
 
 .filter>ul {
@@ -106,7 +94,7 @@ section {
   border-bottom: 1px solid #6d6d72;
 }
 
-.unfollow-btn {
+.unfollow-btn, .question-btn {
   all: unset;
   clear: both;
   text-align: center;

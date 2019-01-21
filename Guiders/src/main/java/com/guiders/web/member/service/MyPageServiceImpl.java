@@ -1,14 +1,21 @@
 package com.guiders.web.member.service;
 
 import java.util.List;
-import com.guiders.web.member.domain.GuiderVO;
+import java.util.Map;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.guiders.web.member.dao.MyPageDAO;
 
+@Service
 public class MyPageServiceImpl implements MyPageService {
 
+  @Autowired
+  private SqlSession sqlSession;
+  
   @Override
-  public List<GuiderVO> getMyGuiderList(String email) {
-    // TODO Auto-generated method stub
-    return null;
+  public List<Map<String, String>> getMyGuiderList(String email) {
+    return sqlSession.getMapper(MyPageDAO.class).getMyGuiders(email);
   }
 
 }

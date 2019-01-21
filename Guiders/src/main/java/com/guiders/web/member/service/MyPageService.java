@@ -1,9 +1,9 @@
 package com.guiders.web.member.service;
 
 import java.util.List;
-import com.guiders.web.member.domain.GuiderVO;
+import java.util.Map;
 
 public interface MyPageService {
 
-  List<GuiderVO> getMyGuiderList(String email);
+  List<Map<String, String>> getMyGuiderList(String email);
 }

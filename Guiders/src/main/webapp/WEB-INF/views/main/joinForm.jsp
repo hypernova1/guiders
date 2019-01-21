@@ -25,11 +25,11 @@
       </div>
       <div>
         <label>비밀번호</label>
-        <input type="password" id="password"placeholder="비밀번호를 입력하세요">
+        <input type="password" id="password" placeholder="비밀번호를 입력하세요">
       </div>
       <div>
         <label>재입력</label>
-        <input type="password" id="repassword"placeholder="비밀번호 재입력">
+        <input type="password" id="repassword" placeholder="비밀번호 재입력">
       </div>
       <div id="phone-wrap">
           <label>전화번호</label>

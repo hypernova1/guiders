@@ -69,7 +69,6 @@ function get_msg(message) {
 }
 
 function signin() {
-	console.log("........");
 	$.ajax({
 		url : '/login',
 		data : $('form input').serialize(),
@@ -80,12 +79,12 @@ function signin() {
 			xhr.setRequestHeader('x-CSRFToken','${_csrf.token}');
 		}
 	}).success(function(result) {
-		console.log("........2");
+	    console.log(result)
 		var error = result.error;
 		if (error)
 			alert('로그인 실패');
 		if (!error) {
-			location.reload();
+		    location.reload();
 		}
 	});
 }

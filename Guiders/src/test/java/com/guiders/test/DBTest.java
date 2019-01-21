@@ -17,6 +17,7 @@ import com.guiders.web.essay.domain.EssayVO;
 import com.guiders.web.member.dao.MemberDAO;
 import com.guiders.web.member.domain.GuiderVO;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class DBTest {
@@ -53,7 +54,7 @@ public class DBTest {
 		EssayVO vo = sqlSession.getMapper(EssayDAO.class).selectEssay(eno);
 		System.out.println(vo);
 	}
-  
+	
   @Test
   public void insertTest() {
 
