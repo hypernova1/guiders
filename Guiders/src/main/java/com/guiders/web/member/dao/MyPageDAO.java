@@ -5,5 +5,6 @@ import java.util.Map;
 
 public interface MyPageDAO {
 
-  List<Map<String, String>> getMyGuiders(String follower);
+  List<Map<String, Object>> getMyGuiders(String follower);
+  List<Map<String, Object>> getMyQuestions(String follower);
 }

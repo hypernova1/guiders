@@ -1,14 +1,10 @@
-*, *::before, *::after{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 #wrapper{
   margin: 8% 5%;
+  min-height: 500px;
 }
 aside{
   float: left;
-  height: 700px;
+  height: 360px;
 }
 aside>ul{
   list-style: none;
@@ -86,5 +82,4 @@ form>div{
   width: 450px;
 }
 #btn-wrap{
-  margin-top: 30px;
 }

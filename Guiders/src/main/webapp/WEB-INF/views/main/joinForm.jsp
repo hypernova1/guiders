@@ -17,19 +17,19 @@
     </c:choose>
       <div>
           <label>이메일</label>
-          <input type="text" id="email" placeholder="이메일">
+          <input type="text" name="email">
         </div>
       <div>
         <label>이름</label>
-        <input type="text" id="mname" placeholder="이름을 입력하세요">
+        <input type="text" id="mname">
       </div>
       <div>
         <label>비밀번호</label>
-        <input type="password" id="password" placeholder="비밀번호를 입력하세요">
+        <input type="password" name="password">
       </div>
       <div>
         <label>재입력</label>
-        <input type="password" id="repassword" placeholder="비밀번호 재입력">
+        <input type="password" id="repassword">
       </div>
       <div id="phone-wrap">
           <label>전화번호</label>
@@ -45,6 +45,14 @@
         <input type="text" id="address" class="inputAddr" readonly />
       </div>
       <c:if test="${guider eq true }">
+      <div>
+        <label>최근직장</label>
+        <input type="text" id="currentjob">
+      </div>
+      <div>
+        <label>부서</label>
+        <input type="text" id="dept">
+      </div>
 	      <div id="introdution-wrap">
 	        <div>
 	          <label>경력란</label>
@@ -61,11 +69,11 @@
 	        <div>
 	          <label>분야</label>
 	        </div>
-	        <input type="checkbox" id="c1" name="field" value="a"/>
+	        <input type="checkbox" id="c1" name="field" value="취업상담"/>
 	        <label for="c1"><span></span>취업상담</label>
-	        <input type="checkbox" id="c2" name="field" value="b"/>
+	        <input type="checkbox" id="c2" name="field" value="학업조언"/>
 	        <label for="c2"><span></span>학업조언</label>
-	        <input type="checkbox" id="c3" name="field" />
+	        <input type="checkbox" id="c3" name="field" value="자소서첨삭"/>
 	        <label for="c3"><span></span>자소서첨삭</label>
 	        <p></p>
 	      </div>
