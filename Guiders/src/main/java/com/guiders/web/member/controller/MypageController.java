@@ -84,5 +84,5 @@ public class MypageController {
     model.addAttribute("mentorings", mentorings);
     return "mypage/questions";
   }
-
+  
 }
