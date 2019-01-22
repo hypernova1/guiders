@@ -27,7 +27,7 @@
     </c:if>
   </div>
   <div id="mtr-detail">
-    <img id="mtr-img" src="https://media.wnyc.org/i/800/0/l/85/1/bach.png">
+    <img id="mtr-img" src="${essayVO.photo}">
     <div class="mtr-name">
       <span>${essayVO.mname}</span>
       <span>멘토</span>

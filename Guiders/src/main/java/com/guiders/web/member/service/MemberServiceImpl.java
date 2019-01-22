@@ -43,7 +43,9 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public void joinMember(MemberVO memberVO) {}
+  public void joinMember(MemberVO memberVO) {
+	  
+  }
 
   @Override
   public MemberVO loginCheck(String email) {

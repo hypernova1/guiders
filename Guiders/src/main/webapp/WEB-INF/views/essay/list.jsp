@@ -26,7 +26,7 @@
       <c:forEach var="essay" items="${essayList}">
 	      <li>
 	        <div class="mtr-info">
-	          <img  class="mtr-img" src="https://media.wnyc.org/i/800/0/l/85/1/bach.png">
+	          <img  class="mtr-img" src="${essay.photo}">
 	          <span class="guider">${essay.mname}</span>
 	          <span class="etype">${essay.field}</span>
 	        </div>

@@ -15,12 +15,12 @@
 	(SELECT count(*) FROM recommend WHERE eno = #{eno})likecnt, e.regdate 
 	FROM essay e
 	JOIN member m
-	ON e.EMAIL = m.email
+	ON e.email = m.email
 	WHERE eno = #{eno}
 </select>
 
 <select id="selectEssayList" resultType="essayVO"> <!-- parameterType 추가 예정(페이지) -->
-  SELECT e.eno, e.email, m.mname, g.field, g.lang, e.etitle, e.econtent, 
+  SELECT e.eno, e.email, m.mname, m.photo, g.field, g.lang, e.etitle, e.econtent, 
 	  (SELECT (SELECT count(*) 
 	  FROM recommend r 
 	  WHERE r.eno = essay.eno AND r.eno = essay.eno)likecnt 

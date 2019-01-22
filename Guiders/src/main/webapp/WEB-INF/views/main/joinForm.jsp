@@ -5,6 +5,27 @@
 <link rel="stylesheet" href="/css/main/joinForm.css">
 <script src="/js/main/joinForm.js" defer></script>
 
+<style>
+    #drop-zone {
+        font-weight: bold;
+        font-size: 25px;
+        text-align: center;
+        border: 1px solid black;
+        width: 185px;
+        height: 250px;
+        position: relative;
+        margin: auto;
+        vertical-align: center;
+    }
+
+    #drop-zone > img {
+        width: auto;
+        height: auto;
+        max-height: 100%;
+        max-width: 100%;
+    }
+</style>
+
 <section>
     <div id="join_form">
     <c:choose>
@@ -65,6 +86,10 @@
 	        </div>
 	        <textarea id="quote" placeholder="오늘 나는 이렇게 무너진다만, 내일의 나는 무너진다."></textarea>
 	      </div>
+	      
+	      <div id="drop-zone">여기에 사진을 드래그 해주세요</div>
+	      
+	      
 	      <div id="field">
 	        <div>
 	          <label>분야</label>
@@ -103,6 +128,55 @@
       </div>
     </div>
   </section>
+  
+    <script>
+        function imgAjax(url, method, formData, fileType) {
+            return new Promise((resolve, reject) => {
+
+                const xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            resolve(xhr.response);
+                        } else {
+                            reject('Error', xhr.status);
+                        }
+                    }
+                }
+                xhr.open(method, url);
+                /* xhr.setRequestHeader('Content-Type', fileType); */
+                /* xhr.send(JSON.stringify(formData)); */
+                xhr.send(formData);
+            });
+        }
+        document.querySelector('#drop-zone').addEventListener('dragenter', function (event) {
+            event.preventDefault();
+        });
+        document.querySelector('#drop-zone').addEventListener('dragover', function (event) {
+            event.preventDefault();
+        });
+        document.querySelector('#drop-zone').addEventListener('drop', function (event) {
+            event.preventDefault();
+            var files = event.dataTransfer.files;
+            var file = files[0];
+            var fileType = file.type;
+
+            var formData = new FormData();
+            formData.append('file', file);
+            console.log(formData.getAll('file'));
+
+            var url = '/uploadImage';
+            var method = 'POST';
+
+            imgAjax(url, method, formData, fileType).then(function (result) {
+                console.log(result);
+                var img = JSON.stringify(result);
+                document.querySelector('#drop-zone').innerHTML = '<img src =' + img + '>';
+            });
+
+        });  
+    </script>
   
 
 <%@ include file="../include/footer.jsp" %>
