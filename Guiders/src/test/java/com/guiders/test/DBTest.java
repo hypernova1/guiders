@@ -19,4 +19,5 @@ public class DBTest {
 		System.out.println("현재 시간 : " + sqlSession.getMapper(TestDAO.class).getTime());
 	}
 
+
 }

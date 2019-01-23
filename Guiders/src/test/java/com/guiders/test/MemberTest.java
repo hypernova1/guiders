@@ -52,7 +52,7 @@ public class MemberTest {
 
 	@Test
 	public void selectMemberTest() {
-		System.out.println(sqlSession.getMapper(MemberDAO.class).selectMember("test@naver.com").getEmail());
+//		System.out.println(sqlSession.getMapper(MemberDAO.class).selectMember("test@naver.com").getEmail());
 	}
 
 	@Test

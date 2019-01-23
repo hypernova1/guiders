@@ -1,5 +1,7 @@
 package com.guiders.web.guiders.controller;
 
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,9 +50,21 @@ public class MentoringController {
   @GetMapping("qna/{mtrno}")
   public String qna(@PathVariable Integer mtrno, Model model) {
     MentoringVO mentoringVO = mentoringService.getMentoring(mtrno);
-    GuiderVO guiderVO = memberService.selectByEmail(mentoringVO.getGuider());
+    GuiderVO guiderVO = memberService.selectByEmail(mentoringVO.getGuider(), "guider");
     model.addAttribute("mentoring", mentoringVO);
     model.addAttribute("guider", guiderVO);
     return "mypage/qna";
+  }
+  
+  @GetMapping("mentoring/list")
+  public String mentoringList(String email, Authentication authentication, Model model) {
+    
+    if(authentication.getPrincipal() != null) {
+      UserCustom user = (UserCustom) authentication.getPrincipal();
+      List<Map<String, Object>> mentorings = mentoringService.getMentoringList(email, user.getEmail());
+      model.addAttribute("mentorings", mentorings);
+    }
+    
+    return "mypage/mentoringList";
   }
 }

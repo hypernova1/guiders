@@ -42,7 +42,7 @@ public class EssayController {
 	public String writeEssay(Model model, Authentication authentication) {
 		if (authentication.getPrincipal() != null) {
 			UserCustom user = (UserCustom) authentication.getPrincipal();
-			GuiderVO vo = memberService.selectByEmail(user.getEmail());
+			GuiderVO vo = memberService.selectByEmail(user.getEmail(), "guider");
 			model.addAttribute("email", vo.getEmail());
 
 		}

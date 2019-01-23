@@ -24,11 +24,11 @@
       </div>
       <div>
         <label>비밀번호</label>
-        <input type="password" name="password" placeholder="비밀번호">
+        <input type="password" name="password">
       </div>
       <div>
         <label>재입력</label>
-        <input type="password" placeholder="비밀번호 확인">
+        <input type="password">
       </div>
       <div>
           <label>전화번호</label>
@@ -70,9 +70,21 @@
       </c:otherwise>
       </c:choose>
       <div id="btn-wrap">
-        <button type="submit" class="btn">수정</button>
+        <button type="button" class="btn" id="edit-submit">수정</button>
       </div>
     </form>
   </section>
 </div>
+<script>
+document.querySelector('#edit-submit').addEventListener('click', () => {
+   if(document.querySelector('textarea[name="introdution"]')){
+	   let introdution = document.querySelector('textarea[name="introdution"]').value; 
+	   introdution = introdution.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+	   let quote= document.querySelector('textarea[name="quote"]').value; 
+	   quote = quote.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+   }
+   document.querySelector('#input-wrapper').submit();
+});
+   
+</script>
 <%@ include file="../include/footer.jsp" %>

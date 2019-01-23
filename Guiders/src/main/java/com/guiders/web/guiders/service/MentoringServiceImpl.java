@@ -1,5 +1,6 @@
 package com.guiders.web.guiders.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
@@ -32,6 +33,14 @@ public class MentoringServiceImpl implements MentoringService {
   @Override
   public List<Map<String, Object>> getMyQuestions(String email) {
     return sqlSession.getMapper(MentoringDAO.class).selectMyQuestions(email);
+  }
+
+  @Override
+  public List<Map<String, Object>> getMentoringList(String guider, String follower) {
+    Map<String, String> param = new HashMap<>();
+    param.put("guider", guider);
+    param.put("follower", follower);
+    return sqlSession.getMapper(MentoringDAO.class).selectMentoringList(param);
   }
 
 }
