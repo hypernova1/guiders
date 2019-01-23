@@ -128,7 +128,7 @@ public class EssayController {
 			String oldName = request.getHeader("file-name");
 			// 파일 기본경로 _ 상세경로
 
-			/* 배포시 실제로 저장될 경로를 지정 */
+			/* 배포시 실제로 저장될 경로 지정 */
 			String filePath = servletContext.getRealPath("/resources/img/photoUpload/");
 
 			String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
@@ -146,7 +146,7 @@ public class EssayController {
 			// 정보 출력
 			sb = new StringBuffer();
 			sb.append("&bNewLine=true").append("&sFileName=").append(oldName).append("&sFileURL=")
-					.append("http://localhost:8888/img/photoUpload/").append(saveName); //IP를 서버쪽으로
+					.append("http://localhost:8888/img/photoUpload/").append(saveName); //서버쪽 주소를 기준으로...
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -158,7 +158,7 @@ public class EssayController {
 			produces= "application/json;charset=utf-8")
 	public @ResponseBody Integer addLikecnt(@RequestBody Map<String, String> map) {
 		int result = essayService.addRecommend(map);
-		return result; //갱신된 좋아요 갯수 return
+		return result; //갱신된 '좋아요' 갯수를 전달
 	}
 
 }

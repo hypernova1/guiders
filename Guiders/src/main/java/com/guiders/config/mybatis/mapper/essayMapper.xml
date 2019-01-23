@@ -19,7 +19,7 @@
 	WHERE eno = #{eno}
 </select>
 
-<select id="selectEssayList" resultType="essayVO"> <!-- parameterType 추가 예정(페이지) -->
+<select id="selectEssayList" resultType="essayVO"> <!-- parameterType 추가 예정(페이징 관련) -->
   SELECT e.eno, e.email, m.mname, m.photo, g.field, g.lang, e.etitle, e.econtent, 
 	  (SELECT (SELECT count(*) 
 	  FROM recommend r 
@@ -32,7 +32,7 @@
   JOIN guider g
   ON e.email = g.email
   ORDER BY e.eno DESC
-  LIMIT 0,4
+  LIMIT 0,5
 </select>
 
 <update id="updateEssay" parameterType="essayVO">

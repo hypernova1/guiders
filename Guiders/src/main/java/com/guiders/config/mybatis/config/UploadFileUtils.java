@@ -13,6 +13,8 @@ import org.springframework.util.FileCopyUtils;
 
 public class UploadFileUtils {
 
+	
+	/*업로드 시 호출되며 파일이름에 UUID + 날짜를 붙이고 썸네일 파일을 생성하여 같이 저장한다.*/
 	public static String uploadFile(String uploadPath, String originalName, 
 			byte[] fileData) throws Exception {
 
@@ -44,6 +46,7 @@ public class UploadFileUtils {
 		return iconName.substring(uploadPath.length()).replace(File.separatorChar, '/');
 	}
 	
+	/* 경로 계산 */
 	private static String calcPath(String uploadPath) {
 		
 		Calendar cal = Calendar.getInstance();
@@ -63,6 +66,7 @@ public class UploadFileUtils {
 	}
 	
 	
+	/* 경로 만들기 */
 	public static void makeDir(String uploadPath, String... paths) {
 		if(new File(uploadPath + paths[paths.length -1]).exists()) {
 			return;
@@ -77,7 +81,7 @@ public class UploadFileUtils {
 		}
 	}
 	
-	//썸네일 만들기
+	/* 썸네일 만들기  */
 	private static String makeThumbnail(String uploadPath, String path, String fileName) throws Exception {
 		BufferedImage sourceImg =  ImageIO.read(new File(uploadPath + path, fileName));
 		

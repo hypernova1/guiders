@@ -46,7 +46,7 @@
     <textarea id="editor" name="econtent" placeholder="내용">${essayVO.econtent}</textarea>
   </div>
   <div id="btn-wrap">
-    <button id="writeBtn" type="button">등록</button>
+    <button id="writeBtn" type="button">수정</button>
     <button id="cancleBtn" type="button">취소</button>
   </div>
 </form>

@@ -6,24 +6,24 @@
 <script src="/js/main/joinForm.js" defer></script>
 
 <style>
-    #drop-zone {
-        font-weight: bold;
-        font-size: 25px;
-        text-align: center;
-        border: 1px solid black;
-        width: 185px;
-        height: 250px;
-        position: relative;
-        margin: auto;
-        vertical-align: center;
-    }
+#drop-zone {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    border: 1px solid black;
+    width: 185px;
+    height: 250px;
+    position: relative;
+    margin: auto;
+    vertical-align: center;
+}
 
-    #drop-zone > img {
-        width: auto;
-        height: auto;
-        max-height: 100%;
-        max-width: 100%;
-    }
+#drop-zone > img {
+    width: auto;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
 </style>
 
 <section>

@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Guiders</title>
+<link rel="icon" type="image/png"  href="/img/guiders.png"/>
 <link rel="stylesheet" href="/css/include/header.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"

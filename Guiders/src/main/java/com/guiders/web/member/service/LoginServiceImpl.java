@@ -14,6 +14,8 @@ public class LoginServiceImpl implements LoginService {
 
   @Autowired
   private SqlSession sqlSession;
+  
+  /* JUnit 테스트 시에 injection 관련 에러가 나기 때문에 테스트 전에는 주석 처리 후 진행 */
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
   
