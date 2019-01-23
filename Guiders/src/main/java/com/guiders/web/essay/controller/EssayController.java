@@ -146,7 +146,7 @@ public class EssayController {
 			// 정보 출력
 			sb = new StringBuffer();
 			sb.append("&bNewLine=true").append("&sFileName=").append(oldName).append("&sFileURL=")
-					.append("http://localhost:8888/img/photoUpload/").append(saveName); //서버쪽 주소를 기준으로...
+					.append("/img/photoUpload/").append(saveName); //서버쪽 주소를 기준으로...
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -61,7 +61,7 @@ public class MemberController {
 	  String uploadPath = servletContext.getRealPath("/resources/img/photoUpload"); 
 	  /*String fixPath = uploadPath.replaceAll("\\\\", "/");*/
 	  String fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
-	  String resultPath = "http://localhost:8888/img/photoUpload" + fileName;
+	  String resultPath = "/img/photoUpload" + fileName;
 	  
 	  return resultPath;
 	  
