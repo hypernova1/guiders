@@ -1,21 +1,3 @@
-/*$('.emailInput').change(function () {
-  $("#selectEmail option:selected").each(function () {
-    if ($(this).val() == '1') { //직접입력일 경우
-      $("#str_email02").val(''); //값 초기화 
-      $("#str_email02").attr("disabled", false); //활성화
-    } else { //직접입력이 아닐경우
-      $("#str_email02").val($(this).text()); //선택값 입력
-      $("#str_email02").attr("disabled", true); //비활성화
-    }
-  });
-});
-
-$('#city').change(function () {
-  $("#city option:selected").each(function () {
-    $("#InputCity").val($(this).text()); //선택값 입력
-  });
-});*/
-
 (function(){
     
     const member = {
@@ -26,8 +8,8 @@ $('#city').change(function () {
             phone: null,
             photo: null,
             ctno: null,
-            introdution: '',
-            quote: '',
+            introdution: null,
+            quote: null,
             field: null,
             lang: null,
             currentjob: null,
@@ -70,16 +52,18 @@ $('#city').change(function () {
     });
     
     document.querySelector('#join-btn2').addEventListener('click', () => {
-        let introdution = document.querySelector('#introdution').value;
-        introdution = introdution.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-        member.introdution = introdution;
         
-        let quote = document.querySelector('#quote').value;
-        quote = quote.replace(/(?:\r\n|\r|\n)/g, '<br />');
-        member.quote = quote;
-        
-        member.photo = document.querySelector('#photo').value;
-        
+        if(document.querySelector('#introdution')){
+            let introdution = document.querySelector('#introdution').value;
+            introdution = introdution.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+            member.introdution = introdution;
+            
+            let quote = document.querySelector('#quote').value;
+            quote = quote.replace(/(?:\r\n|\r|\n)/g, '<br />');
+            member.quote = quote;
+            
+            member.photo = document.querySelector('#photo').value;
+        }
         ajax('/join', 'POST', member).then((result) => {
             if(result) {
                 location.href = '/';
@@ -108,30 +92,35 @@ $('#city').change(function () {
         });
     }
     
-    document.querySelector('#drop-zone').addEventListener('dragenter', function (event) {
-        event.preventDefault();
-    });
-    document.querySelector('#drop-zone').addEventListener('dragover', function (event) {
-        event.preventDefault();
-    });
-    document.querySelector('#drop-zone').addEventListener('drop', function (event) {
-        event.preventDefault();
-        var files = event.dataTransfer.files;
-        var file = files[0];
-        var fileType = file.type;
-
-        var formData = new FormData();
-        formData.append('file', file);
-        console.log(formData.getAll('file'));
-
-        var url = '/uploadImage';
-        var method = 'POST';
-
-        imgAjax(url, method, formData, fileType).then(function (result) {
-            document.querySelector('#photo').value = result;
-            document.querySelector('#drop-zone').innerHTML = '<img src =' + result + '>';
+    const dropZone = document.querySelector('#drop-zone')
+    if(dropZone){
+        dropZone.addEventListener('dragenter', function (event) {
+            event.preventDefault();
         });
-
-    });  
+        dropZone.addEventListener('dragover', function (event) {
+            event.preventDefault();
+        });
+        dropZone.addEventListener('drop', function (event) {
+            event.preventDefault();
+            dropZone.style.borderStyle = 'none';
+            dropZone.style.backgroundImage = 'none';
+            var files = event.dataTransfer.files;
+            var file = files[0];
+            var fileType = file.type;
+            
+            var formData = new FormData();
+            formData.append('file', file);
+            console.log(formData.getAll('file'));
+            
+            var url = '/uploadImage';
+            var method = 'POST';
+            
+            imgAjax(url, method, formData, fileType).then(function (result) {
+                document.querySelector('#photo').value = result;
+                dropZone.innerHTML = '<img src =' + result + '>';
+            });
+            
+        });  
+    }
     
 })();

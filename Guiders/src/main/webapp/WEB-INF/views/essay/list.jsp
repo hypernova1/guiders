@@ -41,13 +41,13 @@
 	      </li>
       </c:forEach>
     </ul>
-    <button id="writeBtn" type="button">글쓰기</button>
+    <c:if test="${pageContext.request.userPrincipal.authorities eq '[ROLE_GUIDER]'}">
+      <button id="writeBtn" type="button">글쓰기</button>
+    </c:if>
   </article>
 </section>
 
 <script>
-
-
 document.querySelector('#writeBtn').addEventListener('click', function(){
 	location.href = '/essay/write';
 });

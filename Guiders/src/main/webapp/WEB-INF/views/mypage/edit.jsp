@@ -3,6 +3,7 @@
 <%@ include file="../include/header.jsp" %>
 
 <link rel="stylesheet" href="/css/mypage/edit.css">
+<script src="/js/mypage/edit.js" defer></script>
 <div id="wrapper">
   <aside>
     <ul>
@@ -58,11 +59,13 @@
       </div>
       <div id="quote">
         <label>인용문</label>
-        <textarea placeholder="인용문" name="quote">${vo.quote}</textarea>
+        <textarea placeholder="인용문" id="quote-value">${vo.quote}</textarea>
+        <input type="hidden" name="quote">
       </div>
       <div>
         <label>경력란</label>
-        <textarea placeholder="경력란" name="introdution">${vo.introdution}</textarea>
+        <textarea placeholder="경력란" id="introdution-value">${vo.introdution}</textarea>
+        <input type="hidden" name="introdution">
       </div>
       </c:when>
       <c:otherwise>
@@ -75,16 +78,4 @@
     </form>
   </section>
 </div>
-<script>
-document.querySelector('#edit-submit').addEventListener('click', () => {
-   if(document.querySelector('textarea[name="introdution"]')){
-	   let introdution = document.querySelector('textarea[name="introdution"]').value; 
-	   introdution = introdution.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-	   let quote= document.querySelector('textarea[name="quote"]').value; 
-	   quote = quote.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-   }
-   document.querySelector('#input-wrapper').submit();
-});
-   
-</script>
 <%@ include file="../include/footer.jsp" %>

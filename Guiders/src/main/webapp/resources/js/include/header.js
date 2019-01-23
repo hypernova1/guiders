@@ -68,6 +68,9 @@ function get_msg(message) {
 	});
 }
 
+document.querySelector('#login-fail-modal-content>button').addEventListener('click', () => {
+    document.querySelector('#login-fail-modal').style.display = 'none';
+})
 function signin() {
 	$.ajax({
 		url : '/login',
@@ -79,11 +82,9 @@ function signin() {
 			xhr.setRequestHeader('x-CSRFToken','${_csrf.token}');
 		}
 	}).success(function(result) {
-	    console.log(result)
-		var error = result.error;
-		if (error)
-			alert('로그인 실패');
-		if (!error) {
+		if (result.response)
+			document.querySelector('#login-fail-modal').style.display = 'block';
+		else {
 		    location.reload();
 		}
 	});
