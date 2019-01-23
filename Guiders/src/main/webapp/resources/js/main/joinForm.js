@@ -26,8 +26,8 @@ $('#city').change(function () {
             phone: null,
             photo: null,
             ctno: null,
-            introdution: null,
-            quote: null,
+            introdution: '',
+            quote: '',
             field: null,
             lang: null,
             currentjob: null,
@@ -70,6 +70,13 @@ $('#city').change(function () {
     });
     
     document.querySelector('#join-btn2').addEventListener('click', () => {
+        let introdution = document.querySelector('#introdution').value;
+        introdution = introdution.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+        member.introdution = introdution;
+        
+        let quote = document.querySelector('#quote').value;
+        quote = quote.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        member.quote = quote;
         
         ajax('/join', 'POST', member).then((result) => {
             if(result) {

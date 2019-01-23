@@ -1,5 +1,5 @@
 section{
-  margin: 10% 30%;
+  margin: 10% 25%;
 }
 #title{
   text-align: center;
@@ -75,10 +75,10 @@ section{
   font-size: 0.8rem;
 }
 
-#answer-textarea{
+#editor{
 	all: unset;
 	resize: none;
-	width: 100%;
+	width: 99.5%;
 	height: 400px;
 }
 #btn-wrap{

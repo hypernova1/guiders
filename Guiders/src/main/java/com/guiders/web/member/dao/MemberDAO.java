@@ -7,24 +7,30 @@ import com.guiders.web.member.domain.MemberVO;
 
 public interface MemberDAO {
 
-	public List<MemberVO> selectMemberList();
+	List<MemberVO> selectMemberList();
 
-	public void insertMember(GuiderVO guiderVO);
+	void insertMember(GuiderVO guiderVO);
 	
-	public MemberVO loginCheck(String email);
+	MemberVO loginCheck(String email);
 	
-	public void insertGuider(GuiderVO guiderVO);
+	void insertGuider(GuiderVO guiderVO);
 
-	public MemberVO selectMember(String email);
+	void updateMember(GuiderVO guiderVO);
 
-	public void updateMember(GuiderVO guiderVO);
+	void insertAuth(Map<String, String> param);
 
-	public void insertAuth(Map<String, String> param);
+	List<String> getAuthList(String email);
 
-	public List<String> getAuthList(String email);
-
-	public GuiderVO selectGuider();
+	GuiderVO selectGuider();
 	
-	public GuiderVO selectByEmail(String email);
+	GuiderVO selectByEmail(Map<String, String> param);
+	
+	List<Map<String, Object>> selectGuiderList(Map<String, Object> page);
+	
+	Integer selectFollow(Map<String, String> param);
+	
+	Integer insertFollow(Map<String, String> param);
+	
+	Integer deleteFollow(Map<String, String> param);
 	
 }

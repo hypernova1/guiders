@@ -81,8 +81,6 @@ public class DBTest {
   @Test
   public void selectMemberTest() {
 
-    System.out
-        .println(sqlSession.getMapper(MemberDAO.class).selectMember("test@naver.com").getEmail());
   }
 
   @Test

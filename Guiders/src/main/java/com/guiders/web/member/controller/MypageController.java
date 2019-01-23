@@ -47,7 +47,7 @@ public class MypageController {
   @GetMapping("guider/{email}")
   public @ResponseBody ResponseEntity<GuiderVO> guider(@PathVariable String email){
     
-    return new ResponseEntity<>(memberService.selectByEmail(email), HttpStatus.OK);
+    return new ResponseEntity<>(memberService.selectByEmail(email, "guider"), HttpStatus.OK);
   }
   
   @GetMapping("questions")
@@ -56,11 +56,10 @@ public class MypageController {
     if(authentication != null) {
       UserCustom user = (UserCustom) authentication.getPrincipal();
       mentorings = mentoringService.getMyQuestions(user.getEmail());
-      
     }
     model.addAttribute("mentorings", mentorings);
     return "mypage/questions";
   }
-
+  
   
 }
