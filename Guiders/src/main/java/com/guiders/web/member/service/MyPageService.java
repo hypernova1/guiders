@@ -2,7 +2,6 @@ package com.guiders.web.member.service;
 
 import java.util.List;
 import java.util.Map;
-
 import com.guiders.web.essay.domain.EssayVO;
 
 public interface MyPageService {

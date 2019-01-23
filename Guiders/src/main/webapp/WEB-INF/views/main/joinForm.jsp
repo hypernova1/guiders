@@ -88,7 +88,7 @@
 	      </div>
 	      
 	      <div id="drop-zone">여기에 사진을 드래그 해주세요</div>
-	      
+	      <input type="hidden" id="photo">
 	      
 	      <div id="field">
 	        <div>
@@ -130,52 +130,7 @@
   </section>
   
     <script>
-        function imgAjax(url, method, formData, fileType) {
-            return new Promise((resolve, reject) => {
-
-                const xhr = new XMLHttpRequest();
-
-                xhr.onreadystatechange = () => {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                        if (xhr.status === 200) {
-                            resolve(xhr.response);
-                        } else {
-                            reject('Error', xhr.status);
-                        }
-                    }
-                }
-                xhr.open(method, url);
-                /* xhr.setRequestHeader('Content-Type', fileType); */
-                /* xhr.send(JSON.stringify(formData)); */
-                xhr.send(formData);
-            });
-        }
-        document.querySelector('#drop-zone').addEventListener('dragenter', function (event) {
-            event.preventDefault();
-        });
-        document.querySelector('#drop-zone').addEventListener('dragover', function (event) {
-            event.preventDefault();
-        });
-        document.querySelector('#drop-zone').addEventListener('drop', function (event) {
-            event.preventDefault();
-            var files = event.dataTransfer.files;
-            var file = files[0];
-            var fileType = file.type;
-
-            var formData = new FormData();
-            formData.append('file', file);
-            console.log(formData.getAll('file'));
-
-            var url = '/uploadImage';
-            var method = 'POST';
-
-            imgAjax(url, method, formData, fileType).then(function (result) {
-                console.log(result);
-                var img = JSON.stringify(result);
-                document.querySelector('#drop-zone').innerHTML = '<img src =' + img + '>';
-            });
-
-        });  
+        
     </script>
   
 

@@ -15,7 +15,7 @@ window.addEventListener('load', () => {
           document.querySelector('.title').innerHTML += `<ul class="follower-content">
 
             <li>
-              <img class="profile-img" src="/img/naruto.jpg">
+              <img class="profile-img" src="` + guider.photo + `">
               <div class="guider-name">` + guider.mname + ` 가이더</div>
             </li>
             <li>
@@ -33,25 +33,14 @@ window.addEventListener('load', () => {
             <li>
               <button class="question-btn">질문하기</button>
               <button class="unfollow-btn">UNFOLLOW</button>
+              <div class="more-qna">전체 질문 보기</div>
             </li>
-            <input type="hidden" value="` + guider.email + `">
+            <input type="hidden" class="guider-email" value="` + guider.email + `">
           </ul>
           `
         })
     });
 });
-
-/*
- * document.querySelector('.question-btn').addEventListener('click', function() {
- * const modal = document.querySelector('#mtr-modal'); const modalBody =
- * document.querySelector('#mtr-modal-body'); modal.style.display = 'block'; let
- * i = 1; const increase = setInterval(function () { if (i == 51) {
- * clearInterval(increase); } else { modal.style.backgroundColor = 'rgba(0, 0,
- * 0,' + 0.01 * i + ')'; i++; } }, 10);
- * 
- * 
- * }); });
- */
 
 var body = document.body;
 var guiderModal = document.getElementById("modal");
@@ -62,16 +51,30 @@ const mtrModalBody = document.querySelector('#mtr-modal-body');
 document.querySelector('.title').addEventListener("click", ({target}) => {
     switch(target.className){
     case 'profile-img':
+        const guiderEmail = target.parentElement.parentElement.lastElementChild.value;
+        ajax(`/guider?email=${guiderEmail}`, 'GET', {}).then((result) => {
+            const guider = JSON.parse(result);
+            document.querySelector('.modal-content-title>img').src = guider.photo;
+            document.querySelector('div>strong').innerText = guider.mname;
+            document.querySelector('.modal-content-title>div:nth-child(4)>span:nth-child(2)').innerText 
+                = guider.currentjob;
+            document.querySelector('.modal-content-title>div:nth-child(5)>span:nth-child(2)').innerText
+                = guider.dept;
+            document.querySelector('.modal-content-title>div:nth-child(6)>span:nth-child(2)').innerText
+            = guider.field;
+            document.querySelector('.modal-content-body > div').innerHTML = guider.introdution;
+        });
         guiderModal.style.display = "block";
         body.style.overflow = "hidden";
         break;
+        
     case 'question-btn':
         const hiddenList = target.parentElement.parentElement.querySelectorAll('input[type="hidden"]');
-        document.querySelector('#guider-email').value = 
-            target.parentElement.parentElement.querySelector('input').value;
         document.querySelector('#field').innerText = hiddenList[0].value;
         document.querySelector('#lang').innerText = hiddenList[1].value;
-        document.querySelector('#mtr-modal-body>h2>span').innerText = hiddenList[2].value;
+        document.querySelector('#guider-email').value = hiddenList[2].value;
+        document.querySelector('#mtr-modal-body>h2>span').innerText = 
+            target.parentElement.parentElement.firstElementChild.children[1].innerText
         mtrModal.style.display = 'block';
         let i = 1;
         const increase = setInterval(function () {
@@ -83,6 +86,9 @@ document.querySelector('.title').addEventListener("click", ({target}) => {
           }
         }, 10);
         break;
+        
+    case "more-qna": 
+        location.href = `/mentoring/list?email=${target.parentElement.parentElement.querySelector('.guider-email').value}`;
     }
     
     if(target.getAttribute('data-mtrno')){
@@ -92,13 +98,18 @@ document.querySelector('.title').addEventListener("click", ({target}) => {
 });
 
 document.querySelector('#mtr-submit').addEventListener('click', function({target}) {
+    let mcontent = document.querySelector('textarea[name="mcontent"]').value;
+    mcontent = mcontent.replace(/(?:\r\n|\r|\n)/g, '<br />');
     const mentoring = {
             guider: document.querySelector('#guider-email').value,
             field: document.querySelector('#field').innerText,
             lang: document.querySelector('#lang').innerText,
             mtitle: document.querySelector('input[name="mtitle"]').value,
-            mcontent: document.querySelector('textarea[name="mcontent"]').value,
+            mcontent: mcontent,
     }
+    
+    
+    
     ajax('/mentoring', 'POST', mentoring).then((result) => {
         if (result){
            location.reload(); 

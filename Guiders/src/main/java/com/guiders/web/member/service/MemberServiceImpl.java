@@ -1,6 +1,8 @@
 package com.guiders.web.member.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,15 +24,10 @@ public class MemberServiceImpl implements MemberService {
     return sqlSession.getMapper(MemberDAO.class).selectMemberList();
   }
 
-  @Override
-  public MemberVO readMember(String email) {
-    return sqlSession.getMapper(MemberDAO.class).selectMember(email);
-  }
 
   @Override
   public void modifyMember(GuiderVO guiderVO) {
     if(!guiderVO.getPassword().equals("")) {
-      System.out.println("dddd");
       String password = bCryptPasswordEncoder.encode(guiderVO.getPassword());
       guiderVO.setPassword(password);
     }
@@ -53,8 +50,49 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public GuiderVO selectByEmail(String email) {
-    return sqlSession.getMapper(MemberDAO.class).selectByEmail(email);
+  public GuiderVO selectByEmail(String email, String type) {
+    Map<String, String> param = new HashMap<>();
+    param.put("email", email);
+    param.put("type", type);
+    return sqlSession.getMapper(MemberDAO.class).selectByEmail(param);
+  }
+
+
+  @Override
+  public List<Map<String, Object>> getGuiderList(Integer page, String email) {
+    if (page == null) page = 0;
+    
+    Map<String, Object> param = new HashMap<>();
+    param.put("page", page);
+    param.put("email", email);
+    return sqlSession.getMapper(MemberDAO.class).selectGuiderList(param);
+  }
+
+
+  @Override
+  public Integer isFollow(String guider, String follow) {
+    Map<String, String> param = new HashMap<>();
+    param.put("follower", follow);
+    param.put("guider", guider);
+    return sqlSession.getMapper(MemberDAO.class).selectFollow(param);
+  }
+
+
+  @Override
+  public Integer follow(String guider, String follow) {
+    Map<String, String> param = new HashMap<>();
+    param.put("follower", follow);
+    param.put("guider", guider);
+    return sqlSession.getMapper(MemberDAO.class).insertFollow(param);
+  }
+
+
+  @Override
+  public Integer unfollow(String guider, String follow) {
+    Map<String, String> param = new HashMap<>();
+    param.put("follower", follow);
+    param.put("guider", guider);
+    return sqlSession.getMapper(MemberDAO.class).deleteFollow(param);
   }
 
 

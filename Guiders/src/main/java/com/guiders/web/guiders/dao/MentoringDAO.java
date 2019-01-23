@@ -9,4 +9,5 @@ public interface MentoringDAO {
   Integer updateMentoring(MentoringVO mentoringVO);
   MentoringVO selectMentoring(Integer mtrno);
   List<Map<String, Object>> selectMyQuestions(String email);
+  List<Map<String, Object>> selectMentoringList(Map<String, String> param);
 }

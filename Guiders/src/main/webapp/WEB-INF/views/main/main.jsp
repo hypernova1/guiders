@@ -116,32 +116,57 @@
   <h2 id="makers-title">DEVELOPERS</h2>
   <section id="makers">
     <div class="maker">
-      <div class="maker-img">
-        <img src="https://t1.daumcdn.net/cfile/tistory/2668BD39515EC54510">
+    <div class="card">
+      <div class="face front">
+        <img src="/img/june.jpg" alt="">
+        <div class="name">정원준</div>
+        <div class="role-title">ROLE</div>
+        <div class="role">시큐리티, 화면 디자인</div>
       </div>
-      <h3 class="maker-name">바흐</h3>
-      <div class="maker-tech">
-        
+      <div class="face back">
+        ddd
       </div>
     </div>
-    <div class="maker">
-      <div class="maker-img">
-        <img src="http://auditorium.kr/wp-content/uploads/2018/09/13_%EC%95%84%EB%82%B4%EC%97%90%EA%B2%8C-%EB%B3%B4%EB%82%B4%EB%8A%94-%EB%AA%A8%EC%B0%A8%EB%A5%B4%ED%8A%B8%EC%9D%98-%ED%8E%B8%EC%A7%80_1.jpg">
+  </div>
+  <div class="maker">
+    <div class="card">
+      <div class="face front">
+        <img src="http://imgnn.seoul.co.kr/img//upload/2015/01/08/SSI_20150108110205_V.jpg" alt="">
+        <div class="name">권샘찬</div>
+        <div class="role-title">ROLE</div>
+        <div class="role">회원 관리, 화면 디자인</div>
       </div>
-      <h3 class="maker-name">모차르트</h3>
-    </div>
-    <div class="maker">
-      <div class="maker-img">
-        <img src="http://imgnn.seoul.co.kr/img//upload/2015/01/08/SSI_20150108110205_V.jpg">
+      <div class="face back">
+        ddd
       </div>
-      <h3 class="maker-name">베토벤</h3>
     </div>
-    <div class="maker">
-      <div class="maker-img">
-        <img src="https://t1.daumcdn.net/cfile/tistory/140D813A516FF2110F">
+  </div>
+  <div class="maker">
+    <div class="card">
+      <div class="face front">
+        <img src="http://imgnn.seoul.co.kr/img//upload/2015/01/08/SSI_20150108110205_V.jpg" alt="">
+        <div class="name">전지영</div>
+        <div class="role-title">ROLE</div>
+        <div class="role">게시판, 화면 디자인</div>
       </div>
-      <h3 class="maker-name">슈베르트</h3>
+      <div class="face back">
+        ddd
+      </div>
     </div>
+  </div>
+  <div class="maker">
+    <div class="card">
+      <div class="face front">
+        <img src="http://imgnn.seoul.co.kr/img//upload/2015/01/08/SSI_20150108110205_V.jpg" alt="">
+        <div class="name">김정훈</div>
+        <div class="role-title">ROLE</div>
+        <div class="role">회원검색, 화면 디자인</div>
+      </div>
+      <div class="face back">
+        ddd
+      </div>
+    </div>
+  </div>
   </section>
   
   <%@ include file="../include/footer.jsp" %>

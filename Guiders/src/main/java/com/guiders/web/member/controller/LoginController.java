@@ -24,7 +24,6 @@ public class LoginController {
   
   @PostMapping("join")
   public ResponseEntity<Boolean> join(@RequestBody GuiderVO guiderVO) {
-    System.out.println(guiderVO.getCurrentjob());
     loginService.join(guiderVO);
     return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     

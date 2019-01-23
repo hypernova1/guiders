@@ -25,45 +25,50 @@
   </select>
   
   <select id="selectMember" resultType="memberVO" parameterType="string">
-		select m.EMAIL, m.MNAME, m.PASSWORD, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
-		       g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
+		select m.EMAIL, m.MNAME, m.PASSWORD, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate,
+		       g.currentjob, g.dept, g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
 		from member m
 		join guider g
 		on m.email = g.email
 		where m.email = #{email}
   </select>
   
-   <select id="selectByEmail" resultType="guiderVO" parameterType="string">
-    select m.EMAIL, m.MNAME, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
-           g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG, g.currentjob, g.dept
+   <select id="selectByEmail" parameterType="string" resultType="guiderVO">
+    SELECT m.email, m.mname, m.gender, m.phone, m.photo, m.ctno, m.regdate
+    <if test="type == 'guider'">
+    , g.introdution, g.quote, g.field, g.lang, g.currentjob, g.dept
+    </if>
     from member m
+    <if test="type == 'guider'">
     join guider g
     on m.email = g.email
-    where m.email = #{email}
+    </if>
+    WHERE m.email = #{email}
   </select>
   
   <update id="updateMember" parameterType="guiderVO">
 		UPDATE member m
-    <if test="dept != ''">
+    <if test="dept != null">
 		, guider g
 		</if>
 		
-		SET m.MNAME = #{mname},
+		SET m.mname = #{mname},
     <if test="password != ''">
         m.password = #{password},
     </if>
-        m.phone = #{phone},
-    <if test="dept != ''">
-		    g.INTRODUTION = #{introdution},
-		    g.QUOTE = #{quote},
-		    g.FIELD = #{field},
-		    g.LANG = #{lang},
+        m.phone = #{phone}
+    <if test="dept != null">
+		    ,
+		    g.introdution = #{introdution},
+		    g.quote = #{quote},
+		    g.field = #{field},
+		    g.lang = #{lang},
 		    g.currentjob = #{currentjob},
 		    g.dept = #{dept}
 		</if>
     WHERE m.email = #{email}
 		    
-    <if test="dept != ''">
+    <if test="dept != null">
     AND g.email = #{email}
     </if>
   </update>
@@ -77,5 +82,35 @@
     select auth from member_auth
     where email = #{email}
   </select>
+  
+  <select id="selectGuiderList" parameterType="map" resultType="map">
+		SELECT m.email, m.mname, m.gender, m.phone, m.photo, m.ctno, m.regdate,
+		       g.introdution, g.quote, g.field, g.lang, g.currentjob, g.dept
+		       <if test="email != null">
+		       , f.fno
+		       </if>
+		FROM member m
+		INNER JOIN guider g
+		ON m.email = g.email
+		<if test="email != null">
+		LEFT JOIN follower f
+		ON f.follow = #{email} and f.guider = g.email
+		</if>
+		ORDER BY m.regdate
+		limit #{page}, 16
+  </select>
+  
+  <select id="selectFollower" parameterType="map" resultType="integer">
+    SELECT count(fno) FROM follower
+    WHERE guider = #{guider} AND follow = #{follower};
+  </select>
+  
+  <insert id="insertFollow">
+    INSERT INTO follower (guider, follow) VALUES(#{guider}, #{follower})
+  </insert>
+  
+  <delete id="deleteFollow">
+    DELETE FROM follower WHERE guider = #{guider} AND follow = #{follower}
+  </delete>
   
 </mapper>

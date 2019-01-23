@@ -12,18 +12,18 @@ section {
 .title { /* 팔로워 리스트 크기 조정 */
   display: flex;
   flex-direction: column;
-  margin: 10%;
+  margin: 5%;
 }
 
 .title .follower-content {
   height: 200px;
+  width: 1000px;
   display: flex;
   border: 2px solid #6d6d72;
   border-radius: 20px;
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0
-    rgba(0, 0, 0, 0.12);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0);
   list-style: none;
-  margin-bottom: 5px; /* 프로필 밑쪽 간격 */
+  margin: 10px 0;
   padding-left: 30px;
   /* padding-right: 20px; */
 }
@@ -37,6 +37,7 @@ section {
   width: 130px;
   height: 130px;
   border-radius: 50%;
+  border: 2px solid #ff2d55;
 }
 
 .question, .question-head, .question-suggestion { /* li 안의 p태그 (글) */
@@ -124,6 +125,7 @@ section {
 }
 li>p {
 	text-align: left;
+	overflow: hidden;
 }
 
 .mtr-info{
@@ -153,4 +155,32 @@ li>p {
 .job>div, .dept>div{
 	width: 100%;
 	font-weight: bold;
+}
+
+.more-qna {
+	position: relative;
+	top: 45px;
+	left: 20px;
+	cursor: pointer;
+}
+.more-qna:hover{
+	text-decoration: underline;
+}
+
+.follower-content>li:nth-child(4){
+	position: relative;
+	top: 10px;
+}
+#current-job, #guider-info {
+	margin-top: 30px;
+}
+#guider-info, .modal-content-body {
+	text-align: center;
+}
+.modal-content-body>div{
+	word-break:break-all;
+}
+
+#current-job>span:nth-child(1), #dept>span:nth-child(1), #field2>span:nth-child(1) {
+	font-size: 0.9rem;
 }

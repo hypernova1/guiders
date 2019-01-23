@@ -26,8 +26,8 @@ $('#city').change(function () {
             phone: null,
             photo: null,
             ctno: null,
-            introdution: null,
-            quote: null,
+            introdution: '',
+            quote: '',
             field: null,
             lang: null,
             currentjob: null,
@@ -70,12 +70,68 @@ $('#city').change(function () {
     });
     
     document.querySelector('#join-btn2').addEventListener('click', () => {
+        let introdution = document.querySelector('#introdution').value;
+        introdution = introdution.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+        member.introdution = introdution;
+        
+        let quote = document.querySelector('#quote').value;
+        quote = quote.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        member.quote = quote;
+        
+        member.photo = document.querySelector('#photo').value;
         
         ajax('/join', 'POST', member).then((result) => {
             if(result) {
                 location.href = '/';
             }
         });
-    })
+    });
+    
+    function imgAjax(url, method, formData, fileType) {
+        return new Promise((resolve, reject) => {
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        resolve(xhr.response);
+                    } else {
+                        reject('Error', xhr.status);
+                    }
+                }
+            }
+            xhr.open(method, url);
+            /* xhr.setRequestHeader('Content-Type', fileType); */
+            /* xhr.send(JSON.stringify(formData)); */
+            xhr.send(formData);
+        });
+    }
+    
+    document.querySelector('#drop-zone').addEventListener('dragenter', function (event) {
+        event.preventDefault();
+    });
+    document.querySelector('#drop-zone').addEventListener('dragover', function (event) {
+        event.preventDefault();
+    });
+    document.querySelector('#drop-zone').addEventListener('drop', function (event) {
+        event.preventDefault();
+        var files = event.dataTransfer.files;
+        var file = files[0];
+        var fileType = file.type;
+
+        var formData = new FormData();
+        formData.append('file', file);
+        console.log(formData.getAll('file'));
+
+        var url = '/uploadImage';
+        var method = 'POST';
+
+        imgAjax(url, method, formData, fileType).then(function (result) {
+            document.querySelector('#photo').value = result;
+            document.querySelector('#drop-zone').innerHTML = '<img src =' + result + '>';
+        });
+
+    });  
     
 })();
