@@ -92,10 +92,17 @@
 
 				</div>
 			</form>
-			<div id="etc">
-				<span id="join-btn">회원가입</span> l <span id="pwd-btn">비밀번호 찾기</span>
-			</div>
+<!-- 			<div id="etc">
+				<span id="join-btn"><a href="/join">회원가입</a></span> l <span id="pwd-btn">비밀번호 찾기</span>
+			</div> -->
 		</div>
+	</div>
+	
+	<div id="login-fail-modal">
+	  <div id="login-fail-modal-content">
+	    <div>회원 정보가 맞지 않습니다.</div>
+	    <button class="btn">확인</button>
+	  </div>
 	</div>
 
 	<form id="mtr-modal">

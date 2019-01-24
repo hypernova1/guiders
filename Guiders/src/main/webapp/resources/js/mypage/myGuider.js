@@ -63,9 +63,8 @@ document.querySelector('.title').addEventListener("click", ({target}) => {
             document.querySelector('.modal-content-title>div:nth-child(6)>span:nth-child(2)').innerText
             = guider.field;
             document.querySelector('.modal-content-body > div').innerHTML = guider.introdution;
+            guiderModal.style.display = "block";
         });
-        guiderModal.style.display = "block";
-        body.style.overflow = "hidden";
         break;
         
     case 'question-btn':

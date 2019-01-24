@@ -7,8 +7,8 @@
 
 <section>
   <article>
-    <div id="field">진로</div>
-    <div id="lang">C++</div>
+    <div id="field">${essayVO.field}</div>
+    <div id="lang">${essayVO.lang}</div>
     <h1 id="title">${essayVO.etitle}</h1>
     <div id="content">${essayVO.econtent}</div>
   </article>

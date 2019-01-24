@@ -28,9 +28,10 @@ document.querySelector('.guider-wrapper').addEventListener('click', ({target}) =
                 = guider.dept;
             document.querySelector('.modal-content-title>div:nth-child(6)>span:nth-child(2)').innerText
             = guider.field;
-            document.querySelector('.modal-content-body > div').innerHTML = guider.introdution;
+            document.querySelector('.modal-content-body>div').innerHTML = guider.introdution;
+            document.querySelector('#quote').innerHTML = guider.quote;
+            guiderModal.style.display = "block";
         });
-        guiderModal.style.display = "block";
         break;
     case "btn follow":
         ajax('/follow', 'POST', {guider: target.parentElement.children[0].children[1].innerText}).then((result) => {

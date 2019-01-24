@@ -26,7 +26,7 @@
 		<div class="modal-content">
 			<span class="close">&times;</span>
 			<div class="modal-content-title">
-				<img src="/img/naruto.jpg"><br>
+				<img src=""><br>
 				<div>
 					<strong style="color: #ff2d55"></strong>
 					<span> 가이더</span>

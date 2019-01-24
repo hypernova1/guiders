@@ -16,7 +16,7 @@ ul {
 	display: flex;
 	margin: 8px;
 	padding: 0.4rem;
-	height: 200px;
+	height: 220px;
 	border: 1px solid #b2bec3;
 	border-radius: 4px;
 }
@@ -42,6 +42,8 @@ section {
 .title {
 	display: inline-block;
 	padding-left: 10px;
+	width: 800px;
+	overflow: hidden;
 }
 
 .title:hover {
@@ -97,7 +99,7 @@ article {
 	display: inline-block;
 	width: auto;
 	height: 113px;
-	margin-top: 20px;
+	margin: 20px 0;
 	padding: 5px;
 	color: #636e72;
 	overflow: hidden;

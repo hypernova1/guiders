@@ -44,7 +44,7 @@ public class EssayController {
 
 	@GetMapping("/essay/write")
 	public String writeEssay(Model model, Authentication authentication) {
-		if (authentication.getPrincipal() != null) {
+		if (authentication != null) {
 			UserCustom user = (UserCustom) authentication.getPrincipal();
 			GuiderVO vo = memberService.selectByEmail(user.getEmail(), "guider");
 			model.addAttribute("email", vo.getEmail());

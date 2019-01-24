@@ -5,27 +5,6 @@
 <link rel="stylesheet" href="/css/main/joinForm.css">
 <script src="/js/main/joinForm.js" defer></script>
 
-<style>
-#drop-zone {
-    font-weight: bold;
-    font-size: 25px;
-    text-align: center;
-    border: 1px solid black;
-    width: 185px;
-    height: 250px;
-    position: relative;
-    margin: auto;
-    vertical-align: center;
-}
-
-#drop-zone > img {
-    width: auto;
-    height: auto;
-    max-height: 100%;
-    max-width: 100%;
-}
-</style>
-
 <section>
     <div id="join_form">
     <c:choose>
@@ -36,6 +15,12 @@
 	      <h2>Follower Join</h2>
       </c:otherwise>
     </c:choose>
+    <c:if test="${guider eq true }">
+    <div id="drop-zone-wrap">
+      <div id="drop-zone">프로필 사진</div>
+      <input type="hidden" id="photo">
+    </div>
+    </c:if>
       <div>
           <label>이메일</label>
           <input type="text" name="email">
@@ -86,10 +71,6 @@
 	        </div>
 	        <textarea id="quote" placeholder="오늘 나는 이렇게 무너진다만, 내일의 나는 무너진다."></textarea>
 	      </div>
-	      
-	      <div id="drop-zone">여기에 사진을 드래그 해주세요</div>
-	      <input type="hidden" id="photo">
-	      
 	      <div id="field">
 	        <div>
 	          <label>분야</label>
@@ -129,9 +110,4 @@
     </div>
   </section>
   
-    <script>
-        
-    </script>
-  
-
 <%@ include file="../include/footer.jsp" %>
