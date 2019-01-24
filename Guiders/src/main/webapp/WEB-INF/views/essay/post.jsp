@@ -34,20 +34,19 @@
       <div class="follow-btn">팔로우</div>
       <div class="qna-btn">질문하기</div>
       <div id="mtr-btn-wrap">
-        <div id="mtr-essay-btn">
-          작성 에세이 보기
-        </div>
-        <div id="mtr-page-btn">
-          멘토 상세정보
-        </div>
+        <div id="mtr-essay-btn">작성 에세이 보기</div>
+        <div id="mtr-page-btn">멘토 상세정보</div>
       </div>
     </div>
   </div>
+    <div id="button-wrap">
+      <button id="listBtn">목록으로</button>
+      <button id="beforeBtn">뒤로가기</button>
+    </div>
 </section>
 
 <script type="text/javascript" defer>
 	const modifyBtn = document.querySelector('#modifyBtn');
-	/* let likeIcon = document.querySelector('#likeSpan').innerText.substring(0, 1); */
 	const removeBtn = document.querySelector('#removeBtn');
 	
 	if(modifyBtn){
@@ -97,6 +96,15 @@
 			}
 		});
 	}
+	
+	document.querySelector('#button-wrap').addEventListener('click', ({target}) => {
+	    console.log(target);
+	    if(target.id == 'beforeBtn'){
+	        history.back();
+	    } else if(target.id == 'listBtn'){
+	        location.href = '/essay/list';
+	    }
+	})
 	
 	
 </script>

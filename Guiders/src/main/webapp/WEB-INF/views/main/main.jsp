@@ -5,10 +5,20 @@
 <link rel="stylesheet" href="/css/main/main.css">
 <script src="/js/main/main.js" defer></script>
 <div id="header-img">
+	<c:choose>
+	 <c:when test="${pageContext.request.userPrincipal == null}">
     <div>
       <p>지금 바로 가입하세요.</p>
       <button type="button" class="btn" id="join">가입하기</button>
     </div>
+	 </c:when>
+	 <c:otherwise>
+	 <div>
+	   <p>실패란 보다 현명하게 다시 시작할 수 있는 기회다.</p>
+	   <p> - 헨리포</p>
+	 </div>
+	 </c:otherwise>
+	</c:choose>
   </div>
   <section id="article">
     <h2>인기 에세이</h2>
