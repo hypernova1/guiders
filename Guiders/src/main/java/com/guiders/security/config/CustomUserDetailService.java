@@ -25,7 +25,7 @@ public class CustomUserDetailService implements UserDetailsService{
 		
 		if(memberVO == null) {
 			throw new 
-			UsernameNotFoundException("no user found with username : "+ email);
+			UsernameNotFoundException("no user found with username : " + email);
 		}
 		
 		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
