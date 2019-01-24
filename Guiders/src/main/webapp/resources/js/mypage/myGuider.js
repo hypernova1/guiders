@@ -135,10 +135,10 @@ document.querySelector('#mtr-cancel').addEventListener('click', function () {
 });
 
     
-modalSpan.addEventListener("click", function(){
+/*modalSpan.addEventListener("click", function(){
      guiderModal.style.display = "none";
      body.style.overflow = "";
-});
+});*/
     
 window.addEventListener("click", function(){
     if(event.target == guiderModal){

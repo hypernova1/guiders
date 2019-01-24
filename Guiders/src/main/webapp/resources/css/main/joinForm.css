@@ -78,6 +78,7 @@ section input[type="checkbox"]:checked + label span , section input[type="radio"
   background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -19px top no-repeat;
 }
 textarea{
+	font-size: 1.2rem;
   resize: none;
   width: 400px;
   height: 200px;
@@ -102,9 +103,11 @@ div>label{
 #field, #lang{
   text-align: center;
   margin: 1.5rem 0 1.5rem 100px;
+  border: none;
 }
 #field>label, #lang>label{
   width: auto;
+  margin: 3px;
 }
 #field>div>label, #lang>div>label{
   text-align: center;

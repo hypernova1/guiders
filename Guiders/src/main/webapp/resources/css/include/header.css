@@ -376,6 +376,7 @@ form h2 {
 }
 #login-fail-modal-content>button{
 	color: white;
+	margin: 0;
 	margin-top: 10px;
 }
 #login-fail-modal-content>div{
