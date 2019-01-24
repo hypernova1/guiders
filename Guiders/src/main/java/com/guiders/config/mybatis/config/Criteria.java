@@ -40,7 +40,7 @@ public class Criteria {
 	 * public void setKeyword(String keyword) { this.keyword = keyword; }
 	 */
 
-	public int getPageStart() {
+	public Integer getPageStart() {
 		return (this.page - 1) * perPageNum;
 	}
 

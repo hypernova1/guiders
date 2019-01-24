@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.guiders.config.mybatis.config.Criteria;
+import com.guiders.config.mybatis.config.PageMaker;
 import com.guiders.security.config.UserCustom;
 import com.guiders.web.essay.domain.EssayVO;
 import com.guiders.web.essay.service.EssayService;
@@ -35,6 +38,7 @@ public class EssayController {
 
 	@Autowired
 	private EssayService essayService;
+	
 	@Autowired
 	private MemberService memberService;
 
@@ -60,8 +64,19 @@ public class EssayController {
 	}
 	
 	@GetMapping("/essay/list")
-	public String essayList(Model model) { //페이징 관련 parameter 받을 예정
-		List<EssayVO> list = essayService.essayList();
+	public String essayList(Model model, @Param("int") Integer page) { //페이징 관련 parameter 받을 예정
+		Criteria cri = new Criteria();
+		
+		if(page != null) {
+			cri.setPage(page);
+		}
+		PageMaker pm = new PageMaker();
+		pm.setCri(cri);
+		
+		pm.setTotal(essayService.getEssayCount());
+		
+		Integer startNum = cri.getPageStart();
+		List<EssayVO> list = essayService.getEssayList(startNum);
 		for(int i = 0; i < list.size(); i ++) {
 			String econtent = list.get(i).getEcontent();
 			econtent = econtent.replaceAll("<[^>]*>","");
@@ -73,7 +88,7 @@ public class EssayController {
 		}
 		
 		model.addAttribute("essayList", list);
-		
+		model.addAttribute("pm", pm);
 		return "/essay/list";
 	}
 

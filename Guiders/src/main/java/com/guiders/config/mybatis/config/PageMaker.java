@@ -8,8 +8,57 @@ public class PageMaker {
 	private int displayNum;
 	private int total;
 
+	
+	public int getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+
+	public boolean isPrev() {
+		return prev;
+	}
+
+	public void setPrev(boolean prev) {
+		this.prev = prev;
+	}
+
+	public boolean isNext() {
+		return next;
+	}
+
+	public void setNext(boolean next) {
+		this.next = next;
+	}
+
+	public int getDisplayNum() {
+		return displayNum;
+	}
+
+	public void setDisplayNum(int displayNum) {
+		this.displayNum = displayNum;
+	}
+
+	public Criteria getCri() {
+		return cri;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
 	public PageMaker() {
-		this.displayNum = 5;
+		this.displayNum = 10;
 	}
 
 	public void setCri(Criteria cri) {

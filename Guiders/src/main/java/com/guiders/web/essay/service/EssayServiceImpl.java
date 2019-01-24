@@ -29,8 +29,8 @@ public class EssayServiceImpl implements EssayService{
 	}
 
 	@Override
-	public List<EssayVO> essayList() {
-		return sqlSession.getMapper(EssayDAO.class).selectEssayList();
+	public List<EssayVO> getEssayList(Integer startNum) {
+		return sqlSession.getMapper(EssayDAO.class).selectEssayList(startNum);
 	}
 
 	@Override
@@ -66,6 +66,11 @@ public class EssayServiceImpl implements EssayService{
 	@Override
 	public void removeEssay(Integer eno) {
 		sqlSession.getMapper(EssayDAO.class).deleteEssay(eno);
+	}
+
+	@Override
+	public Integer getEssayCount() {
+		return sqlSession.getMapper(EssayDAO.class).selectEssayCount();
 	}
 
 	

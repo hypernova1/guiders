@@ -26,13 +26,16 @@ public class EssayTest {
 	@Test
 	public void essayInsertTest() {
 		EssayVO vo = new EssayVO();
-		vo.setEmail("test@naver.com");
-		vo.setEtitle("안녕하세요!");
-		vo.setEcontent("미세먼지 그으켬");
-		vo.setField("잡담전문");
-		vo.setLang("Java");
+		for(int i=0; i < 100; i++) {
+			vo.setEmail("test@naver.com");
+			vo.setEtitle("안녕하세요!!!!!!!!!! 누워서 자고싶다......" + i);
+			vo.setEcontent("프로젝트가 다 끝나갑니다..........ㅠㅠㅠ 정말 슬프네요");
+			vo.setField("잡담전문");
+			vo.setLang("Java");
+			sqlSession.getMapper(EssayDAO.class).insertEssay(vo);
+		}
+	
 
-		sqlSession.getMapper(EssayDAO.class).insertEssay(vo);
 
 	}
 
@@ -50,7 +53,8 @@ public class EssayTest {
 
 	@Test
 	public void essayListTest() {
-		System.out.println(sqlSession.getMapper(EssayDAO.class).selectEssayList());
+		Integer startNum = 15;
+		System.out.println(sqlSession.getMapper(EssayDAO.class).selectEssayList(startNum));
 	}
 
 	@Test
