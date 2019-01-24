@@ -162,3 +162,7 @@ article {
 .role{
 	font-size: 0.9rem;
 }
+
+#header-img > div > p:nth-child(2){
+	text-align: right;
+}

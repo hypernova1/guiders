@@ -33,7 +33,7 @@
 		where m.email = #{email}
   </select>
   
-   <select id="selectByEmail" parameterType="string" resultType="guiderVO">
+   <select id="selectByEmail" parameterType="map" resultType="guiderVO">
     SELECT m.email, m.mname, m.gender, m.phone, m.photo, m.ctno, m.regdate
     <if test="type == 'guider'">
     , g.introdution, g.quote, g.field, g.lang, g.currentjob, g.dept

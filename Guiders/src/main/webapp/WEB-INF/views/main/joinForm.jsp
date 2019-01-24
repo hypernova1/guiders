@@ -39,16 +39,16 @@
       </div>
       <div id="phone-wrap">
           <label>전화번호</label>
-        <input type="text">―<input type="text">―<input type="text">
+        <input type="text" maxlength="3">―<input type="text" maxlength="4">―<input type="text" maxlength="4">
         <input type="hidden" id="phone">
       </div>
       <div id="identity">
         <label>주민등록번호</label>
-        <input type="text" id="birth">―<input type="text" id="gender" maxlength="1">●●●●●●
+        <input type="text" id="birth" maxlength="6">―<input type="text" id="gender" maxlength="1">●●●●●●
       </div>
        <div>
         <label>지역</label>
-        <input type="text" id="address" class="inputAddr" readonly />
+        <input type="text" id="address" class="inputAddr"/>
       </div>
       <c:if test="${guider eq true }">
       <div>
@@ -76,11 +76,11 @@
 	          <label>분야</label>
 	        </div>
 	        <input type="checkbox" id="c1" name="field" value="취업상담"/>
-	        <label for="c1"><span></span>취업상담</label>
+	        <label for="c1"><span></span> 취업상담</label>
 	        <input type="checkbox" id="c2" name="field" value="학업조언"/>
-	        <label for="c2"><span></span>학업조언</label>
+	        <label for="c2"><span></span> 학업조언</label>
 	        <input type="checkbox" id="c3" name="field" value="자소서첨삭"/>
-	        <label for="c3"><span></span>자소서첨삭</label>
+	        <label for="c3"><span></span> 자소서첨삭</label>
 	        <p></p>
 	      </div>
 	      <div id="lang">
@@ -88,19 +88,19 @@
 	          <label>언어</label>
 	        </div>
 	        <input type="checkbox" id="l1" name="lang" value="Java" />
-	        <label for="l1"><span></span>JAVA</label>
+	        <label for="l1"><span></span> Java</label>
 	
 	        <input type="checkbox" id="l2" name="lang" value="C"/>
-	        <label for="l2"><span></span>C</label>
+	        <label for="l2"><span></span> C</label>
 	
 	        <input type="checkbox" id="l3" name="lang" value="Python"/>
-	        <label for="l3"><span></span>파이썬</label>
+	        <label for="l3"><span></span> Python</label>
 	
 	        <input type="checkbox" id="l4" name="lang" value="Ruby" />
-	        <label for="l4"><span></span>루비</label>
+	        <label for="l4"><span></span> Ruby</label>
 	
 	        <input type="checkbox" id="l5" name="lang" value="PHP"/>
-	        <label for="l5"><span></span>PHP</label>
+	        <label for="l5"><span></span> PHP</label>
 	      </div>
       </c:if>
       <div class="clearfix">
