@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.guiders.config.mybatis.config.Criteria;
-import com.guiders.config.mybatis.config.PageMaker;
 import com.guiders.security.config.UserCustom;
 import com.guiders.web.essay.domain.EssayVO;
 import com.guiders.web.essay.service.EssayService;
 import com.guiders.web.member.domain.GuiderVO;
 import com.guiders.web.member.service.MemberService;
+import com.guiders.web.util.PageCriteria;
+import com.guiders.web.util.Pagination;
 
 @Controller
 public class EssayController {
@@ -65,12 +65,12 @@ public class EssayController {
 	
 	@GetMapping("/essay/list")
 	public String essayList(Model model, @Param("int") Integer page) { //페이징 관련 parameter 받을 예정
-		Criteria cri = new Criteria();
+		PageCriteria cri = new PageCriteria();
 		
 		if(page != null) {
 			cri.setPage(page);
 		}
-		PageMaker pm = new PageMaker();
+		Pagination pm = new Pagination();
 		pm.setCri(cri);
 		
 		pm.setTotal(essayService.getEssayCount());

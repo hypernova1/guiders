@@ -11,7 +11,7 @@
 	
 	<bean id="ds" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
    <property name="driverClass" value="org.mariadb.jdbc.Driver" />
-   <property name="url" value="jdbc:mariadb://localhost:3307/guiders?useSSL=false&amp;serverTimezone=Asia/Seoul" />
+   <property name="url" value="jdbc:mariadb://localhost:3306/TEST?useSSL=false&amp;serverTimezone=Asia/Seoul" />
    <property name="username" value="root" />
    <property name="password" value="1111" />
   </bean>

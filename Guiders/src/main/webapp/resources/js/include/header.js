@@ -70,7 +70,8 @@ function get_msg(message) {
 
 document.querySelector('#login-fail-modal-content>button').addEventListener('click', () => {
     document.querySelector('#login-fail-modal').style.display = 'none';
-})
+});
+
 function signin() {
 	$.ajax({
 		url : '/login',

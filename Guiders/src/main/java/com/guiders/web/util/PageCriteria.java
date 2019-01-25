@@ -1,12 +1,12 @@
-package com.guiders.config.mybatis.config;
+package com.guiders.web.util;
 
-public class Criteria {
+public class PageCriteria {
 
 	private int page;
 	private int perPageNum;
 	/* private String keyword; */
 
-	public Criteria() {
+	public PageCriteria() {
 		this.page = 1;
 		this.perPageNum = 5;
 		/* this.keyword = ""; */

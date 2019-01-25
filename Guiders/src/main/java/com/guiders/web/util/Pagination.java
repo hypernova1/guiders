@@ -1,8 +1,8 @@
-package com.guiders.config.mybatis.config;
+package com.guiders.web.util;
 
-public class PageMaker {
+public class Pagination {
 
-	private Criteria cri;
+	private PageCriteria cri;
 	private int startPage, endPage;
 	private boolean prev, next;
 	private int displayNum;
@@ -49,7 +49,7 @@ public class PageMaker {
 		this.displayNum = displayNum;
 	}
 
-	public Criteria getCri() {
+	public PageCriteria getCri() {
 		return cri;
 	}
 
@@ -57,11 +57,11 @@ public class PageMaker {
 		return total;
 	}
 
-	public PageMaker() {
+	public Pagination() {
 		this.displayNum = 10;
 	}
 
-	public void setCri(Criteria cri) {
+	public void setCri(PageCriteria cri) {
 		this.cri = cri;
 	}
 

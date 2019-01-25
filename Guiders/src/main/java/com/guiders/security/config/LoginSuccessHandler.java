@@ -53,6 +53,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 			throws IOException, ServletException {
 		SavedRequest savedRequest = requestCache.getRequest(request, response);
 		String targetUrl = null;
+		
 		if(savedRequest != null) {
 			targetUrl = savedRequest.getRedirectUrl();
 		}else {
