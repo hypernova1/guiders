@@ -12,8 +12,8 @@ window.addEventListener('load', () => {
             } else{
                 ques = '<p class="question-suggestion">질문을 남겨보세요!</>'
             }
-          document.querySelector('.title').innerHTML += `<ul class="follower-content">
-
+          document.querySelector('.title').innerHTML +=
+          `<ul class="follower-content">
             <li>
               <img class="profile-img" src="` + guider.photo + `">
               <div class="guider-name">` + guider.mname + ` 가이더</div>
@@ -25,7 +25,6 @@ window.addEventListener('load', () => {
                 <input type="hidden" class="field "value="` + guider.field + `">
                 <input type="hidden" class="lang" value="` + guider.lang + `">
               </div>
-              
             </li>
             <li>
               ${ques}
@@ -36,9 +35,8 @@ window.addEventListener('load', () => {
               <div class="more-qna">전체 질문 보기</div>
             </li>
             <input type="hidden" class="guider-email" value="` + guider.email + `">
-          </ul>
-          `
-        })
+          </ul>`
+        });
     });
 });
 

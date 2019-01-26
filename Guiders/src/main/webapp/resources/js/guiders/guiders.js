@@ -1,12 +1,12 @@
 const body = document.body;
 const guiderModal = document.querySelector("#modal");
-    
 const modalSpan = document.getElementsByClassName("close")[0];
 
 modalSpan.addEventListener("click", () => {
      guiderModal.style.display = "none";
      body.style.overflow = "";
 });
+
 window.addEventListener("click", () => {
     if(event.target == guiderModal){
         guiderModal.style.display = "none";
@@ -117,5 +117,4 @@ window.addEventListener('scroll', () => {
         getData(result);
       });
     }
-        
 });

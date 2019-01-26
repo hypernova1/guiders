@@ -48,7 +48,8 @@ nav {
 }
 
 .menu-content:nth-child(4) {
-  margin-left: 30px;
+  margin-left: 10px;
+  color: #747d8c;
 }
 
 .menu-content>span:hover:not(.menu-content>span:nth-child(5)) {

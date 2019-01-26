@@ -8,7 +8,7 @@ public class MemberVO {
   private int gender;
   private String phone;
   private String photo;
-  private int ctno;
+  private String ctno;
   private String regdate;
   
   public String getEmail() {
@@ -47,10 +47,10 @@ public class MemberVO {
   public void setPhoto(String photo) {
     this.photo = photo;
   }
-  public int getCtno() {
+  public String getCtno() {
     return ctno;
   }
-  public void setCtno(int ctno) {
+  public void setCtno(String ctno) {
     this.ctno = ctno;
   }
   public String getRegdate() {

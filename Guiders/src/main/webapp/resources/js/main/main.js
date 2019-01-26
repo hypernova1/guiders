@@ -1,3 +1,5 @@
-document.querySelector('#join').addEventListener('click', () => {
-  location.href = '/join';
-});
+if(document.querySelector('#join')){
+    document.querySelector('#join').addEventListener('click', () => {
+        location.href = '/join';
+    });
+}

@@ -23,8 +23,8 @@
   SELECT e.eno, e.email, m.mname, m.photo, g.field, g.lang, e.etitle, e.econtent, 
 	  (SELECT (SELECT count(*) 
 	  FROM recommend r 
-	  WHERE r.eno = essay.eno AND r.eno = essay.eno)likecnt 
-	  FROM essay WHERE essay.eno = e.eno)likecnt, 
+	  WHERE r.eno = essay.eno AND r.eno = essay.eno) likecnt 
+	  FROM essay WHERE essay.eno = e.eno) likecnt, 
   e.regdate 
   FROM essay e
   JOIN member m
@@ -75,12 +75,30 @@
 
 <select id="selectEssayCount" resultType="integer">
   SELECT count(*) FROM essay
-    <if test="keyword != ''">
+    <if test="_parameter != ''">
     <where>
-      etitle LIKE CONCAT ('%',#{keyword},'%')
-      OR econtent LIKE CONCAT ('%',#{keyword},'%')
+      etitle LIKE CONCAT ('%',#{value},'%')
+      OR econtent LIKE CONCAT ('%',#{value},'%')
     </where>
   </if>
 </select>
+
+<select id="selectTopEssay" resultType="map">
+  SELECT eno, etitle, econtent
+  FROM essay
+  ORDER BY likecnt DESC
+  LIMIT 6
+</select>
+
+<update id="increaseLikeCnt">
+  UPDATE essay
+  SET likecnt = likecnt + 1
+  WHERE eno = #{eno}
+</update>
+<update id="decreaseLikeCnt">
+  UPDATE essay
+  SET likecnt = likecnt - 1
+  WHERE eno = #{eno}
+</update>
 
 </mapper>

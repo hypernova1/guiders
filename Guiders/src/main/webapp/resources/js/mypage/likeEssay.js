@@ -8,14 +8,13 @@ document.querySelector('article>ul').addEventListener('click', ({target}) => {
     if(divElem.className === 'essay-body active'){
       divElem.classList.remove('active');
       divElem.classList.add('disable');
-    } 
-    else if(divElem.className === 'essay-body disable'){
+    } else if(divElem.className === 'essay-body disable'){
       divElem.classList.remove('disable');
       divElem.classList.add('active');
-    }else {
+    } else {
       const div = document.createElement('DIV');
       div.className = 'essay-body';
-      // 포스트 Ajax로 가져와서 추가
+      
       ajax('/mypage/likeEssay/'+eno, 'get', eno).then((result) => {
           div.innerHTML = `<div class="essay">
               <div class="essay-content">${result}</div>
@@ -26,4 +25,4 @@ document.querySelector('article>ul').addEventListener('click', ({target}) => {
       target.parentElement.after(div);
       return;
     }
-  });
+});

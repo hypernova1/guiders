@@ -39,13 +39,13 @@
       </div>
     </div>
   </div>
-    <div id="button-wrap">
-      <button id="listBtn">목록으로</button>
-      <button id="beforeBtn">뒤로가기</button>
-    </div>
+  <div id="button-wrap">
+    <button id="listBtn">목록으로</button>
+    <button id="beforeBtn">뒤로가기</button>
+  </div>
 </section>
 
-<script type="text/javascript" defer>
+<script>
 	const modifyBtn = document.querySelector('#modifyBtn');
 	const removeBtn = document.querySelector('#removeBtn');
 	
@@ -60,7 +60,6 @@
 		const email = '${userInfo.email}';
 		if(!email){
 			alert('로그인이 필요합니다.');
-			/* console.log(document.querySelector('#login-modal')); */
 			let i = 1;
       modal.style.display = 'block';
       const increase = setInterval(function(){
@@ -78,7 +77,6 @@
 		ajax('/essay/'+eno, 'put', data).then(function(result){
 			let cnt = result;
 			console.log('좋아요 갯수 : ' + cnt);
-			/* location.reload(true); */
 			if(document.querySelector('#likeSpan').innerText.substring(0, 1) == '♡'){
 				document.querySelector('#likeSpan').innerText = '♥'+ ' ' +cnt;
 			}else if (document.querySelector('#likeSpan').innerText.substring(0, 1) == '♥'){
