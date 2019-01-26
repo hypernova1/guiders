@@ -40,7 +40,6 @@ public class MemberTest {
 			vo.setGender(1);
 			vo.setPhone("010-123-4567");
 			vo.setPhoto("photo.png");
-			vo.setCtno(1);
 			vo.setQuote("aaa");
 			vo.setIntrodution("aaaa");
 			param.put("email", vo.getEmail());

@@ -33,7 +33,6 @@ public class LoginServiceImpl implements LoginService {
       auth = "ROLE_MEMBER";
     }
     
-    System.out.println(5);
     param.put("email", guiderVO.getEmail());
     param.put("auth", auth);
     
