@@ -89,7 +89,7 @@
 		<div id="pagination">
 			<ul class="pagination">
 				<c:if test="${pm.prev}">
-					<li class="pagination-li prev"><a href="/essay/list?page=${pm.startPage -1}">prev</a></li>
+					<li class="pagination-li prev"><a href="/essay/list?page=${pm.startPage -1}&keyword=${pm.cri.keyword}">prev</a></li>
 				</c:if>
 				<c:forEach var="idx" begin="${pm.startPage}" end="${pm.endPage}">
 				  <c:choose>
@@ -99,12 +99,12 @@
 				      </li>
 				    </c:when>
 				    <c:otherwise>
-				      <li class="pagination-li"><a href="/essay/list?page=${idx}">${idx}</a></li>				    
+				      <li class="pagination-li"><a href="/essay/list?page=${idx}&keyword=${pm.cri.keyword}">${idx}</a></li>				    
 				    </c:otherwise>
 				  </c:choose>
 				</c:forEach>
 				<c:if test="${pm.next}">
-					<li class="pagination-li next"><a href="/essay/list?page=${pm.endPage + 1}">next</a></li>
+					<li class="pagination-li next"><a href="/essay/list?page=${pm.endPage + 1}&keyword=${pm.cri.keyword}">next</a></li>
 				</c:if>
 			</ul>
 		</div>

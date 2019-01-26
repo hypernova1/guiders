@@ -64,19 +64,16 @@ public class EssayController {
 	}
 	
 	@GetMapping("/essay/list")
-	public String essayList(Model model, @Param("int") Integer page) { //페이징 관련 parameter 받을 예정
-		PageCriteria cri = new PageCriteria();
-		
+	public String essayList(Model model, @Param("int") Integer page, PageCriteria cri) {
 		if(page != null) {
 			cri.setPage(page);
 		}
 		Pagination pm = new Pagination();
 		pm.setCri(cri);
-		
-		pm.setTotal(essayService.getEssayCount());
+		pm.setTotal(essayService.getEssayCount(cri));
 		
 		Integer startNum = cri.getPageStart();
-		List<EssayVO> list = essayService.getEssayList(startNum);
+		List<EssayVO> list = essayService.getEssayList(startNum, cri);
 		for(int i = 0; i < list.size(); i ++) {
 			String econtent = list.get(i).getEcontent();
 			econtent = econtent.replaceAll("<[^>]*>","");

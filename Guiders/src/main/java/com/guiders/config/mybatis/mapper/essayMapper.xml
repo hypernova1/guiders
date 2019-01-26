@@ -19,7 +19,7 @@
 	WHERE eno = #{eno}
 </select>
 
-<select id="selectEssayList" resultType="essayVO" parameterType="integer"> <!-- parameterType 추가 예정(페이징 관련) -->
+<select id="selectEssayList" resultType="essayVO">
   SELECT e.eno, e.email, m.mname, m.photo, g.field, g.lang, e.etitle, e.econtent, 
 	  (SELECT (SELECT count(*) 
 	  FROM recommend r 
@@ -31,6 +31,12 @@
   ON e.email = m.email
   JOIN guider g
   ON e.email = g.email
+  <if test="cri.keyword != ''">
+    <where>
+      e.etitle LIKE CONCAT ('%',#{cri.keyword},'%')
+      OR e.econtent LIKE CONCAT ('%',#{cri.keyword},'%')
+    </where>
+  </if>
   ORDER BY e.eno DESC
   LIMIT #{startNum}, 5
 </select>
@@ -66,8 +72,15 @@
   WHERE eno = #{eno}
 </select>
 
+
 <select id="selectEssayCount" resultType="integer">
   SELECT count(*) FROM essay
+    <if test="keyword != ''">
+    <where>
+      etitle LIKE CONCAT ('%',#{keyword},'%')
+      OR econtent LIKE CONCAT ('%',#{keyword},'%')
+    </where>
+  </if>
 </select>
 
 </mapper>

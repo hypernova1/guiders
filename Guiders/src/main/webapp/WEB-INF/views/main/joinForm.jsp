@@ -48,7 +48,7 @@
       </div>
        <div>
         <label>지역</label>
-        <input type="text" id="address" class="inputAddr"/>
+        <input type="text" id="ctno" class="inputAddr"/>
       </div>
       <c:if test="${guider eq true }">
       <div>

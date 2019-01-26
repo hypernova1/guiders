@@ -24,12 +24,15 @@
 <body>
 	<header>
 		<div id="header-content">
+		<form id="search-form" action="/essay/list" method="get">
 			<div class="search-box">
-				<span class="span-word">검색</span> <input type="text"
-					name="searchText" class="search-txt" placeholder="검색어 입력" /> <a
-					class="search-btn"> <i class="fas fa-search"></i>
+				<span class="span-word">검색</span> 
+				<input type="text" name="keyword" class="search-txt" placeholder="제목이나 내용 검색" /> 
+				<a class="search-btn">
+				  <i class="fas fa-search"></i>
 				</a>
 			</div>
+		</form>
 			<nav>
 				<div class="menu-content">
 					<span id="guiders">Guiders</span>
@@ -47,7 +50,7 @@
 						<c:when test="${pageContext.request.userPrincipal.name != null}">
 							<ul id="mypage-list">
 								<c:choose>
-									<c:when test="${pageContext.request.userPrincipal.authorities eq '[ROLE_GUIDER]'}">
+									<c:when test="${pageContext.request.userPrincipal.authorities[0] eq 'ROLE_GUIDER'}">
 										<li><a href="/mypage/questions">Questions</a></li>
 									</c:when>
 									<c:otherwise>

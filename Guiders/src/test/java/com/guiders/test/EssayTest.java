@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.guiders.web.essay.dao.EssayDAO;
 import com.guiders.web.essay.domain.EssayVO;
 import com.guiders.web.member.dao.MyPageDAO;
+import com.guiders.web.util.PageCriteria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" })
@@ -53,8 +54,10 @@ public class EssayTest {
 
 	@Test
 	public void essayListTest() {
-		Integer startNum = 15;
-		System.out.println(sqlSession.getMapper(EssayDAO.class).selectEssayList(startNum));
+		Integer startNum = 0;
+		PageCriteria cri = new PageCriteria();
+		cri.setKeyword("java");
+		System.out.println(sqlSession.getMapper(EssayDAO.class).selectEssayList(startNum, cri));
 	}
 
 	@Test
@@ -92,6 +95,13 @@ public class EssayTest {
 		List<EssayVO> list = sqlSession.getMapper(MyPageDAO.class).selectMyLikeEssay("test@naver.com");
 
 		System.out.println(Arrays.toString(list.toArray()));
+	}
+	
+	@Test
+	public void getEssayCount() {
+		PageCriteria cri = new PageCriteria();
+		cri.setKeyword("java");
+		System.out.println(sqlSession.getMapper(EssayDAO.class).selectEssayCount(cri));
 	}
 
 }

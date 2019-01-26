@@ -90,3 +90,13 @@ function signin() {
 		}
 	});
 }
+
+
+document.querySelector('.search-btn').addEventListener('click', function(e){
+	let keyword = document.querySelector('.search-txt').value;
+	if(!keyword){
+		alert('검색 키워드를 입력해주세요');
+		return;
+	}
+	document.querySelector('#search-form').submit();
+});
