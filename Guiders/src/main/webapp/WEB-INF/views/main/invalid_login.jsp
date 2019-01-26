@@ -106,7 +106,7 @@ button {
 				dataType : 'json',
 				beforeSend : function(xhr) {
 					xhr.setRequestHeader("Accept", "application/json");
-					xhr.setRequestHeader('x-CSRFToken', '${_csrf.token}');
+					/* xhr.setRequestHeader('x-CSRFToken', '${_csrf.token}'); */
 				}
 			}).done(function(result) {
 				var error = result.error;
@@ -122,6 +122,11 @@ button {
 					location.href = url;
 				}
 			});
+		}
+		
+  	if('${pageContext.request.userPrincipal}'){
+			alert('이미 로그인 되어 있습니다.');
+			history.back();
 		}
 	</script>
 </body>

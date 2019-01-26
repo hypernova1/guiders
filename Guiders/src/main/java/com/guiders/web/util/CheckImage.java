@@ -1,4 +1,4 @@
-package com.guiders.config.mybatis.config;
+package com.guiders.web.util;
 
 import java.util.HashMap;
 import java.util.Map;

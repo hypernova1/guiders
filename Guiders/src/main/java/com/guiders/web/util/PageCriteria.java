@@ -1,15 +1,15 @@
-package com.guiders.config.mybatis.config;
+package com.guiders.web.util;
 
-public class Criteria {
+public class PageCriteria {
 
 	private int page;
 	private int perPageNum;
-	/* private String keyword; */
+	private String keyword;
 
-	public Criteria() {
+	public PageCriteria() {
 		this.page = 1;
 		this.perPageNum = 5;
-		/* this.keyword = ""; */
+		this.keyword = "";
 	}
 
 	public int getPage() {
@@ -36,12 +36,16 @@ public class Criteria {
 		}
 	}
 
-	/*
-	 * public void setKeyword(String keyword) { this.keyword = keyword; }
-	 */
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 
 	public Integer getPageStart() {
 		return (this.page - 1) * perPageNum;
+	}
+
+	public String getKeyword() {
+		return keyword;
 	}
 
 }

@@ -11,6 +11,7 @@ import com.guiders.web.essay.dao.EssayDAO;
 import com.guiders.web.essay.domain.EssayVO;
 import com.guiders.web.member.dao.MemberDAO;
 import com.guiders.web.member.domain.GuiderVO;
+import com.guiders.web.util.PageCriteria;
 
 @Service
 public class EssayServiceImpl implements EssayService {
@@ -40,8 +41,8 @@ public class EssayServiceImpl implements EssayService {
 	}
 
 	@Override
-	public List<EssayVO> getEssayList(Integer startNum) {
-		return sqlSession.getMapper(EssayDAO.class).selectEssayList(startNum);
+	public List<EssayVO> getEssayList(Integer startNum, PageCriteria cri) {
+		return sqlSession.getMapper(EssayDAO.class).selectEssayList(startNum, cri);
 	}
 
 	@Transactional
@@ -75,8 +76,8 @@ public class EssayServiceImpl implements EssayService {
 	}
 
 	@Override
-	public Integer getEssayCount() {
-		return sqlSession.getMapper(EssayDAO.class).selectEssayCount();
+	public Integer getEssayCount(PageCriteria cri) {
+		return sqlSession.getMapper(EssayDAO.class).selectEssayCount(cri);
 	}
 
 }

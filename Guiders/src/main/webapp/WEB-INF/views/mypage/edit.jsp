@@ -36,7 +36,7 @@
           <input type="text" name="phone" placeholder="전화번호" value="${vo.phone}">
       </div>
       <c:choose>
-      <c:when test="${pageContext.request.userPrincipal.authorities eq '[ROLE_GUIDER]'}">
+      <c:when test="${pageContext.request.userPrincipal.authorities[0] eq 'ROLE_GUIDER'}">
       <div>
           <label>분야</label>
           <input type="text" name="field" placeholder="분야" value="${vo.field}">

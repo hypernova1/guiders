@@ -49,6 +49,7 @@
             }
             member[target.name] = target.value;
         }
+        /*console.log(member);*/
     });
     
     document.querySelector('#join-btn2').addEventListener('click', () => {
@@ -86,8 +87,6 @@
                 }
             }
             xhr.open(method, url);
-            /* xhr.setRequestHeader('Content-Type', fileType); */
-            /* xhr.send(JSON.stringify(formData)); */
             xhr.send(formData);
         });
     }

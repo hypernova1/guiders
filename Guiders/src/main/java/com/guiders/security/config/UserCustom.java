@@ -18,7 +18,8 @@ public class UserCustom extends User{
 		return email;
 	}
 
-	public UserCustom(String email, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+	public UserCustom(String email, String username, String password, 
+			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 		this.email = email;
 	}

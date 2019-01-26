@@ -21,10 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import com.guiders.config.mybatis.config.UploadFileUtils;
+
 import com.guiders.security.config.UserCustom;
 import com.guiders.web.member.domain.GuiderVO;
 import com.guiders.web.member.service.MemberService;
+import com.guiders.web.util.UploadFileUtils;
 
 @Controller
 @CrossOrigin(origins= "*")
