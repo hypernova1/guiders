@@ -1,63 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp"%>
-<style>
-
-#pagination{
-  text-align: center;
-}
-
-#pagination>.pagination { 
-  /* display: inline-block; */
-  padding-left:0;
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-.pagination > .pagination-li{
-  display: inline-block;
-	/* text-align: center; */
-	margin-left: 7px;
-	margin-right: 7px;
-}
-
-.pagination-active{
-	width: 30px;
-	height: 30px;
-	font-size: 20px;
-	font-weight: bold;
-	background-color: #ff2d55;
-	/* border: 2px solid #ff2d55; */
-	border-radius: 3px;
-  color: white;
-}
-
-.pagination-li > a:hover {
-	color: #ff2d55;
-	font-size: 20px;
-	font-weight: bold;
-	transition: 0.2s;
-}
-
-
-</style>
-
 <link rel="stylesheet" href="/css/essay/list.css">
 <section>
 	<h1>Essay</h1>
 	<div id="select-wrap">
 		<select name="">
 			<option value="" selected>분야</option>
-			<option value="선택">진로</option>
-			<option value="선택">팁</option>
-			<option value="선택">하하</option>
-			<option value="선택">오호라..</option>
+			<option value="진로">진로</option>
+			<option value="팁">팁</option>
+			<option value="하하">하하</option>
+			<option value="오호라">오호라..</option>
 		</select> <select name="">
 			<option value="" selected>언어</option>
-			<option value="선택">C</option>
-			<option value="선택">C++</option>
-			<option value="선택">JAVA</option>
-			<option value="선택">JavaScript</option>
+			<option value="C">C</option>
+			<option value="C++">C++</option>
+			<option value="Java">Java</option>
+			<option value="JavaScript">JavaScript</option>
 		</select>
 	</div>
 	<article>

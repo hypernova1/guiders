@@ -48,12 +48,14 @@ public class EssayServiceImpl implements EssayService {
 	@Override
 	public int addRecommend(Map<String, String> map) {
 		String eno = map.get("eno");
-		int cnt = sqlSession.getMapper(EssayDAO.class).selectLikeCnt(map);
+		Integer cnt = sqlSession.getMapper(EssayDAO.class).selectLikeCnt(map);
 		if (cnt == 0) { // 좋아요를 누른 적이 없다면 카운트 +1
 			sqlSession.getMapper(EssayDAO.class).insertRecommend(map);
+			sqlSession.getMapper(EssayDAO.class).increaseLikeCnt(Integer.parseInt(eno));
 			return sqlSession.getMapper(EssayDAO.class).getCount(eno);
 		} else { // 누른 적이 있다면 카운트 -1
 			sqlSession.getMapper(EssayDAO.class).deleteRecommend(map);
+			sqlSession.getMapper(EssayDAO.class).decreaseLikeCnt(Integer.parseInt(eno));
 			return sqlSession.getMapper(EssayDAO.class).getCount(eno);
 		}
 
@@ -78,5 +80,10 @@ public class EssayServiceImpl implements EssayService {
 	public Integer getEssayCount() {
 		return sqlSession.getMapper(EssayDAO.class).selectEssayCount();
 	}
+
+  @Override
+  public List<Map<String, Object>> getTopEssay() {
+    return sqlSession.getMapper(EssayDAO.class).selectTopEssay();
+  }
 
 }
