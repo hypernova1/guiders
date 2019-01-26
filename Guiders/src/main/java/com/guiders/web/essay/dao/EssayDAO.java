@@ -2,6 +2,7 @@ package com.guiders.web.essay.dao;
 
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.annotations.Param;
 import com.guiders.web.essay.domain.EssayVO;
 import com.guiders.web.util.PageCriteria;
 
@@ -12,7 +13,8 @@ public interface EssayDAO {
 
   EssayVO selectEssay(Integer eno);
 
-  List<EssayVO> selectEssayList(Integer startNum, PageCriteria cri);
+  List<EssayVO> selectEssayList(@Param("startNum") Integer startNum, 
+                            @Param("cri") PageCriteria cri);
 
   void updateEssay(EssayVO essayVO);
 

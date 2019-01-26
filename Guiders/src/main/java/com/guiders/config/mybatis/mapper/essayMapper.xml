@@ -42,7 +42,7 @@
 </select>
 
 <select id="selectEssayCount" parameterType="pageCriteria" resultType="integer">
-  SELECT count(*) FROM essay
+  SELECT count(eno) FROM essay
     <if test="keyword != ''">
     <where>
       etitle LIKE CONCAT ('%',#{keyword},'%')
