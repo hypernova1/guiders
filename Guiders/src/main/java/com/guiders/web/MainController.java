@@ -20,41 +20,6 @@ import com.guiders.web.util.URLConn;
 @Controller
 public class MainController {
 
-	@GetMapping("/")
-	public String main(Authentication authentication, HttpServletRequest req) {
-		/*
-		 * 접속한 사람의 IP 주소 Object principal =
-		 * SecurityContextHolder.getContext().getAuthentication().getDetails();
-		 */
-
-		if (authentication != null) {
-			UserCustom userCustom = (UserCustom) authentication.getPrincipal();
-		}
-
-		return "main/main";
-	}
-
-	@GetMapping("/essay/post")
-	public String post() {
-		return "essay/post";
-	}
-
-	/*
-	 * @GetMapping("/join") public String join() { return "main/join"; }
-	 * 
-	 * @GetMapping("/joinform") public String joinForm() { return "main/joinForm"; }
-	 */
-
-	@GetMapping("/guiders")
-	public String guiders() {
-		return "guiders/guiders";
-	}
-
-	@GetMapping("/signin")
-	public String login() {
-		return "mypage/myGuider";
-	}
-
 	@ResponseBody
 	@RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")
 	public String startApp(@RequestBody String body) {
