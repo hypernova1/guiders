@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.guiders.security.config.UserCustom;
-import com.guiders.web.essay.domain.EssayVO;
 import com.guiders.web.util.URLConn;
 
 @Controller

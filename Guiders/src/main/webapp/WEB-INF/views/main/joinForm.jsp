@@ -31,11 +31,11 @@
       </div>
       <div>
         <label>비밀번호</label>
-        <input type="password" name="password">
+        <input type="password" name="password2">
       </div>
       <div>
         <label>재입력</label>
-        <input type="password" id="repassword">
+        <input type="password" name="repassword">
       </div>
       <div id="phone-wrap">
           <label>전화번호</label>
@@ -48,7 +48,7 @@
       </div>
        <div>
         <label>지역</label>
-        <input type="text" id="ctno" class="inputAddr"/>
+        <input type="text" id="ctno">
       </div>
       <c:if test="${guider eq true }">
       <div>
@@ -104,7 +104,7 @@
 	      </div>
       </c:if>
       <div class="clearfix">
-        <button type="button" id="join-btn2">확인</button>
+        <button type="button" id="join-btn2" disabled="disabled">확인</button>
 
       </div>
     </div>

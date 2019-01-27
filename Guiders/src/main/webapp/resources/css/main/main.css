@@ -53,13 +53,20 @@ article {
   border-radius: 4px;
 }
 .article-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
   margin: 5px;
+  cursor: pointer;
+}
+.article-title:hover{
+	text-decoration: underline;
 }
 .article-content {
   text-align: left;
   padding: 20px;
   color: #6d6d72;
-  height: 190px;
+  height: 230px;
   overflow: hidden;
 }
 .article-img {

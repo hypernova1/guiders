@@ -19,12 +19,12 @@
 	WHERE eno = #{eno}
 </select>
 
-<select id="selectEssayList" resultType="essayVO">
+<select id="selectEssayList" parameterType="pageCriteria" resultType="essayVO">
   SELECT e.eno, e.email, m.mname, m.photo, g.field, g.lang, e.etitle, e.econtent, 
 	  (SELECT (SELECT count(*) 
 	  FROM recommend r 
-	  WHERE r.eno = essay.eno AND r.eno = essay.eno)likecnt 
-	  FROM essay WHERE essay.eno = e.eno)likecnt, 
+	  WHERE r.eno = essay.eno AND r.eno = essay.eno) likecnt 
+	  FROM essay WHERE essay.eno = e.eno) likecnt, 
   e.regdate 
   FROM essay e
   JOIN member m
@@ -39,6 +39,16 @@
   </if>
   ORDER BY e.eno DESC
   LIMIT #{startNum}, 5
+</select>
+
+<select id="selectEssayCount" parameterType="pageCriteria" resultType="integer">
+  SELECT count(eno) FROM essay
+    <if test="keyword != ''">
+    <where>
+      etitle LIKE CONCAT ('%',#{keyword},'%')
+      OR econtent LIKE CONCAT ('%',#{keyword},'%')
+    </where>
+  </if>
 </select>
 
 <update id="updateEssay" parameterType="essayVO">
@@ -72,15 +82,22 @@
   WHERE eno = #{eno}
 </select>
 
-
-<select id="selectEssayCount" resultType="integer">
-  SELECT count(*) FROM essay
-    <if test="keyword != ''">
-    <where>
-      etitle LIKE CONCAT ('%',#{keyword},'%')
-      OR econtent LIKE CONCAT ('%',#{keyword},'%')
-    </where>
-  </if>
+<select id="selectTopEssay" resultType="map">
+  SELECT eno, etitle, econtent
+  FROM essay
+  ORDER BY likecnt DESC
+  LIMIT 6
 </select>
+
+<update id="increaseLikeCnt">
+  UPDATE essay
+  SET likecnt = likecnt + 1
+  WHERE eno = #{eno}
+</update>
+<update id="decreaseLikeCnt">
+  UPDATE essay
+  SET likecnt = likecnt - 1
+  WHERE eno = #{eno}
+</update>
 
 </mapper>

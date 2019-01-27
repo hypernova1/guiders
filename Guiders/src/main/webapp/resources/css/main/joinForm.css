@@ -153,3 +153,16 @@ div>label{
     max-height: 100%;
     max-width: 100%;
 }
+
+#warn-msg {
+  position: fixed;
+  display: inline-block;
+  padding: 5px 15px;
+  border: 1.5px solid red;
+  border-radius: 30px;
+  top: 30%;
+  left: 50%;
+  transform: translate(-30%, -50%);
+  font-weight: bold;
+  background-color: white;
+}

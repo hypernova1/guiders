@@ -1,12 +1,15 @@
 package com.guiders.web.member.controller;
 
+
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +37,16 @@ public class LoginController {
   
   @Autowired
   private LoginService loginService;
+  
+  @GetMapping("/")
+  public String main(Authentication authentication, HttpServletRequest req) {
+
+    /*if (authentication != null) {
+      UserCustom userCustom = (UserCustom) authentication.getPrincipal();
+    }*/
+
+    return "main/main";
+  }
   
   @GetMapping("join")
   public String join() {
