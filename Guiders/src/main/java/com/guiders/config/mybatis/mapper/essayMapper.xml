@@ -94,6 +94,7 @@
   SET likecnt = likecnt + 1
   WHERE eno = #{eno}
 </update>
+
 <update id="decreaseLikeCnt">
   UPDATE essay
   SET likecnt = likecnt - 1

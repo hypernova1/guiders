@@ -37,7 +37,9 @@
         <div class="role">시큐리티, 스케쥴 관리</div>
       </div>
       <div class="face back">
-        ddd
+        <img src="/img/maker/a.png" class="back-img">
+        <div>피카츄 라이츄 파이리 꼬부기</div> 
+        <div>버터플 야도란 피죤투 또가스</div>
       </div>
     </div>
   </div>
@@ -50,7 +52,9 @@
         <div class="role">회원 관리, 화면 디자인</div>
       </div>
       <div class="face back">
-        ddd
+        <img src="/img/maker/b.png" class="back-img">
+        <div>야돈..</div> 
+        <div>야돈..</div>
       </div>
     </div>
   </div>
@@ -63,7 +67,9 @@
         <div class="role">게시판, 화면 디자인</div>
       </div>
       <div class="face back">
-        ddd
+        <img src="/img/maker/c.png" class="back-img">
+        <div>자 이제 시작이야 내 꿈을</div> 
+        <div>내 꿈을 위한 여행</div>
       </div>
     </div>
   </div>
@@ -76,7 +82,9 @@
         <div class="role">회원검색, 화면 디자인</div>
       </div>
       <div class="face back">
-        ddd
+        <img src="/img/maker/d.png" class="back-img">
+        <div>자 이제 시작이야 내 꿈을</div>
+        <div>내 꿈을 위한 여행</div>
       </div>
     </div>
   </div>
