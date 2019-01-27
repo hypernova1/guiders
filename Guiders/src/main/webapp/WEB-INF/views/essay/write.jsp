@@ -28,6 +28,17 @@
         $("#writeBtn").click(function(){
             //id가 editor인 textarea에 에디터에서 대입
             obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
+            var etitle = $("#etitle").val();
+            $.ajax({
+            	url: '/doA',
+            	data: etitle,
+            	type: 'POST',
+              headers : {
+                    "content-type" : "application/json",
+                    "x-http-method-override" : "post"},
+            	dataType: 'json'
+            });
+            
             //폼 submit
             $("#inserteEssayForm").submit();
         });
@@ -39,7 +50,7 @@
   <h1>에세이 작성</h1>
   <input type="hidden" name="email" value="${email}">
   <div id="title">
-    <input name="etitle" type="text" placeholder="제목">
+    <input id="etitle" name="etitle" type="text" placeholder="제목">
   </div>
   <div id="content">
     <textarea id="editor" name="econtent" placeholder="내용"></textarea>

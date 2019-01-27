@@ -62,6 +62,16 @@
 								<li><a href="/signout">Logout</a></li>
 							</ul>
 						</c:when>
+						
+						<c:when test="${naver != null}">
+              <ul id="mypage-list">
+                <li><a href="/mypage/myGuider">My Guiders</a></li>
+                <li><a href="/mypage/likeEssay">Like Essay</a></li>
+                <li><a href="/mypage/edit">정보수정</a></li>
+                <li id="naverLogout"><a href="/signout">Logout</a></li>
+              </ul>
+            </c:when>
+						
 						<c:otherwise>
 							<ul id="mypage-list">
 								<li id="login">Login</li>
@@ -73,7 +83,12 @@
             <div class="menu-content">
               <span>${pageContext.request.userPrincipal.name}님</span>
             </div>
-          </c:if>
+        </c:if>
+        <c:if test="${naver != null}">
+            <div class="menu-content">
+              <span id="naverName">님</span>
+            </div>
+        </c:if>
 			</nav>
 			<img src="/img/logo.png" id="logo">
 		</div>

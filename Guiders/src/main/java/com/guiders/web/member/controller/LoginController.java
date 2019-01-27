@@ -1,18 +1,36 @@
 package com.guiders.web.member.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.guiders.web.member.domain.GuiderVO;
 import com.guiders.web.member.service.LoginService;
+import com.guiders.web.util.NaverLoginBO;
 
 @Controller
 public class LoginController {
+	/* NaverLoginBO */
+	private NaverLoginBO naverLoginBO;
+
+	/* NaverLoginBO */
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO){
+		this.naverLoginBO = naverLoginBO;
+	}
   
   @Autowired
   private LoginService loginService;
@@ -37,8 +55,26 @@ public class LoginController {
   }
   
   @GetMapping("/login")
-  public String login() {
+  public String login(HttpSession session, Model model) {
+	  
+	  String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+	  
+	  model.addAttribute("url", naverAuthUrl);
+	  
 	  return "main/invalid_login";
   }
+	@RequestMapping(value = "/callback")
+	public ModelAndView naverCallback(
+			HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
+		
+		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		String apiResult = naverLoginBO.getUserProfile(oauthToken);
+		System.out.println("result : " + apiResult);
+		
+		session.setAttribute("naver", apiResult);
+		
+		return new ModelAndView("callback", "result", apiResult);
+
+	}
   
 }

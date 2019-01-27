@@ -100,3 +100,18 @@ document.querySelector('.search-btn').addEventListener('click', function(e){
 	}
 	document.querySelector('#search-form').submit();
 });
+
+let naverName = sessionStorage.getItem("naverName");
+if(naverName != null){
+	document.querySelector('#naverName').textContent = naverName + '님';
+}
+
+
+document.querySelector('#naverLogout').addEventListener('click', function(){
+	console.log('........');
+	sessionStorage.removeItem("naverName");
+	window.open("https://nid.naver.com/nidlogin.logout","네이버 로그아웃",
+	"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+	location.href = '/logout';
+	
+});
