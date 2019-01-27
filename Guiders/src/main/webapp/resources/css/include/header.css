@@ -110,7 +110,7 @@ a {
   left: 50%;
   top: 50%;
   width: 450px;
-  height: 420px;
+  height: 450px;
   text-align: center;
   transform: translate(-50%, -50%);
   border: 1px solid #95a5a6;
@@ -162,6 +162,7 @@ a {
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
+  width: 168px;
 }
 
 #login-modal-content button:hover {
@@ -382,6 +383,12 @@ form h2 {
 }
 #login-fail-modal-content>div{
 	margin-top: 15px;
+}
+
+#naver-login{
+  height: 45px; 
+  width: 200px;
+  cursor: pointer;
 }
 
 @keyframes move {

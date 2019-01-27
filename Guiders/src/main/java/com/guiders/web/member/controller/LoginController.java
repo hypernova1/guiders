@@ -82,7 +82,6 @@ public class LoginController {
 		
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		String apiResult = naverLoginBO.getUserProfile(oauthToken);
-		System.out.println("result : " + apiResult);
 		
 		session.setAttribute("naver", apiResult);
 		

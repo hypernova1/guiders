@@ -106,9 +106,11 @@
 						id="password">
 				</div>
 				<div>
-					<button type="button" onclick="signin()">로그인</button>
-
-				</div>
+						<button type="button" onclick="signin()">로그인</button>
+					</div>
+				<div style="margin-top: 10px;">
+	        <img src="/img/naver-login.PNG" id="naver-login">
+	      </div>
 			</form>
 <!-- 			<div id="etc">
 				<span id="join-btn"><a href="/join">회원가입</a></span> l <span id="pwd-btn">비밀번호 찾기</span>

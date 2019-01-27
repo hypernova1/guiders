@@ -83,6 +83,7 @@ button {
 #naver-login{
 	height: 45px; 
 	width: 200px;
+	cursor: pointer;
 
 }
 </style>
@@ -113,7 +114,7 @@ button {
 	<script>
 	
 	document.querySelector('#naver-login').addEventListener('click', function(){
-		var url = '${url}';
+		let url = '${url}';
 		location.href = url;
 		
 	});

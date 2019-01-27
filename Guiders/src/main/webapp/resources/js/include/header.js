@@ -115,3 +115,9 @@ document.querySelector('#naverLogout').addEventListener('click', function(){
 	location.href = '/logout';
 	
 });
+
+document.querySelector('#naver-login').addEventListener('click', function(){
+	let url = '${url}';
+	location.href = url;
+	
+});
