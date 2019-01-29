@@ -173,3 +173,10 @@ article {
 #header-img > div > p:nth-child(2){
 	text-align: right;
 }
+
+.back-img{
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin-top: 20px;
+	}

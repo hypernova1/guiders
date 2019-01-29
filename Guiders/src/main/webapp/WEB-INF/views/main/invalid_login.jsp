@@ -105,7 +105,7 @@ button {
 				<button type="button" onclick="signin()">로그인</button>
 			</div>
 			<div style="margin-top: 10px;">
-				<img src="/img/naver-login.PNG" id="naver-login">
+				<img src="/img/naverLogin.png" id="naver-login">
 			</div>
 		</div>
 	</form>
