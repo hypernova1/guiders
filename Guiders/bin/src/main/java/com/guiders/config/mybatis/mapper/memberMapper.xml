@@ -15,54 +15,102 @@
     values(#{email}, #{password}, #{mname}, #{gender}, #{phone}, #{photo}, #{ctno})
   </insert>
   
+  <insert id="insertGuider">
+    INSERT INTO guider (email, introdution, quote, field, lang, currentjob, dept)
+    VALUES (#{email}, #{introdution}, #{quote}, #{field}, #{lang}, #{currentjob}, #{dept});
+  </insert>
+  
+  <select id="loginCheck" parameterType="string" resultType="memberVO"> 
+    SELECT email, password, mname FROM member WHERE email=#{email}  
+  </select>
+  
   <select id="selectMember" resultType="memberVO" parameterType="string">
-		select m.EMAIL, m.MNAME, m.PASSWORD, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
-		       g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
+		select m.EMAIL, m.MNAME, m.PASSWORD, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate,
+		       g.currentjob, g.dept, g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
 		from member m
 		join guider g
 		on m.email = g.email
 		where m.email = #{email}
   </select>
   
-   <select id="selectByName" resultType="guiderVO" parameterType="string">
-    select m.EMAIL, m.MNAME, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate, 
-           g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
+   <select id="selectByEmail" parameterType="map" resultType="guiderVO">
+    SELECT m.email, m.mname, m.gender, m.phone, m.photo, m.ctno, m.regdate
+    <if test="type == 'guider'">
+    , g.introdution, g.quote, g.field, g.lang, g.currentjob, g.dept
+    </if>
     from member m
+    <if test="type == 'guider'">
     join guider g
     on m.email = g.email
-    where m.MNAME = #{mname}
+    </if>
+    WHERE m.email = #{email}
   </select>
   
-  <update id="updateMember" parameterType="memberVO">
-		UPDATE member m, guider g
-		SET  m.MNAME = #{mname},
-		     m.PASSWORD = #{password},
-		     m.phone = #{phone},
-		     g.INTRODUTION = #{introdution},
-		     g.QUOTE = #{quote},
-		     g.FIELD = #{field},
-		     g.LANG = #{lang}
-		     <!-- m.gender = #{gender}, --> 
-		     <!-- m.photo = #{photo}, -->
-         <!-- m.ctno = #{ctno}, -->
-		    WHERE m.email= #{email}
+  <update id="updateMember" parameterType="guiderVO">
+		UPDATE member m
+    <if test="dept != null">
+		, guider g
+		</if>
+		
+		SET m.mname = #{mname},
+    <if test="password != ''">
+        m.password = #{password},
+    </if>
+        m.phone = #{phone}
+    <if test="dept != null">
+		    ,
+		    g.introdution = #{introdution},
+		    g.quote = #{quote},
+		    g.field = #{field},
+		    g.lang = #{lang},
+		    g.currentjob = #{currentjob},
+		    g.dept = #{dept}
+		</if>
+    WHERE m.email = #{email}
+		    
+    <if test="dept != null">
+    AND g.email = #{email}
+    </if>
   </update>
   
-  <insert id="insertAuth" parameterType="string">
+  <insert id="insertAuth" parameterType="map">
     insert into member_auth(email, auth)
-    values(#{email}, ROLE_MEMBER) <!-- 멘티/가이더일때 다른 권한을 주는 동적쿼리를 넣는 부분 -->
+    values(#{email}, #{auth}) <!-- 멘티/가이더일때 다른 권한을 주는 동적쿼리를 넣는 부분 -->
   </insert>
   
   <select id="getAuthList" parameterType="string" resultType="string">
     select auth from member_auth
     where email = #{email}
   </select>
-
-
-<!--   <insert id="insertMember">
-    INSERT INTO member (email, password, mname, gender, phone, photo, ctno, regdate)
-                VALUES (#{email}, #{password}, #{manme}, #{gender}, #{phone},
-                       #{photo}, #{photo}, #{ctno}, now())
-  </insert> -->
-
+  
+  <select id="selectGuiderList" parameterType="map" resultType="map">
+		SELECT m.email, m.mname, m.gender, m.phone, m.photo, m.ctno, m.regdate,
+		       g.introdution, g.quote, g.field, g.lang, g.currentjob, g.dept
+		       <if test="email != null">
+		       , f.fno
+		       </if>
+		FROM member m
+		INNER JOIN guider g
+		ON m.email = g.email
+		<if test="email != null">
+		LEFT JOIN follower f
+		ON f.follow = #{email} and f.guider = g.email
+		</if>
+		ORDER BY m.regdate
+		limit #{page}, 16
+  </select>
+  
+  <select id="selectFollower" parameterType="map" resultType="integer">
+    SELECT count(fno) FROM follower
+    WHERE guider = #{guider} AND follow = #{follower};
+  </select>
+  
+  <insert id="insertFollow">
+    INSERT INTO follower (guider, follow) VALUES(#{guider}, #{follower})
+  </insert>
+  
+  <delete id="deleteFollow">
+    DELETE FROM follower WHERE guider = #{guider} AND follow = #{follower}
+  </delete>
+  
 </mapper>

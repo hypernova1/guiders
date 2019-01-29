@@ -3,6 +3,7 @@
 <%@ include file="../include/header.jsp" %>
 
 <link rel="stylesheet" href="/css/mypage/edit.css">
+<script src="/js/mypage/edit.js" defer></script>
 <div id="wrapper">
   <aside>
     <ul>
@@ -24,38 +25,55 @@
       </div>
       <div>
         <label>비밀번호</label>
-        <input type="password" name="password" placeholder="비밀번호">
+        <input type="password" name="password">
       </div>
       <div>
         <label>재입력</label>
-        <input type="password" placeholder="비밀번호 확인">
+        <input type="password">
       </div>
       <div>
           <label>전화번호</label>
           <input type="text" name="phone" placeholder="전화번호" value="${vo.phone}">
       </div>
+      <c:choose>
+      <c:when test="${pageContext.request.userPrincipal.authorities[0] eq 'ROLE_GUIDER'}">
       <div>
           <label>분야</label>
           <input type="text" name="field" placeholder="분야" value="${vo.field}">
+      </div>
+      <div>
+        <label>지역</label>
+        <input type="text" name="ctno" placeholder="지역" value="${vo.ctno}">
       </div>
       <div>
         <label>언어</label>
         <input type="text" name="lang" placeholder="언어" value="${vo.lang}">
       </div>
       <div>
-        <label>학력</label>
-        <input type="text" placeholder="학력">
+        <label>최근직장</label>
+        <input type="text" name="currentjob" placeholder="언어" value="${vo.currentjob}">
+      </div>
+      <div>
+        <label>부서</label>
+        <input type="text" name="dept" placeholder="부서" value="${vo.dept}">
       </div>
       <div id="quote">
         <label>인용문</label>
-        <textarea placeholder="인용문" name="quote">${vo.quote}</textarea>
+        <textarea placeholder="인용문" id="quote-value">${vo.quote}</textarea>
+        <input type="hidden" name="quote">
       </div>
       <div>
         <label>경력란</label>
-        <textarea placeholder="경력란" name="introdution">${vo.introdution}</textarea>
+        <textarea placeholder="경력란" id="introdution-value">${vo.introdution}</textarea>
+        <input type="hidden" name="introdution">
       </div>
+      </c:when>
+      <c:otherwise>
+      <div></div>
+      </c:otherwise>
+      </c:choose>
       <div id="btn-wrap">
-        <button type="submit" class="btn">수정</button>
+        <button type="button" class="btn" id="edit-submit">수정</button>
       </div>
     </form>
   </section>

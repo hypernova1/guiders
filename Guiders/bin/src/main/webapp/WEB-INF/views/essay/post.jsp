@@ -2,48 +2,109 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 
+<script src="/js/common/ajax.js" defer></script>
 <link rel="stylesheet" href="/css/essay/post.css">
 
 <section>
   <article>
-    <div id="mtr-info">
-<!--         <img src="https://media.wnyc.org/i/800/0/l/85/1/bach.png">
-        <div class="mtr-name">바흐</div> -->
-    </div>
-    <div id="field">진로</div>
-    <div id="lang">C++</div>
-    <h1 id="title">어떡하지..</h1>
-    <div id="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, minima explicabo. Animi temporibus minima vitae dolor dolorem ratione ducimus eius cumque? Nemo consequuntur quo voluptatum ipsam dolorem illo quod fugiat.
-    Dicta qui facere illo iure neque! Quo veniam modi velit et quam debitis iusto vitae laborum dolor repellat totam sapiente, autem est voluptas numquam error adipisci in enim unde laudantium!
-    Quasi commodi non incidunt odio eum, beatae distinctio, ducimus mollitia at provident veritatis unde aperiam saepe omnis fugit quia et dolorum reprehenderit ullam sunt. Beatae quisquam consequuntur obcaecati deleniti rerum.
-    Maiores odio, vel deleniti sed nihil minima, hic tenetur fugit suscipit labore dolor illum eligendi neque ad nam? Aliquam repudiandae mollitia incidunt corporis neque amet. Odio autem qui earum voluptate.
-    Asperiores eaque perspiciatis debitis obcaecati est in, fugit numquam voluptate odio quasi libero quos ipsum labore neque esse voluptas non architecto, minima qui nulla pariatur? Minus delectus quasi itaque ullam.
-    Placeat, eveniet, repellendus accusantium possimus officia expedita fugiat alias sint id beatae itaque maiores aut facere quia nisi, temporibus optio asperiores distinctio blanditiis repudiandae ut. Ullam incidunt recusandae eligendi quos!
-    Perferendis, voluptate soluta aspernatur tempore totam fugiat enim sapiente officiis amet perspiciatis, illum autem obcaecati adipisci quis voluptates odit at aliquid optio quibusdam, ullam sed quam libero. Aspernatur, fugit ab.
-    Accusantium quibusdam suscipit rerum saepe eius sequi. Dolorum molestias adipisci omnis, magnam nemo vel ipsam libero, ullam necessitatibus assumenda provident! Veritatis amet laborum voluptatibus quae tenetur? Repudiandae eligendi voluptatibus quasi.
-    Nulla, omnis aspernatur porro labore delectus, odio voluptas repudiandae modi aliquam commodi atque. Voluptate quae nobis odio neque ipsam placeat itaque. Quia asperiores dignissimos distinctio, hic accusantium illum iste laborum.
-    Nobis facilis qui fugit, laboriosam laborum fugiat hic, minima dolores necessitatibus atque nemo voluptatem consequatur expedita commodi ex facere iste iure quas. Commodi incidunt facilis adipisci quas culpa, iste nemo?</div>
+    <div id="field">${essayVO.field}</div>
+    <div id="lang">${essayVO.lang}</div>
+    <h1 id="title">${essayVO.etitle}</h1>
+    <div id="content">${essayVO.econtent}</div>
   </article>
   <div id="like">
-    <span>♥ 3</span>
+    <span id="likeSpan" style="font-weight: bold;">
+	    <c:if test="${confirmLike == true}">♥</c:if>
+	    <c:if test="${confirmLike == false}">♡</c:if>
+	    ${essayVO.likecnt}
+    </span>
+    <form id="essayPostForm" action="/essay/delete" method="post">
+      <input type="hidden" name="eno" value="${essayVO.eno}">
+    </form>
+    <c:if test="${pageContext.request.userPrincipal.name == essayVO.mname}">
+        <button id="removeBtn" type="button">삭제</button>
+        <button id="modifyBtn" type="button">수정</button>
+    </c:if>
   </div>
   <div id="mtr-detail">
-    <img id="mtr-img" src="https://media.wnyc.org/i/800/0/l/85/1/bach.png">
+    <img id="mtr-img" src="${essayVO.photo}">
     <div class="mtr-name">
-      <span>바흐</span>
+      <span>${essayVO.mname}</span>
       <span>멘토</span>
       <div class="follow-btn">팔로우</div>
       <div class="qna-btn">질문하기</div>
       <div id="mtr-btn-wrap">
-        <div id="mtr-essay-btn">
-          작성 에세이 보기
-        </div>
-        <div id="mtr-page-btn">
-          멘토 상세정보
-        </div>
+        <div id="mtr-essay-btn">작성 에세이 보기</div>
+        <div id="mtr-page-btn">멘토 상세정보</div>
       </div>
     </div>
   </div>
+  <div id="button-wrap">
+    <button id="listBtn">목록으로</button>
+    <button id="beforeBtn">뒤로가기</button>
+  </div>
 </section>
+
+<script>
+	const modifyBtn = document.querySelector('#modifyBtn');
+	const removeBtn = document.querySelector('#removeBtn');
+	
+	if(modifyBtn){
+		modifyBtn.addEventListener('click', function(){
+				const eno = '${param.eno}';
+				location.href = "/essay/modify?eno=" + eno;
+		});
+	}
+	
+	document.querySelector('#likeSpan').addEventListener('click', function(e){
+		const email = '${userInfo.email}';
+		if(!email){
+			alert('로그인이 필요합니다.');
+			let i = 1;
+      modal.style.display = 'block';
+      const increase = setInterval(function(){
+        if (i == 51) {
+	          clearInterval(increase);
+	      } else {
+	          modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
+	          i++;
+	      }
+      }, 10);
+			return;
+		}
+		const eno = '${param.eno}';
+		let data = {email: email, eno: eno};
+		ajax('/essay/'+eno, 'put', data).then(function(result){
+			let cnt = result;
+			console.log('좋아요 갯수 : ' + cnt);
+			if(document.querySelector('#likeSpan').innerText.substring(0, 1) == '♡'){
+				document.querySelector('#likeSpan').innerText = '♥'+ ' ' +cnt;
+			}else if (document.querySelector('#likeSpan').innerText.substring(0, 1) == '♥'){
+				document.querySelector('#likeSpan').innerText = '♡'+ ' ' +cnt;
+			}
+		});
+	});
+	
+	if(removeBtn){
+		removeBtn.addEventListener('click', function(e) {
+			console.log('삭제 버튼 클릭');
+			e.preventDefault();
+			if(confirm('정말 삭제하시겠습니까?')){				
+				  document.querySelector('#essayPostForm').submit();
+			}
+		});
+	}
+	
+	document.querySelector('#button-wrap').addEventListener('click', ({target}) => {
+	    console.log(target);
+	    if(target.id == 'beforeBtn'){
+	        history.back();
+	    } else if(target.id == 'listBtn'){
+	        location.href = '/essay/list';
+	    }
+	})
+	
+	
+</script>
 
 <%@ include file="../include/footer.jsp" %>

@@ -16,7 +16,7 @@ ul {
 	display: flex;
 	margin: 8px;
 	padding: 0.4rem;
-	height: 200px;
+	height: 220px;
 	border: 1px solid #b2bec3;
 	border-radius: 4px;
 }
@@ -42,6 +42,8 @@ section {
 .title {
 	display: inline-block;
 	padding-left: 10px;
+	width: 800px;
+	overflow: hidden;
 }
 
 .title:hover {
@@ -97,8 +99,8 @@ article {
 	display: inline-block;
 	width: auto;
 	height: 113px;
-	margin-top: 20px;
-	padding: 5px;
+	margin: 20px 0;
+	padding: 6px;
 	color: #636e72;
 	overflow: hidden;
 }
@@ -130,4 +132,40 @@ button {
 	background-color: #ff2d55;
 	user-select: none;
 	cursor: pointer;
+}
+
+#pagination{
+  text-align: center;
+}
+
+#pagination>.pagination { 
+  /* display: inline-block; */
+  padding-left:0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.pagination > .pagination-li{
+  display: inline-block;
+  /* text-align: center; */
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.pagination-active{
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #ff2d55;
+  /* border: 2px solid #ff2d55; */
+  border-radius: 3px;
+  color: white;
+}
+
+.pagination-li > a:hover {
+  color: #ff2d55;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 0.2s;
 }

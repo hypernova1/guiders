@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guiders.web.guiders.dao.MentoringDAO">
+  <insert id="insertMentoring">
+    INSERT INTO mentoring (follower, guider, mtitle, mcontent, field, lang)
+    VALUE (#{follower}, #{guider}, #{mtitle}, #{mcontent}, #{field}, #{lang});
+  </insert>
+  
+  <update id="updateMentoring">
+    UPDATE mentoring SET mreply = #{mreply}, replydate = now() 
+    WHERE mtrno = #{mtrno};
+  </update>
+  
+  <select id="selectMentoring" parameterType="integer" resultType="mentoringVO">
+    SELECT mtrno, follower, guider, field, lang, mtitle, mcontent, mreply, 
+				   DATE_FORMAT(regdate, '%Y년 %m월 %d일') regdate,
+				   DATE_FORMAT(replydate, '%Y년 %m월 %d일') replydate, likecnt
+    FROM mentoring
+    WHERE mtrno = #{value}
+  </select>
+  
+  <select id="selectMentoringList" parameterType="map" resultType="map">
+		SELECT mtr.mtrno, mtr.guider, mtr.field, mtr.lang, mtr.mtitle, mtr.mreply,
+		       DATE_FORMAT(mtr.regdate, '%Y년 %m월 %d일') regdate,
+		       DATE_FORMAT(mtr.replydate, '%Y년 %m월 %d일') replydate, mtr.likecnt, m.mname
+		FROM mentoring mtr
+		JOIN member m ON
+		m.email = mtr.guider
+		WHERE guider = #{guider} and follower = #{follower}
+		ORDER BY mtr.regdate DESC
+  </select>
+  
+  <select id="selectMyQuestions" parameterType="string" resultType="map">
+    SELECT mtr.mtrno, mtr.follower, mtr.mtitle, mtr.mcontent, 
+    DATE_FORMAT(mtr.regdate, '%Y년 %m월 %d일') regdate, DATE_FORMAT(mtr.replydate, '%Y년 %m월 %d일') replydate, m.mname
+    FROM mentoring mtr JOIN member m ON mtr.follower = m.email
+    WHERE guider = #{value}
+    ORDER BY mtrno DESC
+  </select>
+  
+  
+  
+</mapper>

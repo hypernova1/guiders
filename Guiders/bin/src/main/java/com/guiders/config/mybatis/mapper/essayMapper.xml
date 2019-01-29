@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.guiders.web.essay.dao.EssayDAO">
+
+<insert id="insertEssay" parameterType="essayVO">
+		INSERT INTO ESSAY(EMAIL, FIELD, LANG, ETITLE, ECONTENT)
+		VALUES(#{email}, #{field},#{lang}, #{etitle}, #{econtent})
+</insert>
+
+<select id="selectEssay" resultType="essayVO" parameterType="int">
+	SELECT e.eno, e.email, m.mname,e.field, e.lang, e.etitle, e.econtent, m.photo,
+	(SELECT count(*) FROM recommend WHERE eno = #{eno})likecnt, e.regdate 
+	FROM essay e
+	JOIN member m
+	ON e.email = m.email
+	WHERE eno = #{eno}
+</select>
+
+<select id="selectEssayList" parameterType="pageCriteria" resultType="essayVO">
+  SELECT e.eno, e.email, m.mname, m.photo, g.field, g.lang, e.etitle, e.econtent, 
+	  (SELECT (SELECT count(*) 
+	  FROM recommend r 
+	  WHERE r.eno = essay.eno AND r.eno = essay.eno) likecnt 
+	  FROM essay WHERE essay.eno = e.eno) likecnt, 
+  e.regdate 
+  FROM essay e
+  JOIN member m
+  ON e.email = m.email
+  JOIN guider g
+  ON e.email = g.email
+  <if test="cri.keyword != ''">
+    <where>
+      e.etitle LIKE CONCAT ('%',#{cri.keyword},'%')
+      OR e.econtent LIKE CONCAT ('%',#{cri.keyword},'%')
+    </where>
+  </if>
+  ORDER BY e.eno DESC
+  LIMIT #{startNum}, 5
+</select>
+
+<select id="selectEssayCount" parameterType="pageCriteria" resultType="integer">
+  SELECT count(eno) FROM essay
+    <if test="keyword != ''">
+    <where>
+      etitle LIKE CONCAT ('%',#{keyword},'%')
+      OR econtent LIKE CONCAT ('%',#{keyword},'%')
+    </where>
+  </if>
+</select>
+
+<update id="updateEssay" parameterType="essayVO">
+	UPDATE essay
+	SET etitle = #{etitle}, econtent = #{econtent}
+	WHERE eno = #{eno}
+</update>
+
+<delete id="deleteEssay" parameterType="integer">
+	DELETE FROM essay
+	WHERE eno = #{eno}
+</delete>
+
+<select id="selectLikeCnt" resultType="integer" parameterType="map">
+	SELECT count(*) FROM recommend
+	WHERE eno = #{eno} AND email = #{email}
+</select>
+
+<insert id="insertRecommend" parameterType="map">
+	INSERT INTO recommend
+	VALUES(#{eno}, #{email})
+</insert>
+
+<delete id="deleteRecommend" parameterType="map">
+	DELETE FROM recommend
+	where eno = #{eno} and email = #{email}
+</delete>
+
+<select id="getCount" resultType="integer">
+  SELECT count(*) FROM recommend
+  WHERE eno = #{eno}
+</select>
+
+<select id="selectTopEssay" resultType="map">
+  SELECT eno, etitle, econtent
+  FROM essay
+  ORDER BY likecnt DESC
+  LIMIT 6
+</select>
+
+<update id="increaseLikeCnt">
+  UPDATE essay
+  SET likecnt = likecnt + 1
+  WHERE eno = #{eno}
+</update>
+
+<update id="decreaseLikeCnt">
+  UPDATE essay
+  SET likecnt = likecnt - 1
+  WHERE eno = #{eno}
+</update>
+
+</mapper>

@@ -2,15 +2,20 @@
   font-family: 'yoon';
   src: url('/font/HANYOONGOTHIC760.TTF') format('truetype');
 }
-*, *::before, *::after {
+
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'yoon';
   /* background: linear-gradient(135deg, #b3cae5 12%, #dbdde4 46%, #e4e3e4 70%, #f7ddbb 94%, #efcab2 100%); */
 }
+
 header {
   top: 0;
   opacity: 0.98;
@@ -22,15 +27,17 @@ header {
   border-bottom: 1px solid #b2bec3;
   z-index: 1;
 }
+
 #header-content {
   width: 80%;
   margin: auto;
 }
 
 nav {
-  display:flex;
+  display: flex;
   float: right;
 }
+
 .menu-content {
   display: inline-block;
   margin: 0 5px;
@@ -39,23 +46,29 @@ nav {
   cursor: pointer;
   user-select: none;
 }
+
 .menu-content:nth-child(4) {
-  margin-left: 30px;
+  margin-left: 10px;
+  color: #747d8c;
 }
-.menu-content>span:hover {
+
+.menu-content>span:hover:not(.menu-content>span:nth-child(5)) {
   color: #ff2d55;
   transition: 0.3s;
 }
+
 #logo {
   width: 120px;
   height: 50px;
   margin-left: 20px;
   cursor: pointer;
 }
-#mypage{
+
+#mypage {
   width: 30px;
   height: 30px;
 }
+
 #mypage-list {
   overflow: hidden;
   position: fixed;
@@ -67,18 +80,22 @@ nav {
   background-color: white;
   transition: height 0.3s;
 }
+
 #mypage-list>li {
   padding: 5px 20px;
 }
+
 #mypage-list>li:hover {
   background: #dcdde1;
   transition: 0.3s;
 }
-a{
+
+a {
   text-decoration: none;
   color: black;
 }
-#login-modal{
+
+#login-modal {
   position: fixed;
   display: none;
   top: 0;
@@ -87,12 +104,13 @@ a{
   height: 100%;
   z-index: 1;
 }
-#login-modal-content{
+
+#login-modal-content {
   position: fixed;
   left: 50%;
   top: 50%;
   width: 450px;
-  height: 420px;
+  height: 450px;
   text-align: center;
   transform: translate(-50%, -50%);
   border: 1px solid #95a5a6;
@@ -102,31 +120,40 @@ a{
   background: white;
   animation: 0.5s move;
 }
-#modal-title{
+
+#modal-title {
   margin: 20px 0 40px 0;
 }
-#id, #password{
+
+#id,
+#password {
   font-weight: bold;
   margin: 20px;
 }
-#id>label, #password>label{
+
+#id>label,
+#password>label {
   display: block;
   margin-left: 70px;
   text-align: left;
   font-size: 1.2rem;
 }
-#id>input, #password>input{
+
+#id>input,
+#password>input {
   margin-top: 10px;
   width: 250px;
   height: 40px;
   border-radius: 4px;
   padding: 8px;
-  border: 1px solid#95a5a6;
+  border: 1px solid #95a5a6;
 }
-#modal-content>div:nth-child(3){
+
+#modal-content>div:nth-child(3) {
   margin-top: 20px;
 }
-#login-modal-content button{
+
+#login-modal-content button {
   all: unset;
   border: 1px solid white;
   background: #ff2d55;
@@ -135,104 +162,255 @@ a{
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
+  width: 168px;
 }
-#login-modal-content button:hover{
+
+#login-modal-content button:hover {
   background: black;
   color: #ff2d55;
   transition: 0.3s;
 }
-#etc{
+
+#etc {
   margin-top: 30px;
   font-size: 0.9rem;
   color: #7f8c8d;
   font-weight: 500;
 }
-#join-btn, #pwd-btn{
+
+#join-btn,
+#pwd-btn {
   cursor: pointer;
 }
-#join-btn:hover, #pwd-btn:hover{
+
+#join-btn:hover,
+#pwd-btn:hover {
   text-decoration: underline;
 }
-@keyframes move {
-  0%{
-    top: 0;
-  }
-  50% {
-    top: 70%;
-  }
-  100%{
-    top: 50%;
-  }
-}
+
 .search-box {
-    top: 18%;
-    left: 22%;
-    position: absolute;
-    /* transform: translate(-50%, -50%); */
-    background: white;
-    height: 50px;
-    border-radius: 40px;
-    padding: 10px;
+  top: 18%;
+  left: 22%;
+  position: absolute;
+  /* transform: translate(-50%, -50%); */
+  background: white;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px;
 }
 
-.span-word{
-    font-weight: bold;
-    position: relative;
-    top: 2px;
+.span-word {
+  font-weight: bold;
+  position: relative;
+  top: 2px;
 }
 
-.search-box:hover{
-    border: 3px solid #ff2d55;
+.search-box:hover {
+  border: 3px solid #ff2d55;
 }
 
 .search-box:hover>.search-txt {
-    width: 240px;
-    padding: 0 6px;
+  width: 240px;
+  padding: 0 6px;
 }
 
 .search-box:hover>.search-btn {
-    background: white;
-    color: black;
+  background: white;
+  color: black;
 }
-.search-box:hover>.span-word{
-    display: none;
+
+.search-box:hover>.span-word {
+  display: none;
 }
 
 .search-btn {
-    color: #e84118;
-    float: right;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background:white;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    transition: 0.4s;
-    color: white;
-    cursor: pointer;
+  color: #e84118;
+  float: right;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  color: white;
+  cursor: pointer;
 }
 
 .search-btn>i {
-    position: relative;
-    font-size: 20px;
-    color: #ff2d55;
+  position: relative;
+  font-size: 20px;
+  color: #ff2d55;
 }
 
 .search-txt {
-    border: none;
-    background: none;
-    outline: none;
-    float: left;
-    padding: 0;
-    color: black;
-    font-size: 15px;
-    transition: 0.4s;
-    width: 0px;
-    line-height: 30px;
-    font-weight: bold;
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: black;
+  font-size: 15px;
+  transition: 0.4s;
+  width: 0px;
+  line-height: 30px;
+  font-weight: bold;
 }
 
-.logo, .search-box{
+.logo,
+.search-box {
   float: left;
+}
+
+#mtr-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 1;
+}
+
+#mtr-modal-body {
+  position: fixed;
+  left: 50%;
+  bottom: 50%;
+  width: 600px;
+  height: 700px;
+  border: 1px solid white;
+  box-shadow: 2px 2px 3px black;
+  border-radius: 4px;
+  text-align: center;
+  background: #f5f6fa;
+  transform: translate(-85%, 67%);
+  animation: 0.5s up-modal;
+}
+
+#title>input {
+  all: unset;
+  margin: 15px 5px 10px;
+  padding: 0 5px;
+  width: 90%;
+  height: 35px;
+  border: 1px solid #b2bec3;
+  border-radius: 4px;
+  text-align: left;
+  background: white;
+}
+
+#content>textarea {
+  all: unset;
+  width: 90%;
+  height: 450px;
+  margin: 5px 0 15px;
+  padding: 5px;
+  border: 1px solid #b2bec3;
+  border-radius: 4px;
+  resize: none;
+  text-align: left;
+  background: white;
+}
+
+#btn-wrap>button, .login-fail-modal-content>button {
+  all: unset;
+  display: inline-block;
+  font-size: 1rem;
+  color: white;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 4px;
+  border-color: white;
+  background-color: #ff2d55;
+  user-select: none;
+  cursor: pointer;
+}
+
+#select-wrap {
+  display: flex;
+  margin: 10px 0 0 23px;
+  text-align: left;
+}
+
+#select-wrap>select {
+  width: 100px;
+  height: 25px;
+  font-size: 1rem;
+  margin-right: 5px;
+}
+
+form h2 {
+  margin: 10px 0;
+  color: #2c3e50;
+}
+#field, #lang{
+	margin: 3px;
+	padding: 3px;
+	border: 1.5px solid #ff2d55;
+  border-radius: 4px;	
+  background-color: white;
+}
+
+#login-fail-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+#login-fail-modal-content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 340px;
+  height: 120px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  border: 1px solid #95a5a6;
+  border-radius: 4px;
+  box-shadow: 1px 1px 2px;
+  padding: 10px;
+  background: white;
+}
+#login-fail-modal-content>button{
+	color: white;
+	margin: 0;
+	margin-top: 10px;
+}
+#login-fail-modal-content>div{
+	margin-top: 15px;
+}
+
+#naver-login{
+  height: 45px; 
+  width: 200px;
+  cursor: pointer;
+}
+
+@keyframes move {
+  0% {
+    top: 0;
+  }
+
+  50% {
+    top: 70%;
+  }
+
+  100% {
+    top: 50%;
+  }
+}
+
+@keyframes up-modal {
+  0% {
+    bottom: 0;
+  }
+
+  100% {
+    bottom: 50%;
+  }
 }

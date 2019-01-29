@@ -22,7 +22,7 @@ form {
 #login-body {
 	border: 1px solid #95a5a6;
 	width: 420px;
-	height: 370px;
+	height: 430px;
 	text-align: center;
 	border-radius: 4px;
 	box-shadow: 1px 1px 3px;
@@ -49,6 +49,7 @@ button {
 	border-radius: 4px;
 	font-weight: bold;
 	cursor: pointer;
+	width: 168px;
 }
 
 #login-body>div>div {
@@ -78,12 +79,19 @@ button {
 	margin: 20px;
 	user-select: none;
 }
+
+#naver-login{
+	height: 45px; 
+	width: 200px;
+	cursor: pointer;
+
+}
 </style>
 </head>
 <body>
 	<img src="/img/logo.png" id="logo">
 	<form>
-		<h1 id="msg">권한이 없습니다. 로그인 해주세요.</h1>
+		<h1 id="msg">로그인 해주세요.</h1>
 		<div id="login-body">
 			<div>
 				<div id="email">
@@ -93,11 +101,24 @@ button {
 					<label>비밀번호</label> <input type="password" name="password">
 				</div>
 			</div>
-			<button type="button" onclick="signin()">로그인</button>
+			<div>
+				<button type="button" onclick="signin()">로그인</button>
+			</div>
+			<div style="margin-top: 10px;">
+				<img src="/img/naverLogin.png" id="naver-login">
+			</div>
 		</div>
 	</form>
+	
 
 	<script>
+	
+	document.querySelector('#naver-login').addEventListener('click', function(){
+		let url = '${url}';
+		location.href = url;
+		
+	});
+	
 		function signin() {
 			$.ajax({
 				url : '/login',
@@ -106,7 +127,7 @@ button {
 				dataType : 'json',
 				beforeSend : function(xhr) {
 					xhr.setRequestHeader("Accept", "application/json");
-					xhr.setRequestHeader('x-CSRFToken', '${_csrf.token}');
+					/* xhr.setRequestHeader('x-CSRFToken', '${_csrf.token}'); */
 				}
 			}).done(function(result) {
 				var error = result.error;
@@ -122,6 +143,11 @@ button {
 					location.href = url;
 				}
 			});
+		}
+		
+  	if('${pageContext.request.userPrincipal}'){
+			alert('이미 로그인 되어 있습니다.');
+			history.back();
 		}
 	</script>
 </body>

@@ -53,13 +53,20 @@ article {
   border-radius: 4px;
 }
 .article-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
   margin: 5px;
+  cursor: pointer;
+}
+.article-title:hover{
+	text-decoration: underline;
 }
 .article-content {
   text-align: left;
   padding: 20px;
   color: #6d6d72;
-  height: 190px;
+  height: 230px;
   overflow: hidden;
 }
 .article-img {
@@ -83,24 +90,93 @@ article {
   margin-top: 30px;
 }
 #makers {
-  margin-top: 20px;
+  margin: 40px 0;
   display: flex;
   justify-content: center;
 }
+
 .maker {
   display: inline-block;
+  position: relative;
+  margin: 10px 10px;
+  perspective: 1000;
+}
+
+.card {
   width: 300px;
-  height: 400px;
-  margin: 4px;
-  border: 1px solid #dcdde1;
-  border-radius: 4px;
+  height: 420px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: 0.5s;
 }
-.maker-img {
-  padding: 20px;
+
+.face {
+  position: absolute;
+  backface-visibility: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 50px;
+  text-align: center;
 }
-.maker-img>img {
-  display: inline-block;
-  border-radius: 100%;
-  width: 150px;
-  height: 150px;
+
+.front {
+  background: #ffffff;
+  border: 2px solid #ced6e0;
+  border-radius: 10px;
+  border-top-left-radius: 50% 35%;
+  border-top-right-radius: 50% 35%;
 }
+
+.back {
+  transform: rotateY(180deg);
+  background: #ffffff;
+  border: 2px solid #ced6e0;
+  border-radius: 10px;
+  border-top-left-radius: 50% 35%;
+  border-top-right-radius: 50% 35%;
+}
+
+.maker:hover .card {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.maker:hover .front {
+  z-index: 0;
+}
+
+.face.front>img{
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin-top: 20px;
+}
+.name{
+	color: #747d8c;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.role-title{
+	font-weight: bold;
+	font-size: 0.8rem;
+	height: 20px;
+}
+.role{
+	font-size: 0.9rem;
+}
+
+#header-img > div > p:nth-child(2){
+	text-align: right;
+}
+
+.back-img{
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin-top: 20px;
+	}

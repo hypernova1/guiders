@@ -13,6 +13,7 @@
   <mvc:resources mapping="/js/**" location="/resources/js/" />
   <mvc:resources mapping="/img/**" location="/resources/img/" />
   <mvc:resources mapping="/font/**" location="/resources/font/" />
+  <mvc:resources mapping="/editor/**" location="/resources/editor/" />
   
   <mvc:annotation-driven> <!-- json 한글깨짐 방지 -->
    <mvc:message-converters>
@@ -32,12 +33,17 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+   <!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	   <beans:bean id="naverLoginBO" class="com.guiders.web.util.NaverLoginBO"/>
+	
 	 <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     <beans:property name="defaultEncoding" value="utf-8" /> 
-    <beans:property name="maxUploadSize" value="5242880" /> 
+    <beans:property name="maxUploadSize" value="10485760" /> 
     <beans:property name="maxInMemorySize" value="1048576" /> 
   </beans:bean>
 	
 	<context:component-scan base-package="com.guiders.web" />
+	
+	
 	
 </beans:beans>

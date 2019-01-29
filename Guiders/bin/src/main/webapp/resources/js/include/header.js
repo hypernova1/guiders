@@ -68,8 +68,11 @@ function get_msg(message) {
 	});
 }
 
+document.querySelector('#login-fail-modal-content>button').addEventListener('click', () => {
+    document.querySelector('#login-fail-modal').style.display = 'none';
+});
+
 function signin() {
-	console.log("........");
 	$.ajax({
 		url : '/login',
 		data : $('form input').serialize(),
@@ -80,12 +83,41 @@ function signin() {
 			xhr.setRequestHeader('x-CSRFToken','${_csrf.token}');
 		}
 	}).success(function(result) {
-		console.log("........2");
-		var error = result.error;
-		if (error)
-			alert('로그인 실패');
-		if (!error) {
-			location.reload();
+		if (result.response)
+			document.querySelector('#login-fail-modal').style.display = 'block';
+		else {
+		    location.reload();
 		}
 	});
 }
+
+
+document.querySelector('.search-btn').addEventListener('click', function(e){
+	let keyword = document.querySelector('.search-txt').value;
+	if(!keyword){
+		alert('검색 키워드를 입력해주세요');
+		return;
+	}
+	document.querySelector('#search-form').submit();
+});
+
+let naverName = sessionStorage.getItem("naverName");
+if(naverName != null){
+	document.querySelector('#naverName').textContent = naverName + '님';
+}
+
+
+document.querySelector('#naverLogout').addEventListener('click', function(){
+	console.log('........');
+	sessionStorage.removeItem("naverName");
+	window.open("https://nid.naver.com/nidlogin.logout","네이버 로그아웃",
+	"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+	location.href = '/logout';
+	
+});
+
+document.querySelector('#naver-login').addEventListener('click', function(){
+	let url = '${url}';
+	location.href = url;
+	
+});

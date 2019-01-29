@@ -13,6 +13,7 @@ function ajax(url, method, obj) {
       }
     }
     xhr.open(method, url);
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(obj));
   });
 }
