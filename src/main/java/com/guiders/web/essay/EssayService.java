@@ -1,29 +1,74 @@
 package com.guiders.web.essay;
 
+import com.guiders.util.PageCriteria;
+import com.guiders.web.member.Guider;
+import com.guiders.web.member.MemberDAO;
+import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.guiders.util.PageCriteria;
+@Service
+@RequiredArgsConstructor
+public class EssayService {
 
-public interface EssayService {
+    private final SqlSession sqlSession;
 
-    void writeEssay(EssayVO essayVO);
+    public void writeEssay(Essay essay) {
+        Map<String, String> param = new HashMap<>();
+        param.put("email", essay.getEmail());
+        param.put("type", "guider");
+        Guider guider = sqlSession.getMapper(MemberDAO.class).selectByEmail(param);
+        essay.setField(guider.getField());
+        essay.setLang(guider.getLang());
+        sqlSession.getMapper(EssayDAO.class).insertEssay(essay);
+    }
 
-    EssayVO readEssay(int eno);
+    public Essay readEssay(int eno) {
+        return sqlSession.getMapper(EssayDAO.class).selectEssay(eno);
+    }
 
-    List<EssayVO> getEssayList(Integer startNum, PageCriteria cri);
+    public void modifyEssay(Essay essay) {
+        sqlSession.getMapper(EssayDAO.class).updateEssay(essay);
+    }
 
-    void modifyEssay(EssayVO essayVO);
+    public List<Essay> getEssayList(Integer startNum, PageCriteria cri) {
+        return sqlSession.getMapper(EssayDAO.class).selectEssayList(startNum, cri);
+    }
 
-    void removeEssay(Integer eno);
+    @Transactional
+    public int addRecommend(Map<String, String> map) {
+        String eno = map.get("eno");
+        Integer cnt = sqlSession.getMapper(EssayDAO.class).selectLikeCnt(map);
+        if (cnt == 0) { // 좋아요를 누른 적이 없다면 카운트 +1
+            sqlSession.getMapper(EssayDAO.class).insertRecommend(map);
+            sqlSession.getMapper(EssayDAO.class).increaseLikeCnt(Integer.parseInt(eno));
+        } else { // 누른 적이 있다면 카운트 -1
+            sqlSession.getMapper(EssayDAO.class).deleteRecommend(map);
+            sqlSession.getMapper(EssayDAO.class).decreaseLikeCnt(Integer.parseInt(eno));
+        }
+        return sqlSession.getMapper(EssayDAO.class).getCount(eno);
+    }
 
-    int addRecommend(Map<String, String> map);
+    public boolean confirmLike(Map<String, String> map) {
+        int count = sqlSession.getMapper(EssayDAO.class).selectLikeCnt(map);
+        return count == 1;
+    }
 
-    boolean confirmLike(Map<String, String> map);
+    public void removeEssay(Integer eno) {
+        sqlSession.getMapper(EssayDAO.class).deleteEssay(eno);
+    }
 
-    Integer getEssayCount(PageCriteria cri);
+    public Integer getEssayCount(PageCriteria cri) {
+        return sqlSession.getMapper(EssayDAO.class).selectEssayCount(cri);
+    }
 
-    List<Map<String, Object>> getTopEssay();
-
+    public List<Map<String, Object>> getTopEssay() {
+        return sqlSession.getMapper(EssayDAO.class).selectTopEssay();
+    }
 
 }

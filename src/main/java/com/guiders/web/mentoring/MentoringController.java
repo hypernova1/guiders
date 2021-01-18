@@ -1,8 +1,8 @@
 package com.guiders.web.mentoring;
 
-import java.util.List;
-import java.util.Map;
-
+import com.guiders.security.config.UserCustom;
+import com.guiders.web.member.Guider;
+import com.guiders.web.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.guiders.security.config.UserCustom;
-import com.guiders.web.member.GuiderVO;
-import com.guiders.web.member.MemberService;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/mentoring")
@@ -23,31 +23,31 @@ public class MentoringController {
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity<Boolean> question(@RequestBody MentoringVO mentoringVO,
+    public ResponseEntity<Boolean> question(@RequestBody Mentoring mentoring,
                                             Authentication authentication) {
         if (authentication != null) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
-            mentoringVO.setFollower(user.getEmail());
-            mentoringService.question(mentoringVO);
+            mentoring.setFollower(user.getEmail());
+            mentoringService.question(mentoring);
         }
 
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @PostMapping("/answer")
-    public String answer(MentoringVO mentoringVO) {
-        mentoringService.answer(mentoringVO);
+    public String answer(Mentoring mentoring) {
+        mentoringService.answer(mentoring);
 
-        return "redirect:/qna/" + mentoringVO.getMtrno();
+        return "redirect:/qna/" + mentoring.getMtrno();
     }
 
 
     @GetMapping("/qna/{mtrno}")
     public String qna(@PathVariable Integer mtrno, Model model) {
-        MentoringVO mentoringVO = mentoringService.getMentoring(mtrno);
-        GuiderVO guiderVO = memberService.selectByEmail(mentoringVO.getGuider(), "guider");
-        model.addAttribute("mentoring", mentoringVO);
-        model.addAttribute("guider", guiderVO);
+        Mentoring mentoring = mentoringService.getMentoring(mtrno);
+        Guider guider = memberService.selectByEmail(mentoring.getGuider(), "guider");
+        model.addAttribute("mentoring", mentoring);
+        model.addAttribute("guider", guider);
         return "mypage/qna";
     }
 

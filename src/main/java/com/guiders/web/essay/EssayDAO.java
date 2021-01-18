@@ -8,13 +8,13 @@ import com.guiders.util.PageCriteria;
 
 public interface EssayDAO {
 
-    void insertEssay(EssayVO essayVO);
+    void insertEssay(Essay essay);
 
-    EssayVO selectEssay(Integer eno);
+    Essay selectEssay(Integer eno);
 
-    List<EssayVO> selectEssayList(@Param("startNum") Integer startNum, @Param("cri") PageCriteria cri);
+    List<Essay> selectEssayList(@Param("startNum") Integer startNum, @Param("cri") PageCriteria cri);
 
-    void updateEssay(EssayVO essayVO);
+    void updateEssay(Essay essay);
 
     void deleteEssay(Integer eno);
 

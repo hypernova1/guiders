@@ -7,29 +7,29 @@
 
 <section>
   <article>
-    <div id="field">${essayVO.field}</div>
-    <div id="lang">${essayVO.lang}</div>
-    <h1 id="title">${essayVO.etitle}</h1>
-    <div id="content">${essayVO.econtent}</div>
+    <div id="field">${essay.field}</div>
+    <div id="lang">${essay.lang}</div>
+    <h1 id="title">${essay.etitle}</h1>
+    <div id="content">${essay.econtent}</div>
   </article>
   <div id="like">
     <span id="likeSpan" style="font-weight: bold;">
 	    <c:if test="${confirmLike == true}">♥</c:if>
 	    <c:if test="${confirmLike == false}">♡</c:if>
-	    ${essayVO.likecnt}
+	    ${essay.likecnt}
     </span>
     <form id="essayPostForm" action="/essay/delete" method="post">
-      <input type="hidden" name="eno" value="${essayVO.eno}">
+      <input type="hidden" name="eno" value="${essay.eno}">
     </form>
-    <c:if test="${pageContext.request.userPrincipal.name == essayVO.mname}">
+    <c:if test="${pageContext.request.userPrincipal.name == essay.mname}">
         <button id="removeBtn" type="button">삭제</button>
         <button id="modifyBtn" type="button">수정</button>
     </c:if>
   </div>
   <div id="mtr-detail">
-    <img id="mtr-img" src="${essayVO.photo}">
+    <img id="mtr-img" src="${essay.photo}">
     <div class="mtr-name">
-      <span>${essayVO.mname}</span>
+      <span>${essay.mname}</span>
       <span>멘토</span>
       <div class="follow-btn">팔로우</div>
       <div class="qna-btn">질문하기</div>

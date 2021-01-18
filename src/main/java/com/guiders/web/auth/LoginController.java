@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.guiders.web.member.GuiderVO;
+import com.guiders.web.member.Guider;
 import com.guiders.util.NaverLoginBO;
 
 @Controller
@@ -34,10 +34,9 @@ public class LoginController {
     }
 
     @PostMapping("join")
-    public ResponseEntity<Boolean> join(@RequestBody GuiderVO guiderVO) {
-        loginService.join(guiderVO);
+    public ResponseEntity<Boolean> join(@RequestBody Guider guider) {
+        loginService.join(guider);
         return new ResponseEntity<>(true, HttpStatus.OK);
-
     }
 
     @GetMapping("/joinform")

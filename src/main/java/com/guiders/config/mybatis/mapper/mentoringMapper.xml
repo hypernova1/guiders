@@ -13,7 +13,7 @@
     WHERE mtrno = #{mtrno};
   </update>
   
-  <select id="selectMentoring" parameterType="integer" resultType="mentoringVO">
+  <select id="selectMentoring" parameterType="integer" resultType="mentoring">
     SELECT mtrno, follower, guider, field, lang, mtitle, mcontent, mreply, 
 				   DATE_FORMAT(regdate, '%Y년 %m월 %d일') regdate,
 				   DATE_FORMAT(replydate, '%Y년 %m월 %d일') replydate, likecnt

@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface MentoringDAO {
-    Integer insertMentoring(MentoringVO mentoringVO);
+    Integer insertMentoring(Mentoring mentoring);
 
-    Integer updateMentoring(MentoringVO mentoringVO);
+    Integer updateMentoring(Mentoring mentoring);
 
-    MentoringVO selectMentoring(Integer mtrno);
+    Mentoring selectMentoring(Integer mtrno);
 
     List<Map<String, Object>> selectMyQuestions(String email);
 

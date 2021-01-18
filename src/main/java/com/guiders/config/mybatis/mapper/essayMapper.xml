@@ -5,12 +5,12 @@
   
 <mapper namespace="com.guiders.web.essay.EssayDAO">
 
-<insert id="insertEssay" parameterType="essayVO">
+<insert id="insertEssay" parameterType="essay">
 		INSERT INTO ESSAY(EMAIL, FIELD, LANG, ETITLE, ECONTENT)
 		VALUES(#{email}, #{field},#{lang}, #{etitle}, #{econtent})
 </insert>
 
-<select id="selectEssay" resultType="essayVO" parameterType="int">
+<select id="selectEssay" resultType="essay" parameterType="int">
 	SELECT e.eno, e.email, m.mname,e.field, e.lang, e.etitle, e.econtent, m.photo,
 	(SELECT count(*) FROM recommend WHERE eno = #{eno})likecnt, e.regdate 
 	FROM essay e
@@ -19,7 +19,7 @@
 	WHERE eno = #{eno}
 </select>
 
-<select id="selectEssayList" parameterType="pageCriteria" resultType="essayVO">
+<select id="selectEssayList" parameterType="pageCriteria" resultType="essay">
   SELECT e.eno, e.email, m.mname, m.photo, g.field, g.lang, e.etitle, e.econtent, 
 	  (SELECT (SELECT count(*) 
 	  FROM recommend r 
@@ -51,7 +51,7 @@
   </if>
 </select>
 
-<update id="updateEssay" parameterType="essayVO">
+<update id="updateEssay" parameterType="essay">
 	UPDATE essay
 	SET etitle = #{etitle}, econtent = #{econtent}
 	WHERE eno = #{eno}

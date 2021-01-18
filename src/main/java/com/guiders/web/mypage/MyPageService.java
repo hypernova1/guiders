@@ -3,12 +3,12 @@ package com.guiders.web.mypage;
 import java.util.List;
 import java.util.Map;
 
-import com.guiders.web.essay.EssayVO;
+import com.guiders.web.essay.Essay;
 
 public interface MyPageService {
 
 
-    List<EssayVO> getMyLikeEssay(String email);
+    List<Essay> getMyLikeEssay(String email);
 
     String getEssayContent(Integer eno);
 

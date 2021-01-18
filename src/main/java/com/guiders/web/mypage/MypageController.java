@@ -1,10 +1,10 @@
 package com.guiders.web.mypage;
 
-import java.util.List;
-import java.util.Map;
-
-import com.guiders.web.member.GuiderVO;
+import com.guiders.security.config.UserCustom;
+import com.guiders.web.essay.Essay;
+import com.guiders.web.member.Guider;
 import com.guiders.web.member.MemberService;
+import com.guiders.web.mentoring.MentoringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.guiders.security.config.UserCustom;
-import com.guiders.web.essay.EssayVO;
-import com.guiders.web.mentoring.MentoringService;
-
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/mypage")
@@ -30,7 +28,7 @@ public class MypageController {
 
     @GetMapping("/likeEssay")
     public String likeEssay(Authentication authentication, Model model) {
-        List<EssayVO> list = null;
+        List<Essay> list = null;
         if (authentication.isAuthenticated()) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
             list = myPageService.getMyLikeEssay(user.getEmail());
@@ -63,7 +61,7 @@ public class MypageController {
 
     @GetMapping("/guider/{email}")
     public @ResponseBody
-    ResponseEntity<GuiderVO> guider(@PathVariable String email) {
+    ResponseEntity<Guider> guider(@PathVariable String email) {
 
         return new ResponseEntity<>(memberService.selectByEmail(email, "guider"), HttpStatus.OK);
     }
@@ -87,7 +85,7 @@ public class MypageController {
             if (user.getAuthorities().toString().equals("[ROLE_MEMBER]")) {
                 type = "member";
             }
-            GuiderVO vo = memberService.selectByEmail(user.getEmail(), type);
+            Guider vo = memberService.selectByEmail(user.getEmail(), type);
             model.addAttribute("vo", vo);
         }
 
@@ -95,7 +93,7 @@ public class MypageController {
     }
 
     @PostMapping("/edit")
-    public String edit(GuiderVO vo, Authentication authentication) {
+    public String edit(Guider vo, Authentication authentication) {
         if (vo != null && authentication != null) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
             vo.setPassword(vo.getPassword().trim());

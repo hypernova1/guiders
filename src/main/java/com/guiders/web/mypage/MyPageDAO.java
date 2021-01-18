@@ -1,13 +1,13 @@
 package com.guiders.web.mypage;
 
-import com.guiders.web.essay.EssayVO;
+import com.guiders.web.essay.Essay;
 
 import java.util.List;
 import java.util.Map;
 
 public interface MyPageDAO {
 
-    List<EssayVO> selectMyLikeEssay(String email);
+    List<Essay> selectMyLikeEssay(String email);
 
     String selectEssayContent(Integer eno);
 

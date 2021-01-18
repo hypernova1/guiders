@@ -3,7 +3,7 @@ package com.guiders.web.essay;
 import com.guiders.security.config.UserCustom;
 import com.guiders.util.PageCriteria;
 import com.guiders.util.Pagination;
-import com.guiders.web.member.GuiderVO;
+import com.guiders.web.member.Guider;
 import com.guiders.web.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
@@ -30,7 +30,7 @@ public class EssayController {
     public String writeEssay(Model model, Authentication authentication) {
         if (authentication != null) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
-            GuiderVO vo = memberService.selectByEmail(user.getEmail(), "guider");
+            Guider vo = memberService.selectByEmail(user.getEmail(), "guider");
             model.addAttribute("email", vo.getEmail());
 
         }
@@ -38,9 +38,9 @@ public class EssayController {
     }
 
     @PostMapping("/write")
-    public String writeEssay(EssayVO essayVO) {
-        if (essayVO != null) {
-            essayService.writeEssay(essayVO);
+    public String writeEssay(Essay essay) {
+        if (essay != null) {
+            essayService.writeEssay(essay);
             return "redirect:/essay/list";
         } else {
             return "/essay/write"; // 글작성 실패
@@ -57,15 +57,15 @@ public class EssayController {
         pm.setTotal(essayService.getEssayCount(cri));
 
         Integer startNum = cri.getPageStart();
-        List<EssayVO> list = essayService.getEssayList(startNum, cri);
-        for (EssayVO essayVO : list) {
-            String econtent = essayVO.getEcontent();
+        List<Essay> list = essayService.getEssayList(startNum, cri);
+        for (Essay essay : list) {
+            String econtent = essay.getEcontent();
             econtent = econtent.replaceAll("<[^>]*>", "");
             econtent = econtent.replaceAll("&nbsp;", " ");
             econtent = econtent.replaceAll("&lt;", "<");
             econtent = econtent.replaceAll("&gt;", ">");
             econtent = econtent.replaceAll("&amp;", "&");
-            essayVO.setEcontent(econtent);
+            essay.setEcontent(econtent);
         }
 
         model.addAttribute("essayList", list);
@@ -81,10 +81,10 @@ public class EssayController {
             model.addAttribute("userInfo", userCustom);
             map.put("email", userCustom.getEmail());
         }
-        EssayVO essayVO = essayService.readEssay(eno);
+        Essay essay = essayService.readEssay(eno);
         map.put("eno", eno.toString());
         boolean confirmLike = essayService.confirmLike(map);
-        model.addAttribute("essayVO", essayVO);
+        model.addAttribute("essayVO", essay);
         model.addAttribute("confirmLike", confirmLike);
         return "/essay/post";
     }
@@ -92,16 +92,16 @@ public class EssayController {
     @GetMapping("/modify")
     public String modifyEssay(@Param("eno") Integer eno, Model model) {
 
-        EssayVO essayVO = essayService.readEssay(eno);
-        model.addAttribute("essayVO", essayVO);
+        Essay essay = essayService.readEssay(eno);
+        model.addAttribute("essayVO", essay);
 
         return "/essay/modify";
     }
 
     @PostMapping("/modify")
-    public String modifyEssay(EssayVO essayVO, @Param("eno") String eno) {
-        if (essayVO != null) {
-            essayService.modifyEssay(essayVO);
+    public String modifyEssay(Essay essay, @Param("eno") String eno) {
+        if (essay != null) {
+            essayService.modifyEssay(essay);
         }
 
         return "redirect:/essay/read?eno=" + eno;

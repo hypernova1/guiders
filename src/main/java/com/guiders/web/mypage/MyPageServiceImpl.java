@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.guiders.web.essay.Essay;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.guiders.web.essay.EssayVO;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +16,7 @@ public class MyPageServiceImpl implements MyPageService {
     private final SqlSession sqlSession;
 
     @Override
-    public List<EssayVO> getMyLikeEssay(String email) {
+    public List<Essay> getMyLikeEssay(String email) {
         return sqlSession.getMapper(MyPageDAO.class).selectMyLikeEssay(email);
     }
 

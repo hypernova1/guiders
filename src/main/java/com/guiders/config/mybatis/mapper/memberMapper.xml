@@ -4,13 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.guiders.web.member.MemberDAO">
 
-  <select id="selectMemberList" resultType="memberVO">
+  <select id="selectMemberList" resultType="member">
     select email, password, mname, gender, phone, photo, ctno, 
     date_format(regdate,'%Y-%m-%d')regdate 
     from member
   </select>
   
-  <insert id="insertMember" parameterType="memberVO">
+  <insert id="insertMember" parameterType="member">
     insert into member(email, password, mname, gender, phone, photo, ctno)
     values(#{email}, #{password}, #{mname}, #{gender}, #{phone}, #{photo}, #{ctno})
   </insert>
@@ -20,11 +20,11 @@
     VALUES (#{email}, #{introdution}, #{quote}, #{field}, #{lang}, #{currentjob}, #{dept});
   </insert>
   
-  <select id="loginCheck" parameterType="string" resultType="memberVO"> 
+  <select id="loginCheck" parameterType="string" resultType="member">
     SELECT email, password, mname FROM member WHERE email=#{email}  
   </select>
   
-  <select id="selectMember" resultType="memberVO" parameterType="string">
+  <select id="selectMember" resultType="member" parameterType="string">
 		select m.EMAIL, m.MNAME, m.PASSWORD, m.GENDER, m.PHONE, m.PHOTO, m.CTNO, m.regdate,
 		       g.currentjob, g.dept, g.INTRODUTION, g.QUOTE, g.FIELD, g.LANG
 		from member m
@@ -33,7 +33,7 @@
 		where m.email = #{email}
   </select>
   
-   <select id="selectByEmail" parameterType="map" resultType="guiderVO">
+   <select id="selectByEmail" parameterType="map" resultType="guider">
     SELECT m.email, m.mname, m.gender, m.phone, m.photo, m.ctno, m.regdate
     <if test="type == 'guider'">
     , g.introdution, g.quote, g.field, g.lang, g.currentjob, g.dept
@@ -46,7 +46,7 @@
     WHERE m.email = #{email}
   </select>
   
-  <update id="updateMember" parameterType="guiderVO">
+  <update id="updateMember" parameterType="guider">
 		UPDATE member m
     <if test="dept != null">
 		, guider g

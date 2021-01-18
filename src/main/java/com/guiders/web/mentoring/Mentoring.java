@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MentoringVO {
+public class Mentoring {
 
     private Integer mtrno;
     private String follower;

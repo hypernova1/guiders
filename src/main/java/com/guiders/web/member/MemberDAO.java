@@ -5,23 +5,23 @@ import java.util.Map;
 
 public interface MemberDAO {
 
-    List<MemberVO> selectMemberList();
+    List<Member> selectMemberList();
 
-    void insertMember(GuiderVO guiderVO);
+    void insertMember(Guider guider);
 
-    MemberVO loginCheck(String email);
+    Member loginCheck(String email);
 
-    void insertGuider(GuiderVO guiderVO);
+    void insertGuider(Guider guider);
 
-    void updateMember(GuiderVO guiderVO);
+    void updateMember(Guider guider);
 
     void insertAuth(Map<String, String> param);
 
     List<String> getAuthList(String email);
 
-    GuiderVO selectGuider();
+    Guider selectGuider();
 
-    GuiderVO selectByEmail(Map<String, String> param);
+    Guider selectByEmail(Map<String, String> param);
 
     List<Map<String, Object>> selectGuiderList(Map<String, Object> page);
 

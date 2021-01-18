@@ -21,8 +21,8 @@ public class MemberController {
 
     @GetMapping("/guider")
     @ResponseBody
-    public ResponseEntity<GuiderVO> getGuiderInfo(String email) {
-        GuiderVO guider = memberService.selectByEmail(email, "guider");
+    public ResponseEntity<Guider> getGuiderInfo(String email) {
+        Guider guider = memberService.selectByEmail(email, "guider");
 
         return new ResponseEntity<>(guider, HttpStatus.OK);
     }

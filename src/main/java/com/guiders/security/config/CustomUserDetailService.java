@@ -1,6 +1,6 @@
 package com.guiders.security.config;
 
-import com.guiders.web.member.MemberVO;
+import com.guiders.web.member.Member;
 import com.guiders.web.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,9 +22,9 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        MemberVO memberVO = memberService.loginCheck(email);
+        Member member = memberService.loginCheck(email);
 
-        if (memberVO == null) {
+        if (member == null) {
             throw new UsernameNotFoundException("다음의 사용자는 없습니다 : " + email);
         }
 
@@ -36,6 +36,6 @@ public class CustomUserDetailService implements UserDetailsService {
             roles.add(new SimpleGrantedAuthority(s));
         }
 
-        return new UserCustom(memberVO.getEmail(), memberVO.getMname(), memberVO.getPassword(), roles);
+        return new UserCustom(member.getEmail(), member.getMname(), member.getPassword(), roles);
     }
 }
