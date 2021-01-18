@@ -6,7 +6,6 @@ import com.guiders.web.member.Guider;
 import com.guiders.web.member.MemberService;
 import com.guiders.web.mentoring.MentoringService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -50,7 +49,7 @@ public class MypageController {
             UserCustom user = (UserCustom) authentication.getPrincipal();
             list = myPageService.getMyGuiderList(user.getEmail());
         }
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/likeEssay/{eno}")
@@ -62,8 +61,7 @@ public class MypageController {
     @GetMapping("/guider/{email}")
     public @ResponseBody
     ResponseEntity<Guider> guider(@PathVariable String email) {
-
-        return new ResponseEntity<>(memberService.selectByEmail(email, "guider"), HttpStatus.OK);
+        return ResponseEntity.ok(memberService.selectByEmail(email, "guider"));
     }
 
     @GetMapping("/questions")

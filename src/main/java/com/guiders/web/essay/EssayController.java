@@ -7,7 +7,6 @@ import com.guiders.web.member.Guider;
 import com.guiders.web.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -115,15 +114,14 @@ public class EssayController {
 
     @PutMapping("/{eno}")
     @ResponseBody
-    public Integer addLikecnt(@RequestBody Map<String, String> map) {
-        System.out.println(map.get("eno"));
-        return essayService.addRecommend(map); // 갱신된 '좋아요' 갯수를 전달
+    public ResponseEntity<Integer> addLikecnt(@RequestBody Map<String, String> map) {
+        return ResponseEntity.ok(essayService.addRecommend(map)); // 갱신된 '좋아요' 갯수를 전달
     }
 
     @GetMapping
     @ResponseBody
     public ResponseEntity<List<Map<String, Object>>> getEssays() {
-        return new ResponseEntity<>(essayService.getTopEssay(), HttpStatus.OK);
+        return ResponseEntity.ok(essayService.getTopEssay());
     }
 
 }

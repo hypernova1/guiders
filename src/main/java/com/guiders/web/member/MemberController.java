@@ -24,34 +24,34 @@ public class MemberController {
     public ResponseEntity<Guider> getGuiderInfo(String email) {
         Guider guider = memberService.selectByEmail(email, "guider");
 
-        return new ResponseEntity<>(guider, HttpStatus.OK);
+        return ResponseEntity.ok(guider);
     }
 
     @GetMapping("/guider/list/{page}")
     @ResponseBody
     public ResponseEntity<List<Map<String, Object>>> getGuiderList(
             @PathVariable Integer page, Authentication authentication) {
-        List<Map<String, Object>> guiderList = null;
+        List<Map<String, Object>> guiderList;
         if (authentication != null) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
             guiderList = memberService.getGuiderList(page, user.getEmail());
         } else {
             guiderList = memberService.getGuiderList(page, null);
         }
-        return new ResponseEntity<>(guiderList, HttpStatus.OK);
+        return ResponseEntity.ok(guiderList);
     }
 
     @PostMapping("/follow")
     @ResponseBody
     public ResponseEntity<Boolean> follow(@RequestBody String guider, Authentication authentication) {
-        Boolean result = false;
+        boolean result = false;
         JSONObject obj = new JSONObject(guider);
         if (authentication != null) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
             memberService.follow(obj.getString("guider"), user.getEmail());
             result = true;
         }
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/follow")
@@ -62,6 +62,6 @@ public class MemberController {
             UserCustom user = (UserCustom) authentication.getPrincipal();
             memberService.unfollow(obj.getString("guider"), user.getEmail());
         }
-        return new ResponseEntity<>(true, HttpStatus.OK);
+        return ResponseEntity.ok(true);
     }
 }

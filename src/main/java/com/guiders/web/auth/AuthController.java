@@ -1,42 +1,29 @@
 package com.guiders.web.auth;
 
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpSession;
-
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.guiders.util.NaverLoginBO;
+import com.guiders.web.member.Guider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.guiders.web.member.Guider;
-import com.guiders.util.NaverLoginBO;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
-public class LoginController {
+public class AuthController {
 
     private final NaverLoginBO naverLoginBO;
-    private final LoginService loginService;
+    private final AuthService authService;
 
     @GetMapping("join")
     public String join() {
         return "main/join";
-    }
-
-    @PostMapping("join")
-    public ResponseEntity<Boolean> join(@RequestBody Guider guider) {
-        loginService.join(guider);
-        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @GetMapping("/joinform")
@@ -57,7 +44,7 @@ public class LoginController {
         return "main/invalid_login";
     }
 
-    @RequestMapping(value = "/callback")
+    @GetMapping("/callback")
     public ModelAndView naverCallback(
             HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
 
@@ -67,7 +54,13 @@ public class LoginController {
         session.setAttribute("naver", apiResult);
 
         return new ModelAndView("callback", "result", apiResult);
+    }
 
+    @PostMapping("join")
+    @ResponseBody
+    public ResponseEntity<Boolean> join(@RequestBody Guider guider) {
+        authService.join(guider);
+        return ResponseEntity.ok(true);
     }
 
 }

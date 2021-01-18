@@ -4,7 +4,6 @@ import com.guiders.security.config.UserCustom;
 import com.guiders.web.member.Guider;
 import com.guiders.web.member.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -21,18 +20,6 @@ public class MentoringController {
 
     private final MentoringService mentoringService;
     private final MemberService memberService;
-
-    @PostMapping
-    public ResponseEntity<Boolean> question(@RequestBody Mentoring mentoring,
-                                            Authentication authentication) {
-        if (authentication != null) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
-            mentoring.setFollower(user.getEmail());
-            mentoringService.question(mentoring);
-        }
-
-        return new ResponseEntity<>(true, HttpStatus.OK);
-    }
 
     @PostMapping("/answer")
     public String answer(Mentoring mentoring) {
@@ -66,5 +53,17 @@ public class MentoringController {
     @GetMapping("/guiders")
     public String guiders() {
         return "guiders/guiders";
+    }
+
+    @PostMapping
+    public ResponseEntity<Boolean> question(@RequestBody Mentoring mentoring,
+                                            Authentication authentication) {
+        if (authentication != null) {
+            UserCustom user = (UserCustom) authentication.getPrincipal();
+            mentoring.setFollower(user.getEmail());
+            mentoringService.question(mentoring);
+        }
+
+        return ResponseEntity.ok(true);
     }
 }
