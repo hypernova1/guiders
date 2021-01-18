@@ -18,7 +18,7 @@ document.querySelector('.guider-wrapper').addEventListener('click', ({target}) =
     switch(target.className){
     case "profile-img":
         const guiderEmail = target.parentElement.querySelector('span').innerText;
-        ajax(`/guider?email=${guiderEmail}`, 'GET', {}).then((result) => {
+        ajax(`/mypage/guider?email=${guiderEmail}`, 'GET', {}).then((result) => {
             const guider = JSON.parse(result);
             document.querySelector('.modal-content-title>img').src = guider.photo;
             document.querySelector('div>strong').innerText = guider.mname;

@@ -128,7 +128,7 @@
             <div class="writer">${mentoring.mname}</div>
             <div class="field">${mentoring.field}</div>
             <div class="lang">${mentoring.lang}</div>
-            <div class="title"><span><a href="/qna/${mentoring.mtrno}">${mentoring.mtitle}</a></span>
+            <div class="title"><span><a href="/mentoring/qna/${mentoring.mtrno}">${mentoring.mtitle}</a></span>
              <c:choose>
                <c:when test="${mentoring.replydate == null}">
                  <span class="reply-wating">[답변대기 중]</span>

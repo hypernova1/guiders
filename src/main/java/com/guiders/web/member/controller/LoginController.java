@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,68 +26,63 @@ import com.guiders.web.member.service.LoginService;
 import com.guiders.web.util.NaverLoginBO;
 
 @Controller
+@RequiredArgsConstructor
 public class LoginController {
-	/* NaverLoginBO */
-	private NaverLoginBO naverLoginBO;
 
-	/* NaverLoginBO */
-	@Autowired
-	private void setNaverLoginBO(NaverLoginBO naverLoginBO){
-		this.naverLoginBO = naverLoginBO;
-	}
-  
-  @Autowired
-  private LoginService loginService;
-  
-  @GetMapping("/")
-  public String main(Authentication authentication, HttpServletRequest req) {
+    private final NaverLoginBO naverLoginBO;
+    private final LoginService loginService;
+
+    @GetMapping("/")
+    public String main(Authentication authentication, HttpServletRequest req) {
 
     /*if (authentication != null) {
       UserCustom userCustom = (UserCustom) authentication.getPrincipal();
     }*/
 
-    return "main/main";
-  }
-  
-  @GetMapping("join")
-  public String join() {
-    return "main/join";
-  }
-  
-  @PostMapping("join")
-  public ResponseEntity<Boolean> join(@RequestBody GuiderVO guiderVO) {
-    loginService.join(guiderVO);
-    return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-    
-  }
-  @GetMapping("joinform")
-  public ModelAndView joinForm(boolean guider) {
-    ModelAndView mav = new ModelAndView();
-    mav.addObject("guider", guider);
-    mav.setViewName("main/joinForm");
-    return mav;
-  }
-  
-  @GetMapping("/login")
-  public String login(HttpSession session, Model model) {
-	  
-	  String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-	  
-	  model.addAttribute("url", naverAuthUrl);
-	  
-	  return "main/invalid_login";
-  }
-	@RequestMapping(value = "/callback")
-	public ModelAndView naverCallback(
-			HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
-		
-		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
-		String apiResult = naverLoginBO.getUserProfile(oauthToken);
-		
-		session.setAttribute("naver", apiResult);
-		
-		return new ModelAndView("callback", "result", apiResult);
+        return "main/main";
+    }
 
-	}
-  
+    @GetMapping("join")
+    public String join() {
+        return "main/join";
+    }
+
+    @PostMapping("join")
+    public ResponseEntity<Boolean> join(@RequestBody GuiderVO guiderVO) {
+        loginService.join(guiderVO);
+        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+
+    }
+
+    @GetMapping("joinform")
+    public ModelAndView joinForm(boolean guider) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("guider", guider);
+        mav.setViewName("main/joinForm");
+        return mav;
+    }
+
+    @GetMapping("/login")
+    public String login(HttpSession session, Model model) {
+
+        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+
+        model.addAttribute("url", naverAuthUrl);
+
+        return "main/invalid_login";
+    }
+
+    @RequestMapping(value = "/callback")
+    public ModelAndView naverCallback(
+            HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
+
+        OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+        String apiResult = naverLoginBO.getUserProfile(oauthToken);
+
+        session.setAttribute("naver", apiResult);
+
+        return new ModelAndView("callback", "result", apiResult);
+
+    }
+
 }

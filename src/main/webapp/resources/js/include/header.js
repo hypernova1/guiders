@@ -15,7 +15,7 @@ document.querySelector('#essay').addEventListener('click', function(){
 });
 
 document.querySelector('#guiders').addEventListener('click', function(){
-    location.href = '/guiders';
+    location.href = '/mentoring/guiders';
 });
 
 const modal = document.querySelector('#login-modal');
