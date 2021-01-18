@@ -25,18 +25,18 @@
 				<li>
 					<div class="mtr-info">
 						<img class="mtr-img" src="${essay.photo}"> <span
-							class="guider">${essay.mname}</span> <span class="etype">${essay.field}</span>
+							class="guider">${essay.name}</span> <span class="etype">${essay.field}</span>
 					</div>
 					<div class="essay">
 						<div>
 							<h2 class="title">
-								<a href="/essay/read?eno=${essay.eno}">${essay.etitle}</a>
+								<a href="/essay/read?eno=${essay.id}">${essay.title}</a>
 							</h2>
-							<span class="like">♥ ${essay.likecnt}</span> <span
-								class="regdate">${essay.regdate}</span>
+							<span class="like">♥ ${essay.likeCount}</span> <span
+								class="regdate">${essay.regDate}</span>
 						</div>
 						<div class="content">
-							<c:out value="${essay.econtent}" />
+							<c:out value="${essay.content}" />
 						</div>
 					</div>
 				</li>

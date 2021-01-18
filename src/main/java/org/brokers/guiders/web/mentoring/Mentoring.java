@@ -7,16 +7,16 @@ import lombok.Setter;
 @Setter
 public class Mentoring {
 
-    private Integer mtrno;
+    private Integer id;
     private String follower;
     private String guider;
     private String field;
     private String lang;
-    private String mtitle;
-    private String mcontent;
-    private String mreply;
-    private String regdate;
-    private String replydate;
-    private Integer likecnt;
+    private String title;
+    private String count;
+    private String reply;
+    private String regDate;
+    private String replyDate;
+    private Integer likeCount;
 
 }

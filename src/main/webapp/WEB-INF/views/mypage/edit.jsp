@@ -21,7 +21,7 @@
       </div>
       <div>
         <label>이름</label>
-        <input type="text" name="mname" placeholder="이름" value="${vo.mname}">
+        <input type="text" name="mname" placeholder="이름" value="${vo.name}">
       </div>
       <div>
         <label>비밀번호</label>
@@ -51,7 +51,7 @@
       </div>
       <div>
         <label>최근직장</label>
-        <input type="text" name="currentjob" placeholder="언어" value="${vo.currentjob}">
+        <input type="text" name="currentjob" placeholder="언어" value="${vo.currentJob}">
       </div>
       <div>
         <label>부서</label>
@@ -64,7 +64,7 @@
       </div>
       <div>
         <label>경력란</label>
-        <textarea placeholder="경력란" id="introdution-value">${vo.introdution}</textarea>
+        <textarea placeholder="경력란" id="introdution-value">${vo.introduction}</textarea>
         <input type="hidden" name="introdution">
       </div>
       </c:when>

@@ -25,7 +25,7 @@ public class MentoringController {
     public String answer(Mentoring mentoring) {
         mentoringService.answer(mentoring);
 
-        return "redirect:/qna/" + mentoring.getMtrno();
+        return "redirect:/qna/" + mentoring.getId();
     }
 
 

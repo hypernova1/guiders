@@ -6,25 +6,25 @@
 <mapper namespace="org.brokers.guiders.web.essay.EssayDAO">
 
 <insert id="insertEssay" parameterType="essay">
-		INSERT INTO ESSAY(EMAIL, FIELD, LANG, ETITLE, ECONTENT)
-		VALUES(#{email}, #{field},#{lang}, #{etitle}, #{econtent})
+		INSERT INTO ESSAY(EMAIL, FIELD, LANG, TITLE, ECONTENT)
+		VALUES(#{email}, #{field},#{lang}, #{title}, #{content})
 </insert>
 
 <select id="selectEssay" resultType="essay" parameterType="int">
-	SELECT e.eno, e.email, m.mname,e.field, e.lang, e.etitle, e.econtent, m.photo,
-	(SELECT count(*) FROM recommend WHERE eno = #{eno})likecnt, e.regdate 
+	SELECT e.id, e.email, m.name,e.field, e.lang, e.title, e.content, m.photo,
+	(SELECT count(*) FROM recommend WHERE id = #{id})likecnt, e.regdate
 	FROM essay e
 	JOIN member m
 	ON e.email = m.email
-	WHERE eno = #{eno}
+	WHERE id = #{id}
 </select>
 
 <select id="selectEssayList" parameterType="pageCriteria" resultType="essay">
-  SELECT e.eno, e.email, m.mname, m.photo, g.field, g.lang, e.etitle, e.econtent, 
+  SELECT e.id, e.email, m.name, m.photo, g.field, g.lang, e.title, e.content,
 	  (SELECT (SELECT count(*) 
 	  FROM recommend r 
-	  WHERE r.eno = essay.eno AND r.eno = essay.eno) likecnt 
-	  FROM essay WHERE essay.eno = e.eno) likecnt, 
+	  WHERE r.id = essay.id AND r.id = essay.id) likecnt
+	  FROM essay WHERE essay.id = e.id) likecnt,
   e.regdate 
   FROM essay e
   JOIN member m
@@ -33,57 +33,57 @@
   ON e.email = g.email
   <if test="cri.keyword != ''">
     <where>
-      e.etitle LIKE CONCAT ('%',#{cri.keyword},'%')
-      OR e.econtent LIKE CONCAT ('%',#{cri.keyword},'%')
+      e.title LIKE CONCAT ('%',#{cri.keyword},'%')
+      OR e.content LIKE CONCAT ('%',#{cri.keyword},'%')
     </where>
   </if>
-  ORDER BY e.eno DESC
+  ORDER BY e.id DESC
   LIMIT #{startNum}, 5
 </select>
 
 <select id="selectEssayCount" parameterType="pageCriteria" resultType="integer">
-  SELECT count(eno) FROM essay
+  SELECT count(id) FROM essay
     <if test="keyword != ''">
     <where>
-      etitle LIKE CONCAT ('%',#{keyword},'%')
-      OR econtent LIKE CONCAT ('%',#{keyword},'%')
+      title LIKE CONCAT ('%',#{keyword},'%')
+      OR content LIKE CONCAT ('%',#{keyword},'%')
     </where>
   </if>
 </select>
 
 <update id="updateEssay" parameterType="essay">
 	UPDATE essay
-	SET etitle = #{etitle}, econtent = #{econtent}
-	WHERE eno = #{eno}
+	SET title = #{title}, content = #{content}
+	WHERE id = #{id}
 </update>
 
 <delete id="deleteEssay" parameterType="integer">
 	DELETE FROM essay
-	WHERE eno = #{eno}
+	WHERE id = #{id}
 </delete>
 
 <select id="selectLikeCnt" resultType="integer" parameterType="map">
 	SELECT count(*) FROM recommend
-	WHERE eno = #{eno} AND email = #{email}
+	WHERE id = #{id} AND email = #{email}
 </select>
 
 <insert id="insertRecommend" parameterType="map">
 	INSERT INTO recommend
-	VALUES(#{eno}, #{email})
+	VALUES(#{id}, #{email})
 </insert>
 
 <delete id="deleteRecommend" parameterType="map">
 	DELETE FROM recommend
-	where eno = #{eno} and email = #{email}
+	where id = #{id} and email = #{email}
 </delete>
 
 <select id="getCount" resultType="integer">
   SELECT count(*) FROM recommend
-  WHERE eno = #{eno}
+  WHERE id = #{id}
 </select>
 
 <select id="selectTopEssay" resultType="map">
-  SELECT eno, etitle, econtent
+  SELECT id, title, content
   FROM essay
   ORDER BY likecnt DESC
   LIMIT 6
@@ -92,13 +92,13 @@
 <update id="increaseLikeCnt">
   UPDATE essay
   SET likecnt = likecnt + 1
-  WHERE eno = #{eno}
+  WHERE id = #{id}
 </update>
 
 <update id="decreaseLikeCnt">
   UPDATE essay
   SET likecnt = likecnt - 1
-  WHERE eno = #{eno}
+  WHERE id = #{id}
 </update>
 
 </mapper>

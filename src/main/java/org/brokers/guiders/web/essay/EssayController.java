@@ -58,13 +58,13 @@ public class EssayController {
         Integer startNum = cri.getPageStart();
         List<Essay> list = essayService.getEssayList(startNum, cri);
         for (Essay essay : list) {
-            String econtent = essay.getEcontent();
+            String econtent = essay.getContent();
             econtent = econtent.replaceAll("<[^>]*>", "");
             econtent = econtent.replaceAll("&nbsp;", " ");
             econtent = econtent.replaceAll("&lt;", "<");
             econtent = econtent.replaceAll("&gt;", ">");
             econtent = econtent.replaceAll("&amp;", "&");
-            essay.setEcontent(econtent);
+            essay.setContent(econtent);
         }
 
         model.addAttribute("essayList", list);

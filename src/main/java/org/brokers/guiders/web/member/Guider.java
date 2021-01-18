@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter @Setter
 public class Guider extends Member {
 
-    private String introdution;
-    private String currentjob;
+    private String introduction;
+    private String currentJob;
     private String dept;
     private String quote;
     private String field;

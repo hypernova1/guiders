@@ -1,11 +1,11 @@
 package org.brokers.guiders.web.mypage;
 
+import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.UserCustom;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.MemberService;
 import org.brokers.guiders.web.mentoring.MentoringService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/mypage")
 @RequiredArgsConstructor
-public class MypageController {
+public class MyPageController {
 
     private final MyPageService myPageService;
     private final MentoringService mentoringService;
@@ -59,8 +59,8 @@ public class MypageController {
     }
 
     @GetMapping("/guider/{email}")
-    public @ResponseBody
-    ResponseEntity<Guider> guider(@PathVariable String email) {
+    @ResponseBody
+    public ResponseEntity<Guider> guider(@PathVariable String email) {
         return ResponseEntity.ok(memberService.selectByEmail(email, "guider"));
     }
 

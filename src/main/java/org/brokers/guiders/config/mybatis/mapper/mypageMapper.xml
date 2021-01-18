@@ -24,7 +24,7 @@
   <select id="selectEssayContent" resultType="string" parameterType="integer">
     SELECT econtent 
     FROM essay 
-    WHERE eno = #{eno}
+    WHERE id = #{id}
   </select>
   
   <select id="getMyQuestions" parameterType="string" resultType="map">

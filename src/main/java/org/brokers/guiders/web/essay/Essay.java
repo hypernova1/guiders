@@ -9,13 +9,13 @@ import lombok.ToString;
 @ToString
 public class Essay extends Guider {
 
-    private Integer eno;
+    private Integer id;
     private String email;
     private String field;
     private String lang;
-    private String etitle;
-    private String econtent;
-    private Integer likecnt;
-    private String regdate;
+    private String title;
+    private String content;
+    private Integer likeCount;
+    private String regDate;
 
 }

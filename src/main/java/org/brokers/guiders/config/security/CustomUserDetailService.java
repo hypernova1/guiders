@@ -3,13 +3,10 @@ package org.brokers.guiders.config.security;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberService;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ public class CustomUserDetailService implements UserDetailsService {
             roles.add(new SimpleGrantedAuthority(s));
         }
 
-        return new UserCustom(member.getEmail(), member.getMname(), member.getPassword(), roles);
+        return new UserCustom(member.getEmail(), member.getName(), member.getPassword(), roles);
     }
 
 }

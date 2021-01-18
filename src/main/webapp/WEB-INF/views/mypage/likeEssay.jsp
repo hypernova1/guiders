@@ -15,12 +15,12 @@
 	          <div class="regdate">등록일</div>
 	      </li>
 	      <c:forEach var="essay" items="${essayList}">
-		        <li data-eno="${essay.eno}">
-		          <div class="writer">${essay.mname}</div>
+		        <li data-eno="${essay.id}">
+		          <div class="writer">${essay.name}</div>
 		          <div class="field">${essay.field}</div>
 		          <div class="lang">${essay.lang}</div>
-		          <div class="title">${essay.etitle}</div>
-		          <div class="regdate">${essay.regdate}</div>
+		          <div class="title">${essay.title}</div>
+		          <div class="regdate">${essay.regDate}</div>
 		        </li>
 	      </c:forEach>
 <!--         <li id="li-head">
