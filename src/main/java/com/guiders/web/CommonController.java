@@ -1,8 +1,8 @@
 package com.guiders.web;
 
 import com.guiders.security.config.UserCustom;
-import com.guiders.web.util.URLConn;
-import com.guiders.web.util.UploadFileUtils;
+import com.guiders.util.URLConn;
+import com.guiders.util.UploadFileUtils;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.security.core.Authentication;
@@ -28,6 +28,11 @@ import java.util.UUID;
 public class CommonController {
 
     private final ServletContext servletContext;
+
+    @GetMapping("/")
+    public String main(Authentication authentication, HttpServletRequest req) {
+        return "main/main";
+    }
 
 	@ResponseBody
 	@RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")

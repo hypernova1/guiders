@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.guiders.web.guiders.dao.MentoringDAO">
+<mapper namespace="com.guiders.web.mentoring.MentoringDAO">
   <insert id="insertMentoring">
     INSERT INTO mentoring (follower, guider, mtitle, mcontent, field, lang)
     VALUE (#{follower}, #{guider}, #{mtitle}, #{mcontent}, #{field}, #{lang});

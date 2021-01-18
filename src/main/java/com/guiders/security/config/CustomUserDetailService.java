@@ -1,7 +1,7 @@
 package com.guiders.security.config;
 
-import com.guiders.web.member.domain.MemberVO;
-import com.guiders.web.member.service.MemberService;
+import com.guiders.web.member.MemberVO;
+import com.guiders.web.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

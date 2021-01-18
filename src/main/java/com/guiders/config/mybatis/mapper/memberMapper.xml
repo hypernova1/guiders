@@ -2,7 +2,7 @@
   <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.guiders.web.member.dao.MemberDAO">
+<mapper namespace="com.guiders.web.member.MemberDAO">
 
   <select id="selectMemberList" resultType="memberVO">
     select email, password, mname, gender, phone, photo, ctno, 

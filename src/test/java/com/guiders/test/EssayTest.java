@@ -10,10 +10,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.guiders.web.essay.dao.EssayDAO;
-import com.guiders.web.essay.domain.EssayVO;
-import com.guiders.web.member.dao.MyPageDAO;
-import com.guiders.web.util.PageCriteria;
+import com.guiders.web.essay.EssayDAO;
+import com.guiders.web.essay.EssayVO;
+import com.guiders.web.mypage.MyPageDAO;
+import com.guiders.util.PageCriteria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})

@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <typeAliases>
-    <typeAlias alias="guiderVO" type="com.guiders.web.member.domain.GuiderVO" />
-    <typeAlias alias="memberVO" type="com.guiders.web.member.domain.MemberVO" />
-    <typeAlias alias="essayVO" type="com.guiders.web.essay.domain.EssayVO" />
-    <typeAlias alias="mentoringVO" type="com.guiders.web.guiders.domain.MentoringVO" />
-    <typeAlias alias="pageCriteria" type="com.guiders.web.util.PageCriteria" />
+    <typeAlias alias="guiderVO" type="com.guiders.web.member.GuiderVO" />
+    <typeAlias alias="memberVO" type="com.guiders.web.member.MemberVO" />
+    <typeAlias alias="essayVO" type="com.guiders.web.essay.EssayVO" />
+    <typeAlias alias="mentoringVO" type="com.guiders.web.mentoring.MentoringVO" />
+    <typeAlias alias="pageCriteria" type="com.guiders.util.PageCriteria" />
   
   </typeAliases>
 </configuration>
