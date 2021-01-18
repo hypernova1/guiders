@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Service;
 import com.guiders.web.essay.EssayVO;
 
 @Service
+@RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService {
 
-    @Autowired
-    private SqlSession sqlSession;
+    private final SqlSession sqlSession;
 
     @Override
     public List<EssayVO> getMyLikeEssay(String email) {
@@ -31,14 +32,14 @@ public class MyPageServiceImpl implements MyPageService {
         List<Map<String, Object>> myGuiders = sqlSession.getMapper(MyPageDAO.class).getMyGuiders(email);
         List<Map<String, Object>> myQuestion = sqlSession.getMapper(MyPageDAO.class).getMyQuestions(email);
 
-        for (int i = 0; i < myGuiders.size(); i++) {
+        for (Map<String, Object> myGuider : myGuiders) {
             List<Map<String, Object>> question = new ArrayList<>();
-            for (int j = 0; j < myQuestion.size(); j++) {
-                if (myGuiders.get(i).get("email").toString().equals(myQuestion.get(j).get("guider").toString())) {
-                    question.add(myQuestion.get(j));
+            for (Map<String, Object> stringObjectMap : myQuestion) {
+                if (myGuider.get("email").toString().equals(stringObjectMap.get("guider").toString())) {
+                    question.add(stringObjectMap);
                 }
             }
-            myGuiders.get(i).put("question", question);
+            myGuider.put("question", question);
         }
 
         return myGuiders;

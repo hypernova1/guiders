@@ -7,7 +7,6 @@ import com.guiders.util.PageCriteria;
 
 public interface EssayService {
 
-
     void writeEssay(EssayVO essayVO);
 
     EssayVO readEssay(int eno);

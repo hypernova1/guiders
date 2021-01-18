@@ -8,9 +8,9 @@ import org.json.JSONObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,17 +30,11 @@ public class CommonController {
     private final ServletContext servletContext;
 
     @GetMapping("/")
-    public String main(Authentication authentication, HttpServletRequest req) {
+    public String main() {
         return "main/main";
     }
 
-	@ResponseBody
-	@RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")
-	public String startApp(@RequestBody String body) {
-		System.out.println(body);
-		return "/";
-	}
-    @RequestMapping(value = "/doA", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @PostMapping("/doA")
     public String doA(Locale locale, Model model, Authentication authentication, 
     		@RequestBody String etitle){
         JSONObject cred = new JSONObject();
@@ -52,7 +46,6 @@ public class CommonController {
 			cred.put("username",userName);
 		}
         cred.put("etitle", etitle);
-        System.out.println(etitle);
         auth.put("userInfo", cred);
         parent.put("auth", auth);
 
@@ -63,7 +56,7 @@ public class CommonController {
     }
 
     // 다중파일업로드
-    @RequestMapping(value = "/file_uploader_html5.do", method = RequestMethod.POST)
+    @PostMapping("/file_uploader_html5.do")
     @ResponseBody
     public String multiplePhotoUpload(HttpServletRequest request) {
         // 파일정보
@@ -83,7 +76,7 @@ public class CommonController {
             InputStream is = request.getInputStream();
             OutputStream os = new FileOutputStream(filePath + saveName);
             int numRead;
-            byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+            byte[] b = new byte[Integer.parseInt(request.getHeader("file-size"))];
             while ((numRead = is.read(b, 0, b.length)) != -1) {
                 os.write(b, 0, numRead);
             }
@@ -99,16 +92,15 @@ public class CommonController {
         return sb.toString();
     }
 
-    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST, produces = "text/plain; charset=UTF-8")
-    public @ResponseBody
-    String uploadImage(MultipartFile file) throws Exception {
+    @PostMapping("/uploadImage")
+    @ResponseBody
+    public String uploadImage(MultipartFile file) throws Exception {
 
         String uploadPath = servletContext.getRealPath("/resources/img/photoUpload");
         /*String fixPath = uploadPath.replaceAll("\\\\", "/");*/
         String fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
-        String resultPath = "/img/photoUpload" + fileName;
 
-        return resultPath;
+        return "/img/photoUpload" + fileName;
 
     }
 

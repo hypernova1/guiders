@@ -8,9 +8,9 @@ import com.guiders.web.essay.EssayVO;
 public interface MyPageService {
 
 
-    public List<EssayVO> getMyLikeEssay(String email);
+    List<EssayVO> getMyLikeEssay(String email);
 
-    public String getEssayContent(Integer eno);
+    String getEssayContent(Integer eno);
 
     List<Map<String, Object>> getMyGuiderList(String email);
 

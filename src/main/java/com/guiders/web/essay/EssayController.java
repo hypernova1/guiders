@@ -1,9 +1,10 @@
 package com.guiders.web.essay;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.guiders.security.config.UserCustom;
+import com.guiders.util.PageCriteria;
+import com.guiders.util.Pagination;
+import com.guiders.web.member.GuiderVO;
+import com.guiders.web.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
@@ -12,11 +13,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.guiders.security.config.UserCustom;
-import com.guiders.web.member.GuiderVO;
-import com.guiders.web.member.MemberService;
-import com.guiders.util.PageCriteria;
-import com.guiders.util.Pagination;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/essay")
@@ -58,14 +58,14 @@ public class EssayController {
 
         Integer startNum = cri.getPageStart();
         List<EssayVO> list = essayService.getEssayList(startNum, cri);
-        for (int i = 0; i < list.size(); i++) {
-            String econtent = list.get(i).getEcontent();
+        for (EssayVO essayVO : list) {
+            String econtent = essayVO.getEcontent();
             econtent = econtent.replaceAll("<[^>]*>", "");
             econtent = econtent.replaceAll("&nbsp;", " ");
             econtent = econtent.replaceAll("&lt;", "<");
             econtent = econtent.replaceAll("&gt;", ">");
             econtent = econtent.replaceAll("&amp;", "&");
-            list.get(i).setEcontent(econtent);
+            essayVO.setEcontent(econtent);
         }
 
         model.addAttribute("essayList", list);
@@ -117,8 +117,7 @@ public class EssayController {
     @ResponseBody
     public Integer addLikecnt(@RequestBody Map<String, String> map) {
         System.out.println(map.get("eno"));
-        int result = essayService.addRecommend(map);
-        return result; // 갱신된 '좋아요' 갯수를 전달
+        return essayService.addRecommend(map); // 갱신된 '좋아요' 갯수를 전달
     }
 
     @GetMapping

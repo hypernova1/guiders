@@ -1,16 +1,16 @@
 package com.guiders.web.essay;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.guiders.util.PageCriteria;
+import com.guiders.web.member.GuiderVO;
+import com.guiders.web.member.MemberDAO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.guiders.web.member.MemberDAO;
-import com.guiders.web.member.GuiderVO;
-import com.guiders.util.PageCriteria;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -52,22 +52,17 @@ public class EssayServiceImpl implements EssayService {
         if (cnt == 0) { // 좋아요를 누른 적이 없다면 카운트 +1
             sqlSession.getMapper(EssayDAO.class).insertRecommend(map);
             sqlSession.getMapper(EssayDAO.class).increaseLikeCnt(Integer.parseInt(eno));
-            return sqlSession.getMapper(EssayDAO.class).getCount(eno);
         } else { // 누른 적이 있다면 카운트 -1
             sqlSession.getMapper(EssayDAO.class).deleteRecommend(map);
             sqlSession.getMapper(EssayDAO.class).decreaseLikeCnt(Integer.parseInt(eno));
-            return sqlSession.getMapper(EssayDAO.class).getCount(eno);
         }
-
+        return sqlSession.getMapper(EssayDAO.class).getCount(eno);
     }
 
     @Override
     public boolean confirmLike(Map<String, String> map) {
         int count = sqlSession.getMapper(EssayDAO.class).selectLikeCnt(map);
-        if (count == 1) {
-            return true;
-        }
-        return false;
+        return count == 1;
     }
 
     @Override

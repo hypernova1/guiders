@@ -28,7 +28,7 @@ public class MypageController {
     private final MentoringService mentoringService;
     private final MemberService memberService;
 
-    @GetMapping("likeEssay")
+    @GetMapping("/likeEssay")
     public String likeEssay(Authentication authentication, Model model) {
         List<EssayVO> list = null;
         if (authentication.isAuthenticated()) {
@@ -39,7 +39,7 @@ public class MypageController {
         return "mypage/likeEssay";
     }
 
-    @GetMapping("myGuider")
+    @GetMapping("/myGuider")
     public String myGuiders() {
         return "mypage/myGuider";
     }
@@ -55,23 +55,20 @@ public class MypageController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "likeEssay/{eno}", method = RequestMethod.GET,
-            produces = "application/json;charset=utf-8")
-    public @ResponseBody
-    String getEssay(@PathVariable("eno") String eno) {
-        String econtent = myPageService.getEssayContent(Integer.parseInt(eno));
-        return econtent;
+    @GetMapping("/likeEssay/{eno}")
+    @ResponseBody
+    public String getEssay(@PathVariable("eno") String eno) {
+        return myPageService.getEssayContent(Integer.parseInt(eno));
     }
 
-
-    @GetMapping("guider/{email}")
+    @GetMapping("/guider/{email}")
     public @ResponseBody
     ResponseEntity<GuiderVO> guider(@PathVariable String email) {
 
         return new ResponseEntity<>(memberService.selectByEmail(email, "guider"), HttpStatus.OK);
     }
 
-    @GetMapping("questions")
+    @GetMapping("/questions")
     public String questions(Authentication authentication, Model model) {
         List<Map<String, Object>> mentorings = null;
         if (authentication != null) {

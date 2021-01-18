@@ -3,9 +3,6 @@ package com.guiders.web.member;
 import java.util.List;
 import java.util.Map;
 
-import com.guiders.web.member.GuiderVO;
-import com.guiders.web.member.MemberVO;
-
 public interface MemberService {
 
     List<MemberVO> selectMemberList();

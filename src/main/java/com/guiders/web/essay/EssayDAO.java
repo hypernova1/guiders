@@ -8,7 +8,6 @@ import com.guiders.util.PageCriteria;
 
 public interface EssayDAO {
 
-
     void insertEssay(EssayVO essayVO);
 
     EssayVO selectEssay(Integer eno);

@@ -40,7 +40,7 @@ public class LoginController {
 
     }
 
-    @GetMapping("joinform")
+    @GetMapping("/joinform")
     public ModelAndView joinForm(boolean guider) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("guider", guider);
