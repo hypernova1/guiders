@@ -1,10 +1,10 @@
 package org.brokers.guiders.web.essay;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.session.SqlSession;
 import org.brokers.guiders.util.PageCriteria;
 import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.MemberDAO;
-import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +20,7 @@ public class EssayService {
 
     public void writeEssay(Essay essay) {
         Map<String, String> param = new HashMap<>();
-        param.put("email", essay.getEmail());
+        param.put("email", essay.getWriter().getEmail());
         param.put("type", "guider");
         Guider guider = sqlSession.getMapper(MemberDAO.class).selectByEmail(param);
         essay.setField(guider.getField());

@@ -32,7 +32,7 @@ public class MentoringController {
     @GetMapping("/qna/{mtrno}")
     public String qna(@PathVariable Integer mtrno, Model model) {
         Mentoring mentoring = mentoringService.getMentoring(mtrno);
-        Guider guider = memberService.selectByEmail(mentoring.getGuider(), "guider");
+        Guider guider = memberService.selectByEmail(mentoring.getGuider().getEmail(), "guider");
         model.addAttribute("mentoring", mentoring);
         model.addAttribute("guider", guider);
         return "mypage/qna";
@@ -60,7 +60,7 @@ public class MentoringController {
                                             Authentication authentication) {
         if (authentication != null) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
-            mentoring.setFollower(user.getEmail());
+//            mentoring.setFollower(user.getEmail());
             mentoringService.question(mentoring);
         }
 
