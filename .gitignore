@@ -132,3 +132,7 @@ buildNumber.properties
 
 web.iml
 .idea/
+
+.classpath
+.project
+.settings/

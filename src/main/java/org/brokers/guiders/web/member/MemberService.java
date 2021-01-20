@@ -2,9 +2,10 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,29 +14,23 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MemberService {
 
+    private final FollowerRepository followerRepository;
+    private final GuiderRepository guiderRepository;
     private final SqlSession sqlSession;
 
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
-    public List<Member> selectMemberList() {
-        return sqlSession.getMapper(MemberDAO.class).selectMemberList();
-    }
-
+    private final PasswordEncoder passwordEncoder;
 
     public void modifyMember(Guider guider) {
-        if (!guider.getPassword().equals("")) {
-            String password = bCryptPasswordEncoder.encode(guider.getPassword());
+        if (!guider.getPassword().isEmpty()) {
+            String password = passwordEncoder.encode(guider.getPassword());
             guider.setPassword(password);
         }
-        sqlSession.getMapper(MemberDAO.class).updateMember(guider);
+        guiderRepository.save(guider);
     }
 
     public List<String> getAuthList(String email) {
-        return sqlSession.getMapper(MemberDAO.class).getAuthList(email);
-    }
-
-    public void joinMember(Member member) {
-
+        //TODO: 권한 리스트
+        return Collections.emptyList();
     }
 
     public Member loginCheck(String email) {

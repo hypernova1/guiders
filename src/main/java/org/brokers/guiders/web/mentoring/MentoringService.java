@@ -12,19 +12,20 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MentoringService {
 
+    private final MentoringRepository mentoringRepository;
     private final SqlSession sqlSession;
 
-    public Integer question(Mentoring mentoring) {
-        return sqlSession.getMapper(MentoringDAO.class).insertMentoring(mentoring);
+    public void question(Mentoring mentoring) {
+        mentoringRepository.save(mentoring);
     }
 
-    public Integer answer(Mentoring mentoring) {
-        return sqlSession.getMapper(MentoringDAO.class).updateMentoring(mentoring);
+    public void answer(Mentoring mentoring) {
+        mentoringRepository.save(mentoring);
     }
 
 
-    public Mentoring getMentoring(Integer mtrno) {
-        return sqlSession.getMapper(MentoringDAO.class).selectMentoring(mtrno);
+    public Mentoring getMentoring(Long mtrno) {
+        return mentoringRepository.findById(mtrno).orElseThrow(RuntimeException::new);
     }
 
     public List<Map<String, Object>> getMyQuestions(String email) {

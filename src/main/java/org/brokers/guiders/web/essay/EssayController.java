@@ -73,7 +73,7 @@ public class EssayController {
     }
 
     @GetMapping("/read")
-    public String readEssay(@Param("eno") Integer eno, Model model, Authentication authentication) {
+    public String readEssay(@Param("eno") Long eno, Model model, Authentication authentication) {
         Map<String, String> map = new HashMap<>();
         if (authentication != null) {
             UserCustom userCustom = (UserCustom) authentication.getPrincipal();
@@ -82,14 +82,14 @@ public class EssayController {
         }
         Essay essay = essayService.readEssay(eno);
         map.put("eno", eno.toString());
-        boolean confirmLike = essayService.confirmLike(map);
+        boolean confirmLike = essay.getLikeCount() == 1;
         model.addAttribute("essayVO", essay);
         model.addAttribute("confirmLike", confirmLike);
         return "/essay/post";
     }
 
     @GetMapping("/modify")
-    public String modifyEssay(@Param("eno") Integer eno, Model model) {
+    public String modifyEssay(@Param("eno") Long eno, Model model) {
 
         Essay essay = essayService.readEssay(eno);
         model.addAttribute("essayVO", essay);
@@ -107,7 +107,7 @@ public class EssayController {
     }
 
     @PostMapping("/delete")
-    public String removeEssay(Integer eno) {
+    public String removeEssay(Long eno) {
         essayService.removeEssay(eno);
         return "redirect:/essay/list";
     }
@@ -120,7 +120,7 @@ public class EssayController {
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Map<String, Object>>> getEssays() {
+    public ResponseEntity<List<Essay>> getEssays() {
         return ResponseEntity.ok(essayService.getTopEssay());
     }
 
