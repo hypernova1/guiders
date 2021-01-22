@@ -6,7 +6,7 @@ public class Pagination {
     private int startPage, endPage;
     private boolean prev, next;
     private int displayNum;
-    private int total;
+    private long total;
 
     public int getStartPage() {
         return startPage;
@@ -52,7 +52,7 @@ public class Pagination {
         return cri;
     }
 
-    public int getTotal() {
+    public long getTotal() {
         return total;
     }
 
@@ -64,7 +64,7 @@ public class Pagination {
         this.cri = cri;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(long total) {
         this.total = total;
         calc();
     }

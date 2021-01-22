@@ -16,6 +16,7 @@ public class MyPageService {
     private final SqlSession sqlSession;
 
     public List<Essay> getMyLikeEssay(String email) {
+
         return sqlSession.getMapper(MyPageDAO.class).selectMyLikeEssay(email);
     }
 

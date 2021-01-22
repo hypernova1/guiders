@@ -41,22 +41,25 @@ public class EssayController {
         if (essay != null) {
             essayService.writeEssay(essay);
             return "redirect:/essay/list";
-        } else {
-            return "/essay/write"; // 글작성 실패
         }
+        return "/essay/write"; // 글작성 실패
     }
 
     @GetMapping("/list")
-    public String goEssayListPage(Model model, @Param("int") Integer page, PageCriteria cri) {
+    public String goEssayListPage(
+            Model model,
+            @Param("int") Integer page,
+            PageCriteria cri) {
+
         if (page != null) {
             cri.setPage(page);
         }
+
         Pagination pm = new Pagination();
         pm.setCri(cri);
         pm.setTotal(essayService.getEssayCount(cri));
 
-        Integer startNum = cri.getPageStart();
-        List<Essay> list = essayService.getEssayList(startNum, cri);
+        List<Essay> list = essayService.getEssayList(cri);
         for (Essay essay : list) {
             String econtent = essay.getContent();
             econtent = econtent.replaceAll("<[^>]*>", "");

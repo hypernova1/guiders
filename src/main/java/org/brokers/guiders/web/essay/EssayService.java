@@ -1,12 +1,14 @@
 package org.brokers.guiders.web.essay;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
 import org.brokers.guiders.util.PageCriteria;
+import org.brokers.guiders.web.member.FollowerRepository;
 import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.GuiderRepository;
 import org.brokers.guiders.web.member.Member;
-import org.brokers.guiders.web.member.FollowerRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +18,15 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class EssayService {
 
     private final GuiderRepository guiderRepository;
     private final EssayRepository essayRepository;
     private final FollowerRepository followerRepository;
     private final RecommendRepository recommendRepository;
-    private final SqlSession sqlSession;
 
+    @Transactional
     public void writeEssay(Essay essay) {
         Map<String, String> param = new HashMap<>();
         param.put("email", essay.getWriter().getEmail());
@@ -45,17 +48,25 @@ public class EssayService {
         essayRepository.save(essay);
     }
 
-    public List<Essay> getEssayList(Integer startNum, PageCriteria cri) {
-        return sqlSession.getMapper(EssayDAO.class).selectEssayList(startNum, cri);
+    public List<Essay> getEssayList(PageCriteria cri) {
+        PageRequest pageRequest = PageRequest.of(cri.getPageStart() - 1, cri.getPerPageNum(), Sort.Direction.DESC);
+        Page<Essay> essayPage = essayRepository.findAll(pageRequest);
+        return essayPage.getContent();
+    }
+
+    public long getEssayCount(PageCriteria cri) {
+        return essayRepository.count();
     }
 
     @Transactional
     public int addRecommend(Map<String, String> map) {
-        String eno = map.get("eno");
-        Essay essay = essayRepository.findById(Long.valueOf(eno))
+        String id = map.get("eno");
+        Essay essay = essayRepository.findById(Long.valueOf(id))
                 .orElseThrow(RuntimeException::new);
+
         Member member = followerRepository.findByEmail(map.get("email"))
                 .orElseThrow(RuntimeException::new);
+
         recommendRepository.findByMemberAndEssay(member, essay)
                 .ifPresentOrElse((recommend) -> essay.decrementLikeCount(),
                         () -> {
@@ -70,12 +81,9 @@ public class EssayService {
         return essay.getLikeCount();
     }
 
+    @Transactional
     public void removeEssay(Long eno) {
         essayRepository.deleteById(eno);
-    }
-
-    public Integer getEssayCount(PageCriteria cri) {
-        return sqlSession.getMapper(EssayDAO.class).selectEssayCount(cri);
     }
 
     public List<Essay> getTopEssay() {
