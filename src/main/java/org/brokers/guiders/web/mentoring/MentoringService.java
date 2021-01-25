@@ -1,19 +1,21 @@
 package org.brokers.guiders.web.mentoring;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
+import org.brokers.guiders.web.member.Follower;
+import org.brokers.guiders.web.member.FollowerRepository;
+import org.brokers.guiders.web.member.Guider;
+import org.brokers.guiders.web.member.GuiderRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class MentoringService {
 
     private final MentoringRepository mentoringRepository;
-    private final SqlSession sqlSession;
+    private final GuiderRepository guiderRepository;
+    private final FollowerRepository followerRepository;
 
     public void question(Mentoring mentoring) {
         mentoringRepository.save(mentoring);
@@ -28,15 +30,19 @@ public class MentoringService {
         return mentoringRepository.findById(mtrno).orElseThrow(RuntimeException::new);
     }
 
-    public List<Map<String, Object>> getMyQuestions(String email) {
-        return sqlSession.getMapper(MentoringDAO.class).selectMyQuestions(email);
+    public List<Mentoring> getMyQuestions(String email) {
+        Guider guider = guiderRepository.findByEmail(email)
+                .orElseThrow(RuntimeException::new);
+        return guider.getMentoringList();
     }
 
-    public List<Map<String, Object>> getMentoringList(String guider, String follower) {
-        Map<String, String> param = new HashMap<>();
-        param.put("guider", guider);
-        param.put("follower", follower);
-        return sqlSession.getMapper(MentoringDAO.class).selectMentoringList(param);
+    public List<Mentoring> getMentoringList(String guiderEmail, String followerEmail) {
+        Guider guider = guiderRepository.findByEmail(guiderEmail)
+                .orElseThrow(RuntimeException::new);
+        Follower follower = followerRepository.findByEmail(followerEmail)
+                .orElseThrow(RuntimeException::new);
+
+        return mentoringRepository.findAllByGuiderAndFollow(guider, follower);
     }
 
 }

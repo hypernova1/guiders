@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.brokers.guiders.web.member.Guider;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,7 +15,7 @@ public class Mentoring {
     @Id @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private Guider guider;
 
     private String field;

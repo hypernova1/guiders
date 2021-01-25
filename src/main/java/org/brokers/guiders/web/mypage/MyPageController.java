@@ -5,6 +5,7 @@ import org.brokers.guiders.config.security.UserCustom;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.MemberService;
+import org.brokers.guiders.web.mentoring.Mentoring;
 import org.brokers.guiders.web.mentoring.MentoringService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,8 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/mypage")
@@ -42,9 +43,9 @@ public class MyPageController {
     }
 
     @GetMapping("myGuiders")
-    public @ResponseBody
-    ResponseEntity<List<Map<String, Object>>> myGuiderList(Authentication authentication) {
-        List<Map<String, Object>> list = null;
+    @ResponseBody
+    public ResponseEntity<List<Guider>> myGuiderList(Authentication authentication) {
+        List<Guider> list = new ArrayList<>();
         if (authentication.isAuthenticated()) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
             list = myPageService.getMyGuiderList(user.getEmail());
@@ -54,8 +55,8 @@ public class MyPageController {
 
     @GetMapping("/likeEssay/{eno}")
     @ResponseBody
-    public String getEssay(@PathVariable("eno") String eno) {
-        return myPageService.getEssayContent(Integer.parseInt(eno));
+    public String getEssay(@PathVariable("eno") Long eno) {
+        return myPageService.getEssayContent(eno);
     }
 
     @GetMapping("/guider/{email}")
@@ -66,12 +67,12 @@ public class MyPageController {
 
     @GetMapping("/questions")
     public String questions(Authentication authentication, Model model) {
-        List<Map<String, Object>> mentorings = null;
+        List<Mentoring> mentoringList = null;
         if (authentication != null) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
-            mentorings = mentoringService.getMyQuestions(user.getEmail());
+            mentoringList = mentoringService.getMyQuestions(user.getEmail());
         }
-        model.addAttribute("mentorings", mentorings);
+        model.addAttribute("mentoringList", mentoringList);
         return "mypage/questions";
     }
 

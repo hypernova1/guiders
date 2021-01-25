@@ -42,9 +42,9 @@ public class MentoringController {
     public String mentoringList(String email, Authentication authentication, Model model) {
         if (authentication.getPrincipal() != null) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
-            List<Map<String, Object>> mentorings =
+            List<Mentoring> mentoringList =
                     mentoringService.getMentoringList(email, user.getEmail());
-            model.addAttribute("mentorings", mentorings);
+            model.addAttribute("mentoringList", mentoringList);
         }
 
         return "mypage/mentoringList";

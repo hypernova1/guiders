@@ -1,7 +1,6 @@
 package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    private final MemberRepository<Member> memberRepository;
     private final FollowerRepository followerRepository;
     private final GuiderRepository guiderRepository;
     private final FollowRepository followRepository;
@@ -36,7 +35,7 @@ public class MemberService {
 
     public Member getMember(String email) {
         return memberRepository.findByEmail(email)
-                .orElseThrow();
+                .orElseThrow(RuntimeException::new);
     }
 
     public Member selectByEmail(String email, String type) {

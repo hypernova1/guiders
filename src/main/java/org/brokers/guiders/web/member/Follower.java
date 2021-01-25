@@ -15,6 +15,9 @@ import java.util.List;
 public class Follower extends Member {
 
     @OneToMany
+    private final List<Guider> guiderList = new ArrayList<>();
+
+    @OneToMany
     private final List<Mentoring> mentoringList = new ArrayList<>();
 
 }
