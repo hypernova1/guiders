@@ -4,6 +4,7 @@ import org.brokers.guiders.config.security.UserCustom;
 import org.brokers.guiders.util.PageCriteria;
 import org.brokers.guiders.util.Pagination;
 import org.brokers.guiders.web.member.Guider;
+import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
@@ -29,8 +30,8 @@ public class EssayController {
     public String writeEssay(Model model, Authentication authentication) {
         if (authentication != null) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
-            Guider vo = memberService.selectByEmail(user.getEmail(), "guider");
-            model.addAttribute("email", vo.getEmail());
+            Guider guider = (Guider) memberService.selectByEmail(user.getEmail(), "guider");
+            model.addAttribute("email", guider.getEmail());
 
         }
         return "/essay/write";

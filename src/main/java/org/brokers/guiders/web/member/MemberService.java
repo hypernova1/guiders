@@ -2,21 +2,22 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
 
+    private final MemberRepository memberRepository;
     private final FollowerRepository followerRepository;
     private final GuiderRepository guiderRepository;
-    private final SqlSession sqlSession;
+    private final FollowRepository followRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -33,49 +34,53 @@ public class MemberService {
         return Collections.emptyList();
     }
 
-    public Member loginCheck(String email) {
-        return sqlSession.getMapper(MemberDAO.class).loginCheck(email);
+    public Member getMember(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow();
     }
 
-    public Guider selectByEmail(String email, String type) {
-        Map<String, String> param = new HashMap<>();
-        param.put("email", email);
-        param.put("type", type);
-        return sqlSession.getMapper(MemberDAO.class).selectByEmail(param);
+    public Member selectByEmail(String email, String type) {
+        if (type.equals("guider")) {
+            return guiderRepository.findByEmail(email)
+                    .orElseThrow(RuntimeException::new);
+        }
+        return followerRepository.findByEmail(email)
+                .orElseThrow(RuntimeException::new);
     }
 
 
-    public List<Map<String, Object>> getGuiderList(Integer page, String email) {
+    public List<Guider> getGuiderList(Integer page, String email) {
         if (page == null) page = 0;
 
-        Map<String, Object> param = new HashMap<>();
-        param.put("page", page);
-        param.put("email", email);
-        return sqlSession.getMapper(MemberDAO.class).selectGuiderList(param);
+        PageRequest pageRequest = PageRequest.of(page, 16);
+        Page<Guider> guiderPage = guiderRepository.findAll(pageRequest);
+
+        return guiderPage.getContent();
+    }
+
+    public void follow(String guiderEmail, String followEmail) {
+        Guider guider = guiderRepository.findByEmail(guiderEmail)
+                .orElseThrow(RuntimeException::new);
+        Follower follower = followerRepository.findByEmail(followEmail)
+                .orElseThrow(RuntimeException::new);
+
+        Follow follow = Follow.builder()
+                .guider(guider)
+                .follower(follower)
+                .build();
+        followRepository.save(follow);
     }
 
 
-    public Integer isFollow(String guider, String follow) {
-        Map<String, String> param = new HashMap<>();
-        param.put("follower", follow);
-        param.put("guider", guider);
-        return sqlSession.getMapper(MemberDAO.class).selectFollow(param);
-    }
+    public void unfollow(String guiderEmail, String followEmail) {
+        Guider guider = guiderRepository.findByEmail(guiderEmail)
+                .orElseThrow(RuntimeException::new);
+        Follower follower = followerRepository.findByEmail(followEmail)
+                .orElseThrow(RuntimeException::new);
+        Follow follow = followRepository.findByGuiderAndFollow(guider, follower)
+                .orElseThrow(RuntimeException::new);
 
-
-    public Integer follow(String guider, String follow) {
-        Map<String, String> param = new HashMap<>();
-        param.put("follower", follow);
-        param.put("guider", guider);
-        return sqlSession.getMapper(MemberDAO.class).insertFollow(param);
-    }
-
-
-    public Integer unfollow(String guider, String follow) {
-        Map<String, String> param = new HashMap<>();
-        param.put("follower", follow);
-        param.put("guider", guider);
-        return sqlSession.getMapper(MemberDAO.class).deleteFollow(param);
+        followRepository.delete(follow);
     }
 
 

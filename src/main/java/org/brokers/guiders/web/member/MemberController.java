@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping
@@ -20,17 +19,17 @@ public class MemberController {
 
     @GetMapping("/guider")
     @ResponseBody
-    public ResponseEntity<Guider> getGuiderInfo(String email) {
-        Guider guider = memberService.selectByEmail(email, "guider");
+    public ResponseEntity<Member> getGuiderInfo(String email) {
+        Guider guider = (Guider) memberService.selectByEmail(email, "guider");
 
         return ResponseEntity.ok(guider);
     }
 
     @GetMapping("/guider/list/{page}")
     @ResponseBody
-    public ResponseEntity<List<Map<String, Object>>> getGuiderList(
+    public ResponseEntity<List<Guider>> getGuiderList(
             @PathVariable Integer page, Authentication authentication) {
-        List<Map<String, Object>> guiderList;
+        List<Guider> guiderList;
         if (authentication != null) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
             guiderList = memberService.getGuiderList(page, user.getEmail());

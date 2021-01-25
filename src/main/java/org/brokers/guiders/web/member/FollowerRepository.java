@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface FollowerRepository extends JpaRepository<Follower, Long> {
 
-    Optional<Member> findByEmail(String email);
+    Optional<Follower> findByEmail(String email);
 }

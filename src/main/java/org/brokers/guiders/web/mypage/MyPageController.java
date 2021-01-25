@@ -61,7 +61,7 @@ public class MyPageController {
     @GetMapping("/guider/{email}")
     @ResponseBody
     public ResponseEntity<Guider> guider(@PathVariable String email) {
-        return ResponseEntity.ok(memberService.selectByEmail(email, "guider"));
+        return ResponseEntity.ok((Guider) memberService.selectByEmail(email, "guider"));
     }
 
     @GetMapping("/questions")
@@ -83,7 +83,7 @@ public class MyPageController {
             if (user.getAuthorities().toString().equals("[ROLE_MEMBER]")) {
                 type = "member";
             }
-            Guider vo = memberService.selectByEmail(user.getEmail(), type);
+            Guider vo = (Guider) memberService.selectByEmail(user.getEmail(), type);
             model.addAttribute("vo", vo);
         }
 
