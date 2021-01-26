@@ -42,7 +42,7 @@ public class MentoringService {
         Follower follower = followerRepository.findByEmail(followerEmail)
                 .orElseThrow(RuntimeException::new);
 
-        return mentoringRepository.findAllByGuiderAndFollow(guider, follower);
+        return mentoringRepository.findByGuiderAndFollower(guider, follower);
     }
 
 }

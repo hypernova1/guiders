@@ -9,11 +9,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter @Setter
-@ToString
 @Entity
+@ToString
 public class Essay {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -28,7 +29,7 @@ public class Essay {
     @Lob
     private String content;
 
-    private Integer likeCount;
+    private int likeCount;
 
     private LocalDateTime regDate;
 

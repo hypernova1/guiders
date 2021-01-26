@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface MentoringRepository extends JpaRepository<Mentoring, Long> {
-    List<Mentoring> findAllByGuiderAndFollow(Guider guider, Follower follower);
+    List<Mentoring> findByGuiderAndFollower(Guider guider, Follower follower);
 
 }

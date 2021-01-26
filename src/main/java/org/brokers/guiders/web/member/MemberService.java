@@ -3,6 +3,7 @@ package org.brokers.guiders.web.member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class MemberService {
     private final FollowerRepository followerRepository;
     private final GuiderRepository guiderRepository;
     private final FollowRepository followRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public void modifyMember(Guider guider) {
         if (!guider.getPassword().isEmpty()) {
@@ -75,7 +76,7 @@ public class MemberService {
                 .orElseThrow(RuntimeException::new);
         Follower follower = followerRepository.findByEmail(followEmail)
                 .orElseThrow(RuntimeException::new);
-        Follow follow = followRepository.findByGuiderAndFollow(guider, follower)
+        Follow follow = followRepository.findByGuiderAndFollower(guider, follower)
                 .orElseThrow(RuntimeException::new);
 
         followRepository.delete(follow);

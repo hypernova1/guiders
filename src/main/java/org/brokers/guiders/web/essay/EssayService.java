@@ -87,7 +87,7 @@ public class EssayService {
     }
 
     public List<Essay> getTopEssay() {
-        return essayRepository.findTop6OrderByLikeCountDesc();
+        return essayRepository.findAllTop6ByOrderByLikeCountDesc();
     }
 
 }

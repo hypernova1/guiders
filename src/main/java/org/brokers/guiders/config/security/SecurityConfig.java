@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                     .antMatchers("/essay/write", "/essay/modify", "/mypage/questions")
-                        .hasRole("ROLE_GUIDER")
+                        .hasRole("GUIDER")
                     .antMatchers("/mypage/**")
                         .authenticated()
                     .anyRequest()

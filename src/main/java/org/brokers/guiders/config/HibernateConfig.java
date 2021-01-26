@@ -29,11 +29,13 @@ public class HibernateConfig {
 
     public Properties property() {
         Properties properties = new Properties();
+        properties.setProperty("hibernate.generate-ddl", "true");
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.format_sql", "true");
         properties.setProperty("hibernate.use_sql_comments", "false");
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        properties.setProperty("hibernate.hbm2ddl.auto", "create");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MariaDB53Dialect");
+        properties.setProperty("hibernate.discriminator.ignore_explicit_for_joined", "true");
         return properties;
     }
 
