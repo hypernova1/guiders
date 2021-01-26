@@ -1,8 +1,9 @@
-package org.brokers.guiders.web.mypage;
+package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.UserCustom;
 import org.brokers.guiders.web.essay.Essay;
+import org.brokers.guiders.web.essay.EssayService;
 import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.MemberService;
 import org.brokers.guiders.web.mentoring.Mentoring;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MyPageController {
 
-    private final MyPageService myPageService;
+    private final EssayService essayService;
     private final MentoringService mentoringService;
     private final MemberService memberService;
 
@@ -31,7 +31,7 @@ public class MyPageController {
         List<Essay> list;
         if (authentication.isAuthenticated()) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
-            list = myPageService.getMyLikeEssay(user.getEmail());
+            list = memberService.getMyLikeEssay(user.getEmail());
             model.addAttribute("essayList", list);
         }
         return "mypage/likeEssay";
@@ -48,7 +48,7 @@ public class MyPageController {
         List<Guider> list = new ArrayList<>();
         if (authentication.isAuthenticated()) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
-            list = myPageService.getMyGuiderList(user.getEmail());
+            list = memberService.getMyGuiderList(user.getEmail());
         }
         return ResponseEntity.ok(list);
     }
@@ -56,7 +56,7 @@ public class MyPageController {
     @GetMapping("/likeEssay/{eno}")
     @ResponseBody
     public String getEssay(@PathVariable("eno") Long eno) {
-        return myPageService.getEssayContent(eno);
+        return essayService.getEssayContent(eno);
     }
 
     @GetMapping("/guider/{email}")
@@ -77,7 +77,7 @@ public class MyPageController {
     }
 
     @GetMapping("/edit")
-    public String edit(Model model, HttpSession session, Authentication authentication) {
+    public String edit(Model model, Authentication authentication) {
         if (authentication != null) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
             String type = "guider";

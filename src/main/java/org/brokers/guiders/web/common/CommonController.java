@@ -1,4 +1,4 @@
-package org.brokers.guiders.web;
+package org.brokers.guiders.web.common;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.UserCustom;

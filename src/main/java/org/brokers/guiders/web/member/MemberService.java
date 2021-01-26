@@ -1,6 +1,7 @@
 package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
+import org.brokers.guiders.web.essay.Essay;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -82,5 +83,17 @@ public class MemberService {
         followRepository.delete(follow);
     }
 
+    public List<Essay> getMyLikeEssay(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(RuntimeException::new);
+        return member.getLikeEssay();
+    }
+
+    public List<Guider> getMyGuiderList(String email) {
+        Follower follower = followerRepository.findByEmail(email)
+                .orElseThrow(RuntimeException::new);
+
+        return follower.getGuiderList();
+    }
 
 }

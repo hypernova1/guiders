@@ -91,4 +91,9 @@ public class EssayService {
         return essayRepository.findAllTop6ByOrderByLikeCountDesc();
     }
 
+    public String getEssayContent(Long eno) {
+        return essayRepository.findById(eno)
+                .orElseThrow(RuntimeException::new).getContent();
+    }
+
 }
