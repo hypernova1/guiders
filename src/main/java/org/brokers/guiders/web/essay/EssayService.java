@@ -48,8 +48,9 @@ public class EssayService {
         essayRepository.save(essay);
     }
 
+    @Transactional
     public List<Essay> getEssayList(PageCriteria cri) {
-        PageRequest pageRequest = PageRequest.of(cri.getPageStart() - 1, cri.getPerPageNum(), Sort.Direction.DESC);
+        PageRequest pageRequest = PageRequest.of(cri.getPageStart(), cri.getPerPageNum());
         Page<Essay> essayPage = essayRepository.findAll(pageRequest);
         return essayPage.getContent();
     }

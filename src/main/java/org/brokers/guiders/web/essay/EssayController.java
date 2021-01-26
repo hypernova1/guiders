@@ -47,15 +47,10 @@ public class EssayController {
     }
 
     @GetMapping("/list")
-    public String goEssayListPage(
-            Model model,
-            @Param("int") Integer page,
-            PageCriteria cri) {
-
+    public String goEssayListPage(Model model, @Param("int") Integer page, PageCriteria cri) {
         if (page != null) {
             cri.setPage(page);
         }
-
         Pagination pm = new Pagination();
         pm.setCri(cri);
         pm.setTotal(essayService.getEssayCount(cri));
