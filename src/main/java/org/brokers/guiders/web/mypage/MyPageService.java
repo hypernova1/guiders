@@ -1,7 +1,6 @@
 package org.brokers.guiders.web.mypage;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.essay.EssayRepository;
 import org.brokers.guiders.web.member.*;
@@ -14,7 +13,7 @@ import java.util.List;
 public class MyPageService {
 
     private final EssayRepository essayRepository;
-    private final MemberRepository<Member> memberRepository;
+    private final MemberRepository memberRepository;
     private final FollowerRepository followerRepository;
 
     public List<Essay> getMyLikeEssay(String email) {

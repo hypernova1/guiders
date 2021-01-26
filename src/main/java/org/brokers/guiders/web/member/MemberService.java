@@ -13,11 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private final MemberRepository<Member> memberRepository;
+    private final MemberRepository memberRepository;
     private final FollowerRepository followerRepository;
     private final GuiderRepository guiderRepository;
     private final FollowRepository followRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     public void modifyMember(Guider guider) {

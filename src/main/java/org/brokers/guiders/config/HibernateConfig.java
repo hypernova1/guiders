@@ -1,10 +1,9 @@
 package org.brokers.guiders.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.hibernate.mapping.Property;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.EntityManagerFactoryInfo;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -14,6 +13,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
+@EnableJpaRepositories(basePackages = "org.brokers.guiders")
 public class HibernateConfig {
 
     @Bean
@@ -22,6 +22,8 @@ public class HibernateConfig {
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
         factoryBean.setJpaProperties(property());
+        factoryBean.setPackagesToScan("org.brokers.guiders");
+        factoryBean.setPersistenceUnitName("guider");
         return factoryBean;
     }
 
@@ -31,6 +33,7 @@ public class HibernateConfig {
         properties.setProperty("hibernate.format_sql", "true");
         properties.setProperty("hibernate.use_sql_comments", "false");
         properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         return properties;
     }
 

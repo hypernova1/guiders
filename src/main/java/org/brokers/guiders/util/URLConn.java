@@ -12,9 +12,9 @@ import org.json.JSONObject;
 public class URLConn {
 	URLConnection conn;
 
-	public URLConn(String urlpath, int port) {
+	public URLConn(String urlPath, int port) {
 		try {
-			URL url = new URL(urlpath + ":" + port);
+			URL url = new URL(urlPath + ":" + port);
 			conn = url.openConnection();
 		} catch (IOException e) {
 			e.printStackTrace();
