@@ -10,6 +10,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import javax.annotation.PostConstruct;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "org.brokers.guiders")
@@ -25,11 +27,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**", "/resources/css/");
-        registry.addResourceHandler("/js/**", "/resources/js/");
-        registry.addResourceHandler("/img/**", "/resources/img/");
-        registry.addResourceHandler("/font/**", "/resources/font/");
-        registry.addResourceHandler("/editor/**", "/resources/editor/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
+        registry.addResourceHandler("/img/**").addResourceLocations( "/resources/img/");
+        registry.addResourceHandler("/font/**").addResourceLocations("/resources/font/");
+        registry.addResourceHandler("/editor/**").addResourceLocations("/resources/editor/");
     }
 
     @Bean
