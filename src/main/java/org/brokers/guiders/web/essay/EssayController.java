@@ -115,7 +115,7 @@ public class EssayController {
     @ResponseBody
     public ResponseEntity<Integer> addLikeCount(@PathVariable Long id, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
-        return ResponseEntity.ok(essayService.addRecommend(id, principal.getName())); // 갱신된 '좋아요' 갯수를 전달
+        return ResponseEntity.ok(essayService.toggleLikeEssay(id, principal.getName())); // 갱신된 '좋아요' 갯수를 전달
     }
 
     @GetMapping

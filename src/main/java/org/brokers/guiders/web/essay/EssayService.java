@@ -23,7 +23,6 @@ public class EssayService {
     private final GuiderRepository guiderRepository;
     private final EssayRepository essayRepository;
     private final FollowerRepository followerRepository;
-    private final RecommendRepository recommendRepository;
 
     @Transactional
     public void writeEssay(Essay essay) {
@@ -59,24 +58,12 @@ public class EssayService {
     }
 
     @Transactional
-    public int addRecommend(Long id, String email) {
+    public int toggleLikeEssay(Long id, String email) {
         Essay essay = essayRepository.findById(id)
                 .orElseThrow(RuntimeException::new);
-
         Member member = followerRepository.findByEmail(email)
                 .orElseThrow(RuntimeException::new);
-
-        recommendRepository.findByMemberAndEssay(member, essay)
-                .ifPresentOrElse((recommend) -> essay.decrementLikeCount(),
-                        () -> {
-                            Recommend recommend = Recommend.builder()
-                                    .member(member)
-                                    .essay(essay)
-                                    .build();
-                            recommendRepository.save(recommend);
-                            essay.incrementLikeCount();
-                        }
-                );
+        member.toggleLikeEssay(essay);
         return essay.getLikeCount();
     }
 

@@ -35,4 +35,14 @@ public class Member {
 
     @OneToMany
     protected final List<Essay> likeEssay = new ArrayList<>();
+
+    public void toggleLikeEssay(Essay essay) {
+        if (likeEssay.contains(essay)) {
+            essay.decrementLikeCount();
+            likeEssay.remove(essay);
+            return;
+        }
+        likeEssay.add(essay);
+        essay.incrementLikeCount();
+    }
 }
