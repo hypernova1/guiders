@@ -2,13 +2,12 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.web.essay.Essay;
-import org.brokers.guiders.web.follow.Follow;
-import org.brokers.guiders.web.follow.FollowRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +19,6 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final FollowerRepository followerRepository;
     private final GuiderRepository guiderRepository;
-    private final FollowRepository followRepository;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public void modifyMember(Guider guider) {
@@ -66,11 +64,31 @@ public class MemberService {
         return member.getLikeEssay();
     }
 
-    public List<Guider> getMyGuiderList(String email) {
+    public List<Guider> getFollowerList(String email) {
         Follower follower = followerRepository.findByEmail(email)
                 .orElseThrow(RuntimeException::new);
 
-        return follower.getGuiderList();
+        return follower.getFollowList();
+    }
+
+    @Transactional
+    public void followGuider(String guiderEmail, String followEmail) {
+        Guider guider = guiderRepository.findByEmail(guiderEmail)
+                .orElseThrow(RuntimeException::new);
+        Follower follower = followerRepository.findByEmail(followEmail)
+                .orElseThrow(RuntimeException::new);
+
+        follower.follow(guider);
+    }
+
+    @Transactional
+    public void unfollowGuider(String guiderEmail, String followEmail) {
+        Guider guider = guiderRepository.findByEmail(guiderEmail)
+                .orElseThrow(RuntimeException::new);
+        Follower follower = followerRepository.findByEmail(followEmail)
+                .orElseThrow(RuntimeException::new);
+
+        follower.unfollow(guider);
     }
 
 }

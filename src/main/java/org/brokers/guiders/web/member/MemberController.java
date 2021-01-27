@@ -2,13 +2,11 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.UserCustom;
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,6 +37,30 @@ public class MemberController {
             guiderList = memberService.getGuiderList(page, null);
         }
         return ResponseEntity.ok(guiderList);
+    }
+
+    @PostMapping("/follow")
+    @ResponseBody
+    public ResponseEntity<Boolean> follow(@RequestBody String guider, Authentication authentication) {
+        boolean result = false;
+        JSONObject obj = new JSONObject(guider);
+        if (authentication != null) {
+            UserCustom user = (UserCustom) authentication.getPrincipal();
+            memberService.followGuider(obj.getString("guider"), user.getEmail());
+            result = true;
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/follow")
+    @ResponseBody
+    public ResponseEntity<Boolean> unfollow(@RequestBody String guider, Authentication authentication) {
+        JSONObject obj = new JSONObject(guider);
+        if (authentication.getPrincipal() != null) {
+            UserCustom user = (UserCustom) authentication.getPrincipal();
+            memberService.unfollowGuider(obj.getString("guider"), user.getEmail());
+        }
+        return ResponseEntity.ok(true);
     }
 
 }

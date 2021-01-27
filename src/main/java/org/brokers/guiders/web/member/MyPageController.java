@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.UserCustom;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.essay.EssayService;
-import org.brokers.guiders.web.member.Guider;
-import org.brokers.guiders.web.member.MemberService;
 import org.brokers.guiders.web.mentoring.Mentoring;
 import org.brokers.guiders.web.mentoring.MentoringService;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +46,7 @@ public class MyPageController {
         List<Guider> list = new ArrayList<>();
         if (authentication.isAuthenticated()) {
             UserCustom user = (UserCustom) authentication.getPrincipal();
-            list = memberService.getMyGuiderList(user.getEmail());
+            list = memberService.getFollowerList(user.getEmail());
         }
         return ResponseEntity.ok(list);
     }
