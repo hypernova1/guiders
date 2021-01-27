@@ -41,7 +41,7 @@
       <h1 id="title">Q. ${mentoring.title}</h1>
       <div id="field">${mentoring.field}</div>
       <div id="lang">${mentoring.lang}</div>
-      <div id="regdate">등록일: ${mentoring.regDate}</div>
+      <div id="regdate">등록일: ${mentoring.createdDate}</div>
       <div class="content">
         ${mentoring.count}
       </div>

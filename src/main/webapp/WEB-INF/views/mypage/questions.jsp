@@ -133,7 +133,7 @@
 	             </c:otherwise>
 	           </c:choose>
 	          </div>
-	          <div class="regdate">${mentoring.regdate}</div>
+	          <div class="regdate">${mentoring.createdDate}</div>
 	        </li>
         </c:forEach>
       </ul>

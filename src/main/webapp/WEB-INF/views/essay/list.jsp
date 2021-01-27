@@ -33,7 +33,7 @@
 								<a href="/essay/read?id=${essay.id}">${essay.title}</a>
 							</h2>
 							<span class="like">♥ ${essay.likeCount}</span> <span
-								class="regdate">${essay.regDate}</span>
+								class="regdate">${essay.createdDate}</span>
 						</div>
 						<div class="content">
 							<c:out value="${essay.content}" />

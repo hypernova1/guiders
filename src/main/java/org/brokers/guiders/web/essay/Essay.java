@@ -3,6 +3,7 @@ package org.brokers.guiders.web.essay;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.member.Guider;
 
 import javax.persistence.*;
@@ -11,11 +12,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @Entity
 @ToString
-public class Essay {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Essay extends DateAudit {
 
     @ManyToOne
     private Guider writer;
@@ -30,8 +27,6 @@ public class Essay {
     private String content;
 
     private int likeCount;
-
-    private LocalDateTime regDate;
 
     public void incrementLikeCount() {
         this.likeCount++;

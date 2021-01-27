@@ -2,6 +2,7 @@ package org.brokers.guiders.web.member;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.essay.Essay;
 
 import javax.persistence.*;
@@ -12,10 +13,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(columnDefinition = "DTYPE")
-public class Member {
-
-    @Id @GeneratedValue
-    protected Long id;
+public class Member extends DateAudit {
 
     @Column(unique = true, nullable = false)
     protected String email;
@@ -30,8 +28,6 @@ public class Member {
     protected String phone;
 
     protected String photo;
-
-    protected String regDate;
 
     @OneToMany
     protected final List<Essay> likeEssay = new ArrayList<>();

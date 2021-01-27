@@ -2,19 +2,18 @@ package org.brokers.guiders.web.mentoring;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.member.Follower;
 import org.brokers.guiders.web.member.Guider;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-public class Mentoring {
-
-    @Id @GeneratedValue
-    private Long id;
+public class Mentoring extends DateAudit {
 
     @ManyToOne
     private Guider guider;
@@ -33,8 +32,6 @@ public class Mentoring {
     private String reply;
 
     private Integer likeCount;
-
-    private LocalDateTime regDate;
 
     private LocalDateTime replyDate;
 

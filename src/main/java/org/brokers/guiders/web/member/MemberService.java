@@ -4,12 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.web.essay.Essay;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -19,7 +17,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final FollowerRepository followerRepository;
     private final GuiderRepository guiderRepository;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
 
     public void modifyMember(Guider guider) {
         if (!guider.getPassword().isEmpty()) {
@@ -27,16 +25,6 @@ public class MemberService {
             guider.setPassword(password);
         }
         guiderRepository.save(guider);
-    }
-
-    public List<String> getAuthList(String email) {
-        //TODO: 권한 리스트
-        return Collections.emptyList();
-    }
-
-    public Member getMember(String email) {
-        return memberRepository.findByEmail(email)
-                .orElseThrow(RuntimeException::new);
     }
 
     public Member selectByEmail(String email, String type) {

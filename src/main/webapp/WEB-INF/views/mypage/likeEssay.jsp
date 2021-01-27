@@ -20,7 +20,7 @@
 		          <div class="field">${essay.field}</div>
 		          <div class="lang">${essay.lang}</div>
 		          <div class="title">${essay.title}</div>
-		          <div class="regdate">${essay.regDate}</div>
+		          <div class="regdate">${essay.createdDate}</div>
 		        </li>
 	      </c:forEach>
 <!--         <li id="li-head">
