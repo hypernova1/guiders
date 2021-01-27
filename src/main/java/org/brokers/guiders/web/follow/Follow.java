@@ -1,9 +1,10 @@
-package org.brokers.guiders.web.member;
+package org.brokers.guiders.web.follow;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.brokers.guiders.web.member.Follower;
+import org.brokers.guiders.web.member.Guider;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -2,6 +2,8 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.web.essay.Essay;
+import org.brokers.guiders.web.follow.Follow;
+import org.brokers.guiders.web.follow.FollowRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -56,31 +58,6 @@ public class MemberService {
         Page<Guider> guiderPage = guiderRepository.findAll(pageRequest);
 
         return guiderPage.getContent();
-    }
-
-    public void follow(String guiderEmail, String followEmail) {
-        Guider guider = guiderRepository.findByEmail(guiderEmail)
-                .orElseThrow(RuntimeException::new);
-        Follower follower = followerRepository.findByEmail(followEmail)
-                .orElseThrow(RuntimeException::new);
-
-        Follow follow = Follow.builder()
-                .guider(guider)
-                .follower(follower)
-                .build();
-        followRepository.save(follow);
-    }
-
-
-    public void unfollow(String guiderEmail, String followEmail) {
-        Guider guider = guiderRepository.findByEmail(guiderEmail)
-                .orElseThrow(RuntimeException::new);
-        Follower follower = followerRepository.findByEmail(followEmail)
-                .orElseThrow(RuntimeException::new);
-        Follow follow = followRepository.findByGuiderAndFollower(guider, follower)
-                .orElseThrow(RuntimeException::new);
-
-        followRepository.delete(follow);
     }
 
     public List<Essay> getMyLikeEssay(String email) {
