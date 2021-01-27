@@ -99,7 +99,7 @@
          let data = '<h2>인기 에세이</h2>';
          const regex = /<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/i;
          essays.forEach((essay) => {
-             const img = essay.econtent.match(regex);
+             const img = essay.content.match(regex);
              
              data += '<article>';
              if(img){
@@ -108,8 +108,8 @@
              } else {
                data += '<img class="article-img" src="https://t1.daumcdn.net/cfile/tistory/1112763C4F78EAB610">';
              }
-             data += '<h3 class="article-title" data-eno="' + essay.eno + '">' + essay.etitle + '</h3>';
-             data += '<div class="article-content">' + essay.econtent.replace(/(<([^>]+)>)/ig,""); + '</div>';
+             data += '<h3 class="article-title" data-id="' + essay.id + '">' + essay.title + '</h3>';
+             data += '<div class="article-content">' + essay.content.replace(/(<([^>]+)>)/ig,""); + '</div>';
              data += '</article>';
          });
          document.querySelector('#article').innerHTML = data;
@@ -118,7 +118,7 @@
   
   document.querySelector('#article').addEventListener('click', ({target}) => {
       if(target.className == 'article-title'){
-          location.href = '/essay/read?eno=' + target.getAttribute('data-eno');
+          location.href = '/essay/read?id=' + target.getAttribute('data-id');
       }
   })
   

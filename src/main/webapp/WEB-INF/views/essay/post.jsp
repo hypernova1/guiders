@@ -9,17 +9,17 @@
   <article>
     <div id="field">${essay.field}</div>
     <div id="lang">${essay.lang}</div>
-    <h1 id="title">${essay.etitle}</h1>
-    <div id="content">${essay.econtent}</div>
+    <h1 id="title">${essay.title}</h1>
+    <div id="content">${essay.content}</div>
   </article>
   <div id="like">
     <span id="likeSpan" style="font-weight: bold;">
 	    <c:if test="${confirmLike == true}">♥</c:if>
 	    <c:if test="${confirmLike == false}">♡</c:if>
-	    ${essay.likecnt}
+	    ${essay.likeCount}
     </span>
     <form id="essayPostForm" action="/essay/delete" method="post">
-      <input type="hidden" name="eno" value="${essay.eno}">
+      <input type="hidden" name="id" value="${essay.id}">
     </form>
     <c:if test="${pageContext.request.userPrincipal.name == essay.mname}">
         <button id="removeBtn" type="button">삭제</button>
@@ -51,8 +51,8 @@
 	
 	if(modifyBtn){
 		modifyBtn.addEventListener('click', function(){
-				const eno = '${param.eno}';
-				location.href = "/essay/modify?eno=" + eno;
+				const id = '${param.id}';
+				location.href = "/essay/modify?id=" + id;
 		});
 	}
 	
@@ -72,15 +72,15 @@
       }, 10);
 			return;
 		}
-		const eno = '${param.eno}';
-		let data = {email: email, eno: eno};
-		ajax('/essay/'+eno, 'put', data).then(function(result){
-			let cnt = result;
-			console.log('좋아요 갯수 : ' + cnt);
+		const id = '${param.id}';
+		let data = { email , id };
+		ajax('/essay/' + id, 'put', data).then(function(result){
+			let count = result;
+			console.log('좋아요 갯수 : ' + count);
 			if(document.querySelector('#likeSpan').innerText.substring(0, 1) == '♡'){
-				document.querySelector('#likeSpan').innerText = '♥'+ ' ' +cnt;
+				document.querySelector('#likeSpan').innerText = '♥'+ ' ' +count;
 			}else if (document.querySelector('#likeSpan').innerText.substring(0, 1) == '♥'){
-				document.querySelector('#likeSpan').innerText = '♡'+ ' ' +cnt;
+				document.querySelector('#likeSpan').innerText = '♡'+ ' ' +count;
 			}
 		});
 	});

@@ -15,7 +15,7 @@
 	          <div class="regdate">등록일</div>
 	      </li>
 	      <c:forEach var="essay" items="${essayList}">
-		        <li data-eno="${essay.id}">
+		        <li data-id="${essay.id}">
 		          <div class="writer">${essay.name}</div>
 		          <div class="field">${essay.field}</div>
 		          <div class="lang">${essay.lang}</div>

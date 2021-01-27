@@ -38,12 +38,12 @@
 <form action="/essay/modify" method="post" id="modifyEssayForm" enctype="multipart/form-data">
   <h1>에세이 작성</h1>
   <input type="hidden" name="email" value="${email}">
-  <input type="hidden" name="eno" value="${essay.eno}">
+  <input type="hidden" name="id" value="${essay.id}">
   <div id="title">
-    <input name="etitle" type="text" placeholder="제목" value="${essay.etitle}">
+    <input name="title" type="text" placeholder="제목" value="${essay.title}">
   </div>
   <div id="content">
-    <textarea id="editor" name="econtent" placeholder="내용">${essay.econtent}</textarea>
+    <textarea id="editor" name="content" placeholder="내용">${essay.content}</textarea>
   </div>
   <div id="btn-wrap">
     <button id="writeBtn" type="button">수정</button>

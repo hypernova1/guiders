@@ -14,7 +14,7 @@
 			</a></li>
 			<li class="date-desc"><a> <span>날짜순</span>
 			</a></li>
-			<li class="follower-cnt"><a> <span>팔로워수</span>
+			<li class="follower-count"><a> <span>팔로워수</span>
 			</a></li>
 		</ul>
 	</div>

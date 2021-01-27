@@ -4,7 +4,6 @@ import org.brokers.guiders.config.security.UserCustom;
 import org.brokers.guiders.util.PageCriteria;
 import org.brokers.guiders.util.Pagination;
 import org.brokers.guiders.web.member.Guider;
-import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,13 +57,13 @@ public class EssayController {
 
         List<Essay> list = essayService.getEssayList(cri);
         for (Essay essay : list) {
-            String econtent = essay.getContent();
-            econtent = econtent.replaceAll("<[^>]*>", "");
-            econtent = econtent.replaceAll("&nbsp;", " ");
-            econtent = econtent.replaceAll("&lt;", "<");
-            econtent = econtent.replaceAll("&gt;", ">");
-            econtent = econtent.replaceAll("&amp;", "&");
-            essay.setContent(econtent);
+            String content = essay.getContent();
+            content = content.replaceAll("<[^>]*>", "");
+            content = content.replaceAll("&nbsp;", " ");
+            content = content.replaceAll("&lt;", "<");
+            content = content.replaceAll("&gt;", ">");
+            content = content.replaceAll("&amp;", "&");
+            essay.setContent(content);
         }
 
         model.addAttribute("essayList", list);
@@ -72,15 +72,15 @@ public class EssayController {
     }
 
     @GetMapping("/read")
-    public String readEssay(@Param("eno") Long eno, Model model, Authentication authentication) {
+    public String readEssay(@Param("id") Long id, Model model, Authentication authentication) {
         Map<String, String> map = new HashMap<>();
         if (authentication != null) {
             UserCustom userCustom = (UserCustom) authentication.getPrincipal();
             model.addAttribute("userInfo", userCustom);
             map.put("email", userCustom.getEmail());
         }
-        Essay essay = essayService.readEssay(eno);
-        map.put("eno", eno.toString());
+        Essay essay = essayService.readEssay(id);
+        map.put("id", id.toString());
         boolean confirmLike = essay.getLikeCount() == 1;
         model.addAttribute("essayVO", essay);
         model.addAttribute("confirmLike", confirmLike);
@@ -88,33 +88,34 @@ public class EssayController {
     }
 
     @GetMapping("/modify")
-    public String modifyEssay(@Param("eno") Long eno, Model model) {
+    public String modifyEssay(@Param("id") Long id, Model model) {
 
-        Essay essay = essayService.readEssay(eno);
+        Essay essay = essayService.readEssay(id);
         model.addAttribute("essayVO", essay);
 
         return "/essay/modify";
     }
 
     @PostMapping("/modify")
-    public String modifyEssay(Essay essay, @Param("eno") String eno) {
+    public String modifyEssay(Essay essay, @Param("id") String id) {
         if (essay != null) {
             essayService.modifyEssay(essay);
         }
 
-        return "redirect:/essay/read?eno=" + eno;
+        return "redirect:/essay/read?id=" + id;
     }
 
     @PostMapping("/delete")
-    public String removeEssay(Long eno) {
-        essayService.removeEssay(eno);
+    public String removeEssay(Long id) {
+        essayService.removeEssay(id);
         return "redirect:/essay/list";
     }
 
-    @PutMapping("/{eno}")
+    @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Integer> addLikecnt(@RequestBody Map<String, String> map) {
-        return ResponseEntity.ok(essayService.addRecommend(map)); // 갱신된 '좋아요' 갯수를 전달
+    public ResponseEntity<Integer> addLikeCount(@PathVariable Long id, Authentication authentication) {
+        Principal principal = (Principal) authentication.getPrincipal();
+        return ResponseEntity.ok(essayService.addRecommend(id, principal.getName())); // 갱신된 '좋아요' 갯수를 전달
     }
 
     @GetMapping

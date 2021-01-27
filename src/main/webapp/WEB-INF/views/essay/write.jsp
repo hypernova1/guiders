@@ -28,10 +28,10 @@
         $("#writeBtn").click(function(){
             //id가 editor인 textarea에 에디터에서 대입
             obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
-            var etitle = $("#etitle").val();
+            var title = $("#title").val();
             $.ajax({
             	url: '/doA',
-            	data: etitle,
+            	data: title,
             	type: 'POST',
               headers : {
                     "content-type" : "application/json",
@@ -50,10 +50,10 @@
   <h1>에세이 작성</h1>
   <input type="hidden" name="email" value="${email}">
   <div id="title">
-    <input id="etitle" name="etitle" type="text" placeholder="제목">
+    <input id="title" name="title" type="text" placeholder="제목">
   </div>
   <div id="content">
-    <textarea id="editor" name="econtent" placeholder="내용"></textarea>
+    <textarea id="editor" name="content" placeholder="내용"></textarea>
   </div>
   <div id="btn-wrap">
     <button id="writeBtn" type="button">등록</button>

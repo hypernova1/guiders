@@ -8,7 +8,6 @@ import org.brokers.guiders.web.member.GuiderRepository;
 import org.brokers.guiders.web.member.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,8 +38,8 @@ public class EssayService {
         essayRepository.save(essay);
     }
 
-    public Essay readEssay(Long eno) {
-        return essayRepository.findById(eno).orElseThrow(RuntimeException::new);
+    public Essay readEssay(Long id) {
+        return essayRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
     @Transactional
@@ -60,12 +59,11 @@ public class EssayService {
     }
 
     @Transactional
-    public int addRecommend(Map<String, String> map) {
-        String id = map.get("eno");
-        Essay essay = essayRepository.findById(Long.valueOf(id))
+    public int addRecommend(Long id, String email) {
+        Essay essay = essayRepository.findById(id)
                 .orElseThrow(RuntimeException::new);
 
-        Member member = followerRepository.findByEmail(map.get("email"))
+        Member member = followerRepository.findByEmail(email)
                 .orElseThrow(RuntimeException::new);
 
         recommendRepository.findByMemberAndEssay(member, essay)
@@ -83,16 +81,16 @@ public class EssayService {
     }
 
     @Transactional
-    public void removeEssay(Long eno) {
-        essayRepository.deleteById(eno);
+    public void removeEssay(Long id) {
+        essayRepository.deleteById(id);
     }
 
     public List<Essay> getTopEssay() {
         return essayRepository.findAllTop6ByOrderByLikeCountDesc();
     }
 
-    public String getEssayContent(Long eno) {
-        return essayRepository.findById(eno)
+    public String getEssayContent(Long id) {
+        return essayRepository.findById(id)
                 .orElseThrow(RuntimeException::new).getContent();
     }
 

@@ -1,6 +1,6 @@
 document.querySelector('article>ul').addEventListener('click', ({target}) => {
 	
-	let eno = target.parentNode.getAttribute('data-eno');
+	let id = target.parentNode.getAttribute('data-id');
 	
     if(target.parentElement.id === 'li-head' || target.className !== 'title') return;
 
@@ -15,7 +15,7 @@ document.querySelector('article>ul').addEventListener('click', ({target}) => {
       const div = document.createElement('DIV');
       div.className = 'essay-body';
       
-      ajax('/mypage/likeEssay/'+eno, 'get', eno).then((result) => {
+      ajax('/mypage/likeEssay/' + id, 'get', id).then((result) => {
           div.innerHTML = `<div class="essay">
               <div class="essay-content">${result}</div>
               <div class="like">♥</div>

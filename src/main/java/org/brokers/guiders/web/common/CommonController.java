@@ -36,7 +36,7 @@ public class CommonController {
 
     @PostMapping("/doA")
     public String doA(Locale locale, Model model, Authentication authentication, 
-    		@RequestBody String etitle){
+    		@RequestBody String title){
         JSONObject cred = new JSONObject();
         JSONObject auth=new JSONObject();
         JSONObject parent=new JSONObject();
@@ -45,7 +45,7 @@ public class CommonController {
 			String userName = userCustom.getUsername();
 			cred.put("username",userName);
 		}
-        cred.put("etitle", etitle);
+        cred.put("title", title);
         auth.put("userInfo", cred);
         parent.put("auth", auth);
 
