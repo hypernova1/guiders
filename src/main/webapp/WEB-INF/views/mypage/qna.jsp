@@ -36,7 +36,7 @@
 <link rel="stylesheet" href="/css/mypage/qna.css">
 <script src="/js/mypage/qna.js" defer></script>
   <section>
-    <input type="hidden" value="${mentoring.id}" id="mtrno">
+    <input type="hidden" value="${mentoring.id}" id="id">
     <div id="question">
       <h1 id="title">Q. ${mentoring.title}</h1>
       <div id="field">${mentoring.field}</div>

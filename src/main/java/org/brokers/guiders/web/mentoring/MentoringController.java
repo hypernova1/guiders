@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/mentoring")
@@ -29,9 +28,9 @@ public class MentoringController {
     }
 
 
-    @GetMapping("/qna/{mtrno}")
-    public String qna(@PathVariable Long mtrno, Model model) {
-        Mentoring mentoring = mentoringService.getMentoring(mtrno);
+    @GetMapping("/qna/{id}")
+    public String qna(@PathVariable Long id, Model model) {
+        Mentoring mentoring = mentoringService.getMentoring(id);
         Guider guider = (Guider) memberService.selectByEmail(mentoring.getGuider().getEmail(), "guider");
         model.addAttribute("mentoring", mentoring);
         model.addAttribute("guider", guider);

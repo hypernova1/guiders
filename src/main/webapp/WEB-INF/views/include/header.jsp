@@ -136,10 +136,10 @@
 					<div id="lang"></div>
 				</div>
 				<div id="title">
-					<input type="text" name="mtitle">
+					<input type="text" name="title">
 				</div>
 				<div id="content">
-					<textarea name="mcontent"></textarea>
+					<textarea name="content"></textarea>
 				</div>
 			</article>
 			<div id="btn-wrap">

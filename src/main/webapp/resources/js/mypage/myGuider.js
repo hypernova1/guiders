@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
             if(guider.question.length){
                 ques = '<p class="question-head">질문 목록</p>';
                 guider.question.forEach((q) => {
-                    ques += '<p class="question" data-mtrno="' + q.mtrno + '">' + q.mtitle + '</p>';
+                    ques += '<p class="question" data-mtrno="' + q.id + '">' + q.title + '</p>';
                 });
             } else{
                 ques = '<p class="question-suggestion">질문을 남겨보세요!</>'
@@ -95,14 +95,14 @@ document.querySelector('.title').addEventListener("click", ({target}) => {
 });
 
 document.querySelector('#mtr-submit').addEventListener('click', function({target}) {
-    let mcontent = document.querySelector('textarea[name="mcontent"]').value;
-    mcontent = mcontent.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    let content = document.querySelector('textarea[name="content"]').value;
+    content = content.replace(/(?:\r\n|\r|\n)/g, '<br />');
     const mentoring = {
             guider: document.querySelector('#guider-email').value,
             field: document.querySelector('#field').innerText,
             lang: document.querySelector('#lang').innerText,
-            mtitle: document.querySelector('input[name="mtitle"]').value,
-            mcontent: mcontent,
+            title: document.querySelector('input[name="title"]').value,
+            content: content,
     }
     
     

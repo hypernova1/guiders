@@ -26,8 +26,8 @@ public class MentoringService {
     }
 
 
-    public Mentoring getMentoring(Long mtrno) {
-        return mentoringRepository.findById(mtrno).orElseThrow(RuntimeException::new);
+    public Mentoring getMentoring(Long id) {
+        return mentoringRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
     public List<Mentoring> getMyQuestions(String email) {

@@ -119,11 +119,11 @@
           <div class="regdate">질문날짜</div>
         </li>
         <c:forEach items="${mentorings}" var="mentoring">
-	        <li data-mtrno="${mentoring.mtrno}">
+	        <li data-mtrno="${mentoring.id}">
 	          <div class="writer">${mentoring.mname}</div>
 	          <div class="field">${mentoring.field}</div>
 	          <div class="lang">${mentoring.lang}</div>
-	          <div class="title"><span><a href="/qna/${mentoring.mtrno}">${mentoring.mtitle}</a></span>
+	          <div class="title"><span><a href="/qna/${mentoring.id}">${mentoring.title}</a></span>
 	           <c:choose>
 	             <c:when test="${mentoring.replydate == null}">
 	               <span class="reply-wating">[답변대기 중]</span>
