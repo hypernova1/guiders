@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,9 +37,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(HttpSession session, Model model) {
-        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-        model.addAttribute("url", naverAuthUrl);
+    public String login(@RequestBody LoginDto loginDto) {
+        authService.login(loginDto);
+//        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+//        model.addAttribute("url", naverAuthUrl);
         return "main/invalid_login";
     }
 

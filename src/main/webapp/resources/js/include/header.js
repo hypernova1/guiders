@@ -73,22 +73,39 @@ document.querySelector('#login-fail-modal-content>button').addEventListener('cli
 });
 
 function signin() {
-	$.ajax({
-		url : '/login',
-		data : $('form input').serialize(),
-		type : 'POST',
-		dataType : 'json',
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader("Accept", "application/json");
-			xhr.setRequestHeader('x-CSRFToken','${_csrf.token}');
-		}
-	}).success(function(result) {
-		if (result.response)
+
+	const email = document.querySelector('#email').value;
+	const password = document.getElementsByName('password')[0].value;
+	fetch('/login',{
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ email, password })
+	}).then((res) => {
+		if (res.status === 404) {
 			document.querySelector('#login-fail-modal').style.display = 'block';
-		else {
-		    location.reload();
+			return;
 		}
+		location.reload();
 	});
+
+	// $.ajax({
+	// 	url : '/login',
+	// 	data : $('form input').serialize(),
+	// 	type : 'POST',
+	// 	dataType : 'json',
+	// 	beforeSend : function(xhr) {
+	// 		xhr.setRequestHeader("Accept", "application/json");
+	// 		xhr.setRequestHeader('x-CSRFToken','${_csrf.token}');
+	// 	}
+	// }).success(function(result) {
+	// 	if (result.response)
+	// 		document.querySelector('#login-fail-modal').style.display = 'block';
+	// 	else {
+	// 	    location.reload();
+	// 	}
+	// });
 }
 
 

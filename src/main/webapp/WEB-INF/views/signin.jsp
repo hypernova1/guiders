@@ -29,30 +29,39 @@
 			get_msg("로그인 실패하였습니다.");
 		});
 		</c:if>
-		function signin() {
-			$.ajax({
-				url : '/login',
-				data : $('form input').serialize(),
-				type : 'POST',
-				dataType : 'json',
-				beforeSend : function(xhr) {
-					xhr.setRequestHeader("Accept", "application/json");
-					xhr.setRequestHeader('x-CSRFToken','${_csrf.token}');
-				}
-			}).done(function(result) {
-				var error = result.error;
-				var url = result.url;
-				if (error){
-					console.log("error : " + error)
-				}
-				if (error == false) {
-					if (url == ''){
-						url = '<c:url value="/" />';
-					}
-					console.log(url);
-					location.href = url;
-				}
-			});
+		const email = document.querySelector('#user_id').value;
+		const password = document.querySelector('#password').value;
+		fetch('/login',{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				body: JSON.stringify({ email, password })
+			}
+		})
+		<%--function signin() {--%>
+		<%--	$.ajax({--%>
+		<%--		url : '/login',--%>
+		<%--		data : $('form input').serialize(),--%>
+		<%--		type : 'POST',--%>
+		<%--		dataType : 'json',--%>
+		<%--		beforeSend : function(xhr) {--%>
+		<%--			xhr.setRequestHeader("Accept", "application/json");--%>
+		<%--			xhr.setRequestHeader('x-CSRFToken','${_csrf.token}');--%>
+		<%--		}--%>
+		<%--	}).done(function(result) {--%>
+		<%--		var error = result.error;--%>
+		<%--		var url = result.url;--%>
+		<%--		if (error){--%>
+		<%--			console.log("error : " + error)--%>
+		<%--		}--%>
+		<%--		if (error == false) {--%>
+		<%--			if (url == ''){--%>
+		<%--				url = '<c:url value="/" />';--%>
+		<%--			}--%>
+		<%--			console.log(url);--%>
+		<%--			location.href = url;--%>
+		<%--		}--%>
+		<%--	});--%>
 		}
 	</script>
 	<div>

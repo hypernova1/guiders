@@ -1,12 +1,16 @@
 package org.brokers.guiders.web.auth;
 
 import lombok.RequiredArgsConstructor;
+import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberRepository;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,9 +30,13 @@ public class AuthService {
                 .orElseThrow(RuntimeException::new);
     }
 
-    public List<String> getAuthList(String email) {
-        //TODO: 권한 리스트
-        return Collections.emptyList();
+    public void login(LoginDto loginDto) {
+        Member member = memberRepository.findByEmail(loginDto.getEmail())
+                .orElseThrow(MemberNotFoundException::new);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                new MemberAccount(member),
+                loginDto.getPassword()
+        );
+        SecurityContextHolder.getContext().setAuthentication(token);
     }
-
 }
