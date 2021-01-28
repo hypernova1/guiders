@@ -1,8 +1,8 @@
 document.querySelector('#edit-submit').addEventListener('click', () => {
    if(document.querySelector('#quote')){
-     let introdution = document.querySelector('#introdution-value').value;
-       introdution = introdution.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-       document.querySelector('input[name="introdution"]').value = introdution;
+     let introduction = document.querySelector('#introduction-value').value;
+       introduction = introduction.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+       document.querySelector('input[name="introduction"]').value = introduction;
        
        let quote = document.querySelector('#quote-value').value;
        quote = quote.replace(/(?:\r\n|\r|\n)/g, '<br/>');
@@ -13,8 +13,8 @@ document.querySelector('#edit-submit').addEventListener('click', () => {
 
 window.addEventListener('load', () => {
     if(document.querySelector('#quote')){
-        let introdution = document.querySelector('#introdution-value');
-        introdution.innerHTML = introdution.value.split('<br/>').join('\r\n');
+        let introduction = document.querySelector('#introduction-value');
+        introduction.innerHTML = introduction.value.split('<br/>').join('\r\n');
         
         let quote = document.querySelector('#quote-value');
         quote.innerHTML = quote.value.split('<br/>').join('\r\n');

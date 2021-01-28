@@ -73,7 +73,6 @@ document.querySelector('#login-fail-modal-content>button').addEventListener('cli
 });
 
 function signin() {
-
 	const email = document.querySelector('#email').value;
 	const password = document.getElementsByName('password')[0].value;
 	fetch('/login',{
@@ -89,23 +88,6 @@ function signin() {
 		}
 		location.reload();
 	});
-
-	// $.ajax({
-	// 	url : '/login',
-	// 	data : $('form input').serialize(),
-	// 	type : 'POST',
-	// 	dataType : 'json',
-	// 	beforeSend : function(xhr) {
-	// 		xhr.setRequestHeader("Accept", "application/json");
-	// 		xhr.setRequestHeader('x-CSRFToken','${_csrf.token}');
-	// 	}
-	// }).success(function(result) {
-	// 	if (result.response)
-	// 		document.querySelector('#login-fail-modal').style.display = 'block';
-	// 	else {
-	// 	    location.reload();
-	// 	}
-	// });
 }
 
 
@@ -123,18 +105,19 @@ if(naverName != null){
 	document.querySelector('#naverName').textContent = naverName + '님';
 }
 
+const naverLogoutTag = document.querySelector('#naverLogout');
+if (naverLogoutTag != null) {
+	naverLogoutTag.addEventListener('click', function(){
+		console.log('........');
+		sessionStorage.removeItem("naverName");
+		window.open("https://nid.naver.com/nidlogin.logout","네이버 로그아웃",
+			"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+		location.href = '/logout';
 
-document.querySelector('#naverLogout').addEventListener('click', function(){
-	console.log('........');
-	sessionStorage.removeItem("naverName");
-	window.open("https://nid.naver.com/nidlogin.logout","네이버 로그아웃",
-	"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
-	location.href = '/logout';
-	
-});
+	});
+}
 
 document.querySelector('#naver-login').addEventListener('click', function(){
-	let url = '${url}';
-	location.href = url;
+	location.href = '${url}';
 	
 });

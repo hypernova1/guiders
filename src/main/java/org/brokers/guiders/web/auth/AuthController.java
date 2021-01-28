@@ -29,9 +29,9 @@ public class AuthController {
     }
 
     @GetMapping("/joinform")
-    public ModelAndView joinForm(boolean guider) {
+    public ModelAndView joinForm(String type) {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("guider", guider);
+        mav.addObject("type", type);
         mav.setViewName("main/joinForm");
         return mav;
     }
@@ -55,8 +55,8 @@ public class AuthController {
 
     @PostMapping("join")
     @ResponseBody
-    public ResponseEntity<Boolean> join(@RequestBody Guider guider) {
-        authService.join(guider);
+    public ResponseEntity<Boolean> join(@RequestBody JoinDto joinDto) {
+        authService.join(joinDto);
         return ResponseEntity.ok(true);
     }
 

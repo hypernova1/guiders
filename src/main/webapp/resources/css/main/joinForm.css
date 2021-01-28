@@ -115,13 +115,13 @@ div>label{
 #indrodution-wrap{
   margin-top: 10px;
 }
-#quote-wrap, #introdution-wrap{
+#quote-wrap, #introduction-wrap{
   margin-left: 100px;
 }
-#quote-wrap>div, #introdution-wrap>div{
+#quote-wrap>div, #introduction-wrap>div{
   text-align: center;
 }
-#quote-wrap>div>label, #introdution-wrap>div>label{
+#quote-wrap>div>label, #introduction-wrap>div>label{
   text-align: center;
   margin: 10px 0;
 }

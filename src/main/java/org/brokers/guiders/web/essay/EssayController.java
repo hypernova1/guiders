@@ -1,21 +1,17 @@
 package org.brokers.guiders.web.essay;
 
+import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
-import org.brokers.guiders.config.security.UserCustom;
 import org.brokers.guiders.util.PageCriteria;
 import org.brokers.guiders.util.Pagination;
 import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberService;
-import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +43,7 @@ public class EssayController {
     }
 
     @GetMapping("/list")
-    public String goEssayListPage(Model model, @Param("int") Integer page, PageCriteria cri) {
+    public String goEssayListPage(Model model, Integer page, PageCriteria cri) {
         if (page != null) {
             cri.setPage(page);
         }
@@ -72,7 +68,7 @@ public class EssayController {
     }
 
     @GetMapping("/read")
-    public String readEssay(@Param("id") Long id, Model model, @AuthUser Member member) {
+    public String readEssay(Long id, Model model, @AuthUser Member member) {
         Map<String, String> map = new HashMap<>();
         if (member != null) {
             model.addAttribute("userInfo", member);
@@ -87,7 +83,7 @@ public class EssayController {
     }
 
     @GetMapping("/modify")
-    public String modifyEssay(@Param("id") Long id, Model model) {
+    public String modifyEssay(Long id, Model model) {
 
         Essay essay = essayService.readEssay(id);
         model.addAttribute("essayVO", essay);
@@ -96,7 +92,7 @@ public class EssayController {
     }
 
     @PostMapping("/modify")
-    public String modifyEssay(Essay essay, @Param("id") String id) {
+    public String modifyEssay(Essay essay, String id) {
         if (essay != null) {
             essayService.modifyEssay(essay);
         }

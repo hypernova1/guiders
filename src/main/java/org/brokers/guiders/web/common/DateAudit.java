@@ -17,16 +17,16 @@ public abstract class DateAudit {
 
     @Id
     @GeneratedValue
-    private Long id;
+    protected Long id;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false, updatable = false)
-    private Date createdDate;
+    @Column(nullable = true, updatable = false)
+    protected Date createdDate;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = true, updatable = false)
-    private Date updatedDate;
+    protected Date updatedDate;
 
 }

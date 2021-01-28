@@ -197,7 +197,7 @@ section {
   word-break:break-all;
 }
 
-#current-job>span:nth-child(1), #dept>span:nth-child(1), #field2>span:nth-child(1) {
+#current-job>span:nth-child(1), #department>span:nth-child(1), #field2>span:nth-child(1) {
   font-size: 0.9rem;
 }
 #quote{

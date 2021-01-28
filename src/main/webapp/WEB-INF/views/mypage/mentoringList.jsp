@@ -113,7 +113,7 @@
     }
   </style>
   <section>
-  <h1>To ${mentorings[0].mname}</h1>
+  <h1>To ${mentorings[0].name}</h1>
     <article>
       <ul>
         <li id="li-head">
@@ -125,7 +125,7 @@
         </li>
         <c:forEach items="${mentorings}" var="mentoring">
           <li data-mtrno="${mentoring.id}">
-            <div class="writer">${mentoring.mname}</div>
+            <div class="writer">${mentoring.name}</div>
             <div class="field">${mentoring.field}</div>
             <div class="lang">${mentoring.lang}</div>
             <div class="title"><span><a href="/mentoring/qna/${mentoring.id}">${mentoring.title}</a></span>

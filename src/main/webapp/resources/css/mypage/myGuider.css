@@ -147,12 +147,12 @@ li>p {
 	margin: auto;
 }
 
-.job, .dept{
+.job, .department{
 	margin-top: 10px;
   font-size: 0.8rem;
   overflow: hidden;
 }
-.job>div, .dept>div{
+.job>div, .department>div{
 	width: 100%;
 	font-weight: bold;
 }
@@ -184,7 +184,7 @@ li>p {
 	word-break:break-all;
 }
 
-#current-job>span:nth-child(1), #dept>span:nth-child(1), #field2>span:nth-child(1) {
+#current-job>span:nth-child(1), #department>span:nth-child(1), #field2>span:nth-child(1) {
 	font-size: 0.9rem;
 }
 

@@ -21,7 +21,7 @@
     <form id="essayPostForm" action="/essay/delete" method="post">
       <input type="hidden" name="id" value="${essay.id}">
     </form>
-    <c:if test="${pageContext.request.userPrincipal.name == essay.mname}">
+    <c:if test="${pageContext.request.userPrincipal.name == essay.name}">
         <button id="removeBtn" type="button">삭제</button>
         <button id="modifyBtn" type="button">수정</button>
     </c:if>
@@ -29,7 +29,7 @@
   <div id="mtr-detail">
     <img id="mtr-img" src="${essay.photo}">
     <div class="mtr-name">
-      <span>${essay.mname}</span>
+      <span>${essay.name}</span>
       <span>멘토</span>
       <div class="follow-btn">팔로우</div>
       <div class="qna-btn">질문하기</div>

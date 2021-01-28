@@ -38,7 +38,7 @@
           <span>근무 회사: </span>
           <span></span>
         </div>
-        <div id="dept">
+        <div id="department">
           <span>담당 부서: </span>
           <span></span></div>
         <div id="field2">

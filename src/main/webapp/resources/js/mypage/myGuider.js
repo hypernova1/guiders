@@ -16,12 +16,12 @@ window.addEventListener('load', () => {
           `<ul class="follower-content">
             <li>
               <img class="profile-img" src="` + guider.photo + `">
-              <div class="guider-name">` + guider.mname + ` 가이더</div>
+              <div class="guider-name">` + guider.name + ` 가이더</div>
             </li>
             <li>
               <div class="mtr-info">
-                <div class="job"><div>근무회사</div> ` + guider.currentjob + `</div>
-                <div class="dept"><div>부서</div> ` + guider.dept + `</div>
+                <div class="job"><div>근무회사</div> ` + guider.currentJob + `</div>
+                <div class="department"><div>부서</div> ` + guider.department + `</div>
                 <input type="hidden" class="field "value="` + guider.field + `">
                 <input type="hidden" class="lang" value="` + guider.lang + `">
               </div>
@@ -53,14 +53,14 @@ document.querySelector('.title').addEventListener("click", ({target}) => {
         ajax(`/guider?email=${guiderEmail}`, 'GET', {}).then((result) => {
             const guider = JSON.parse(result);
             document.querySelector('.modal-content-title>img').src = guider.photo;
-            document.querySelector('div>strong').innerText = guider.mname;
+            document.querySelector('div>strong').innerText = guider.name;
             document.querySelector('.modal-content-title>div:nth-child(4)>span:nth-child(2)').innerText 
-                = guider.currentjob;
+                = guider.currentJob;
             document.querySelector('.modal-content-title>div:nth-child(5)>span:nth-child(2)').innerText
-                = guider.dept;
+                = guider.department;
             document.querySelector('.modal-content-title>div:nth-child(6)>span:nth-child(2)').innerText
             = guider.field;
-            document.querySelector('.modal-content-body > div').innerHTML = guider.introdution;
+            document.querySelector('.modal-content-body > div').innerHTML = guider.introduction;
             guiderModal.style.display = "block";
         });
         break;

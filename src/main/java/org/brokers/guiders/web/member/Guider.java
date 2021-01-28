@@ -16,7 +16,6 @@ import java.util.List;
 @DiscriminatorValue("guider")
 public class Guider extends Member {
 
-
     @OneToMany
     private final List<Mentoring> mentoringList = new ArrayList<>();
 
@@ -25,7 +24,7 @@ public class Guider extends Member {
 
     private String currentJob;
 
-    private String dept;
+    private String department;
 
     private String quote;
 

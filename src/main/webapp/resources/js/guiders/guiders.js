@@ -21,14 +21,14 @@ document.querySelector('.guider-wrapper').addEventListener('click', ({target}) =
         ajax(`/mypage/guider?email=${guiderEmail}`, 'GET', {}).then((result) => {
             const guider = JSON.parse(result);
             document.querySelector('.modal-content-title>img').src = guider.photo;
-            document.querySelector('div>strong').innerText = guider.mname;
+            document.querySelector('div>strong').innerText = guider.name;
             document.querySelector('.modal-content-title>div:nth-child(4)>span:nth-child(2)').innerText 
-                = guider.currentjob;
+                = guider.currentJob;
             document.querySelector('.modal-content-title>div:nth-child(5)>span:nth-child(2)').innerText
-                = guider.dept;
+                = guider.department;
             document.querySelector('.modal-content-title>div:nth-child(6)>span:nth-child(2)').innerText
             = guider.field;
-            document.querySelector('.modal-content-body>div').innerHTML = guider.introdution;
+            document.querySelector('.modal-content-body>div').innerHTML = guider.introduction;
             document.querySelector('#quote').innerHTML = guider.quote;
             guiderModal.style.display = "block";
         });
@@ -80,11 +80,11 @@ const getData = (result) => {
                 <img src="` + guider.photo + `" alt="" class="profile-img">
                 <div class="content">
                   <div class="sub-content">
-                    <h1>` + guider.mname + `</h1>
+                    <h1>` + guider.name + `</h1>
                     <span>` + guider.email + `</span>
-                    <p>` + guider.dept + `</p>
+                    <p>` + guider.department + `</p>
                     <span class="location">
-                      <i class="fa fa-map-marker" aria-hidden="true"></i>` + guider.currentjob + `</span>
+                      <i class="fa fa-map-marker" aria-hidden="true"></i>` + guider.currentJob + `</span>
                   </div>`
                   if(guider.fno){
                       data += `<div class="btn unfollow">UnFollow</div>`

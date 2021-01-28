@@ -21,7 +21,7 @@
       </div>
       <div>
         <label>이름</label>
-        <input type="text" name="mname" placeholder="이름" value="${vo.name}">
+        <input type="text" name="name" placeholder="이름" value="${vo.name}">
       </div>
       <div>
         <label>비밀번호</label>
@@ -43,7 +43,7 @@
       </div>
       <div>
         <label>지역</label>
-        <input type="text" name="ctno" placeholder="지역" value="${vo.ctno}">
+        <input type="text" name="city" placeholder="지역" value="${vo.city}">
       </div>
       <div>
         <label>언어</label>
@@ -51,11 +51,11 @@
       </div>
       <div>
         <label>최근직장</label>
-        <input type="text" name="currentjob" placeholder="언어" value="${vo.currentJob}">
+        <input type="text" name="currentJob" placeholder="언어" value="${vo.currentJob}">
       </div>
       <div>
         <label>부서</label>
-        <input type="text" name="dept" placeholder="부서" value="${vo.dept}">
+        <input type="text" name="department" placeholder="부서" value="${vo.department}">
       </div>
       <div id="quote">
         <label>인용문</label>
@@ -64,8 +64,8 @@
       </div>
       <div>
         <label>경력란</label>
-        <textarea placeholder="경력란" id="introdution-value">${vo.introduction}</textarea>
-        <input type="hidden" name="introdution">
+        <textarea placeholder="경력란" id="introduction-value">${vo.introduction}</textarea>
+        <input type="hidden" name="introduction">
       </div>
       </c:when>
       <c:otherwise>

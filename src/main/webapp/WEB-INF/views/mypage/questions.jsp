@@ -120,7 +120,7 @@
         </li>
         <c:forEach items="${mentorings}" var="mentoring">
 	        <li data-mtrno="${mentoring.id}">
-	          <div class="writer">${mentoring.mname}</div>
+	          <div class="writer">${mentoring.name}</div>
 	          <div class="field">${mentoring.field}</div>
 	          <div class="lang">${mentoring.lang}</div>
 	          <div class="title"><span><a href="/qna/${mentoring.id}">${mentoring.title}</a></span>

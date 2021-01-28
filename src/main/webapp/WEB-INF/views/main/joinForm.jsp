@@ -7,15 +7,16 @@
 
 <section>
     <div id="join_form">
+        <input type="hidden" value="${param.type}" id="type">
     <c:choose>
-      <c:when test="${guider eq true}">
+      <c:when test="${param.type eq 'guider'}">
 	      <h2>Guider Join</h2>
       </c:when>
       <c:otherwise>
 	      <h2>Follower Join</h2>
       </c:otherwise>
     </c:choose>
-    <c:if test="${guider eq true }">
+    <c:if test="${param.type eq 'guider'}">
     <div id="drop-zone-wrap">
       <div id="drop-zone">프로필 사진</div>
       <input type="hidden" id="photo">
@@ -27,7 +28,7 @@
         </div>
       <div>
         <label>이름</label>
-        <input type="text" id="mname">
+        <input type="text" id="name">
       </div>
       <div>
         <label>비밀번호</label>
@@ -48,22 +49,22 @@
       </div>
        <div>
         <label>지역</label>
-        <input type="text" id="ctno">
+        <input type="text" id="city">
       </div>
-      <c:if test="${guider eq true }">
+      <c:if test="${param.type eq 'guider'}">
       <div>
         <label>최근직장</label>
-        <input type="text" id="currentjob">
+        <input type="text" id="currentJob">
       </div>
       <div>
         <label>부서</label>
-        <input type="text" id="dept">
+        <input type="text" id="department">
       </div>
-	      <div id="introdution-wrap">
+	      <div id="introduction-wrap">
 	        <div>
 	          <label>경력란</label>
 	        </div>
-	        <textarea id="introdution" placeholder="경력 상세 기술"></textarea>
+	        <textarea id="introduction" placeholder="경력 상세 기술"></textarea>
 	      </div>
 	      <div id="quote-wrap">
 	        <div>
