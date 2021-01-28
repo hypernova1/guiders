@@ -58,10 +58,8 @@ public class EssayService {
     }
 
     @Transactional
-    public int toggleLikeEssay(Long id, String email) {
+    public int toggleLikeEssay(Long id, Member member) {
         Essay essay = essayRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
-        Member member = followerRepository.findByEmail(email)
                 .orElseThrow(RuntimeException::new);
         member.toggleLikeEssay(essay);
         return essay.getLikeCount();

@@ -1,10 +1,9 @@
 package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
-import org.brokers.guiders.config.security.UserCustom;
+import org.brokers.guiders.config.security.AuthUser;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +27,10 @@ public class MemberController {
     @GetMapping("/guider/list/{page}")
     @ResponseBody
     public ResponseEntity<List<Guider>> getGuiderList(
-            @PathVariable Integer page, Authentication authentication) {
+            @PathVariable Integer page, @AuthUser Member member) {
         List<Guider> guiderList;
-        if (authentication != null) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
-            guiderList = memberService.getGuiderList(page, user.getEmail());
+        if (member != null) {
+            guiderList = memberService.getGuiderList(page, member);
         } else {
             guiderList = memberService.getGuiderList(page, null);
         }
@@ -41,12 +39,11 @@ public class MemberController {
 
     @PostMapping("/follow")
     @ResponseBody
-    public ResponseEntity<Boolean> follow(@RequestBody String guider, Authentication authentication) {
+    public ResponseEntity<Boolean> follow(@RequestBody String guider, @AuthUser Member member) {
         boolean result = false;
         JSONObject obj = new JSONObject(guider);
-        if (authentication != null) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
-            memberService.followGuider(obj.getString("guider"), user.getEmail());
+        if (member != null) {
+            memberService.followGuider(obj.getString("guider"), member);
             result = true;
         }
         return ResponseEntity.ok(result);
@@ -54,11 +51,10 @@ public class MemberController {
 
     @DeleteMapping("/follow")
     @ResponseBody
-    public ResponseEntity<Boolean> unfollow(@RequestBody String guider, Authentication authentication) {
+    public ResponseEntity<Boolean> unfollow(@RequestBody String guider, @AuthUser Member member) {
         JSONObject obj = new JSONObject(guider);
-        if (authentication.getPrincipal() != null) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
-            memberService.unfollowGuider(obj.getString("guider"), user.getEmail());
+        if (member != null) {
+            memberService.unfollowGuider(obj.getString("guider"), member);
         }
         return ResponseEntity.ok(true);
     }

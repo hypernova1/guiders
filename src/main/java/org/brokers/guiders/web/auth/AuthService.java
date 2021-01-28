@@ -1,10 +1,8 @@
 package org.brokers.guiders.web.auth;
 
 import lombok.RequiredArgsConstructor;
-import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +14,11 @@ import java.util.List;
 public class AuthService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
 
-    public void join(Guider guider) {
-        guider.setPassword(passwordEncoder.encode(guider.getPassword()));
-        memberRepository.save(guider);
+    public void join(Member member) {
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
+        memberRepository.save(member);
     }
 
     public Member getMember(String email) {

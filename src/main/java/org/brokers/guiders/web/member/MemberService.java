@@ -37,9 +37,8 @@ public class MemberService {
     }
 
 
-    public List<Guider> getGuiderList(Integer page, String email) {
+    public List<Guider> getGuiderList(Integer page, Member email) {
         if (page == null) page = 0;
-
         PageRequest pageRequest = PageRequest.of(page, 16);
         Page<Guider> guiderPage = guiderRepository.findAll(pageRequest);
 
@@ -60,21 +59,19 @@ public class MemberService {
     }
 
     @Transactional
-    public void followGuider(String guiderEmail, String followEmail) {
+    public void followGuider(String guiderEmail, Member member) {
         Guider guider = guiderRepository.findByEmail(guiderEmail)
                 .orElseThrow(RuntimeException::new);
-        Follower follower = followerRepository.findByEmail(followEmail)
-                .orElseThrow(RuntimeException::new);
+        Follower follower = (Follower) member;
 
         follower.follow(guider);
     }
 
     @Transactional
-    public void unfollowGuider(String guiderEmail, String followEmail) {
+    public void unfollowGuider(String guiderEmail, Member member) {
         Guider guider = guiderRepository.findByEmail(guiderEmail)
                 .orElseThrow(RuntimeException::new);
-        Follower follower = followerRepository.findByEmail(followEmail)
-                .orElseThrow(RuntimeException::new);
+        Follower follower = (Follower) member;
 
         follower.unfollow(guider);
     }

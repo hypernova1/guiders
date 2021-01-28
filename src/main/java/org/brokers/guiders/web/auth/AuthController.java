@@ -34,25 +34,19 @@ public class AuthController {
         return mav;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String login(HttpSession session, Model model) {
-
         String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-
         model.addAttribute("url", naverAuthUrl);
-
         return "main/invalid_login";
     }
 
     @GetMapping("/callback")
     public ModelAndView naverCallback(
             HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
-
         OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
         String apiResult = naverLoginBO.getUserProfile(oauthToken);
-
         session.setAttribute("naver", apiResult);
-
         return new ModelAndView("callback", "result", apiResult);
     }
 

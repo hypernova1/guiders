@@ -1,11 +1,12 @@
 package org.brokers.guiders.web.mentoring;
 
-import org.brokers.guiders.config.security.UserCustom;
-import org.brokers.guiders.web.member.Guider;
-import org.brokers.guiders.web.member.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.brokers.guiders.config.security.AuthUser;
+import org.brokers.guiders.web.member.Follower;
+import org.brokers.guiders.web.member.Guider;
+import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.member.MemberService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,11 +39,10 @@ public class MentoringController {
     }
 
     @GetMapping("/list")
-    public String mentoringList(String email, Authentication authentication, Model model) {
-        if (authentication.getPrincipal() != null) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
+    public String mentoringList(String email, @AuthUser Member member, Model model) {
+        if (member != null) {
             List<Mentoring> mentoringList =
-                    mentoringService.getMentoringList(email, user.getEmail());
+                    mentoringService.getMentoringList(email, member);
             model.addAttribute("mentoringList", mentoringList);
         }
 
@@ -56,10 +56,9 @@ public class MentoringController {
 
     @PostMapping
     public ResponseEntity<Boolean> question(@RequestBody Mentoring mentoring,
-                                            Authentication authentication) {
-        if (authentication != null) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
-//            mentoring.setFollower(user.getEmail());
+                                            @AuthUser Member member) {
+        if (member != null) {
+            mentoring.setFollower((Follower) member);
             mentoringService.question(mentoring);
         }
 

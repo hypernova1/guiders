@@ -1,10 +1,7 @@
 package org.brokers.guiders.web.mentoring;
 
 import lombok.RequiredArgsConstructor;
-import org.brokers.guiders.web.member.Follower;
-import org.brokers.guiders.web.member.FollowerRepository;
-import org.brokers.guiders.web.member.Guider;
-import org.brokers.guiders.web.member.GuiderRepository;
+import org.brokers.guiders.web.member.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,11 +33,10 @@ public class MentoringService {
         return guider.getMentoringList();
     }
 
-    public List<Mentoring> getMentoringList(String guiderEmail, String followerEmail) {
+    public List<Mentoring> getMentoringList(String guiderEmail, Member member) {
         Guider guider = guiderRepository.findByEmail(guiderEmail)
                 .orElseThrow(RuntimeException::new);
-        Follower follower = followerRepository.findByEmail(followerEmail)
-                .orElseThrow(RuntimeException::new);
+        Follower follower = (Follower) member;
 
         return mentoringRepository.findByGuiderAndFollower(guider, follower);
     }

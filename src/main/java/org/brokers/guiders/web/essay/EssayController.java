@@ -1,9 +1,11 @@
 package org.brokers.guiders.web.essay;
 
+import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.config.security.UserCustom;
 import org.brokers.guiders.util.PageCriteria;
 import org.brokers.guiders.util.Pagination;
 import org.brokers.guiders.web.member.Guider;
+import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
@@ -27,12 +29,10 @@ public class EssayController {
     private final MemberService memberService;
 
     @GetMapping("/write")
-    public String writeEssay(Model model, Authentication authentication) {
-        if (authentication != null) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
-            Guider guider = (Guider) memberService.selectByEmail(user.getEmail(), "guider");
+    public String writeEssay(Model model, @AuthUser Member member) {
+        if (member != null) {
+            Guider guider = (Guider) memberService.selectByEmail(member.getEmail(), "guider");
             model.addAttribute("email", guider.getEmail());
-
         }
         return "/essay/write";
     }
@@ -72,12 +72,11 @@ public class EssayController {
     }
 
     @GetMapping("/read")
-    public String readEssay(@Param("id") Long id, Model model, Authentication authentication) {
+    public String readEssay(@Param("id") Long id, Model model, @AuthUser Member member) {
         Map<String, String> map = new HashMap<>();
-        if (authentication != null) {
-            UserCustom userCustom = (UserCustom) authentication.getPrincipal();
-            model.addAttribute("userInfo", userCustom);
-            map.put("email", userCustom.getEmail());
+        if (member != null) {
+            model.addAttribute("userInfo", member);
+            map.put("email", member.getEmail());
         }
         Essay essay = essayService.readEssay(id);
         map.put("id", id.toString());
@@ -113,9 +112,8 @@ public class EssayController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Integer> addLikeCount(@PathVariable Long id, Authentication authentication) {
-        Principal principal = (Principal) authentication.getPrincipal();
-        return ResponseEntity.ok(essayService.toggleLikeEssay(id, principal.getName())); // 갱신된 '좋아요' 갯수를 전달
+    public ResponseEntity<Integer> addLikeCount(@PathVariable Long id, @AuthUser Member member) {
+        return ResponseEntity.ok(essayService.toggleLikeEssay(id, member)); // 갱신된 '좋아요' 갯수를 전달
     }
 
     @GetMapping
