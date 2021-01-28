@@ -38,11 +38,18 @@ public class AuthController {
         return mav;
     }
 
-    @PostMapping("/login")
-    public String login(@RequestBody LoginDto loginDto) {
+    @PostMapping("/api/login")
+    @ResponseBody
+    public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
         authService.login(loginDto);
 //        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 //        model.addAttribute("url", naverAuthUrl);
+        return ResponseEntity.ok().build();
+
+    }
+
+    @GetMapping("/login")
+    public String login() {
         return "main/invalid_login";
     }
 

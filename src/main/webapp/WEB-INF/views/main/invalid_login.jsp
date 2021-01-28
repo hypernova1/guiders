@@ -6,7 +6,7 @@
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <meta charset="utf-8" />
-<title>Page Title</title>
+<title>Guiders</title>
 <style>
 *, *::after, *::before {
 	margin: 0;
@@ -90,19 +90,20 @@ button {
 </head>
 <body>
 	<img src="/img/logo.png" id="logo">
-	<form>
+	<form action="/loginProcess" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<h1 id="msg">로그인 해주세요.</h1>
 		<div id="login-body">
 			<div>
 				<div id="email">
-					<label>아이디</label> <input type="text" name="email">
+					<label>아이디</label> <input type="text" name="username">
 				</div>
 				<div id="password">
 					<label>비밀번호</label> <input type="password" name="password">
 				</div>
 			</div>
 			<div>
-				<button type="button" onclick="signin()">로그인</button>
+				<button type="submit" value="Login">로그인</button>
 			</div>
 			<div style="margin-top: 10px;">
 				<img src="/img/naverLogin.png" id="naver-login">

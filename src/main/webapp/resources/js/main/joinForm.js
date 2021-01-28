@@ -248,15 +248,15 @@
             let quote = document.querySelector('#quote').value;
             quote = quote.replace(/(?:\r\n|\r|\n)/g, '<br/>');
             member.quote = quote;
-            
             member.photo = document.querySelector('#photo').value;
         }
         member.type = document.querySelector('#type').value;
         fetch('/join', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json';
-            }
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(member)
         }).then((res) => {
             if (res.status === 201) {
                 location.href = '/';

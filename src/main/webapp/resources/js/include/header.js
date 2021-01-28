@@ -75,7 +75,7 @@ document.querySelector('#login-fail-modal-content>button').addEventListener('cli
 function signin() {
 	const email = document.querySelector('#email').value;
 	const password = document.getElementsByName('password')[0].value;
-	fetch('/login',{
+	fetch('/api/login',{
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

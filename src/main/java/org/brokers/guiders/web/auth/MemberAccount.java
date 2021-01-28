@@ -1,5 +1,6 @@
 package org.brokers.guiders.web.auth;
 
+import lombok.Getter;
 import org.brokers.guiders.web.member.Member;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -7,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
 public class MemberAccount extends User {
 
     private final Member member;

@@ -40,6 +40,10 @@ public class Member extends DateAudit {
     @ManyToMany
     protected final Set<Role> roles = new HashSet<>();
 
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
     public void toggleLikeEssay(Essay essay) {
         if (likeEssay.contains(essay)) {
             essay.decrementLikeCount();
