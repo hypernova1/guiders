@@ -2,6 +2,7 @@ package org.brokers.guiders.web.member;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.brokers.guiders.web.auth.Role;
 import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.essay.Essay;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(columnDefinition = "DTYPE")
+@ToString
 public class Member extends DateAudit {
 
     @Column(unique = true, nullable = false)

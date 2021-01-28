@@ -2,6 +2,7 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.web.essay.Essay;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,7 @@ public class MemberService {
     private final FollowerRepository followerRepository;
     private final GuiderRepository guiderRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
     public void modifyMember(Guider guider) {
         if (!guider.getPassword().isEmpty()) {
@@ -76,4 +78,10 @@ public class MemberService {
         follower.unfollow(guider);
     }
 
+    public MemberDto.InfoResponse findById(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+
+        return modelMapper.map(member, MemberDto.InfoResponse.class);
+    }
 }

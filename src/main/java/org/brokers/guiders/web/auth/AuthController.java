@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -56,8 +58,12 @@ public class AuthController {
     @PostMapping("join")
     @ResponseBody
     public ResponseEntity<Boolean> join(@RequestBody JoinDto joinDto) {
-        authService.join(joinDto);
-        return ResponseEntity.ok(true);
+        Long id = authService.join(joinDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/user/{id}")
+                .buildAndExpand(id)
+                .toUri();
+        return ResponseEntity.created(uri).build();
     }
 
 }

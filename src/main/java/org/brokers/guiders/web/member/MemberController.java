@@ -59,4 +59,10 @@ public class MemberController {
         return ResponseEntity.ok(true);
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<?> getMemberInfo(@PathVariable Long id) {
+        MemberDto.InfoResponse memberDto = memberService.findById(id);
+        return ResponseEntity.ok(memberDto);
+    }
+
 }

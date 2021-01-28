@@ -252,11 +252,16 @@
             member.photo = document.querySelector('#photo').value;
         }
         member.type = document.querySelector('#type').value;
-        ajax('/join', 'POST', member).then((result) => {
-            if(result) {
+        fetch('/join', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json';
+            }
+        }).then((res) => {
+            if (res.status === 201) {
                 location.href = '/';
             }
-        });
+        })
     });
     
     function imgAjax(url, method, formData, fileType) {
