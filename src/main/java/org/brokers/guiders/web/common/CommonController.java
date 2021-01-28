@@ -37,20 +37,20 @@ public class CommonController {
     @PostMapping("/doA")
     public String doA(Locale locale, Model model, Authentication authentication, 
     		@RequestBody String title){
-        JSONObject cred = new JSONObject();
-        JSONObject auth=new JSONObject();
-        JSONObject parent=new JSONObject();
-		if (authentication != null) {
-			UserCustom userCustom = (UserCustom) authentication.getPrincipal();
-			String userName = userCustom.getUsername();
-			cred.put("username",userName);
-		}
-        cred.put("title", title);
-        auth.put("userInfo", cred);
-        parent.put("auth", auth);
-
-        URLConn conn = new URLConn("http://127.0.0.1", 1516);
-        conn.urlPost(parent);
+//        JSONObject cred = new JSONObject();
+//        JSONObject auth=new JSONObject();
+//        JSONObject parent=new JSONObject();
+//		if (authentication != null) {
+//			UserCustom userCustom = (UserCustom) authentication.getPrincipal();
+//			String userName = userCustom.getUsername();
+//			cred.put("username",userName);
+//		}
+//        cred.put("title", title);
+//        auth.put("userInfo", cred);
+//        parent.put("auth", auth);
+//
+//        URLConn conn = new URLConn("http://127.0.0.1", 1516);
+//        conn.urlPost(parent);
 
         return "/";
     }
