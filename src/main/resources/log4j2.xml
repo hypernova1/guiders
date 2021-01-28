@@ -1,32 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-	<!-- Appenders -->
-	<appender name="console" class="org.apache.log4j.ConsoleAppender">
-		<param name="Target" value="System.out" /> <layout class="org.apache.log4j.PatternLayout">
-		<param name="ConversionPattern" value="%-5p: %c - %m%n" />
-	</layout>
-	</appender>
-	<!-- Application Loggers -->
-	<logger name="std.pjt.log">
-		<level value="info" />
-	</logger>
-	<!-- 3rdparty Loggers -->
-	<logger name="org.springframework.core">
-		<level value="info" />
-	</logger>
-	<logger name="org.springframework.beans">
-		<level value="info" />
-	</logger>
-	<logger name="org.springframework.context">
-		<level value="info" />
-	</logger>
-	<logger name="org.springframework.web">
-		<level value="info" />
-	</logger>
-	<!-- Root Logger -->
-	<root>
-		<priority value="info" />
-		<appender-ref ref="console" />
-	</root>
-</log4j:configuration>
+<Configuration package="log4j.test"
+			   status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{dd/MM/yyyy HH:mm:ss} %c %m%n"/>
+		</Console>
+		<RandomAccessFile  name="FILE" fileName="${sys:log4j.saveDirectory}/CMSAutomation.${date:yyyy-MM-dd_hh-mm-ss}.log" append="true" immediateFlush="false">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss}  %-6p  %C{1}.%t:%L  >>> %m%n"/>
+		</RandomAccessFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="log4j.test.Log4jTest" level="debug">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Root level="trace">
+			<AppenderRef ref="Console"/>
+		</Root>
+	</Loggers>
+</Configuration>
