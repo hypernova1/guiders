@@ -14,6 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -22,6 +23,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
+    @Transactional
     public void modifyMember(Guider guider) {
         if (!guider.getPassword().isEmpty()) {
             String password = passwordEncoder.encode(guider.getPassword());
@@ -38,7 +40,6 @@ public class MemberService {
         return followerRepository.findByEmail(email)
                 .orElseThrow(MemberNotFoundException::new);
     }
-
 
     public List<Guider> getGuiderList(Integer page, Member email) {
         if (page == null) page = 0;
