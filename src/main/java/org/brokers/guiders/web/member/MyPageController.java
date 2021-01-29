@@ -53,8 +53,9 @@ public class MyPageController {
 
     @GetMapping("/likeEssay/{id}")
     @ResponseBody
-    public String getEssay(@PathVariable("id") Long id) {
-        return essayService.getEssayContent(id);
+    public ResponseEntity<?> getEssay(@PathVariable("id") Long id) {
+        String content = essayService.getEssay(id).getContent();
+        return ResponseEntity.ok(content);
     }
 
     @GetMapping("/guider/{email}")

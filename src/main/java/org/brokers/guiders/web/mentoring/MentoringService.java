@@ -1,7 +1,12 @@
 package org.brokers.guiders.web.mentoring;
 
 import lombok.RequiredArgsConstructor;
-import org.brokers.guiders.web.member.*;
+import org.brokers.guiders.exception.MemberNotFoundException;
+import org.brokers.guiders.exception.MentoringNotFoundException;
+import org.brokers.guiders.web.member.Follower;
+import org.brokers.guiders.web.member.Guider;
+import org.brokers.guiders.web.member.GuiderRepository;
+import org.brokers.guiders.web.member.Member;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +17,6 @@ public class MentoringService {
 
     private final MentoringRepository mentoringRepository;
     private final GuiderRepository guiderRepository;
-    private final FollowerRepository followerRepository;
 
     public void question(Mentoring mentoring) {
         mentoringRepository.save(mentoring);
@@ -24,18 +28,18 @@ public class MentoringService {
 
 
     public Mentoring getMentoring(Long id) {
-        return mentoringRepository.findById(id).orElseThrow(RuntimeException::new);
+        return mentoringRepository.findById(id).orElseThrow(MentoringNotFoundException::new);
     }
 
     public List<Mentoring> getMyQuestions(String email) {
         Guider guider = guiderRepository.findByEmail(email)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(MemberNotFoundException::new);
         return guider.getMentoringList();
     }
 
     public List<Mentoring> getMentoringList(String guiderEmail, Member member) {
         Guider guider = guiderRepository.findByEmail(guiderEmail)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(MemberNotFoundException::new);
         Follower follower = (Follower) member;
 
         return mentoringRepository.findByGuiderAndFollower(guider, follower);

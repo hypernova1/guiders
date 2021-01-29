@@ -2,7 +2,10 @@ package org.brokers.guiders.web.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.MemberNotFoundException;
-import org.brokers.guiders.web.member.*;
+import org.brokers.guiders.web.member.Follower;
+import org.brokers.guiders.web.member.Guider;
+import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.member.MemberRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,12 +33,12 @@ public class AuthService {
         Role role;
         if (joinDto.getType().equals("guider")) {
             role = roleRepository.findByName(RoleName.ROLE_GUIDER)
-                    .orElseThrow(RuntimeException::new);
+                    .orElseGet(() -> Role.builder().name(RoleName.ROLE_GUIDER).build());
             member = modelMapper.map(joinDto, Guider.class);
         } else {
             member = modelMapper.map(joinDto, Follower.class);
             role = roleRepository.findByName(RoleName.ROLE_MEMBER)
-                    .orElseThrow(RuntimeException::new);
+                    .orElseGet(() -> Role.builder().name(RoleName.ROLE_MEMBER).build());
         }
         member.addRole(role);
         Member savedMember = memberRepository.saveAndFlush(member);
@@ -44,7 +47,7 @@ public class AuthService {
 
     public Member getMember(String email) {
         return memberRepository.findByEmail(email)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(MemberNotFoundException::new);
     }
 
     public void login(LoginDto loginDto) {

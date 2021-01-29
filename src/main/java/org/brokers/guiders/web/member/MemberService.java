@@ -1,6 +1,7 @@
 package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
+import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.web.essay.Essay;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -32,10 +33,10 @@ public class MemberService {
     public Member selectByEmail(String email, String type) {
         if (type.equals("guider")) {
             return guiderRepository.findByEmail(email)
-                    .orElseThrow(RuntimeException::new);
+                    .orElseThrow(MemberNotFoundException::new);
         }
         return followerRepository.findByEmail(email)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(MemberNotFoundException::new);
     }
 
 
@@ -49,13 +50,13 @@ public class MemberService {
 
     public List<Essay> getMyLikeEssay(String email) {
         Member member = memberRepository.findByEmail(email)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(MemberNotFoundException::new);
         return member.getLikeEssay();
     }
 
     public List<Guider> getFollowerList(String email) {
         Follower follower = followerRepository.findByEmail(email)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(MemberNotFoundException::new);
 
         return follower.getFollowList();
     }
@@ -63,7 +64,7 @@ public class MemberService {
     @Transactional
     public void followGuider(String guiderEmail, Member member) {
         Guider guider = guiderRepository.findByEmail(guiderEmail)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(MemberNotFoundException::new);
         Follower follower = (Follower) member;
 
         follower.follow(guider);
@@ -72,7 +73,7 @@ public class MemberService {
     @Transactional
     public void unfollowGuider(String guiderEmail, Member member) {
         Guider guider = guiderRepository.findByEmail(guiderEmail)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(MemberNotFoundException::new);
         Follower follower = (Follower) member;
 
         follower.unfollow(guider);
@@ -80,7 +81,7 @@ public class MemberService {
 
     public MemberDto.InfoResponse findById(Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(MemberNotFoundException::new);
 
         return modelMapper.map(member, MemberDto.InfoResponse.class);
     }

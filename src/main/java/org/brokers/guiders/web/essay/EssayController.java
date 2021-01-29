@@ -74,7 +74,7 @@ public class EssayController {
             model.addAttribute("userInfo", member);
             map.put("email", member.getEmail());
         }
-        Essay essay = essayService.readEssay(id);
+        Essay essay = essayService.getEssay(id);
         map.put("id", id.toString());
         boolean confirmLike = essay.getLikeCount() == 1;
         model.addAttribute("essayVO", essay);
@@ -85,7 +85,7 @@ public class EssayController {
     @GetMapping("/modify")
     public String modifyEssay(Long id, Model model) {
 
-        Essay essay = essayService.readEssay(id);
+        Essay essay = essayService.getEssay(id);
         model.addAttribute("essayVO", essay);
 
         return "/essay/modify";

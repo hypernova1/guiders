@@ -1,6 +1,7 @@
 package org.brokers.guiders.config.security;
 
 import lombok.RequiredArgsConstructor;
+import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.web.auth.AuthService;
 import org.brokers.guiders.web.auth.MemberAccount;
 import org.brokers.guiders.web.member.Member;
@@ -24,7 +25,7 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository.findByEmail(username)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(MemberNotFoundException::new);
 
         return new MemberAccount(member);
     }

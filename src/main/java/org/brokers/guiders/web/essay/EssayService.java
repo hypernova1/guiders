@@ -1,8 +1,9 @@
 package org.brokers.guiders.web.essay;
 
 import lombok.RequiredArgsConstructor;
+import org.brokers.guiders.exception.EssayNotFoundException;
+import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.util.PageCriteria;
-import org.brokers.guiders.web.member.FollowerRepository;
 import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.GuiderRepository;
 import org.brokers.guiders.web.member.Member;
@@ -22,7 +23,6 @@ public class EssayService {
 
     private final GuiderRepository guiderRepository;
     private final EssayRepository essayRepository;
-    private final FollowerRepository followerRepository;
 
     @Transactional
     public void writeEssay(Essay essay) {
@@ -30,15 +30,15 @@ public class EssayService {
         param.put("email", essay.getWriter().getEmail());
         param.put("type", "guider");
         Guider guider = guiderRepository.findByEmail(param.get("email"))
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(MemberNotFoundException::new);
         essay.setWriter(guider);
         essay.setField(guider.getField());
         essay.setLang(guider.getLang());
         essayRepository.save(essay);
     }
 
-    public Essay readEssay(Long id) {
-        return essayRepository.findById(id).orElseThrow(RuntimeException::new);
+    public Essay getEssay(Long id) {
+        return essayRepository.findById(id).orElseThrow(() -> new EssayNotFoundException(id));
     }
 
     @Transactional
@@ -59,8 +59,7 @@ public class EssayService {
 
     @Transactional
     public int toggleLikeEssay(Long id, Member member) {
-        Essay essay = essayRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
+        Essay essay = getEssay(id);
         member.toggleLikeEssay(essay);
         return essay.getLikeCount();
     }
@@ -72,11 +71,6 @@ public class EssayService {
 
     public List<Essay> getTopEssay() {
         return essayRepository.findAllTop6ByOrderByLikeCountDesc();
-    }
-
-    public String getEssayContent(Long id) {
-        return essayRepository.findById(id)
-                .orElseThrow(RuntimeException::new).getContent();
     }
 
 }
