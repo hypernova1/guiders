@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.stream.Collectors;
 
@@ -53,6 +54,10 @@ public class AuthService {
     public void login(LoginDto loginDto) {
         Member member = memberRepository.findByEmail(loginDto.getEmail())
                 .orElseThrow(MemberNotFoundException::new);
+
+        boolean isEqual = member.getPassword().equals(passwordEncoder.encode(loginDto.getPassword()));
+        if (!isEqual) throw new MemberNotFoundException();
+
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 new MemberAccount(member),
                 loginDto.getPassword(),
