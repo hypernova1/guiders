@@ -41,6 +41,7 @@ public class AuthController {
     @PostMapping("/api/login")
     @ResponseBody
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
+        System.out.println(loginDto);
         authService.login(loginDto);
 //        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 //        model.addAttribute("url", naverAuthUrl);

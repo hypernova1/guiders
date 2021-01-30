@@ -37,7 +37,7 @@ public class Member extends DateAudit {
     @OneToMany
     protected final List<Essay> likeEssay = new ArrayList<>();
 
-    @ManyToMany
+    @OneToMany(fetch = FetchType.EAGER)
     protected final Set<Role> roles = new HashSet<>();
 
     public void addRole(Role role) {
