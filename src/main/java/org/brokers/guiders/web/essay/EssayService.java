@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.EssayNotFoundException;
 import org.brokers.guiders.exception.EssayOwnershipException;
 import org.brokers.guiders.util.PageCriteria;
-import org.brokers.guiders.web.member.Guider;
+import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberRepository;
 import org.modelmapper.ModelMapper;

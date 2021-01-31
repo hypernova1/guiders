@@ -1,4 +1,4 @@
-package org.brokers.guiders.web.auth;
+package org.brokers.guiders.web.auth.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

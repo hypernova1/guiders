@@ -3,11 +3,9 @@ package org.brokers.guiders.web.auth;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import org.brokers.guiders.util.NaverLoginBO;
-import org.brokers.guiders.web.member.Guider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -15,8 +13,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Iterator;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,7 +36,7 @@ public class AuthController {
 
     @PostMapping("/api/login")
     @ResponseBody
-    public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<?> login(@RequestBody AuthDto.LoginRequest loginDto) {
         authService.login(loginDto);
 //        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 //        model.addAttribute("url", naverAuthUrl);
@@ -64,7 +60,7 @@ public class AuthController {
 
     @PostMapping("join")
     @ResponseBody
-    public ResponseEntity<Boolean> join(@RequestBody JoinDto joinDto) {
+    public ResponseEntity<Boolean> join(@RequestBody AuthDto.JoinRequest joinDto) {
         Long id = authService.join(joinDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/user/{id}")

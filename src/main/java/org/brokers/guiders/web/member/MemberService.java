@@ -2,6 +2,9 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.MemberNotFoundException;
+import org.brokers.guiders.web.member.follower.Follower;
+import org.brokers.guiders.web.member.guider.Guider;
+import org.brokers.guiders.web.member.guider.GuiderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

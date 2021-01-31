@@ -3,9 +3,9 @@ package org.brokers.guiders.web.mentoring;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.exception.MentoringNotFoundException;
-import org.brokers.guiders.web.member.Follower;
-import org.brokers.guiders.web.member.Guider;
-import org.brokers.guiders.web.member.GuiderRepository;
+import org.brokers.guiders.web.member.follower.Follower;
+import org.brokers.guiders.web.member.guider.Guider;
+import org.brokers.guiders.web.member.guider.GuiderRepository;
 import org.brokers.guiders.web.member.Member;
 import org.springframework.stereotype.Service;
 

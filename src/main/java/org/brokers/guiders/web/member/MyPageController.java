@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.essay.EssayDto;
+import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.mentoring.Mentoring;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;

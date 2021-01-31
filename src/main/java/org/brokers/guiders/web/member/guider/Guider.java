@@ -1,7 +1,9 @@
-package org.brokers.guiders.web.member;
+package org.brokers.guiders.web.member.guider;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.member.MemberDto;
 import org.brokers.guiders.web.mentoring.Mentoring;
 
 import javax.persistence.*;

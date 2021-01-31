@@ -1,7 +1,9 @@
-package org.brokers.guiders.web.member;
+package org.brokers.guiders.web.member.guider;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
+import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.member.MemberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

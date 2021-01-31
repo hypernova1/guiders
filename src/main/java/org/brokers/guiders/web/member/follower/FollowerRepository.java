@@ -1,4 +1,4 @@
-package org.brokers.guiders.web.member;
+package org.brokers.guiders.web.member.follower;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -2,22 +2,21 @@ package org.brokers.guiders.web.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.MemberNotFoundException;
-import org.brokers.guiders.web.member.Follower;
-import org.brokers.guiders.web.member.Guider;
+import org.brokers.guiders.web.auth.role.Role;
+import org.brokers.guiders.web.auth.role.RoleName;
+import org.brokers.guiders.web.auth.role.RoleRepository;
+import org.brokers.guiders.web.member.follower.Follower;
+import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +30,7 @@ public class AuthService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public Long join(JoinDto joinDto) {
+    public Long join(AuthDto.JoinRequest joinDto) {
         joinDto.setPassword(passwordEncoder.encode(joinDto.getPassword()));
         Member member;
         Role role;
@@ -56,7 +55,7 @@ public class AuthService {
                 .orElseThrow(MemberNotFoundException::new);
     }
 
-    public void login(LoginDto loginDto) {
+    public void login(AuthDto.LoginRequest loginDto) {
         Member member = memberRepository.findByEmail(loginDto.getEmail())
                 .orElseThrow(MemberNotFoundException::new);
         if (!passwordEncoder.matches(loginDto.getPassword(), member.getPassword())) {

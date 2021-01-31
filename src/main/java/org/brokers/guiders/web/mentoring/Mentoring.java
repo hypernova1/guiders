@@ -2,8 +2,8 @@ package org.brokers.guiders.web.mentoring;
 
 import lombok.*;
 import org.brokers.guiders.web.common.DateAudit;
-import org.brokers.guiders.web.member.Follower;
-import org.brokers.guiders.web.member.Guider;
+import org.brokers.guiders.web.member.follower.Follower;
+import org.brokers.guiders.web.member.guider.Guider;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

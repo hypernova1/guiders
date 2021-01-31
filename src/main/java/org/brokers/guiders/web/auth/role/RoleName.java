@@ -1,4 +1,4 @@
-package org.brokers.guiders.web.auth;
+package org.brokers.guiders.web.auth.role;
 
 /**
  * Created by melchor

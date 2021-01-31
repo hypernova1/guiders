@@ -2,7 +2,7 @@ package org.brokers.guiders.web.essay;
 
 import lombok.*;
 import org.brokers.guiders.web.common.DateAudit;
-import org.brokers.guiders.web.member.Guider;
+import org.brokers.guiders.web.member.guider.Guider;
 
 import javax.persistence.*;
 

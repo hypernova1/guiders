@@ -1,6 +1,7 @@
 package org.brokers.guiders.web.auth;
 
 import lombok.Getter;
+import org.brokers.guiders.web.auth.role.Role;
 import org.brokers.guiders.web.member.Member;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

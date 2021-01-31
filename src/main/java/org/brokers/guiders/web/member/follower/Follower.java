@@ -1,7 +1,9 @@
-package org.brokers.guiders.web.member;
+package org.brokers.guiders.web.member.follower;
 
 import lombok.Getter;
 import org.brokers.guiders.web.essay.Essay;
+import org.brokers.guiders.web.member.guider.Guider;
+import org.brokers.guiders.web.member.Member;
 
 import javax.persistence.*;
 import java.util.ArrayList;

@@ -2,9 +2,8 @@ package org.brokers.guiders.web.member;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import org.brokers.guiders.web.auth.Role;
-import org.brokers.guiders.web.auth.RoleName;
+import org.brokers.guiders.web.auth.role.Role;
+import org.brokers.guiders.web.auth.role.RoleName;
 import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.essay.Essay;
 
