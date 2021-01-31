@@ -8,11 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "follower")
 @Getter
 @DiscriminatorValue("follower")
 public class Follower extends Member {
 
     @OneToMany
+    @JoinTable(
+            name = "follow",
+            joinColumns = @JoinColumn(name = "follower_id"),
+            inverseJoinColumns = @JoinColumn(name = "guider_id")
+    )
     private final List<Guider> followList = new ArrayList<>();
 
     @OneToMany

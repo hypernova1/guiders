@@ -3,14 +3,12 @@ package org.brokers.guiders.web.essay;
 import lombok.*;
 import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.member.Guider;
-import org.brokers.guiders.web.member.Member;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-@Getter @Setter
 @Entity
+@Table(name = "essay")
+@Getter @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Essay extends DateAudit {

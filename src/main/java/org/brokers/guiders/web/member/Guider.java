@@ -4,19 +4,22 @@ import lombok.Getter;
 import lombok.Setter;
 import org.brokers.guiders.web.mentoring.Mentoring;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
 @Entity
+@Table(name = "guider")
+@Getter @Setter
 @DiscriminatorValue("guider")
 public class Guider extends Member {
 
     @OneToMany
+    @JoinTable(
+            name = "guider_mentoring",
+            joinColumns = @JoinColumn(name = "guider_id"),
+            inverseJoinColumns = @JoinColumn(name = "mentoring_id")
+    )
     private final List<Mentoring> mentoringList = new ArrayList<>();
 
     @Lob

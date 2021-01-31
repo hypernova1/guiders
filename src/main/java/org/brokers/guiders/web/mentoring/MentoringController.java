@@ -2,7 +2,6 @@ package org.brokers.guiders.web.mentoring;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
-import org.brokers.guiders.web.member.Follower;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberService;
 import org.springframework.http.ResponseEntity;
@@ -53,12 +52,9 @@ public class MentoringController {
     }
 
     @PostMapping
-    public ResponseEntity<Boolean> question(@RequestBody Mentoring mentoring,
+    public ResponseEntity<Boolean> question(@RequestBody MentoringDto request,
                                             @AuthUser Member member) {
-        if (member != null) {
-            mentoring.setFollower((Follower) member);
-            mentoringService.question(mentoring);
-        }
+        mentoringService.question(request, member);
 
         return ResponseEntity.ok(true);
     }

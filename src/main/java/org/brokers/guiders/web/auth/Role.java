@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "role")
 public class Role extends DateAudit {
 
     @Id

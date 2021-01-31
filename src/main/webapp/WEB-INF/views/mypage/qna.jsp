@@ -43,7 +43,7 @@
       <div id="lang">${mentoring.lang}</div>
       <div id="regdate">등록일: ${mentoring.createdDate}</div>
       <div class="content">
-        ${mentoring.count}
+        ${mentoring.content}
       </div>
     </div>
     <h2 id="answer-title">Guider's Answer..</h2>

@@ -1,7 +1,6 @@
 package org.brokers.guiders.web.mentoring;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.member.Follower;
 import org.brokers.guiders.web.member.Guider;
@@ -9,9 +8,10 @@ import org.brokers.guiders.web.member.Guider;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 @Entity
+@Table(name = "mentoring")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Mentoring extends DateAudit {
 
     @Id
@@ -31,7 +31,7 @@ public class Mentoring extends DateAudit {
 
     private String title;
 
-    private String count;
+    private String content;
 
     private String reply;
 
@@ -39,5 +39,13 @@ public class Mentoring extends DateAudit {
 
     private LocalDateTime replyDate;
 
-
+    @Builder
+    public Mentoring(String title, String content, Guider guider, Follower follower, String field, String lang) {
+        this.title = title;
+        this.content = content;
+        this.guider = guider;
+        this.follower = follower;
+        this.field = field;
+        this.lang = lang;
+    }
 }

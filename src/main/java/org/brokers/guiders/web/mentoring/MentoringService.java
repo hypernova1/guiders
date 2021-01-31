@@ -18,7 +18,17 @@ public class MentoringService {
     private final MentoringRepository mentoringRepository;
     private final GuiderRepository guiderRepository;
 
-    public void question(Mentoring mentoring) {
+    public void question(MentoringDto request, Member member) {
+        Guider guider = guiderRepository.findByEmail(request.getGuiderEmail())
+                .orElseThrow(MemberNotFoundException::new);
+        Mentoring mentoring = Mentoring.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .field(request.getField())
+                .lang(request.getLang())
+                .follower((Follower) member)
+                .guider(guider)
+                .build();
         mentoringRepository.save(mentoring);
     }
 

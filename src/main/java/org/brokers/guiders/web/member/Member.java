@@ -14,9 +14,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Getter @Setter
 @Entity
+@Table(name = "member")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Getter @Setter
 @DiscriminatorColumn(columnDefinition = "DTYPE")
 public class Member extends DateAudit {
 
