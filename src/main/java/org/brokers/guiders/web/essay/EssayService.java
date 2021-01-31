@@ -32,8 +32,11 @@ public class EssayService {
         return essayRepository.save(essay).getId();
     }
 
-    public Essay getEssay(Long id) {
-        return essayRepository.findById(id).orElseThrow(() -> new EssayNotFoundException(id));
+    public EssayDto.DetailResponse getEssay(Long id) {
+        Essay essay = essayRepository.findById(id).orElseThrow(() -> new EssayNotFoundException(id));
+        EssayDto.DetailResponse essayDto = modelMapper.map(essay, EssayDto.DetailResponse.class);
+        essayDto.setWriter(essay.getWriter().getName());
+        return essayDto;
     }
 
     @Transactional
@@ -68,7 +71,8 @@ public class EssayService {
 
     @Transactional
     public int toggleLikeEssay(Long id, Member member) {
-        Essay essay = getEssay(id);
+        Essay essay = essayRepository.findById(id)
+                .orElseThrow(() -> new EssayNotFoundException(id));
         member.toggleLikeEssay(essay);
         return essay.getLikeCount();
     }
@@ -82,4 +86,7 @@ public class EssayService {
         return essayRepository.findAllTop6ByOrderByLikeCountDesc();
     }
 
+    public boolean isMyLikeEssay(Member member) {
+        return false;
+    }
 }

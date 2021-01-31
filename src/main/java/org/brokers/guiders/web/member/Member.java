@@ -59,4 +59,9 @@ public class Member extends DateAudit {
         return this.roles.stream()
                 .anyMatch((role) -> role.getName().equals(RoleName.ROLE_GUIDER));
     }
+
+    public boolean isMyLikeEssay(Long id) {
+        return this.likeEssay.stream().map(DateAudit::getId)
+                .anyMatch(essayId -> essayId.equals(id));
+    };
 }

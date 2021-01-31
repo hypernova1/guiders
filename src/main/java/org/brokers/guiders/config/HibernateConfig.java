@@ -44,6 +44,7 @@ public class HibernateConfig {
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MariaDB53Dialect");
         properties.setProperty("hibernate.discriminator.ignore_explicit_for_joined", "true");
+        properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
         return properties;
     }
 

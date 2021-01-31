@@ -21,7 +21,7 @@
     <form id="essayPostForm" action="/essay/delete" method="post">
       <input type="hidden" name="id" value="${essay.id}">
     </form>
-    <c:if test="${pageContext.request.userPrincipal.name == essay.name}">
+    <c:if test="${pageContext.request.userPrincipal.name == essay.writer}">
         <button id="removeBtn" type="button">삭제</button>
         <button id="modifyBtn" type="button">수정</button>
     </c:if>
@@ -29,7 +29,7 @@
   <div id="mtr-detail">
     <img id="mtr-img" src="${essay.writerPhotoUrl}">
     <div class="mtr-name">
-      <span>${essay.name}</span>
+      <span>${essay.writer}</span>
       <span>멘토</span>
       <div class="follow-btn">팔로우</div>
       <div class="qna-btn">질문하기</div>
@@ -63,7 +63,7 @@
 			let i = 1;
       modal.style.display = 'block';
       const increase = setInterval(function(){
-        if (i == 51) {
+        if (i === 51) {
 	          clearInterval(increase);
 	      } else {
 	          modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
@@ -77,9 +77,9 @@
 		ajax('/essay/' + id, 'put', data).then(function(result){
 			let count = result;
 			console.log('좋아요 갯수 : ' + count);
-			if(document.querySelector('#likeSpan').innerText.substring(0, 1) == '♡'){
+			if(document.querySelector('#likeSpan').innerText.substring(0, 1) === '♡'){
 				document.querySelector('#likeSpan').innerText = '♥'+ ' ' +count;
-			}else if (document.querySelector('#likeSpan').innerText.substring(0, 1) == '♥'){
+			}else if (document.querySelector('#likeSpan').innerText.substring(0, 1) === '♥'){
 				document.querySelector('#likeSpan').innerText = '♡'+ ' ' +count;
 			}
 		});
@@ -97,9 +97,9 @@
 	
 	document.querySelector('#button-wrap').addEventListener('click', ({target}) => {
 	    console.log(target);
-	    if(target.id == 'beforeBtn'){
+	    if(target.id === 'beforeBtn'){
 	        history.back();
-	    } else if(target.id == 'listBtn'){
+	    } else if(target.id === 'listBtn'){
 	        location.href = '/essay/list';
 	    }
 	})
