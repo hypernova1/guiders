@@ -34,16 +34,13 @@ public class EssayController {
     }
 
     @PostMapping("/write")
-    public String writeEssay(Essay essay) {
-        if (essay != null) {
-            essayService.writeEssay(essay);
-            return "redirect:/essay/list";
-        }
-        return "/essay/write"; // 글작성 실패
+    public String writeEssay(EssayDto.Request request, @AuthUser Member member) {
+        Long id = essayService.writeEssay(request, member);
+        return "redirect:/essay/" + id;
     }
 
     @GetMapping("/list")
-    public String goEssayListPage(Model model, Integer page, PageCriteria cri) {
+    public String goEssayListPage(Model model, @RequestParam(defaultValue = "1") Integer page, PageCriteria cri) {
         if (page != null) {
             cri.setPage(page);
         }
@@ -51,24 +48,15 @@ public class EssayController {
         pm.setCri(cri);
         pm.setTotal(essayService.getEssayCount(cri));
 
-        List<Essay> list = essayService.getEssayList(cri);
-        for (Essay essay : list) {
-            String content = essay.getContent();
-            content = content.replaceAll("<[^>]*>", "");
-            content = content.replaceAll("&nbsp;", " ");
-            content = content.replaceAll("&lt;", "<");
-            content = content.replaceAll("&gt;", ">");
-            content = content.replaceAll("&amp;", "&");
-            essay.setContent(content);
-        }
+        List<EssayDto.Response> list = essayService.getEssayList(cri);
 
         model.addAttribute("essayList", list);
         model.addAttribute("pm", pm);
         return "/essay/list";
     }
 
-    @GetMapping("/read")
-    public String readEssay(Long id, Model model, @AuthUser Member member) {
+    @GetMapping("/{id}")
+    public String readEssay(@PathVariable Long id, Model model, @AuthUser Member member) {
         Map<String, String> map = new HashMap<>();
         if (member != null) {
             model.addAttribute("userInfo", member);
@@ -84,20 +72,16 @@ public class EssayController {
 
     @GetMapping("/modify")
     public String modifyEssay(Long id, Model model) {
-
         Essay essay = essayService.getEssay(id);
         model.addAttribute("essayVO", essay);
-
         return "/essay/modify";
     }
 
-    @PostMapping("/modify")
-    public String modifyEssay(Essay essay, String id) {
-        if (essay != null) {
-            essayService.modifyEssay(essay);
-        }
+    @PostMapping("/modify/{id}")
+    public String modifyEssay(@PathVariable Long id, EssayDto.Request request) {
+        essayService.modifyEssay(id, request);
 
-        return "redirect:/essay/read?id=" + id;
+        return "redirect:/essay/" + id;
     }
 
     @PostMapping("/delete")

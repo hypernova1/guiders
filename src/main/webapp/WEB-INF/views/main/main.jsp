@@ -117,8 +117,8 @@
   });
   
   document.querySelector('#article').addEventListener('click', ({target}) => {
-      if(target.className == 'article-title'){
-          location.href = '/essay/read?id=' + target.getAttribute('data-id');
+      if(target.className === 'article-title'){
+          location.href = '/essay/' + target.getAttribute('data-id');
       }
   })
   

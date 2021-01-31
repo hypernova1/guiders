@@ -24,13 +24,13 @@
 			<c:forEach var="essay" items="${essayList}">
 				<li>
 					<div class="mtr-info">
-						<img class="mtr-img" src="${essay.photo}"> <span
-							class="guider">${essay.name}</span> <span class="etype">${essay.field}</span>
+						<img class="mtr-img" src="${essay.writerPhotoUrl}"> <span
+							class="guider">${essay.writer}</span> <span class="etype">${essay.field}</span>
 					</div>
 					<div class="essay">
 						<div>
 							<h2 class="title">
-								<a href="/essay/read?id=${essay.id}">${essay.title}</a>
+								<a href="/essay/${essay.id}">${essay.title}</a>
 							</h2>
 							<span class="like">♥ ${essay.likeCount}</span> <span
 								class="regdate">${essay.createdDate}</span>

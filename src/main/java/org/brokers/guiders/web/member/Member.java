@@ -33,7 +33,7 @@ public class Member extends DateAudit {
 
     protected String phone;
 
-    protected String photo;
+    protected String photoUrl;
 
     @OneToMany
     protected final List<Essay> likeEssay = new ArrayList<>();

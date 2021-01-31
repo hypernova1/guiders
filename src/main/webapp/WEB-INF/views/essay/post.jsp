@@ -27,7 +27,7 @@
     </c:if>
   </div>
   <div id="mtr-detail">
-    <img id="mtr-img" src="${essay.photo}">
+    <img id="mtr-img" src="${essay.writerPhotoUrl}">
     <div class="mtr-name">
       <span>${essay.name}</span>
       <span>멘토</span>

@@ -40,24 +40,23 @@
             });
             
             //폼 submit
-            $("#inserteEssayForm").submit();
+            $("#insertEssayForm").submit();
         });
     });
 </script>
 
 
-<form action="/essay/write" method="post" id="inserteEssayForm" enctype="multipart/form-data">
+<form action="/essay/write" method="post" id="insertEssayForm">
   <h1>에세이 작성</h1>
-  <input type="hidden" name="email" value="${email}">
-  <div id="title">
+  <div id="title-wrap">
     <input id="title" name="title" type="text" placeholder="제목">
   </div>
-  <div id="content">
+  <div id="content-wrap">
     <textarea id="editor" name="content" placeholder="내용"></textarea>
   </div>
   <div id="btn-wrap">
     <button id="writeBtn" type="button">등록</button>
-    <button id="cancleBtn" type="button">취소</button>
+    <button id="cancelBtn" type="button">취소</button>
   </div>
 </form>
 

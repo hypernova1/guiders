@@ -20,7 +20,7 @@ document.querySelector('.guider-wrapper').addEventListener('click', ({target}) =
         const guiderEmail = target.parentElement.querySelector('span').innerText;
         ajax(`/mypage/guider?email=${guiderEmail}`, 'GET', {}).then((result) => {
             const guider = JSON.parse(result);
-            document.querySelector('.modal-content-title>img').src = guider.photo;
+            document.querySelector('.modal-content-title>img').src = guider.photoUrl;
             document.querySelector('div>strong').innerText = guider.name;
             document.querySelector('.modal-content-title>div:nth-child(4)>span:nth-child(2)').innerText 
                 = guider.currentJob;
@@ -77,7 +77,7 @@ const getData = (result) => {
           data += `
               <div class="wrapper">
               <div class="container">
-                <img src="` + guider.photo + `" alt="" class="profile-img">
+                <img src="` + guider.photoUrl + `" alt="" class="profile-img">
                 <div class="content">
                   <div class="sub-content">
                     <h1>` + guider.name + `</h1>

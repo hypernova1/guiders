@@ -2,39 +2,34 @@ package org.brokers.guiders.web.essay;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.EssayNotFoundException;
-import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.util.PageCriteria;
 import org.brokers.guiders.web.member.Guider;
-import org.brokers.guiders.web.member.GuiderRepository;
 import org.brokers.guiders.web.member.Member;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class EssayService {
 
-    private final GuiderRepository guiderRepository;
     private final EssayRepository essayRepository;
+    private final ModelMapper modelMapper;
 
     @Transactional
-    public void writeEssay(Essay essay) {
-        Map<String, String> param = new HashMap<>();
-        param.put("email", essay.getWriter().getEmail());
-        param.put("type", "guider");
-        Guider guider = guiderRepository.findByEmail(param.get("email"))
-                .orElseThrow(MemberNotFoundException::new);
-        essay.setWriter(guider);
-        essay.setField(guider.getField());
-        essay.setLang(guider.getLang());
-        essayRepository.save(essay);
+    public Long writeEssay(EssayDto.Request request, Member member) {
+        Essay essay = Essay.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .writer((Guider) member)
+                .build();
+        return essayRepository.save(essay).getId();
     }
 
     public Essay getEssay(Long id) {
@@ -42,15 +37,29 @@ public class EssayService {
     }
 
     @Transactional
-    public void modifyEssay(Essay essay) {
-        essayRepository.save(essay);
+    public void modifyEssay(Long id, EssayDto.Request request) {
+        Essay essay = essayRepository.findById(id)
+                .orElseThrow(() -> new EssayNotFoundException(id));
+        essay.update(request);
     }
 
     @Transactional
-    public List<Essay> getEssayList(PageCriteria cri) {
+    public List<EssayDto.Response> getEssayList(PageCriteria cri) {
         PageRequest pageRequest = PageRequest.of(cri.getPageStart(), cri.getPerPageNum());
         Page<Essay> essayPage = essayRepository.findAll(pageRequest);
-        return essayPage.getContent();
+        List<Essay> essayList = essayPage.getContent();
+        return essayList.stream().map(essay -> {
+            String content = essay.getContent();
+            content = content.replaceAll("<[^>]*>", "");
+            content = content.replaceAll("&nbsp;", " ");
+            content = content.replaceAll("&lt;", "<");
+            content = content.replaceAll("&gt;", ">");
+            content = content.replaceAll("&amp;", "&");
+            essay.setContent(content);
+            EssayDto.Response essayDto = modelMapper.map(essay, EssayDto.Response.class);
+            essayDto.setWriter(essay.getWriter().getName());
+            return essayDto;
+        }).collect(Collectors.toList());
     }
 
     public long getEssayCount(PageCriteria cri) {

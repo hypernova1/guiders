@@ -70,7 +70,7 @@
       </c:if>
     </div>
     <div id="mtr-detail">
-        <img id="mtr-img" src="${guider.photo}">
+        <img id="mtr-img" src="${guider.photoUrl}">
         <div class="mtr-name">
           <span>${guider.name}</span>
           <span>멘토</span>
