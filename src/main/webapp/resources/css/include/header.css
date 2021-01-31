@@ -12,7 +12,7 @@
 }
 
 body {
-  font-family: 'yoon';
+  font-family: 'yoon', serif;
   /* background: linear-gradient(135deg, #b3cae5 12%, #dbdde4 46%, #e4e3e4 70%, #f7ddbb 94%, #efcab2 100%); */
 }
 
@@ -40,8 +40,7 @@ nav {
 
 .menu-content {
   display: inline-block;
-  margin: 0 5px;
-  margin-top: 10px;
+  margin: 10px 5px 0;
   font-size: 1.3rem;
   cursor: pointer;
   user-select: none;
@@ -52,7 +51,7 @@ nav {
   color: #747d8c;
 }
 
-.menu-content>span:hover:not(.menu-content>span:nth-child(5)) {
+.menu-content>span:hover:not(.menu-content > span:nth-child(5)) {
   color: #ff2d55;
   transition: 0.3s;
 }

@@ -2,7 +2,6 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.MemberNotFoundException;
-import org.brokers.guiders.web.essay.Essay;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +17,6 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final FollowerRepository followerRepository;
     private final GuiderRepository guiderRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
@@ -32,12 +30,15 @@ public class MemberService {
         guiderRepository.save(guider);
     }
 
-    public Member selectByEmail(String email, String type) {
-        if (type.equals("guider")) {
-            return guiderRepository.findByEmail(email)
-                    .orElseThrow(MemberNotFoundException::new);
+    public Member getInfo(Member member) {
+        if (member.isGuider()) {
+            return (Guider) member;
         }
-        return followerRepository.findByEmail(email)
+        return (Follower) member;
+    }
+
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email)
                 .orElseThrow(MemberNotFoundException::new);
     }
 
@@ -47,19 +48,6 @@ public class MemberService {
         Page<Guider> guiderPage = guiderRepository.findAll(pageRequest);
 
         return guiderPage.getContent();
-    }
-
-    public List<Essay> getMyLikeEssay(String email) {
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(MemberNotFoundException::new);
-        return member.getLikeEssay();
-    }
-
-    public List<Guider> getFollowerList(String email) {
-        Follower follower = followerRepository.findByEmail(email)
-                .orElseThrow(MemberNotFoundException::new);
-
-        return follower.getFollowList();
     }
 
     @Transactional

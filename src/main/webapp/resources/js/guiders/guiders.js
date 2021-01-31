@@ -8,7 +8,7 @@ modalSpan.addEventListener("click", () => {
 });
 
 window.addEventListener("click", () => {
-    if(event.target == guiderModal){
+    if(event.target === guiderModal){
         guiderModal.style.display = "none";
         body.style.overflow = "";
     }
@@ -45,7 +45,7 @@ document.querySelector('.guider-wrapper').addEventListener('click', ({target}) =
                const modal = document.querySelector('#login-modal');
                modal.style.display = 'block';
                const increase = setInterval(function(){
-                 if (i == 51) {
+                 if (i === 51) {
                    clearInterval(increase);
                  } else {
                    modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
@@ -68,7 +68,7 @@ document.querySelector('.guider-wrapper').addEventListener('click', ({target}) =
     }
 });
 
-let page = 0;
+let page = 1;
 
 const getData = (result) => {
         const guiders = JSON.parse(result);
@@ -86,7 +86,7 @@ const getData = (result) => {
                     <span class="location">
                       <i class="fa fa-map-marker" aria-hidden="true"></i>` + guider.currentJob + `</span>
                   </div>`
-                  if(guider.fno){
+                  if(guider.id){
                       data += `<div class="btn unfollow">UnFollow</div>`
                   } else {
                       data += `<div class="btn follow">Follow</div>`

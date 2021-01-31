@@ -19,7 +19,7 @@ public class MemberController {
     @GetMapping("/guider")
     @ResponseBody
     public ResponseEntity<Member> getGuiderInfo(String email) {
-        Guider guider = (Guider) memberService.selectByEmail(email, "guider");
+        Guider guider = (Guider) memberService.findByEmail(email);
 
         return ResponseEntity.ok(guider);
     }

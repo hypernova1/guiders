@@ -3,7 +3,6 @@ package org.brokers.guiders.web.mentoring;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.member.Follower;
-import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberService;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +31,8 @@ public class MentoringController {
     @GetMapping("/qna/{id}")
     public String qna(@PathVariable Long id, Model model) {
         Mentoring mentoring = mentoringService.getMentoring(id);
-        Guider guider = (Guider) memberService.selectByEmail(mentoring.getGuider().getEmail(), "guider");
         model.addAttribute("mentoring", mentoring);
-        model.addAttribute("guider", guider);
+        model.addAttribute("guider", mentoring.getGuider());
         return "mypage/qna";
     }
 

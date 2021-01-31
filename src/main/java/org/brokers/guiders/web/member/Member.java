@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.brokers.guiders.web.auth.Role;
+import org.brokers.guiders.web.auth.RoleName;
 import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.essay.Essay;
 
@@ -52,5 +53,10 @@ public class Member extends DateAudit {
         }
         likeEssay.add(essay);
         essay.incrementLikeCount();
+    }
+
+    public boolean isGuider() {
+        return this.roles.stream()
+                .anyMatch((role) -> role.getName().equals(RoleName.ROLE_GUIDER));
     }
 }

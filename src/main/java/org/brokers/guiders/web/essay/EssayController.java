@@ -27,7 +27,7 @@ public class EssayController {
     @GetMapping("/write")
     public String writeEssay(Model model, @AuthUser Member member) {
         if (member != null) {
-            Guider guider = (Guider) memberService.selectByEmail(member.getEmail(), "guider");
+            Guider guider = (Guider) memberService.getInfo(member);
             model.addAttribute("email", guider.getEmail());
         }
         return "/essay/write";

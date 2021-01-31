@@ -1,11 +1,11 @@
 package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
+import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.config.security.UserCustom;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.essay.EssayService;
 import org.brokers.guiders.web.mentoring.Mentoring;
-import org.brokers.guiders.web.mentoring.MentoringService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -21,16 +21,13 @@ import java.util.List;
 public class MyPageController {
 
     private final EssayService essayService;
-    private final MentoringService mentoringService;
     private final MemberService memberService;
 
     @GetMapping("/likeEssay")
-    public String likeEssay(Authentication authentication, Model model) {
-        List<Essay> list;
-        if (authentication.isAuthenticated()) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
-            list = memberService.getMyLikeEssay(user.getEmail());
-            model.addAttribute("essayList", list);
+    public String likeEssay(@AuthUser Member member, Model model) {
+        if (member != null) {
+            List<Essay> likeEssayList = member.getLikeEssay();
+            model.addAttribute("essayList", likeEssayList);
         }
         return "mypage/likeEssay";
     }
@@ -42,13 +39,12 @@ public class MyPageController {
 
     @GetMapping("myGuiders")
     @ResponseBody
-    public ResponseEntity<List<Guider>> myGuiderList(Authentication authentication) {
-        List<Guider> list = new ArrayList<>();
-        if (authentication.isAuthenticated()) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
-            list = memberService.getFollowerList(user.getEmail());
+    public ResponseEntity<List<Guider>> myGuiderList(@AuthUser Member member) {
+        List<Guider> followList = new ArrayList<>();
+        if (member != null) {
+            followList = ((Follower) member).getFollowList();
         }
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(followList);
     }
 
     @GetMapping("/likeEssay/{id}")
@@ -61,29 +57,23 @@ public class MyPageController {
     @GetMapping("/guider/{email}")
     @ResponseBody
     public ResponseEntity<Guider> guider(@PathVariable String email) {
-        return ResponseEntity.ok((Guider) memberService.selectByEmail(email, "guider"));
+        return ResponseEntity.ok((Guider) memberService.findByEmail(email));
     }
 
     @GetMapping("/questions")
-    public String questions(Authentication authentication, Model model) {
+    public String questions(@AuthUser Member member, Model model) {
         List<Mentoring> mentoringList = null;
-        if (authentication != null) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
-            mentoringList = mentoringService.getMyQuestions(user.getEmail());
+        if (member != null) {
+            mentoringList = ((Guider) member).getMentoringList();
         }
         model.addAttribute("mentoringList", mentoringList);
         return "mypage/questions";
     }
 
     @GetMapping("/edit")
-    public String edit(Model model, Authentication authentication) {
-        if (authentication != null) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
-            String type = "guider";
-            if (user.getAuthorities().toString().equals("[ROLE_MEMBER]")) {
-                type = "member";
-            }
-            Guider vo = (Guider) memberService.selectByEmail(user.getEmail(), type);
+    public String edit(Model model, @AuthUser Member member) {
+        if (member != null) {
+            Guider vo = (Guider) memberService.getInfo(member);
             model.addAttribute("vo", vo);
         }
 
