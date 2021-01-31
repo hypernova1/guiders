@@ -36,7 +36,6 @@ public class MentoringService {
         mentoringRepository.save(mentoring);
     }
 
-
     public Mentoring getMentoring(Long id) {
         return mentoringRepository.findById(id).orElseThrow(MentoringNotFoundException::new);
     }

@@ -15,14 +15,13 @@ document.querySelector('article>ul').addEventListener('click', ({target}) => {
       const div = document.createElement('DIV');
       div.className = 'essay-body';
       
-      ajax('/mypage/likeEssay/' + id, 'get', id).then((result) => {
+      ajax('/api/essay/' + id, 'get', id).then((essay) => {
           div.innerHTML = `<div class="essay">
-              <div class="essay-content">${result}</div>
+              <div class="essay-content">${essay.content}</div>
               <div class="like">♥</div>
             </div>`;
       });
       div.classList.add('active');
       target.parentElement.after(div);
-      return;
     }
 });

@@ -1,5 +1,5 @@
 window.addEventListener('load', () => {
-    ajax('/mypage/myGuiders', 'GET', {}).then((result) => {
+    ajax('/following', 'GET', {}).then((result) => {
         const guiderList = JSON.parse(result);
         
         guiderList.forEach((guider) => {
@@ -40,9 +40,9 @@ window.addEventListener('load', () => {
     });
 });
 
-var body = document.body;
-var guiderModal = document.getElementById("modal");
-var modalSpan = document.getElementsByClassName("close")[0];
+const body = document.body;
+const guiderModal = document.getElementById("modal");
+const modalSpan = document.getElementsByClassName("close")[0];
 const mtrModal = document.querySelector('#mtr-modal');
 const mtrModalBody = document.querySelector('#mtr-modal-body');
 

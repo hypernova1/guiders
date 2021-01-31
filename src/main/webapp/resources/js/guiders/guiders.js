@@ -99,7 +99,7 @@ const getData = (result) => {
 }
 
 window.addEventListener('load', () => {
-    ajax('/guider/list/' + page, 'GET', {}).then((result) => {
+    ajax('/guider?page=' + page, 'GET', {}).then((result) => {
       getData(result);
     });
 });
@@ -112,7 +112,7 @@ window.addEventListener('scroll', () => {
 
     if(y >= contentHeight){
       page += 16;
-      ajax('/guider/list/' + page, 'GET', {}).then((result) => {
+      ajax('/guider?page=' + page, 'GET', {}).then((result) => {
         if(!JSON.parse(result).length) return;
         getData(result);
       });

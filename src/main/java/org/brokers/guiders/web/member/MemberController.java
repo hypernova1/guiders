@@ -2,43 +2,30 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
+import org.brokers.guiders.exception.EssayNotFoundException;
+import org.brokers.guiders.web.essay.Essay;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/guider")
-    @ResponseBody
-    public ResponseEntity<Member> getGuiderInfo(String email) {
-        Guider guider = (Guider) memberService.findByEmail(email);
-
-        return ResponseEntity.ok(guider);
-    }
-
-    @GetMapping("/guider/list/{page}")
-    @ResponseBody
-    public ResponseEntity<List<Guider>> getGuiderList(
-            @PathVariable Integer page, @AuthUser Member member) {
-        List<Guider> guiderList;
-        if (member != null) {
-            guiderList = memberService.getGuiderList(page, member);
-        } else {
-            guiderList = memberService.getGuiderList(page, null);
-        }
-        return ResponseEntity.ok(guiderList);
+    @GetMapping("/user/{id}")
+    public ResponseEntity<?> getMemberInfo(@PathVariable Long id) {
+        MemberDto.InfoResponse memberDto = memberService.findById(id);
+        return ResponseEntity.ok(memberDto);
     }
 
     @PostMapping("/follow")
-    @ResponseBody
     public ResponseEntity<Boolean> follow(@RequestBody String guider, @AuthUser Member member) {
         boolean result = false;
         JSONObject obj = new JSONObject(guider);
@@ -50,7 +37,6 @@ public class MemberController {
     }
 
     @DeleteMapping("/follow")
-    @ResponseBody
     public ResponseEntity<Boolean> unfollow(@RequestBody String guider, @AuthUser Member member) {
         JSONObject obj = new JSONObject(guider);
         if (member != null) {
@@ -59,10 +45,13 @@ public class MemberController {
         return ResponseEntity.ok(true);
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<?> getMemberInfo(@PathVariable Long id) {
-        MemberDto.InfoResponse memberDto = memberService.findById(id);
-        return ResponseEntity.ok(memberDto);
+    @GetMapping("/following")
+    public ResponseEntity<List<Guider>> getFollowingList(@AuthUser Member member) {
+        List<Guider> followList = new ArrayList<>();
+        if (member != null) {
+            followList = ((Follower) member).getFollowList();
+        }
+        return ResponseEntity.ok(followList);
     }
 
 }

@@ -4,15 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.essay.EssayDto;
-import org.brokers.guiders.web.essay.EssayService;
 import org.brokers.guiders.web.mentoring.Mentoring;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MyPageController {
 
-    private final EssayService essayService;
     private final MemberService memberService;
     private final ModelMapper modelMapper;
 
@@ -35,32 +33,22 @@ public class MyPageController {
         return "mypage/likeEssay";
     }
 
+    @GetMapping("/edit")
+    public String edit(Model model, @AuthUser Member member) {
+        MemberDto.Update dto = memberService.getInfo(member);
+        model.addAttribute("member", dto);
+        return "mypage/edit";
+    }
+
+    @PostMapping("/edit")
+    public String edit(MemberDto.Update memberDto, @AuthUser Member member) {
+        memberService.modifyMember(memberDto, member);
+        return "redirect:/mypage/edit";
+    }
+
     @GetMapping("/myGuider")
     public String myGuiders() {
         return "mypage/myGuider";
-    }
-
-    @GetMapping("myGuiders")
-    @ResponseBody
-    public ResponseEntity<List<Guider>> myGuiderList(@AuthUser Member member) {
-        List<Guider> followList = new ArrayList<>();
-        if (member != null) {
-            followList = ((Follower) member).getFollowList();
-        }
-        return ResponseEntity.ok(followList);
-    }
-
-    @GetMapping("/likeEssay/{id}")
-    @ResponseBody
-    public ResponseEntity<?> getEssay(@PathVariable("id") Long id) {
-        String content = essayService.getEssay(id).getContent();
-        return ResponseEntity.ok(content);
-    }
-
-    @GetMapping("/guider/{email}")
-    @ResponseBody
-    public ResponseEntity<Guider> guider(@PathVariable String email) {
-        return ResponseEntity.ok((Guider) memberService.findByEmail(email));
     }
 
     @GetMapping("/questions")
@@ -73,17 +61,9 @@ public class MyPageController {
         return "mypage/questions";
     }
 
-    @GetMapping("/edit")
-    public String edit(Model model, @AuthUser Member member) {
-        MemberDto.Update dto = memberService.getInfo(member);
-        model.addAttribute("member", dto);
-        return "mypage/edit";
-    }
-
-    @PostMapping("/edit")
-    public String edit(MemberDto.Update memberDto, @AuthUser Member member) {
-        memberService.modifyMember(memberDto, member);
-        return "redirect:/mypage/edit";
+    @GetMapping("/guiders")
+    public String guiders() {
+        return "guiders/guiders";
     }
 
 }
