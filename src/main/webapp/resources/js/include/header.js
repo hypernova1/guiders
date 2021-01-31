@@ -73,8 +73,10 @@ document.querySelector('#login-fail-modal-content>button').addEventListener('cli
 });
 
 function signin() {
-	const email = document.querySelector('#email').value;
-	const password = document.getElementsByName('password')[0].value;
+
+	const email = document.getElementById('email').value;
+	const password = document.getElementById('password').value;
+
 	fetch('/api/login',{
 		method: 'POST',
 		headers: {

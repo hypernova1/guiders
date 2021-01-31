@@ -125,22 +125,21 @@ a {
   margin: 20px 0 40px 0;
 }
 
-#id,
-#password {
+#email-wrap, #password-wrap {
   font-weight: bold;
   margin: 20px;
 }
 
-#id>label,
-#password>label {
+#email-wrap>label,
+#password-wrap>label {
   display: block;
   margin-left: 70px;
   text-align: left;
   font-size: 1.2rem;
 }
 
-#id>input,
-#password>input {
+#email-wrap>input,
+#password-wrap>input {
   margin-top: 10px;
   width: 250px;
   height: 40px;

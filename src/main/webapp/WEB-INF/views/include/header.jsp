@@ -98,12 +98,11 @@
 		<div id="login-modal-content">
 			<h1 id="modal-title">Login</h1>
 			<form id="form" action="./j_spring_security_check" method="post">
-				<div id="id">
+				<div id="email-wrap">
 					<label>아이디</label> <input type="text" name="email" id="email">
 				</div>
-				<div id="password">
-					<label>비밀번호</label> <input type="password" name="password"
-						id="password">
+				<div id="password-wrap">
+					<label>비밀번호</label> <input type="password" name="password" id="password">
 				</div>
 				<div>
 						<button type="button" onclick="signin()">로그인</button>

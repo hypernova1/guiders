@@ -7,7 +7,9 @@ import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +26,7 @@ public class AuthService {
 
     private final MemberRepository memberRepository;
     private final RoleRepository roleRepository;
+    private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
@@ -54,17 +57,16 @@ public class AuthService {
     public void login(LoginDto loginDto) {
         Member member = memberRepository.findByEmail(loginDto.getEmail())
                 .orElseThrow(MemberNotFoundException::new);
-
-        boolean isEqual = member.getPassword().equals(passwordEncoder.encode(loginDto.getPassword()));
-        if (!isEqual) throw new MemberNotFoundException();
-
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                new MemberAccount(member),
-                loginDto.getPassword(),
-                member.getRoles().stream()
-                        .map(role -> new SimpleGrantedAuthority((role.getName().name()))
-                        ).collect(Collectors.toList())
+        if (!passwordEncoder.matches(loginDto.getPassword(), member.getPassword())) {
+            throw new MemberNotFoundException();
+        }
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginDto.getEmail(),
+                        loginDto.getPassword()
+                )
         );
-        SecurityContextHolder.getContext().setAuthentication(token);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
     }
 }
