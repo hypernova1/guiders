@@ -5,10 +5,10 @@ import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.web.auth.role.Role;
 import org.brokers.guiders.web.auth.role.RoleName;
 import org.brokers.guiders.web.auth.role.RoleRepository;
-import org.brokers.guiders.web.member.follower.Follower;
-import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberRepository;
+import org.brokers.guiders.web.member.follower.Follower;
+import org.brokers.guiders.web.member.guider.Guider;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,16 +37,15 @@ public class AuthService {
         if (joinDto.getType().equals("guider")) {
             role = roleRepository.findByName(RoleName.ROLE_GUIDER)
                     .orElseGet(() -> Role.builder().name(RoleName.ROLE_GUIDER).build());
-            roleRepository.save(role);
             member = modelMapper.map(joinDto, Guider.class);
         } else {
             member = modelMapper.map(joinDto, Follower.class);
             role = roleRepository.findByName(RoleName.ROLE_MEMBER)
                     .orElseGet(() -> Role.builder().name(RoleName.ROLE_MEMBER).build());
-            roleRepository.save(role);
         }
+        roleRepository.save(role);
         member.addRole(role);
-        Member savedMember = memberRepository.saveAndFlush(member);
+        Member savedMember = memberRepository.save(member);
         return savedMember.getId();
     }
 
@@ -56,8 +55,7 @@ public class AuthService {
     }
 
     public void login(AuthDto.LoginRequest loginDto) {
-        Member member = memberRepository.findByEmail(loginDto.getEmail())
-                .orElseThrow(MemberNotFoundException::new);
+        Member member = getMember(loginDto.getEmail());
         if (!passwordEncoder.matches(loginDto.getPassword(), member.getPassword())) {
             throw new MemberNotFoundException();
         }
@@ -68,6 +66,5 @@ public class AuthService {
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
     }
 }

@@ -9,14 +9,14 @@
         const start = setInterval(() => {
           warnMsg.style.opacity = 0.01 * i
           i += 4;
-          if (i == 500) {
+          if (i === 500) {
             let j = 100;
             clearInterval(start);
             
             const end = setInterval(() => {
               warnMsg.style.opacity = 0.01 * j
               j -= 2;
-              if (j == -2) {
+              if (j === -2) {
                 clearInterval(end);
                 document.body.removeChild(warnMsg);
               }
@@ -42,7 +42,7 @@
         department: null,
         type: null,
     };
-    
+
     const confirm = {
         email: false,
         password: false,
@@ -234,6 +234,16 @@
     });
     
     document.querySelector('#join-btn2').addEventListener('click', () => {
+
+        if (joinType === 'follower') {
+            confirm.currentJob = true;
+            confirm.department = true;
+            confirm.field = true;
+            confirm.lang = true;
+            confirm.introduction = true;
+            confirm.quote = true;
+        }
+
         for (let key in confirm) {
             if (!confirm[key]) {
                 alert('입력 안했음..');

@@ -110,5 +110,8 @@
       </div>
     </div>
   </section>
+<script>
+    const joinType = "${param.type}";
+</script>
   
 <%@ include file="../include/footer.jsp" %>

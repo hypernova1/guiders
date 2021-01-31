@@ -18,12 +18,6 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<?> getMemberInfo(@PathVariable Long id) {
-        MemberDto.InfoResponse memberDto = memberService.findById(id);
-        return ResponseEntity.ok(memberDto);
-    }
-
     @PostMapping("/follow")
     public ResponseEntity<Boolean> follow(@RequestBody String guider, @AuthUser Member member) {
         boolean result = false;

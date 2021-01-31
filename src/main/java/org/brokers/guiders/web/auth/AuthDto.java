@@ -4,11 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * Created by melchor
- * Date: 2021/01/31
- * Time: 11:38 PM
- */
 public class AuthDto {
 
     @Getter @Setter
