@@ -2,6 +2,7 @@ package org.brokers.guiders.web.essay;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.EssayNotFoundException;
+import org.brokers.guiders.exception.EssayOwnershipException;
 import org.brokers.guiders.util.PageCriteria;
 import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.Member;
@@ -36,13 +37,17 @@ public class EssayService {
         Essay essay = essayRepository.findById(id).orElseThrow(() -> new EssayNotFoundException(id));
         EssayDto.DetailResponse essayDto = modelMapper.map(essay, EssayDto.DetailResponse.class);
         essayDto.setWriter(essay.getWriter().getName());
+        essayDto.setEmail(essay.getWriter().getEmail());
         return essayDto;
     }
 
     @Transactional
-    public void modifyEssay(Long id, EssayDto.Request request) {
+    public void modifyEssay(Long id, EssayDto.Request request, Member member) {
         Essay essay = essayRepository.findById(id)
                 .orElseThrow(() -> new EssayNotFoundException(id));
+        if (!essay.getWriter().equals(member)) {
+            throw new EssayOwnershipException();
+        }
         essay.update(request);
     }
 
@@ -78,15 +83,18 @@ public class EssayService {
     }
 
     @Transactional
-    public void removeEssay(Long id) {
-        essayRepository.deleteById(id);
+    public void removeEssay(Long id, Member member) {
+        Essay essay = essayRepository.findById(id)
+                .orElseThrow(() -> new EssayNotFoundException(id));
+
+        if (!essay.getWriter().equals(member)) {
+            throw new EssayOwnershipException();
+        }
+        essayRepository.delete(essay);
     }
 
     public List<Essay> getTopEssay() {
         return essayRepository.findAllTop6ByOrderByLikeCountDesc();
     }
 
-    public boolean isMyLikeEssay(Member member) {
-        return false;
-    }
 }

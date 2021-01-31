@@ -31,6 +31,7 @@ public class EssayDto {
         private String title;
         private String content;
         private String writer;
+        private String email;
         private String field;
         private String lang;
         private String writerPhotoUrl;

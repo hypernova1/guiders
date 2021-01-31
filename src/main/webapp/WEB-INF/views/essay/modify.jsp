@@ -35,9 +35,8 @@
 </script>
 
 
-<form action="/essay/modify" method="post" id="modifyEssayForm" enctype="multipart/form-data">
+<form action="/essay/modify/${essay.id}" method="post" id="modifyEssayForm" enctype="multipart/form-data">
   <h1>에세이 작성</h1>
-  <input type="hidden" name="email" value="${email}">
   <input type="hidden" name="id" value="${essay.id}">
   <div id="title">
     <input name="title" type="text" placeholder="제목" value="${essay.title}">

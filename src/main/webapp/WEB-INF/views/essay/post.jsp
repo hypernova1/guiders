@@ -18,10 +18,8 @@
 	    <c:if test="${confirmLike == false}">♡</c:if>
 	    ${essay.likeCount}
     </span>
-    <form id="essayPostForm" action="/essay/delete" method="post">
-      <input type="hidden" name="id" value="${essay.id}">
-    </form>
-    <c:if test="${pageContext.request.userPrincipal.name == essay.writer}">
+
+    <c:if test="${pageContext.request.userPrincipal.name == essay.email}">
         <button id="removeBtn" type="button">삭제</button>
         <button id="modifyBtn" type="button">수정</button>
     </c:if>
@@ -51,7 +49,7 @@
 	
 	if(modifyBtn){
 		modifyBtn.addEventListener('click', function(){
-				const id = '${param.id}';
+				const id = '${essay.id}';
 				location.href = "/essay/modify?id=" + id;
 		});
 	}
@@ -61,20 +59,20 @@
 		if(!email){
 			alert('로그인이 필요합니다.');
 			let i = 1;
-      modal.style.display = 'block';
-      const increase = setInterval(function(){
-        if (i === 51) {
-	          clearInterval(increase);
-	      } else {
-	          modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
-	          i++;
-	      }
-      }, 10);
+			modal.style.display = 'block';
+			const increase = setInterval(function(){
+			  if (i === 51) {
+			    clearInterval(increase);
+			  } else {
+			    modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
+			    i++;
+			  }
+			  }, 10);
 			return;
 		}
 		const id = '${param.id}';
 		let data = { email , id };
-		ajax('/essay/' + id, 'put', data).then(function(result){
+		ajax(`/essay/${id}/like`, 'put', data).then(function(result){
 			let count = result;
 			console.log('좋아요 갯수 : ' + count);
 			if(document.querySelector('#likeSpan').innerText.substring(0, 1) === '♡'){
@@ -90,7 +88,7 @@
 			console.log('삭제 버튼 클릭');
 			e.preventDefault();
 			if(confirm('정말 삭제하시겠습니까?')){				
-				  document.querySelector('#essayPostForm').submit();
+				  location.href = '/essay/delete/${essay.id}';
 			}
 		});
 	}

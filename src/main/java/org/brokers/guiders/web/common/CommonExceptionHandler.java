@@ -2,8 +2,10 @@ package org.brokers.guiders.web.common;
 
 import lombok.extern.slf4j.Slf4j;
 import org.brokers.guiders.exception.EssayNotFoundException;
+import org.brokers.guiders.exception.EssayOwnershipException;
 import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.exception.MentoringNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,5 +30,11 @@ public class CommonExceptionHandler {
     public ResponseEntity<?> handleMentoringNotFoundException(MentoringNotFoundException e) {
         log.error("MentoringNotFoundException: ", e);
         return ResponseEntity.notFound().build();
+    }
+
+    @ExceptionHandler(EssayOwnershipException.class)
+    public ResponseEntity<?> handleEssayOwnershipException(EssayOwnershipException e) {
+        log.error("EssayOwnershipException", e);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 }

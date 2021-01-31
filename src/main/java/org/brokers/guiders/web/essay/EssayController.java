@@ -12,9 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/essay")
@@ -70,24 +68,23 @@ public class EssayController {
     @GetMapping("/modify")
     public String modifyEssay(Long id, Model model) {
         EssayDto.DetailResponse essay = essayService.getEssay(id);
-        model.addAttribute("essayVO", essay);
+        model.addAttribute("essay", essay);
         return "/essay/modify";
     }
 
     @PostMapping("/modify/{id}")
-    public String modifyEssay(@PathVariable Long id, EssayDto.Request request) {
-        essayService.modifyEssay(id, request);
-
+    public String modifyEssay(@PathVariable Long id, EssayDto.Request request, @AuthUser Member member) {
+        essayService.modifyEssay(id, request, member);
         return "redirect:/essay/" + id;
     }
 
-    @PostMapping("/delete")
-    public String removeEssay(Long id) {
-        essayService.removeEssay(id);
+    @GetMapping("/delete/{id}")
+    public String removeEssay(@PathVariable Long id, @AuthUser Member member) {
+        essayService.removeEssay(id, member);
         return "redirect:/essay/list";
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/like")
     @ResponseBody
     public ResponseEntity<Integer> addLikeCount(@PathVariable Long id, @AuthUser Member member) {
         return ResponseEntity.ok(essayService.toggleLikeEssay(id, member)); // 갱신된 '좋아요' 갯수를 전달
