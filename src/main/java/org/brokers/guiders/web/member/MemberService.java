@@ -22,19 +22,17 @@ public class MemberService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public void modifyMember(Guider guider) {
-        if (!guider.getPassword().isEmpty()) {
-            String password = passwordEncoder.encode(guider.getPassword());
-            guider.setPassword(password);
+    public void modifyMember(MemberDto.Update memberDto, Member member) {
+        String password = memberDto.getPassword();
+        if (!password.isEmpty()) {
+            memberDto.setPassword(passwordEncoder.encode(password));
         }
-        guiderRepository.save(guider);
+        member.update(memberDto);
+        memberRepository.save(member);
     }
 
-    public Member getInfo(Member member) {
-        if (member.isGuider()) {
-            return (Guider) member;
-        }
-        return (Follower) member;
+    public MemberDto.Update getInfo(Member member) {
+        return modelMapper.map(member, MemberDto.Update.class);
     }
 
     public Member findByEmail(String email) {

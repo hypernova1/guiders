@@ -36,6 +36,7 @@ public class EssayDto {
         private String lang;
         private String writerPhotoUrl;
         private int likeCount;
+        private String createdDate;
     }
 
 }

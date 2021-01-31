@@ -3,9 +3,7 @@ package org.brokers.guiders.web.member;
 import lombok.Getter;
 import org.brokers.guiders.web.essay.Essay;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,4 +25,5 @@ public class Follower extends Member {
     public void follow(Guider guider) {
         this.followList.add(guider);
     }
+
 }

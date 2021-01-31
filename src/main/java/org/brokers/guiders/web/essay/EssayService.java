@@ -6,6 +6,7 @@ import org.brokers.guiders.exception.EssayOwnershipException;
 import org.brokers.guiders.util.PageCriteria;
 import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.member.MemberRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class EssayService {
 
     private final EssayRepository essayRepository;
+    private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
 
     @Transactional
@@ -79,6 +81,7 @@ public class EssayService {
         Essay essay = essayRepository.findById(id)
                 .orElseThrow(() -> new EssayNotFoundException(id));
         member.toggleLikeEssay(essay);
+        memberRepository.save(member);
         return essay.getLikeCount();
     }
 

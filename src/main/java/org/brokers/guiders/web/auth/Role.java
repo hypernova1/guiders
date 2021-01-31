@@ -6,14 +6,17 @@ import lombok.NoArgsConstructor;
 import org.brokers.guiders.web.common.DateAudit;
 import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor
 public class Role extends DateAudit {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "role_id")
+    protected Long id;
 
     @Enumerated(EnumType.STRING)
     @NaturalId

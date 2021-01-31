@@ -38,11 +38,13 @@ public class AuthService {
         if (joinDto.getType().equals("guider")) {
             role = roleRepository.findByName(RoleName.ROLE_GUIDER)
                     .orElseGet(() -> Role.builder().name(RoleName.ROLE_GUIDER).build());
+            roleRepository.save(role);
             member = modelMapper.map(joinDto, Guider.class);
         } else {
             member = modelMapper.map(joinDto, Follower.class);
             role = roleRepository.findByName(RoleName.ROLE_MEMBER)
                     .orElseGet(() -> Role.builder().name(RoleName.ROLE_MEMBER).build());
+            roleRepository.save(role);
         }
         member.addRole(role);
         Member savedMember = memberRepository.saveAndFlush(member);

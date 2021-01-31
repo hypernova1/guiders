@@ -3,16 +3,22 @@ package org.brokers.guiders.web.essay;
 import lombok.*;
 import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.member.Guider;
+import org.brokers.guiders.web.member.Member;
 
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 @Entity
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Essay extends DateAudit {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "essay_id")
+    protected Long id;
 
     @ManyToOne
     private Guider writer;

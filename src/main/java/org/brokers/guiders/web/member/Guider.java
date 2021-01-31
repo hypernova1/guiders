@@ -32,4 +32,14 @@ public class Guider extends Member {
 
     private String lang;
 
+    @Override
+    public void update(MemberDto.Update memberDto) {
+        super.update(memberDto);
+        this.introduction = memberDto.getIntroduction();
+        this.currentJob = memberDto.getCurrentJob();
+        this.department = memberDto.getDepartment();
+        this.quote = memberDto.getQuote();
+        this.field = memberDto.getField();
+        this.lang = memberDto.getLang();
+    }
 }

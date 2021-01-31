@@ -2,18 +2,19 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
-import org.brokers.guiders.config.security.UserCustom;
 import org.brokers.guiders.web.essay.Essay;
+import org.brokers.guiders.web.essay.EssayDto;
 import org.brokers.guiders.web.essay.EssayService;
 import org.brokers.guiders.web.mentoring.Mentoring;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/mypage")
@@ -22,13 +23,15 @@ public class MyPageController {
 
     private final EssayService essayService;
     private final MemberService memberService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/likeEssay")
     public String likeEssay(@AuthUser Member member, Model model) {
-        if (member != null) {
-            List<Essay> likeEssayList = member.getLikeEssay();
-            model.addAttribute("essayList", likeEssayList);
-        }
+        List<Essay> likeEssayList = member.getLikeEssay();
+        List<EssayDto.DetailResponse> dtoList = likeEssayList.stream()
+                .map(essay -> modelMapper.map(essay, EssayDto.DetailResponse.class))
+                .collect(Collectors.toList());
+        model.addAttribute("essayList", dtoList);
         return "mypage/likeEssay";
     }
 
@@ -72,23 +75,14 @@ public class MyPageController {
 
     @GetMapping("/edit")
     public String edit(Model model, @AuthUser Member member) {
-        if (member != null) {
-            Guider vo = (Guider) memberService.getInfo(member);
-            model.addAttribute("vo", vo);
-        }
-
+        MemberDto.Update dto = memberService.getInfo(member);
+        model.addAttribute("member", dto);
         return "mypage/edit";
     }
 
     @PostMapping("/edit")
-    public String edit(Guider vo, Authentication authentication) {
-        if (vo != null && authentication != null) {
-            UserCustom user = (UserCustom) authentication.getPrincipal();
-            vo.setPassword(vo.getPassword().trim());
-            vo.setEmail(user.getEmail());
-
-            memberService.modifyMember(vo);
-        }
+    public String edit(MemberDto.Update memberDto, @AuthUser Member member) {
+        memberService.modifyMember(memberDto, member);
         return "redirect:/mypage/edit";
     }
 

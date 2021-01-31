@@ -6,6 +6,7 @@ import org.brokers.guiders.util.PageCriteria;
 import org.brokers.guiders.util.Pagination;
 import org.brokers.guiders.web.member.Guider;
 import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.member.MemberDto;
 import org.brokers.guiders.web.member.MemberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,7 @@ public class EssayController {
     private final MemberService memberService;
 
     @GetMapping("/write")
-    public String writeEssay(Model model, @AuthUser Member member) {
-        if (member != null) {
-            Guider guider = (Guider) memberService.getInfo(member);
-            model.addAttribute("email", guider.getEmail());
-        }
+    public String writeEssay() {
         return "/essay/write";
     }
 

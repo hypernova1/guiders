@@ -9,7 +9,7 @@
     <ul>
       <li><a href="/mypage/myGuider">My Guiders</a></li>
       <li><a href="/mypage/likeEssay">Like Essay</a></li>
-      <li><a href="/mypage/edit">Edit Infomation</a></li>
+      <li><a href="/mypage/edit">Edit Information</a></li>
     </ul>
   </aside>
   <section>
@@ -17,11 +17,11 @@
     <form id="input-wrapper" method="post">
       <div>
           <label>아이디</label>
-          <input type="email" name="email" value="${vo.email}" readonly>
+          <input type="email" name="email" value="${member.email}" readonly>
       </div>
       <div>
         <label>이름</label>
-        <input type="text" name="name" placeholder="이름" value="${vo.name}">
+        <input type="text" name="name" placeholder="이름" value="${member.name}">
       </div>
       <div>
         <label>비밀번호</label>
@@ -33,38 +33,38 @@
       </div>
       <div>
           <label>전화번호</label>
-          <input type="text" name="phone" placeholder="전화번호" value="${vo.phone}">
+          <input type="text" name="phone" placeholder="전화번호" value="${member.phone}">
       </div>
       <c:choose>
       <c:when test="${pageContext.request.userPrincipal.authorities[0] eq 'ROLE_GUIDER'}">
       <div>
           <label>분야</label>
-          <input type="text" name="field" placeholder="분야" value="${vo.field}">
+          <input type="text" name="field" placeholder="분야" value="${member.field}">
       </div>
       <div>
         <label>지역</label>
-        <input type="text" name="city" placeholder="지역" value="${vo.city}">
+        <input type="text" name="city" placeholder="지역" value="${member.city}">
       </div>
       <div>
         <label>언어</label>
-        <input type="text" name="lang" placeholder="언어" value="${vo.lang}">
+        <input type="text" name="lang" placeholder="언어" value="${member.lang}">
       </div>
       <div>
         <label>최근직장</label>
-        <input type="text" name="currentJob" placeholder="언어" value="${vo.currentJob}">
+        <input type="text" name="currentJob" placeholder="언어" value="${member.currentJob}">
       </div>
       <div>
         <label>부서</label>
-        <input type="text" name="department" placeholder="부서" value="${vo.department}">
+        <input type="text" name="department" placeholder="부서" value="${member.department}">
       </div>
       <div id="quote">
         <label>인용문</label>
-        <textarea placeholder="인용문" id="quote-value">${vo.quote}</textarea>
+        <textarea placeholder="인용문" id="quote-value">${member.quote}</textarea>
         <input type="hidden" name="quote">
       </div>
       <div>
         <label>경력란</label>
-        <textarea placeholder="경력란" id="introduction-value">${vo.introduction}</textarea>
+        <textarea placeholder="경력란" id="introduction-value">${member.introduction}</textarea>
         <input type="hidden" name="introduction">
       </div>
       </c:when>
