@@ -75,9 +75,9 @@ public class EssayController {
         return ResponseEntity.ok(essayService.toggleLikeEssay(id, member)); // 갱신된 '좋아요' 갯수를 전달
     }
 
-    @GetMapping
+    @GetMapping("/top6")
     @ResponseBody
-    public ResponseEntity<List<Essay>> getEssays() {
+    public ResponseEntity<List<EssayDto.Response>> getEssays() {
         return ResponseEntity.ok(essayService.getTopEssay());
     }
 

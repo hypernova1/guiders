@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface EssayRepository extends JpaRepository<Essay, Long>, CrudRepository<Essay, Long>, EssayRepositoryCustom {
 
-    List<Essay> findAllTop6ByOrderByLikeCountDesc();
+    List<Essay> findTop6ByOrderByLikeCountDesc();
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -90,8 +91,11 @@ public class EssayService {
         essayRepository.delete(essay);
     }
 
-    public List<Essay> getTopEssay() {
-        return essayRepository.findAllTop6ByOrderByLikeCountDesc();
+    public List<EssayDto.Response> getTopEssay() {
+        List<Essay> topEssayList = essayRepository.findTop6ByOrderByLikeCountDesc();
+        return topEssayList.stream()
+                .map(essay -> modelMapper.map(essay, EssayDto.Response.class))
+                .collect(Collectors.toList());
     }
 
 }

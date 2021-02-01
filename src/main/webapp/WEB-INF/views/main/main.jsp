@@ -93,7 +93,7 @@
   <script src="/js/common/ajax.js"></script>
   <script>
   window.addEventListener('load', () => {
-     ajax('/essay', 'GET', {}).then((result) => {
+     ajax('/essay/top6', 'GET', {}).then((result) => {
          const essays = JSON.parse(result);
          
          let data = '<h2>인기 에세이</h2>';
