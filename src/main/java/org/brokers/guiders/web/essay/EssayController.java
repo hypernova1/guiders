@@ -3,6 +3,7 @@ package org.brokers.guiders.web.essay;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.member.Member;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,9 +33,8 @@ public class EssayController {
     public String goEssayListPage(Model model,
                                   @RequestParam(defaultValue = "1") Integer page,
                                   @RequestParam(defaultValue = "") String keyword) {
-        List<EssayDto.Response> list = essayService.getEssayList(page, keyword);
-
-        model.addAttribute("essayList", list);
+        Page<EssayDto.Response> essayPage = essayService.getEssayList(page, keyword);
+        model.addAttribute("essayPage", essayPage);
         return "/essay/list";
     }
 

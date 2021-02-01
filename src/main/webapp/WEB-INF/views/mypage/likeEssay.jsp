@@ -12,7 +12,7 @@
 	          <div class="field">분야</div>
 	          <div class="lang">언어</div>
 	          <div class="title">제목</div>
-	          <div class="regdate">등록일</div>
+	          <div class="regDate">등록일</div>
 	      </li>
 	      <c:forEach var="essay" items="${essayList}">
 		        <li data-id="${essay.id}">
@@ -20,7 +20,7 @@
 		          <div class="field">${essay.field}</div>
 		          <div class="lang">${essay.lang}</div>
 		          <div class="title">${essay.title}</div>
-		          <div class="regdate">${essay.createdDate}</div>
+		          <div class="regDate">${essay.createdDate}</div>
 		        </li>
 	      </c:forEach>
       </ul>

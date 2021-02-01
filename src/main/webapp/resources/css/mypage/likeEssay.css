@@ -43,7 +43,7 @@ article>ul>li>div{
   padding-left: 30px;
   cursor: pointer;
 }
-.regdate{
+.regDate{
   flex: 1.5;
 }
 article>ul>li:hover:not(#li-head){

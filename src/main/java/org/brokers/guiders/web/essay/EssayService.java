@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,11 +52,11 @@ public class EssayService {
     }
 
     @Transactional
-    public List<EssayDto.Response> getEssayList(int page, String keyword) {
+    public Page<EssayDto.Response> getEssayList(int page, String keyword) {
         PageRequest pageRequest = PageRequest.of(page, 10);
         Page<Essay> essayPage = essayRepository.searchByKeyword(keyword, pageRequest);
-        List<Essay> essayList = essayPage.getContent();
-        return essayList.stream().map(essay -> {
+
+        return essayPage.map(essay -> {
             String content = essay.getContent();
             content = content.replaceAll("<[^>]*>", "");
             content = content.replaceAll("&nbsp;", " ");
@@ -68,7 +67,7 @@ public class EssayService {
             EssayDto.Response essayDto = modelMapper.map(essay, EssayDto.Response.class);
             essayDto.setWriter(essay.getWriter().getName());
             return essayDto;
-        }).collect(Collectors.toList());
+        });
     }
 
     @Transactional

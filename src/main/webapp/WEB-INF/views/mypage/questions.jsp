@@ -48,7 +48,7 @@
     .title>span:nth-child(1){
       cursor: pointer;
     }
-    .regdate{
+    .regDate{
       flex: 1.5;
       font-size: 0.8rem;
     }
@@ -116,7 +116,7 @@
           <div class="field">분야</div>
           <div class="lang">언어</div>
           <div class="title">제목</div>
-          <div class="regdate">질문날짜</div>
+          <div class="regDate">질문날짜</div>
         </li>
         <c:forEach items="${mentorings}" var="mentoring">
 	        <li data-mtrno="${mentoring.id}">
@@ -133,7 +133,7 @@
 	             </c:otherwise>
 	           </c:choose>
 	          </div>
-	          <div class="regdate">${mentoring.createdDate}</div>
+	          <div class="regDate">${mentoring.createdDate}</div>
 	        </li>
         </c:forEach>
       </ul>

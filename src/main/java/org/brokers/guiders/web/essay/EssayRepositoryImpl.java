@@ -21,7 +21,6 @@ public class EssayRepositoryImpl implements EssayRepositoryCustom {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
-
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
 }
