@@ -3,10 +3,9 @@ package org.brokers.guiders.web.essay;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.EssayNotFoundException;
 import org.brokers.guiders.exception.EssayOwnershipException;
-import org.brokers.guiders.util.PageCriteria;
-import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberRepository;
+import org.brokers.guiders.web.member.guider.Guider;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -54,9 +53,9 @@ public class EssayService {
     }
 
     @Transactional
-    public List<EssayDto.Response> getEssayList(PageCriteria cri) {
-        PageRequest pageRequest = PageRequest.of(cri.getPageStart(), cri.getPerPageNum());
-        Page<Essay> essayPage = essayRepository.findAll(pageRequest);
+    public List<EssayDto.Response> getEssayList(int page, String keyword) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        Page<Essay> essayPage = essayRepository.searchByKeyword(keyword, pageRequest);
         List<Essay> essayList = essayPage.getContent();
         return essayList.stream().map(essay -> {
             String content = essay.getContent();
@@ -70,10 +69,6 @@ public class EssayService {
             essayDto.setWriter(essay.getWriter().getName());
             return essayDto;
         }).collect(Collectors.toList());
-    }
-
-    public long getEssayCount(PageCriteria cri) {
-        return essayRepository.count();
     }
 
     @Transactional

@@ -2,10 +2,7 @@ package org.brokers.guiders.web.essay;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
-import org.brokers.guiders.util.PageCriteria;
-import org.brokers.guiders.util.Pagination;
 import org.brokers.guiders.web.member.Member;
-import org.brokers.guiders.web.member.MemberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +16,6 @@ import java.util.List;
 public class EssayController {
 
     private final EssayService essayService;
-    private final MemberService memberService;
 
     @GetMapping("/write")
     public String writeEssay() {
@@ -33,18 +29,12 @@ public class EssayController {
     }
 
     @GetMapping("/list")
-    public String goEssayListPage(Model model, @RequestParam(defaultValue = "1") Integer page, PageCriteria cri) {
-        if (page != null) {
-            cri.setPage(page);
-        }
-        Pagination pm = new Pagination();
-        pm.setCri(cri);
-        pm.setTotal(essayService.getEssayCount(cri));
-
-        List<EssayDto.Response> list = essayService.getEssayList(cri);
+    public String goEssayListPage(Model model,
+                                  @RequestParam(defaultValue = "1") Integer page,
+                                  @RequestParam(defaultValue = "") String keyword) {
+        List<EssayDto.Response> list = essayService.getEssayList(page, keyword);
 
         model.addAttribute("essayList", list);
-        model.addAttribute("pm", pm);
         return "/essay/list";
     }
 

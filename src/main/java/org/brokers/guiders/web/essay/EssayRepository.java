@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface EssayRepository extends JpaRepository<Essay, Long>, CrudRepository<Essay, Long> {
+public interface EssayRepository extends JpaRepository<Essay, Long>, CrudRepository<Essay, Long>, EssayRepositoryCustom {
 
     List<Essay> findAllTop6ByOrderByLikeCountDesc();
 

@@ -1,6 +1,7 @@
 package org.brokers.guiders.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -24,7 +25,7 @@ import java.util.Properties;
 public class HibernateConfig {
 
     @Bean
-    public EntityManagerFactoryInfo entityManagerFactory() {
+    public FactoryBean<EntityManagerFactory> entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
