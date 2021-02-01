@@ -20,6 +20,7 @@ public class EssayRepositoryImpl implements EssayRepositoryCustom {
                 .where(qEssay.title.contains(keyword).or(qEssay.content.contains(keyword)))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .orderBy(qEssay.createdDate.desc())
                 .fetchResults();
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }

@@ -118,7 +118,7 @@
           <div class="title">제목</div>
           <div class="regDate">질문날짜</div>
         </li>
-        <c:forEach items="${mentorings}" var="mentoring">
+        <c:forEach items="${mentoringList}" var="mentoring">
 	        <li data-mtrno="${mentoring.id}">
 	          <div class="writer">${mentoring.name}</div>
 	          <div class="field">${mentoring.field}</div>

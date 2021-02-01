@@ -33,7 +33,7 @@ public class EssayController {
     public String goEssayListPage(Model model,
                                   @RequestParam(defaultValue = "1") Integer page,
                                   @RequestParam(defaultValue = "") String keyword) {
-        Page<EssayDto.Response> essayPage = essayService.getEssayList(page, keyword);
+        Page<EssayDto.Response> essayPage = essayService.getEssayList(page - 1, keyword);
         model.addAttribute("essayPage", essayPage);
         return "/essay/list";
     }
