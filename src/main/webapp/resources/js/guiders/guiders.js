@@ -16,77 +16,76 @@ window.addEventListener("click", () => {
 
 document.querySelector('.guider-wrapper').addEventListener('click', ({target}) => {
     switch(target.className){
-    case "profile-img":
-        const guiderEmail = target.parentElement.querySelector('span').innerText;
-        ajax(`/mypage/guider?email=${guiderEmail}`, 'GET', {}).then((result) => {
-            const guider = JSON.parse(result);
-            document.querySelector('.modal-content-title>img').src = guider.photoUrl;
-            document.querySelector('div>strong').innerText = guider.name;
-            document.querySelector('.modal-content-title>div:nth-child(4)>span:nth-child(2)').innerText 
-                = guider.currentJob;
-            document.querySelector('.modal-content-title>div:nth-child(5)>span:nth-child(2)').innerText
-                = guider.department;
-            document.querySelector('.modal-content-title>div:nth-child(6)>span:nth-child(2)').innerText
-            = guider.field;
-            document.querySelector('.modal-content-body>div').innerHTML = guider.introduction;
-            document.querySelector('#quote').innerHTML = guider.quote;
-            guiderModal.style.display = "block";
-        });
-        break;
-    case "btn follow":
-        ajax('/follow', 'POST', {guider: target.parentElement.children[0].children[1].innerText}).then((result) => {
-            const _result = JSON.parse(result);
-           if(_result){
-               target.innerText = 'UnFollow';
-               target.classList.remove('follow');
-               target.classList.add('unfollow');
-           } else {
-               let i = 1;
-               const modal = document.querySelector('#login-modal');
-               modal.style.display = 'block';
-               const increase = setInterval(function(){
-                 if (i === 51) {
-                   clearInterval(increase);
-                 } else {
-                   modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
-                   i++;
-                 }
-               }, 10);
-           }
-        });
-        break;
-    case "btn unfollow":
-        ajax('/follow', 'DELETE', {guider: target.parentElement.children[0].children[1].innerText}).then((result) => {
-            if(result){
-               target.innerText = 'Follow';
-               target.classList.remove('unfollow');
-               target.classList.add('follow');
-            }
-        });
-        break;
-    
-    }
+        case "profile-img":
+            const id = target.parentElement.id;
+            fetch(`/guider/${id}`)
+                .then((res) => res.json())
+                .then((guider) => {
+                    document.querySelector('.modal-content-title>img').src = guider.photoUrl;
+                    document.querySelector('div>strong').innerText = guider.name;
+                    document.querySelector('.modal-content-title>div:nth-child(4)>span:nth-child(2)').innerText
+                        = guider.currentJob;
+                    document.querySelector('.modal-content-title>div:nth-child(5)>span:nth-child(2)').innerText
+                        = guider.department;
+                    document.querySelector('.modal-content-title>div:nth-child(6)>span:nth-child(2)').innerText
+                        = guider.field;
+                    document.querySelector('.modal-content-body>div').innerHTML = guider.introduction;
+                    document.querySelector('#quote').innerHTML = guider.quote;
+                    guiderModal.style.display = "block";
+                })
+            break;
+        case "btn follow":
+            ajax('/follow', 'POST', {guider: target.parentElement.children[0].children[1].innerText}).then((result) => {
+                const _result = JSON.parse(result);
+               if(_result){
+                   target.innerText = 'UnFollow';
+                   target.classList.remove('follow');
+                   target.classList.add('unfollow');
+               } else {
+                   let i = 1;
+                   const modal = document.querySelector('#login-modal');
+                   modal.style.display = 'block';
+                   const increase = setInterval(function(){
+                     if (i === 51) {
+                       clearInterval(increase);
+                     } else {
+                       modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
+                       i++;
+                     }
+                   }, 10);
+               }
+            });
+            break;
+        case "btn unfollow":
+            ajax('/follow', 'DELETE', {guider: target.parentElement.children[0].children[1].innerText}).then((result) => {
+                if(result){
+                   target.innerText = 'Follow';
+                   target.classList.remove('unfollow');
+                   target.classList.add('follow');
+                }
+            });
+            break;
+        }
 });
 
 let page = 1;
 
-const getData = (result) => {
-        const guiders = JSON.parse(result);
+function drawGuiderList(guiderList) {
         let data = ''
-        guiders.forEach(guider => {
+        guiderList.forEach(guider => {
           data += `
               <div class="wrapper">
-              <div class="container">
-                <img src="` + guider.photoUrl + `" alt="" class="profile-img">
+              <div class="container" id="${guider.id}">
+                <img src="${guider.photoUrl}" alt="" class="profile-img">
                 <div class="content">
                   <div class="sub-content">
-                    <h1>` + guider.name + `</h1>
-                    <span>` + guider.email + `</span>
-                    <p>` + guider.department + `</p>
+                    <h1>${guider.name}</h1>
+                    <span>${guider.email}</span>
+                    <p>${guider.department}</p>
                     <span class="location">
-                      <i class="fa fa-map-marker" aria-hidden="true"></i>` + guider.currentJob + `</span>
+                      <i class="fa fa-map-marker" aria-hidden="true"></i>${guider.currentJob}</span>
                   </div>`
-                  if(guider.id){
+                  if (guider.id) {
                       data += `<div class="btn unfollow">UnFollow</div>`
                   } else {
                       data += `<div class="btn follow">Follow</div>`
@@ -101,10 +100,7 @@ const getData = (result) => {
 window.addEventListener('load', () => {
     fetch(`/guider?page=${page}`)
         .then((res) => res.json())
-        .then((data) => {
-            debugger;
-            getData(data);
-        })
+        .then((data) => drawGuiderList(data))
 });
 
 window.addEventListener('scroll', () => {
@@ -117,7 +113,7 @@ window.addEventListener('scroll', () => {
       page += 16;
       ajax('/guider?page=' + page, 'GET', {}).then((result) => {
         if(!JSON.parse(result).length) return;
-        getData(result);
+        drawGuiderList(result);
       });
     }
 });

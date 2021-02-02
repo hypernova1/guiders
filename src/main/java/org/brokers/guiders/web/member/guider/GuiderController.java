@@ -17,22 +17,16 @@ public class GuiderController {
     private final MemberService memberService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Member> getGuiderInfo(String email) {
-        Guider guider = (Guider) memberService.findByEmail(email);
+    public ResponseEntity<GuiderDto> getGuiderInfo(@PathVariable Long id) {
+        GuiderDto guider = memberService.getGuider(id);
         return ResponseEntity.ok(guider);
     }
 
     @GetMapping
     public ResponseEntity<List<GuiderDto>> getGuiderList(
             @RequestParam(defaultValue = "1") Integer page, @AuthUser Member member) {
-        List<GuiderDto> guiderList = memberService.getGuiderList(page, null);
+        List<GuiderDto> guiderList = memberService.getGuiderList(page, member);
         return ResponseEntity.ok(guiderList);
-    }
-
-    @GetMapping("/guider/{email}")
-    @ResponseBody
-    public ResponseEntity<Guider> guider(@PathVariable String email) {
-        return ResponseEntity.ok((Guider) memberService.findByEmail(email));
     }
 
 }

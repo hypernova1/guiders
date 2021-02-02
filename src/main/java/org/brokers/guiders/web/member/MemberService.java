@@ -48,7 +48,6 @@ public class MemberService {
     public List<GuiderDto> getGuiderList(Integer page, Member email) {
         PageRequest pageRequest = PageRequest.of(page - 1, 16);
         Page<Guider> guiderPage = guiderRepository.findAll(pageRequest);
-
         return guiderPage.getContent()
                 .stream().map(guider -> modelMapper.map(guider, GuiderDto.class))
                 .collect(Collectors.toList());
@@ -77,5 +76,11 @@ public class MemberService {
                 .orElseThrow(MemberNotFoundException::new);
 
         return modelMapper.map(member, MemberDto.InfoResponse.class);
+    }
+
+    public GuiderDto getGuider(Long id) {
+        Guider guider = guiderRepository.findById(id)
+                .orElseThrow(MemberNotFoundException::new);
+        return modelMapper.map(guider, GuiderDto.class);
     }
 }
