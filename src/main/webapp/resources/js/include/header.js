@@ -1,4 +1,5 @@
 const mypageList = document.querySelector('#mypage-list');
+const modal = document.querySelector('#login-modal');
 
 document.querySelector('#mypage').addEventListener('click', function () {
   mypageList.classList.toggle('active');
@@ -6,19 +7,6 @@ document.querySelector('#mypage').addEventListener('click', function () {
   mypageList.style.borderColor = mypageList.classList.contains('active') ? '#f5f6fa' : '';
 });
 
-document.querySelector('#logo').addEventListener('click', function(){
-    location.href = '/';
-});
-
-document.querySelector('#essay').addEventListener('click', function(){
-    location.href = '/essay/list';
-});
-
-document.querySelector('#guiders').addEventListener('click', function(){
-    location.href = '/mentoring/guiders';
-});
-
-const modal = document.querySelector('#login-modal');
 if(document.querySelector('#login')){
 	document.querySelector('#login').addEventListener('click', function(){
 		  mypageList.classList.toggle('active');
@@ -28,7 +16,7 @@ if(document.querySelector('#login')){
 		  let i = 1;
 		  modal.style.display = 'block';
 		  const increase = setInterval(function(){
-		    if (i == 51) {
+		    if (i === 51) {
 		      clearInterval(increase);
 		    } else {
 		      modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
@@ -40,16 +28,16 @@ if(document.querySelector('#login')){
 
 window.addEventListener('click', function(e) {
   const modalBody = document.querySelector('#login-modal-content');
-  if(e.target.id == 'login-modal') {
+  if(e.target.id === 'login-modal') {
     let i = 50;
     const decrease = setInterval(function(){
-      if(i == -1) {
+      if(i === -1) {
         modal.style.display = 'none';
         modalBody.style.opacity = 1;
         clearInterval(decrease);
       } else {
         modal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
-        modalBody.style.opacity = 0.02 * i;
+        modalBody.style.opacity = String(0.02 * i);
         i--;
       }
     }, 10);
@@ -73,7 +61,6 @@ document.querySelector('#login-fail-modal-content>button').addEventListener('cli
 });
 
 function signin() {
-
 	const email = document.getElementById('email').value;
 	const password = document.getElementById('password').value;
 
@@ -121,5 +108,4 @@ if (naverLogoutTag != null) {
 
 document.querySelector('#naver-login').addEventListener('click', function(){
 	location.href = '${url}';
-	
 });

@@ -17,7 +17,6 @@ import java.util.List;
 public class MentoringController {
 
     private final MentoringService mentoringService;
-    private final MemberService memberService;
 
     @PostMapping("/answer")
     public String answer(Mentoring mentoring) {
@@ -40,11 +39,6 @@ public class MentoringController {
             model.addAttribute("mentoringList", mentoringList);
         }
         return "mypage/mentoringList";
-    }
-
-    @GetMapping("/guiders")
-    public String guiders() {
-        return "guiders/guiders";
     }
 
     @PostMapping

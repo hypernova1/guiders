@@ -35,13 +35,17 @@
 		</form>
 			<nav>
 				<div class="menu-content">
-					<span id="guiders">Guiders</span>
+					<span id="guiders">
+						<a href="/guider/list">Guiders</a>
+					</span>
 				</div>
 				<!-- <div class="menu-content">
 					<span>Meeting</span>
 				</div> -->
 				<div class="menu-content">
-					<span id="essay">Essay</span>
+					<span id="essay">
+						<a href="/essay/list">Essay</a>
+					</span>
 				</div>
 				<div class="menu-content">
 					<img src="/img/iconmonstr-user-circle-thin.svg" id="mypage">
@@ -90,7 +94,7 @@
             </div>
         </c:if>
 			</nav>
-			<img src="/img/logo.png" id="logo">
+			<a href="/"><img src="/img/logo.png" id="logo"></a>
 		</div>
 	</header>
 

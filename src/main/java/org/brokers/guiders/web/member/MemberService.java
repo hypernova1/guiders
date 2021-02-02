@@ -45,7 +45,7 @@ public class MemberService {
                 .orElseThrow(MemberNotFoundException::new);
     }
 
-    public List<GuiderDto> getGuiderList(Integer page, Member email) {
+    public List<GuiderDto> getGuiderList(int page, Member email) {
         PageRequest pageRequest = PageRequest.of(page - 1, 16);
         Page<Guider> guiderPage = guiderRepository.findAll(pageRequest);
         return guiderPage.getContent()
