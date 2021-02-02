@@ -23,14 +23,9 @@ public class GuiderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Guider>> getGuiderList(
+    public ResponseEntity<List<GuiderDto>> getGuiderList(
             @RequestParam(defaultValue = "1") Integer page, @AuthUser Member member) {
-        List<Guider> guiderList;
-        if (member != null) {
-            guiderList = memberService.getGuiderList(page, member);
-        } else {
-            guiderList = memberService.getGuiderList(page, null);
-        }
+        List<GuiderDto> guiderList = memberService.getGuiderList(page, null);
         return ResponseEntity.ok(guiderList);
     }
 

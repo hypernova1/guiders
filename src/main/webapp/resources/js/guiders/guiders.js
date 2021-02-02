@@ -99,9 +99,12 @@ const getData = (result) => {
 }
 
 window.addEventListener('load', () => {
-    ajax('/guider?page=' + page, 'GET', {}).then((result) => {
-      getData(result);
-    });
+    fetch(`/guider?page=${page}`)
+        .then((res) => res.json())
+        .then((data) => {
+            debugger;
+            getData(data);
+        })
 });
 
 window.addEventListener('scroll', () => {

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
+import org.brokers.guiders.web.member.guider.GuiderDto;
 import org.brokers.guiders.web.member.guider.GuiderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,12 +45,13 @@ public class MemberService {
                 .orElseThrow(MemberNotFoundException::new);
     }
 
-    public List<Guider> getGuiderList(Integer page, Member email) {
-        if (page == null) page = 0;
-        PageRequest pageRequest = PageRequest.of(page, 16);
+    public List<GuiderDto> getGuiderList(Integer page, Member email) {
+        PageRequest pageRequest = PageRequest.of(page - 1, 16);
         Page<Guider> guiderPage = guiderRepository.findAll(pageRequest);
 
-        return guiderPage.getContent();
+        return guiderPage.getContent()
+                .stream().map(guider -> modelMapper.map(guider, GuiderDto.class))
+                .collect(Collectors.toList());
     }
 
     @Transactional
