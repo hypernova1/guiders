@@ -54,20 +54,18 @@ public class MemberService {
     }
 
     @Transactional
-    public void followGuider(String guiderEmail, Member member) {
-        Guider guider = guiderRepository.findByEmail(guiderEmail)
+    public void followGuider(Long guiderId, Member member) {
+        Guider guider = guiderRepository.findById(guiderId)
                 .orElseThrow(MemberNotFoundException::new);
         Follower follower = (Follower) member;
-
         follower.follow(guider);
     }
 
     @Transactional
-    public void unfollowGuider(String guiderEmail, Member member) {
-        Guider guider = guiderRepository.findByEmail(guiderEmail)
+    public void unfollowGuider(Long guiderId, Member member) {
+        Guider guider = guiderRepository.findById(guiderId)
                 .orElseThrow(MemberNotFoundException::new);
         Follower follower = (Follower) member;
-
         follower.unfollow(guider);
     }
 

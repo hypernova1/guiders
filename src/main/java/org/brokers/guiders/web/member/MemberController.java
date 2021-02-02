@@ -18,24 +18,20 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/follow")
-    public ResponseEntity<Boolean> follow(@RequestBody String guider, @AuthUser Member member) {
-        boolean result = false;
-        JSONObject obj = new JSONObject(guider);
+    @PostMapping("/follow/${id}")
+    public ResponseEntity<Boolean> follow(@PathVariable Long id, @AuthUser Member member) {
         if (member != null) {
-            memberService.followGuider(obj.getString("guider"), member);
-            result = true;
+            memberService.followGuider(id, member);
         }
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/follow")
-    public ResponseEntity<Boolean> unfollow(@RequestBody String guider, @AuthUser Member member) {
-        JSONObject obj = new JSONObject(guider);
+    @DeleteMapping("/follow/{id}")
+    public ResponseEntity<Boolean> unfollow(@PathVariable Long id, @AuthUser Member member) {
         if (member != null) {
-            memberService.unfollowGuider(obj.getString("guider"), member);
+            memberService.unfollowGuider(id, member);
         }
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/following")

@@ -16,5 +16,6 @@ public class GuiderDto {
     private String quote;
     private String lang;
     private String field;
+    private boolean isFollow;
 
 }
