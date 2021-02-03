@@ -36,7 +36,7 @@
 			<nav>
 				<div class="menu-content">
 					<span id="guiders">
-						<a href="/guider/list">Guiders</a>
+						<a href="/guiders">Guiders</a>
 					</span>
 				</div>
 				<!-- <div class="menu-content">

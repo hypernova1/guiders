@@ -25,7 +25,7 @@ public class MentoringController {
     }
 
     @GetMapping("/{id}")
-    public String qna(@PathVariable Long id, Model model) {
+    public String questionAndAnswer(@PathVariable Long id, Model model) {
         Mentoring mentoring = mentoringService.getMentoring(id);
         model.addAttribute("mentoring", mentoring);
         model.addAttribute("guider", mentoring.getGuider());

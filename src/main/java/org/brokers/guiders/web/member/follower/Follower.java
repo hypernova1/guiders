@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.mentoring.Mentoring;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,6 +26,9 @@ public class Follower extends Member {
 
     @OneToMany
     private final List<Essay> likeEssay = new ArrayList<>();
+
+    @OneToMany
+    private final List<Mentoring> mentoringList = new ArrayList<>();
 
     public void unfollow(Guider guider) {
         this.followList.remove(guider);

@@ -15,7 +15,7 @@ window.addEventListener('load', () => {
           document.querySelector('.title').innerHTML +=
           `<ul class="follower-content">
             <li>
-              <img class="profile-img" src="` + guider.photo + `">
+              <img class="profile-img" src="` + guider.photoUrl + `">
               <div class="guider-name">` + guider.name + ` 가이더</div>
             </li>
             <li>
@@ -34,7 +34,7 @@ window.addEventListener('load', () => {
               <button class="unfollow-btn">UNFOLLOW</button>
               <div class="more-qna">전체 질문 보기</div>
             </li>
-            <input type="hidden" class="guider-email" value="` + guider.email + `">
+            <input type="hidden" class="guider-id" value="` + guider.id + `">
           </ul>`
         });
     });
@@ -69,13 +69,13 @@ document.querySelector('.title').addEventListener("click", ({target}) => {
         const hiddenList = target.parentElement.parentElement.querySelectorAll('input[type="hidden"]');
         document.querySelector('#field').innerText = hiddenList[0].value;
         document.querySelector('#lang').innerText = hiddenList[1].value;
-        document.querySelector('#guider-email').value = hiddenList[2].value;
+        document.querySelector('#guider-id').value = hiddenList[2].value;
         document.querySelector('#mtr-modal-body>h2>span').innerText = 
             target.parentElement.parentElement.firstElementChild.children[1].innerText
         mtrModal.style.display = 'block';
         let i = 1;
         const increase = setInterval(function () {
-          if (i == 51) {
+          if (i === 51) {
             clearInterval(increase);
           } else {
             mtrModal.style.backgroundColor = 'rgba(0, 0, 0,' + 0.01 * i + ')';
@@ -98,7 +98,7 @@ document.querySelector('#mtr-submit').addEventListener('click', function({target
     let content = document.querySelector('textarea[name="content"]').value;
     content = content.replace(/(?:\r\n|\r|\n)/g, '<br />');
     const mentoring = {
-            guider: document.querySelector('#guider-email').value,
+            guider: document.querySelector('#guider-id').value,
             field: document.querySelector('#field').innerText,
             lang: document.querySelector('#lang').innerText,
             title: document.querySelector('input[name="title"]').value,

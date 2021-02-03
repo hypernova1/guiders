@@ -14,28 +14,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/guider")
 @RequiredArgsConstructor
 public class GuiderController {
 
     private final MemberService memberService;
 
-    @GetMapping("/list")
+    @GetMapping("/guiders")
     public String guiders() {
         return "guiders/guiders";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<GuiderDto> getGuiderInfo(@PathVariable Long id) {
-        GuiderDto guider = memberService.getGuider(id);
-        return ResponseEntity.ok(guider);
-    }
-
-    @GetMapping
+    @GetMapping("/guider")
     public ResponseEntity<List<GuiderDto>> getGuiderList(
             @RequestParam(defaultValue = "1") Integer page, @AuthUser Member member) {
         List<GuiderDto> guiderList = memberService.getGuiderList(page, member);
         return ResponseEntity.ok(guiderList);
     }
+
+    @GetMapping("/guider/{id}")
+    public ResponseEntity<GuiderDto> getGuiderInfo(@PathVariable Long id) {
+        GuiderDto guider = memberService.getGuider(id);
+        return ResponseEntity.ok(guider);
+    }
+
 
 }
