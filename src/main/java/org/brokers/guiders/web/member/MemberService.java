@@ -61,6 +61,7 @@ public class MemberService {
                 .orElseThrow(MemberNotFoundException::new);
         Follower follower = (Follower) member;
         follower.follow(guider);
+        memberRepository.save(member);
     }
 
     @Transactional

@@ -15,16 +15,14 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/follow/${id}")
-    public ResponseEntity<Boolean> follow(@PathVariable Long id, @AuthUser Member member) {
-        if (member != null) {
-            memberService.followGuider(id, member);
-        }
+    @PostMapping("/follow/{id}")
+    public ResponseEntity<?> follow(@PathVariable Long id, @AuthUser Member member) {
+        memberService.followGuider(id, member);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/follow/{id}")
-    public ResponseEntity<Boolean> unfollow(@PathVariable Long id, @AuthUser Member member) {
+    public ResponseEntity<?> unfollow(@PathVariable Long id, @AuthUser Member member) {
         if (member != null) {
             memberService.unfollowGuider(id, member);
         }
