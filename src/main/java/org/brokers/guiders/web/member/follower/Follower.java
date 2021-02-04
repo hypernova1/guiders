@@ -2,8 +2,8 @@ package org.brokers.guiders.web.member.follower;
 
 import lombok.Getter;
 import org.brokers.guiders.web.essay.Essay;
-import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.mentoring.Mentoring;
 
 import javax.persistence.*;
@@ -17,17 +17,12 @@ import java.util.List;
 public class Follower extends Member {
 
     @OneToMany
-    @JoinTable(
-            name = "follow",
-            joinColumns = @JoinColumn(name = "follower_id"),
-            inverseJoinColumns = @JoinColumn(name = "guider_id")
-    )
     private final List<Guider> followList = new ArrayList<>();
 
     @OneToMany
     private final List<Essay> likeEssay = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "id")
     private final List<Mentoring> mentoringList = new ArrayList<>();
 
     public void unfollow(Guider guider) {

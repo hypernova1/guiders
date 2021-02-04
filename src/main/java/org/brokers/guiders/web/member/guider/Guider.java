@@ -16,12 +16,7 @@ import java.util.List;
 @DiscriminatorValue("guider")
 public class Guider extends Member {
 
-    @OneToMany
-    @JoinTable(
-            name = "guider_mentoring",
-            joinColumns = @JoinColumn(name = "guider_id"),
-            inverseJoinColumns = @JoinColumn(name = "mentoring_id")
-    )
+    @OneToMany(mappedBy = "id")
     private final List<Mentoring> mentoringList = new ArrayList<>();
 
     @Lob

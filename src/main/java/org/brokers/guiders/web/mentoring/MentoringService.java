@@ -3,13 +3,15 @@ package org.brokers.guiders.web.mentoring;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.exception.MentoringNotFoundException;
+import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.member.guider.GuiderRepository;
-import org.brokers.guiders.web.member.Member;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,9 +19,10 @@ public class MentoringService {
 
     private final MentoringRepository mentoringRepository;
     private final GuiderRepository guiderRepository;
+    private final ModelMapper modelMapper;
 
     public void question(MentoringDto request, Member member) {
-        Guider guider = guiderRepository.findByEmail(request.getGuiderEmail())
+        Guider guider = guiderRepository.findById(request.getGuiderId())
                 .orElseThrow(MemberNotFoundException::new);
         Mentoring mentoring = Mentoring.builder()
                 .title(request.getTitle())
@@ -46,12 +49,12 @@ public class MentoringService {
         return guider.getMentoringList();
     }
 
-    public List<Mentoring> getMentoringList(String guiderEmail, Member member) {
-        Guider guider = guiderRepository.findByEmail(guiderEmail)
-                .orElseThrow(MemberNotFoundException::new);
+    public List<MentoringDto> getMentoringList(Member member) {
         Follower follower = (Follower) member;
-
-        return mentoringRepository.findByGuiderAndFollower(guider, follower);
+        List<Mentoring> mentoringList = follower.getMentoringList();
+        return mentoringList.stream()
+                .map(mentoring -> modelMapper.map(mentoring, MentoringDto.class))
+                .collect(Collectors.toList());
     }
 
 }
