@@ -50,9 +50,22 @@ public class MemberService {
     public List<GuiderDto> getGuiderList(int page, Member member) {
         PageRequest pageRequest = PageRequest.of(page - 1, 16);
         Page<Guider> guiderPage = guiderRepository.findAll(pageRequest);
-        return guiderPage.getContent()
-                .stream().map(guider -> modelMapper.map(guider, GuiderDto.class))
-                .collect(Collectors.toList());
+        if (member != null) {
+            Follower follower = (Follower) member;
+            List<Guider> followList = follower.getFollowList();
+            return guiderPage.getContent()
+                    .stream().map(guider -> {
+                        GuiderDto dto = modelMapper.map(guider, GuiderDto.class);
+                        boolean isFollowing = followList.stream()
+                                .anyMatch(follow -> follow.getEmail().equals(dto.getEmail()));
+                        if (isFollowing) {
+                            dto.setFollow(true);
+                        }
+                        return dto;
+                    }).collect(Collectors.toList());
+        }
+        return guiderPage.getContent().stream()
+                .map(guider -> modelMapper.map(guider, GuiderDto.class)).collect(Collectors.toList());
     }
 
     @Transactional

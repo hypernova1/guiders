@@ -7,7 +7,13 @@ let page = 1;
 window.addEventListener('load', () => {
     fetch(`/guider`)
         .then((res) => res.json())
-        .then((data) => drawGuiderList(data));
+        .then((guiderList) => {
+            if (guiderList === 0) {
+                return;
+            }
+            drawGuiderList(guiderList)
+            page++;
+        });
 });
 
 modalSpan.addEventListener("click", () => {
@@ -79,11 +85,14 @@ window.addEventListener('scroll', () => {
     const y = yOffset + window.innerHeight;
 
     if(y >= contentHeight){
-      page++;
       fetch(`/guider?page=${page}`)
           .then((res) => res.json())
-          .then((result) => {
-              drawGuiderList(result);
+          .then((guiderList) => {
+              if (guiderList.length === 0) {
+                  return;
+              }
+              drawGuiderList(guiderList);
+              page++;
           })
     }
 });
@@ -104,7 +113,7 @@ function drawGuiderList(guiderList) {
                         <i class="fa fa-map-marker" aria-hidden="true"></i>${guider.currentJob}
                     </span>
                 </div>`;
-        if (guider.isFollow) {
+        if (guider.follow) {
             data += `<div class="btn unfollow">UnFollow</div>`
         } else {
             data += `<div class="btn follow">Follow</div>`
