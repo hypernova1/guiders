@@ -50,7 +50,7 @@ public class MemberService {
     public List<GuiderDto> getGuiderList(int page, Member member) {
         PageRequest pageRequest = PageRequest.of(page - 1, 16);
         Page<Guider> guiderPage = guiderRepository.findAll(pageRequest);
-        if (member != null) {
+        if (member != null && !member.isGuider()) {
             Follower follower = (Follower) member;
             List<Guider> followList = follower.getFollowList();
             return guiderPage.getContent()

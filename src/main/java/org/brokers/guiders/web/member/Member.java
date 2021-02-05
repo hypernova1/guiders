@@ -22,7 +22,6 @@ public class Member extends DateAudit {
 
     @Id
     @GeneratedValue
-    @Column(name = "member_id")
     protected Long id;
 
     @Column(unique = true, nullable = false)

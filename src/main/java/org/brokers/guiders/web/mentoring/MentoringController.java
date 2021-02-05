@@ -32,8 +32,8 @@ public class MentoringController {
     }
 
     @GetMapping("/list")
-    public String mentoringList(@AuthUser Member member, Model model) {
-        List<MentoringDto> mentoringList = mentoringService.getMentoringList(member);
+    public String mentoringList(@AuthUser Member member, Long guiderId, Model model) {
+        List<MentoringDto> mentoringList = mentoringService.getMentoringList(member, guiderId);
         model.addAttribute("mentoringList", mentoringList);
         return "mypage/mentoringList";
     }

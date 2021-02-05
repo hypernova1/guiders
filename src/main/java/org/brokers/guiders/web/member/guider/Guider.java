@@ -16,7 +16,7 @@ import java.util.List;
 @DiscriminatorValue("guider")
 public class Guider extends Member {
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "guider")
     private final List<Mentoring> mentoringList = new ArrayList<>();
 
     @Lob

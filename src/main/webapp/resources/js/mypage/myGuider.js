@@ -10,9 +10,9 @@ window.addEventListener('load', () => {
         .then((guiderList) => {
             guiderList.forEach((guider) => {
                 let ques = '';
-                if(guider.question.length){
+                if(guider.mentoringList.length){
                     ques = '<p class="question-head">질문 목록</p>';
-                    guider.question.forEach((q) => {
+                    guider.mentoringList.forEach((q) => {
                         ques += '<p class="question" data-mtrno="' + q.id + '">' + q.title + '</p>';
                     });
                 } else{
@@ -40,7 +40,7 @@ window.addEventListener('load', () => {
               <button class="unfollow-btn">UNFOLLOW</button>
               <div class="more-qna">전체 질문 보기</div>
             </li>
-            <input type="hidden" class="guider-email" value="` + guider.email + `">
+            <input type="hidden" class="guider-id" value="` + guider.id + `">
           </ul>`;
         })
     });
@@ -49,8 +49,8 @@ window.addEventListener('load', () => {
 document.querySelector('.title').addEventListener("click", ({target}) => {
     switch(target.className){
         case 'profile-img':
-            const guiderEmail = target.parentElement.parentElement.lastElementChild.value;
-            ajax(`/guider?email=${guiderEmail}`, 'GET', {}).then((result) => {
+            const guiderId = target.parentElement.parentElement.lastElementChild.value;
+            ajax(`/guider?email=${guiderId}`, 'GET', {}).then((result) => {
                 const guider = JSON.parse(result);
                 document.querySelector('.modal-content-title>img').src = guider.photo;
                 document.querySelector('div>strong').innerText = guider.name;
@@ -68,7 +68,7 @@ document.querySelector('.title').addEventListener("click", ({target}) => {
             const hiddenList = target.parentElement.parentElement.querySelectorAll('input[type="hidden"]');
             document.querySelector('#field').innerText = hiddenList[0].value;
             document.querySelector('#lang').innerText = hiddenList[1].value;
-            document.querySelector('#guider-email').value = hiddenList[2].value;
+            document.querySelector('#guider-id').value = hiddenList[2].value;
             document.querySelector('#mtr-modal-body>h2>span').innerText =
                 target.parentElement.parentElement.firstElementChild.children[1].innerText
             mtrModal.style.display = 'block';
@@ -83,7 +83,7 @@ document.querySelector('.title').addEventListener("click", ({target}) => {
             }, 10);
             break;
         case "more-qna":
-            location.href = `/mentoring/list?email=${target.parentElement.parentElement.querySelector('.guider-email').value}`;
+            location.href = `/mentoring/list?guiderId=${target.parentElement.parentElement.querySelector('.guider-id').value}`;
     }
     if(target.getAttribute('data-mtrno')){
         location.href = '/qna/' + target.getAttribute('data-mtrno');
@@ -102,7 +102,7 @@ document.querySelector('#mtr-submit').addEventListener('click', function({target
         content: content,
     }
 
-    fetch('mentoring', {
+    fetch('/mentoring', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

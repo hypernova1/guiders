@@ -22,7 +22,7 @@ public class Follower extends Member {
     @OneToMany
     private final List<Essay> likeEssay = new ArrayList<>();
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "follower")
     private final List<Mentoring> mentoringList = new ArrayList<>();
 
     public void unfollow(Guider guider) {

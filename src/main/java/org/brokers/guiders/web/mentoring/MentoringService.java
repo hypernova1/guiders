@@ -49,10 +49,12 @@ public class MentoringService {
         return guider.getMentoringList();
     }
 
-    public List<MentoringDto> getMentoringList(Member member) {
+    public List<MentoringDto> getMentoringList(Member member, Long guiderId) {
         Follower follower = (Follower) member;
         List<Mentoring> mentoringList = follower.getMentoringList();
+        System.out.println(mentoringList);
         return mentoringList.stream()
+                .filter(mentoring -> mentoring.getGuider().getId().equals(guiderId))
                 .map(mentoring -> modelMapper.map(mentoring, MentoringDto.class))
                 .collect(Collectors.toList());
     }
