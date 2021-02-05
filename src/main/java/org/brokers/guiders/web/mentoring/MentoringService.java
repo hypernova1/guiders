@@ -8,6 +8,7 @@ import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.member.guider.GuiderRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,11 +51,10 @@ public class MentoringService {
     }
 
     public List<MentoringDto> getMentoringList(Member member, Long guiderId) {
-        Follower follower = (Follower) member;
-        List<Mentoring> mentoringList = follower.getMentoringList();
-        System.out.println(mentoringList);
+        Guider guider = guiderRepository.findById(guiderId)
+                .orElseThrow(MemberNotFoundException::new);
+        List<Mentoring> mentoringList = mentoringRepository.findByGuiderAndFollower(guider, (Follower) member);
         return mentoringList.stream()
-                .filter(mentoring -> mentoring.getGuider().getId().equals(guiderId))
                 .map(mentoring -> modelMapper.map(mentoring, MentoringDto.class))
                 .collect(Collectors.toList());
     }
