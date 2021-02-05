@@ -6,6 +6,8 @@ import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.member.guider.GuiderDto;
 import org.brokers.guiders.web.member.guider.GuiderRepository;
+import org.brokers.guiders.web.mentoring.Mentoring;
+import org.brokers.guiders.web.mentoring.MentoringDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,12 +47,25 @@ public class MemberService {
                 .orElseThrow(MemberNotFoundException::new);
     }
 
-    public List<GuiderDto> getGuiderList(int page, Member email) {
+    public List<GuiderDto> getGuiderList(int page, Member member) {
         PageRequest pageRequest = PageRequest.of(page - 1, 16);
         Page<Guider> guiderPage = guiderRepository.findAll(pageRequest);
-        return guiderPage.getContent()
-                .stream().map(guider -> modelMapper.map(guider, GuiderDto.class))
-                .collect(Collectors.toList());
+        if (member != null) {
+            Follower follower = (Follower) member;
+            List<Guider> followList = follower.getFollowList();
+            return guiderPage.getContent()
+                    .stream().map(guider -> {
+                        GuiderDto dto = modelMapper.map(guider, GuiderDto.class);
+                        boolean isFollowing = followList.stream()
+                                .anyMatch(follow -> follow.getEmail().equals(dto.getEmail()));
+                        if (isFollowing) {
+                            dto.setFollow(true);
+                        }
+                        return dto;
+                    }).collect(Collectors.toList());
+        }
+        return guiderPage.getContent().stream()
+                .map(guider -> modelMapper.map(guider, GuiderDto.class)).collect(Collectors.toList());
     }
 
     @Transactional
@@ -59,6 +74,7 @@ public class MemberService {
                 .orElseThrow(MemberNotFoundException::new);
         Follower follower = (Follower) member;
         follower.follow(guider);
+        memberRepository.save(member);
     }
 
     @Transactional
@@ -80,5 +96,23 @@ public class MemberService {
         Guider guider = guiderRepository.findById(id)
                 .orElseThrow(MemberNotFoundException::new);
         return modelMapper.map(guider, GuiderDto.class);
+    }
+
+    public List<GuiderDto.WithMentoring> getMyGuiderAndQuestion(Member member) {
+        Follower follower = (Follower) member;
+        List<Guider> guiderList = follower.getFollowList();
+        List<GuiderDto.WithMentoring> guiderDtoList = guiderList.stream()
+                .map(guider -> modelMapper.map(guider, GuiderDto.WithMentoring.class))
+                .collect(Collectors.toList());
+
+        for (Mentoring mentoring : follower.getMentoringList()) {
+            for (GuiderDto.WithMentoring guider : guiderDtoList) {
+                if (mentoring.getGuider().getEmail().equals(guider.getEmail())) {
+                    MentoringDto mentoringDto = modelMapper.map(mentoring, MentoringDto.class);
+                    guider.addMentoring(mentoringDto);
+                }
+            }
+        }
+        return guiderDtoList;
     }
 }

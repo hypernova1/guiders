@@ -36,7 +36,7 @@
 			<nav>
 				<div class="menu-content">
 					<span id="guiders">
-						<a href="/guider/list">Guiders</a>
+						<a href="/guiders">Guiders</a>
 					</span>
 				</div>
 				<!-- <div class="menu-content">
@@ -149,6 +149,6 @@
 				<button type="button" id="mtr-submit">등록</button>
 				<button type="button" id="mtr-cancel">취소</button>
 			</div>
-			<input type="hidden" id="guider-email">
+			<input type="hidden" id="guider-id">
 		</section>
 	</form>

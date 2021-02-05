@@ -24,7 +24,7 @@ public class MentoringController {
     }
 
     @GetMapping("/{id}")
-    public String qna(@PathVariable Long id, Model model) {
+    public String questionAndAnswer(@PathVariable Long id, Model model) {
         Mentoring mentoring = mentoringService.getMentoring(id);
         model.addAttribute("mentoring", mentoring);
         model.addAttribute("guider", mentoring.getGuider());
@@ -32,11 +32,9 @@ public class MentoringController {
     }
 
     @GetMapping("/list")
-    public String mentoringList(String email, @AuthUser Member member, Model model) {
-        if (member != null) {
-            List<Mentoring> mentoringList = mentoringService.getMentoringList(email, member);
-            model.addAttribute("mentoringList", mentoringList);
-        }
+    public String mentoringList(@AuthUser Member member, Model model) {
+        List<MentoringDto> mentoringList = mentoringService.getMentoringList(member);
+        model.addAttribute("mentoringList", mentoringList);
         return "mypage/mentoringList";
     }
 

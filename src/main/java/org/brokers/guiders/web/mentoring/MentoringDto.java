@@ -8,9 +8,8 @@ public class MentoringDto {
 
     private String title;
     private String content;
-    private String guiderEmail;
+    private Long guiderId;
     private String field;
     private String lang;
-
 
 }

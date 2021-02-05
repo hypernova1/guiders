@@ -28,6 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/essay/write", "/essay/modify", "/mypage/questions")
                 .hasRole("GUIDER")
+            .antMatchers("/follow")
+                .hasRole("MEMBER")
             .antMatchers("/mypage/**")
                 .authenticated()
                     .anyRequest()

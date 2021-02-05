@@ -95,11 +95,11 @@ document.querySelector('#mtr-submit').addEventListener('click', function({target
     let content = document.querySelector('textarea[name="content"]').value;
     content = content.replace(/(?:\r\n|\r|\n)/g, '<br />');
     const mentoring = {
-            guider: document.querySelector('#guider-email').value,
-            field: document.querySelector('#field').innerText,
-            lang: document.querySelector('#lang').innerText,
-            title: document.querySelector('input[name="title"]').value,
-            content: content,
+        guiderId: document.querySelector('#guider-id').value,
+        field: document.querySelector('#field').innerText,
+        lang: document.querySelector('#lang').innerText,
+        title: document.querySelector('input[name="title"]').value,
+        content: content,
     }
 
     fetch('mentoring', {

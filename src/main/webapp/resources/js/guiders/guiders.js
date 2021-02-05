@@ -2,10 +2,18 @@ const body = document.body;
 const guiderModal = document.querySelector("#modal");
 const modalSpan = document.getElementsByClassName("close")[0];
 
+let page = 1;
+
 window.addEventListener('load', () => {
-    fetch(`/guider?page=${page}`)
+    fetch(`/guider`)
         .then((res) => res.json())
-        .then((data) => drawGuiderList(data))
+        .then((guiderList) => {
+            if (guiderList === 0) {
+                return;
+            }
+            drawGuiderList(guiderList)
+            page++;
+        });
 });
 
 modalSpan.addEventListener("click", () => {
@@ -31,7 +39,7 @@ document.querySelector('.guider-wrapper').addEventListener('click', ({target}) =
                 });
             break;
         case "btn follow":
-            fetch(`follow/${id}`, {
+            fetch(`/follow/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -70,7 +78,24 @@ document.querySelector('.guider-wrapper').addEventListener('click', ({target}) =
         }
 });
 
-let page = 1;
+window.addEventListener('scroll', () => {
+    const wrap = document.querySelector('.guider-wrapper');
+    const contentHeight = wrap.offsetHeight;
+    const yOffset = window.pageYOffset;
+    const y = yOffset + window.innerHeight;
+
+    if(y >= contentHeight){
+      fetch(`/guider?page=${page}`)
+          .then((res) => res.json())
+          .then((guiderList) => {
+              if (guiderList.length === 0) {
+                  return;
+              }
+              drawGuiderList(guiderList);
+              page++;
+          })
+    }
+});
 
 function drawGuiderList(guiderList) {
     let data = ''
@@ -87,8 +112,8 @@ function drawGuiderList(guiderList) {
                     <span class="location">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>${guider.currentJob}
                     </span>
-                </div>`
-        if (guider.isFollow) {
+                </div>`;
+        if (guider.follow) {
             data += `<div class="btn unfollow">UnFollow</div>`
         } else {
             data += `<div class="btn follow">Follow</div>`
@@ -96,7 +121,7 @@ function drawGuiderList(guiderList) {
         data += `</div>
                 </div>
             </div>`
-       });
+    });
     document.querySelector('.guider-wrapper').innerHTML += data;
 }
 
@@ -113,20 +138,3 @@ function drawModal(guider) {
     document.querySelector('#quote').innerHTML = guider.quote;
     guiderModal.style.display = "block";
 }
-
-window.addEventListener('scroll', () => {
-    const wrap = document.querySelector('.guider-wrapper');
-    const contentHeight = wrap.offsetHeight;
-    const yOffset = window.pageYOffset;
-    const y = yOffset + window.innerHeight;
-
-    if(y >= contentHeight){
-      page++;
-      fetch(`/guider?page=${page}`)
-          .then((res) => res.json())
-          .then((result) => {
-              if(result.length) return;
-              drawGuiderList(result);
-          })
-    }
-});
