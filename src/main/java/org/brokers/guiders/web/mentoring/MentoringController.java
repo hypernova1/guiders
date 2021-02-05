@@ -3,7 +3,6 @@ package org.brokers.guiders.web.mentoring;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.member.Member;
-import org.brokers.guiders.web.member.MemberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,9 +41,9 @@ public class MentoringController {
     }
 
     @PostMapping
-    public ResponseEntity<Boolean> question(@RequestBody MentoringDto request,
+    public ResponseEntity<?> question(@RequestBody MentoringDto request,
                                             @AuthUser Member member) {
         mentoringService.question(request, member);
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok().build();
     }
 }
