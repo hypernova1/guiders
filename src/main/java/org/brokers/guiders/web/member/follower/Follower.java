@@ -4,9 +4,11 @@ import lombok.Getter;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.guider.Guider;
-import org.brokers.guiders.web.mentoring.Mentoring;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +23,6 @@ public class Follower extends Member {
 
     @OneToMany
     private final List<Essay> likeEssay = new ArrayList<>();
-
-    @OneToMany(mappedBy = "follower", fetch = FetchType.EAGER)
-    private final List<Mentoring> mentoringList = new ArrayList<>();
 
     public void unfollow(Guider guider) {
         this.followList.remove(guider);

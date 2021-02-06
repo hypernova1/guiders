@@ -41,7 +41,7 @@
     <button id="listBtn">목록으로</button>
     <button id="beforeBtn">뒤로가기</button>
   </div>
-</section>
+</sectio
 
 <script>
 	const modifyBtn = document.querySelector('#modifyBtn');
@@ -100,7 +100,9 @@
 	    } else if(target.id === 'listBtn'){
 	        location.href = '/essay/list';
 	    }
-	})
+	});
+
+
 	
 	
 </script>

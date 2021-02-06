@@ -8,6 +8,7 @@ import org.brokers.guiders.web.member.guider.GuiderDto;
 import org.brokers.guiders.web.member.guider.GuiderRepository;
 import org.brokers.guiders.web.mentoring.Mentoring;
 import org.brokers.guiders.web.mentoring.MentoringDto;
+import org.brokers.guiders.web.mentoring.MentoringRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +26,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final GuiderRepository guiderRepository;
+    private final MentoringRepository mentoringRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
@@ -105,7 +107,9 @@ public class MemberService {
                 .map(guider -> modelMapper.map(guider, GuiderDto.WithMentoring.class))
                 .collect(Collectors.toList());
 
-        for (Mentoring mentoring : follower.getMentoringList()) {
+        List<Mentoring> mentoringList = mentoringRepository.findByGuiderInAndFollower(guiderList, follower);
+
+        for (Mentoring mentoring : mentoringList) {
             for (GuiderDto.WithMentoring guider : guiderDtoList) {
                 if (mentoring.getGuider().getEmail().equals(guider.getEmail())) {
                     MentoringDto mentoringDto = modelMapper.map(mentoring, MentoringDto.class);
@@ -115,4 +119,5 @@ public class MemberService {
         }
         return guiderDtoList;
     }
+
 }

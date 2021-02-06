@@ -5,7 +5,9 @@ import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.essay.EssayDto;
 import org.brokers.guiders.web.member.guider.Guider;
-import org.brokers.guiders.web.mentoring.Mentoring;
+import org.brokers.guiders.web.member.guider.GuiderRepository;
+import org.brokers.guiders.web.member.guider.GuiderService;
+import org.brokers.guiders.web.mentoring.MentoringDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class MyPageController {
 
     private final MemberService memberService;
+    private final GuiderService guiderService;
     private final ModelMapper modelMapper;
 
     @GetMapping("/likeEssay")
@@ -52,19 +55,16 @@ public class MyPageController {
         return "mypage/myGuider";
     }
 
-    @GetMapping("/questions")
-    public String questions(@AuthUser Member member, Model model) {
-        List<Mentoring> mentoringList = null;
-        if (member != null) {
-            mentoringList = ((Guider) member).getMentoringList();
-        }
-        model.addAttribute("mentoringList", mentoringList);
-        return "mypage/questions";
-    }
-
     @GetMapping("/guiders")
     public String guiders() {
         return "guiders/guiders";
+    }
+
+    @GetMapping("/questions")
+    public String questions(@AuthUser Member member, Model model) {
+        List<MentoringDto> mentoringList = guiderService.getMentoringList((Guider) member);
+        model.addAttribute("mentoringList", mentoringList);
+        return "mypage/questions";
     }
 
 }

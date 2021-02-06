@@ -9,4 +9,7 @@ import java.util.List;
 public interface MentoringRepository extends JpaRepository<Mentoring, Long> {
     List<Mentoring> findByGuiderAndFollower(Guider guider, Follower follower);
 
+    List<Mentoring> findByGuider(Guider guider);
+
+    List<Mentoring> findByGuiderInAndFollower(List<Guider> guiderList, Follower follower);
 }
