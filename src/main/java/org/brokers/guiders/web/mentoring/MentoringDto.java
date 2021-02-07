@@ -1,5 +1,6 @@
 package org.brokers.guiders.web.mentoring;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,8 @@ public class MentoringDto {
         private Long id;
         private String title;
         private String content;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String replay;
         private Long guiderId;
         private String field;
         private String lang;

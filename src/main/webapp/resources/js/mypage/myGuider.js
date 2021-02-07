@@ -86,7 +86,7 @@ document.querySelector('.title').addEventListener("click", ({target}) => {
             location.href = `/mentoring/list?guiderId=${target.parentElement.parentElement.querySelector('.guider-id').value}`;
     }
     if(target.getAttribute('data-mtrno')){
-        location.href = '/qna/' + target.getAttribute('data-mtrno');
+        location.href = '/mentoring/' + target.getAttribute('data-mtrno');
     }
     
 });
