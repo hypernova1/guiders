@@ -3,6 +3,7 @@ package org.brokers.guiders.web.mentoring;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
+import org.brokers.guiders.web.member.guider.GuiderDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,9 +24,10 @@ public class MentoringDto {
         private Long id;
         private String title;
         private String content;
+        private String writer;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String replay;
-        private Long guiderId;
+        private String reply;
+        private GuiderDto guider;
         private String field;
         private String lang;
         private LocalDateTime replyDate;

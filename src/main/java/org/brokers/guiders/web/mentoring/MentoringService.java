@@ -6,6 +6,7 @@ import org.brokers.guiders.exception.MentoringNotFoundException;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
+import org.brokers.guiders.web.member.guider.GuiderDto;
 import org.brokers.guiders.web.member.guider.GuiderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,13 @@ public class MentoringService {
         mentoringRepository.save(mentoring);
     }
 
-    public Mentoring getMentoring(Long id) {
-        return mentoringRepository.findById(id).orElseThrow(MentoringNotFoundException::new);
+    public MentoringDto.Response getMentoring(Long id) {
+        Mentoring mentoring = mentoringRepository.findById(id).orElseThrow(MentoringNotFoundException::new);
+
+        MentoringDto.Response mentoringDto = modelMapper.map(mentoring, MentoringDto.Response.class);
+        GuiderDto guiderDto = modelMapper.map(mentoring.getGuider(), GuiderDto.class);
+        mentoringDto.setGuider(guiderDto);
+        return mentoringDto;
     }
 
     public List<MentoringDto.Response> getMyQuestions(String email) {

@@ -15,7 +15,7 @@
             </li>
             <c:forEach items="${mentoringList}" var="mentoring">
                 <li data-mtrno="${mentoring.id}">
-                    <div class="writer">${mentoring.name}</div>
+                    <div class="writer">${mentoring.writer}</div>
                     <div class="field">${mentoring.field}</div>
                     <div class="lang">${mentoring.lang}</div>
                     <div class="title"><span><a href="/mentoring/${mentoring.id}">${mentoring.title}</a></span>

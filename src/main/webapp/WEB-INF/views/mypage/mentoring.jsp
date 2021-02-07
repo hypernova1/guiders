@@ -52,7 +52,7 @@
     </c:if>
     <div id="answer">
         <c:choose>
-            <c:when test="${pageContext.request.userPrincipal.name eq guider.name and mentoring.reply == null}">
+            <c:when test="${pageContext.request.userPrincipal.name eq mentoring.guider.name and mentoring.reply == null}">
                 <form action="/mentoring/answer" method="post" id="answer-form">
                     <textarea name="mreply" id="editor" placeholder="답변을 달아주세요."></textarea>
                     <input type="hidden" name="mtrno" value="${mentoring.id}">
@@ -65,16 +65,16 @@
                 <div class="content">아직 답변이 등록되지 않았습니다.</div>
             </c:otherwise>
         </c:choose>
-        <c:if test="${pageContext.request.userPrincipal.name eq guider.name and mentoring.reply == null}">
+        <c:if test="${pageContext.request.userPrincipal.name eq mentoring.guider.email and mentoring.reply == null}">
             <div id="btn-wrap">
                 <button class="btn" id="reply-btn">등록</button>
             </div>
         </c:if>
     </div>
     <div id="mtr-detail">
-        <img id="mtr-img" src="${guider.photoUrl}">
+        <img id="mtr-img" src="${mentoring.guider.photoUrl}">
         <div class="mtr-name">
-            <span>${guider.name}</span>
+            <span>${mentoring.guider.name}</span>
             <span>멘토</span>
             <div id="mtr-btn-wrap">
                 <div id="mtr-essay-btn">작성 에세이 보기</div>
