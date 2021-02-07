@@ -33,13 +33,13 @@ public class MentoringController {
 
     @GetMapping("/list")
     public String mentoringList(@AuthUser Member member, Long guiderId, Model model) {
-        List<MentoringDto> mentoringList = mentoringService.getMentoringList(member, guiderId);
-        model.addAttribute("mentoringList", mentoringList);
+        MentoringDto.ListResponse mentoring = mentoringService.getMentoringList(member, guiderId);
+        model.addAttribute("mentoringInfo", mentoring);
         return "mypage/mentoringList";
     }
 
     @PostMapping
-    public ResponseEntity<?> question(@RequestBody MentoringDto request,
+    public ResponseEntity<?> question(@RequestBody MentoringDto.Request request,
                                             @AuthUser Member member) {
         mentoringService.question(request, member);
         return ResponseEntity.ok().build();

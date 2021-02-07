@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +21,7 @@ public class MentoringService {
     private final GuiderRepository guiderRepository;
     private final ModelMapper modelMapper;
 
-    public void question(MentoringDto request, Member member) {
+    public void question(MentoringDto.Request request, Member member) {
         Guider guider = guiderRepository.findById(request.getGuiderId())
                 .orElseThrow(MemberNotFoundException::new);
         Mentoring mentoring = Mentoring.builder()
@@ -44,21 +43,27 @@ public class MentoringService {
         return mentoringRepository.findById(id).orElseThrow(MentoringNotFoundException::new);
     }
 
-    public Stream<MentoringDto> getMyQuestions(String email) {
+    public List<MentoringDto.Response> getMyQuestions(String email) {
         Guider guider = guiderRepository.findByEmail(email)
                 .orElseThrow(MemberNotFoundException::new);
 
         List<Mentoring> mentoringList =  mentoringRepository.findByGuider(guider);
-        return mentoringList.stream().map(mentoring -> modelMapper.map(mentoring, MentoringDto.class));
+        return mentoringList.stream()
+                .map(mentoring -> modelMapper.map(mentoring, MentoringDto.Response.class))
+                .collect(Collectors.toList());
     }
 
-    public List<MentoringDto> getMentoringList(Member member, Long guiderId) {
+    public MentoringDto.ListResponse getMentoringList(Member member, Long guiderId) {
         Guider guider = guiderRepository.findById(guiderId)
                 .orElseThrow(MemberNotFoundException::new);
+        MentoringDto.ListResponse listDto = new MentoringDto.ListResponse();
+        listDto.setGuiderName(guider.getName());
         List<Mentoring> mentoringList = mentoringRepository.findByGuiderAndFollower(guider, (Follower) member);
-        return mentoringList.stream()
-                .map(mentoring -> modelMapper.map(mentoring, MentoringDto.class))
+        List<MentoringDto.Response> mentoringDtoList = mentoringList.stream()
+                .map(mentoring -> modelMapper.map(mentoring, MentoringDto.Response.class))
                 .collect(Collectors.toList());
+        listDto.setMentoringList(mentoringDtoList);
+        return listDto;
     }
 
 }

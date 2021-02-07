@@ -62,7 +62,7 @@ public class MyPageController {
 
     @GetMapping("/questions")
     public String questions(@AuthUser Member member, Model model) {
-        List<MentoringDto> mentoringList = guiderService.getMentoringList((Guider) member);
+        List<MentoringDto.Response> mentoringList = guiderService.getMentoringList((Guider) member);
         model.addAttribute("mentoringList", mentoringList);
         return "mypage/questions";
     }

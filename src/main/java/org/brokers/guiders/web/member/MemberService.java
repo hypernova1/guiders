@@ -112,7 +112,7 @@ public class MemberService {
         for (Mentoring mentoring : mentoringList) {
             for (GuiderDto.WithMentoring guider : guiderDtoList) {
                 if (mentoring.getGuider().getEmail().equals(guider.getEmail())) {
-                    MentoringDto mentoringDto = modelMapper.map(mentoring, MentoringDto.class);
+                    MentoringDto.Response mentoringDto = modelMapper.map(mentoring, MentoringDto.Response.class);
                     guider.addMentoring(mentoringDto);
                 }
             }

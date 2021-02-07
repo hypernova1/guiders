@@ -33,9 +33,9 @@ public class GuiderDto {
         private String department;
         private String field;
         private String lang;
-        private List<MentoringDto> mentoringList = new ArrayList<>();
+        private List<MentoringDto.Response> mentoringList = new ArrayList<>();
 
-        public void addMentoring(MentoringDto mentoringDto) {
+        public void addMentoring(MentoringDto.Response mentoringDto) {
             mentoringList.add(mentoringDto);
         }
 

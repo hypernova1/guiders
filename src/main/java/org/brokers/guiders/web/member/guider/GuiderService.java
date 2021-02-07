@@ -16,13 +16,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GuiderService {
 
-    private final GuiderRepository guiderRepository;
     private final MentoringRepository mentoringRepository;
     private final ModelMapper modelMapper;
 
-    public List<MentoringDto> getMentoringList(Guider guider) {
+    public List<MentoringDto.Response> getMentoringList(Guider guider) {
         List<Mentoring> mentoringList = mentoringRepository.findByGuider(guider);
-        return mentoringList.stream().map(mentoring -> modelMapper.map(mentoring, MentoringDto.class))
+        return mentoringList.stream().map(mentoring -> modelMapper.map(mentoring, MentoringDto.Response.class))
                 .collect(Collectors.toList());
     }
 
