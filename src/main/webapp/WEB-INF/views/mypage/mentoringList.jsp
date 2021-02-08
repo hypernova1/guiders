@@ -21,11 +21,11 @@
                     <div class="lang">${mentoring.lang}</div>
                     <div class="title"><span><a href="/mentoring/${mentoring.id}">${mentoring.title}</a></span>
                         <c:choose>
-                            <c:when test="${mentoring.replyDate == null}">
-                                <span class="reply-wating">[답변대기 중]</span>
+                            <c:when test="${mentoring.answerDate == null}">
+                                <span class="answer-waiting">[답변대기 중]</span>
                             </c:when>
                             <c:otherwise>
-                                <span class="reply-complete">[답변 완료]</span>
+                                <span class="answer-complete">[답변 완료]</span>
                             </c:otherwise>
                         </c:choose>
                     </div>

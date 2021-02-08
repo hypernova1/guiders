@@ -26,11 +26,11 @@ public class MentoringDto {
         private String content;
         private String writer;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String reply;
+        private String answer;
         private GuiderDto guider;
         private String field;
         private String lang;
-        private LocalDateTime replyDate;
+        private LocalDateTime answerDate;
         private LocalDateTime createdDate;
     }
 

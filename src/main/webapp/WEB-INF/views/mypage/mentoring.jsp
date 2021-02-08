@@ -24,7 +24,7 @@
             }
         });
         //전송버튼
-        $("#reply-btn").click(function () {
+        $("#answer-btn").click(function () {
             //id가 editor인 textarea에 에디터에서 대입
             obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
             //폼 submit
@@ -41,33 +41,33 @@
         <h1 id="title">Q. ${mentoring.title}</h1>
         <div id="field">${mentoring.field}</div>
         <div id="lang">${mentoring.lang}</div>
-        <div id="regdate">등록일: ${mentoring.createdDate}</div>
+        <div id="regDate">등록일: ${mentoring.createdDate}</div>
         <div class="content">
             ${mentoring.content}
         </div>
     </div>
     <h2 id="answer-title">Guider's Answer..</h2>
-    <c:if test="${mentoring.reply != null}">
-        <div id="replyDate">답변일: ${mentoring.replyDate}</div>
+    <c:if test="${mentoring.answer != null}">
+        <div id="answerDate">답변일: ${mentoring.answerDate}</div>
     </c:if>
     <div id="answer">
         <c:choose>
-            <c:when test="${pageContext.request.userPrincipal.name eq mentoring.guider.name and mentoring.reply == null}">
+            <c:when test="${pageContext.request.userPrincipal.name eq mentoring.guider.name and mentoring.answer == null}">
                 <form action="/mentoring/answer" method="post" id="answer-form">
                     <textarea name="mreply" id="editor" placeholder="답변을 달아주세요."></textarea>
                     <input type="hidden" name="mtrno" value="${mentoring.id}">
                 </form>
             </c:when>
-            <c:when test="${mentoring.reply != null}">
-                <div class="content">${mentoring.reply}</div>
+            <c:when test="${mentoring.answer != null}">
+                <div class="content">${mentoring.answer}</div>
             </c:when>
             <c:otherwise>
                 <div class="content">아직 답변이 등록되지 않았습니다.</div>
             </c:otherwise>
         </c:choose>
-        <c:if test="${pageContext.request.userPrincipal.name eq mentoring.guider.email and mentoring.reply == null}">
+        <c:if test="${pageContext.request.userPrincipal.name eq mentoring.guider.email and mentoring.answer == null}">
             <div id="btn-wrap">
-                <button class="btn" id="reply-btn">등록</button>
+                <button class="btn" id="answer`-btn">등록</button>
             </div>
         </c:if>
     </div>

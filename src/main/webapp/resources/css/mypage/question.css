@@ -108,16 +108,16 @@ article > ul > li:hover:not(#li-head) {
     height: 600px;
 }
 
-.reply-wating, .reply-complete {
+.answer-waiting, .answer-complete {
     font-size: 0.9rem;
     margin-left: 20px;
 }
 
-.reply-wating {
+.answer-waiting {
     color: red;
 }
 
-.reply-complete {
+.answer-complete {
     color: blue;
     font-weight: bold;
 }

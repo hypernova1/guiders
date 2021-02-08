@@ -70,7 +70,7 @@ section{
 #mtr-essay-btn:hover, #mtr-page-btn:hover{
   text-decoration: underline;
 }
-#regdate, #replyDate{
+#regDate, #answerDate{
   text-align: right;
   font-size: 0.8rem;
 }

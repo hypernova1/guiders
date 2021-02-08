@@ -2,7 +2,7 @@ document.querySelector('#return-page').addEventListener('click', () => {
     history.back();
 });
 
-/*document.querySelector('#reply-btn').addEventListener('click', () => {
+/*document.querySelector('#answer-btn').addEventListener('click', () => {
    const form = document.createElement('form');
    form.setAttribute('method', 'post');
    form.setAttribute('action', '/mentoring/answer');

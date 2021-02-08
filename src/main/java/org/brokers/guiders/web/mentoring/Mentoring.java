@@ -33,11 +33,11 @@ public class Mentoring extends DateAudit {
 
     private String content;
 
-    private String reply;
+    private String answer;
 
     private Integer likeCount;
 
-    private LocalDateTime replyDate;
+    private LocalDateTime answerDate;
 
     @Builder
     public Mentoring(String title, String content, Guider guider, Follower follower, String field, String lang) {
@@ -50,6 +50,7 @@ public class Mentoring extends DateAudit {
     }
 
     public void setAnswer(String answer) {
-        this.reply = answer;
+        this.answer = answer;
+        this.answerDate = LocalDateTime.now();
     }
 }
