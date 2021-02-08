@@ -16,9 +16,9 @@ public class MentoringController {
     private final MentoringService mentoringService;
 
     @PostMapping("/answer")
-    public String answer(Mentoring mentoring) {
-        mentoringService.answer(mentoring);
-        return "redirect:/mentoring/" + mentoring.getId();
+    public String answer(MentoringDto.AnswerRequest request) {
+        mentoringService.registerAnswer(request);
+        return "redirect:/mentoring/" + request.getId();
     }
 
     @GetMapping("/{id}")

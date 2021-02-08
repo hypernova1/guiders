@@ -40,4 +40,10 @@ public class MentoringDto {
         private List<MentoringDto.Response> mentoringList;
     }
 
+    @Getter @Setter
+    public static class AnswerRequest {
+        private Long id;
+        private String answer;
+    }
+
 }

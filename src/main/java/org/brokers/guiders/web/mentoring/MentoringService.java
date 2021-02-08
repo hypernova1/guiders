@@ -36,7 +36,10 @@ public class MentoringService {
         mentoringRepository.save(mentoring);
     }
 
-    public void answer(Mentoring mentoring) {
+    public void registerAnswer(MentoringDto.AnswerRequest request) {
+        Mentoring mentoring = mentoringRepository.findById(request.getId())
+                .orElseThrow(MentoringNotFoundException::new);
+        mentoring.setAnswer(request.getAnswer());
         mentoringRepository.save(mentoring);
     }
 

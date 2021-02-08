@@ -48,4 +48,8 @@ public class Mentoring extends DateAudit {
         this.field = field;
         this.lang = lang;
     }
+
+    public void setAnswer(String answer) {
+        this.reply = answer;
+    }
 }
