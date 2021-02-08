@@ -1,10 +1,7 @@
 package org.brokers.guiders.web.common;
 
 import lombok.RequiredArgsConstructor;
-import org.brokers.guiders.config.security.UserCustom;
-import org.brokers.guiders.util.URLConn;
 import org.brokers.guiders.util.UploadFileUtils;
-import org.json.JSONObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

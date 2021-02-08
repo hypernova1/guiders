@@ -1,13 +1,13 @@
 package org.brokers.guiders.util;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
-
-import org.json.JSONObject;
 
 public class URLConn {
 	URLConnection conn;

@@ -1,7 +1,8 @@
 package org.brokers.guiders.web.member;
 
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.brokers.guiders.web.auth.role.Role;
 import org.brokers.guiders.web.auth.role.RoleName;
 import org.brokers.guiders.web.common.DateAudit;
@@ -16,8 +17,9 @@ import java.util.Set;
 @Entity
 @Table(name = "member")
 @Inheritance(strategy = InheritanceType.JOINED)
-@Getter @Setter
+@Getter
 @DiscriminatorColumn(columnDefinition = "DTYPE")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends DateAudit {
 
     @Id

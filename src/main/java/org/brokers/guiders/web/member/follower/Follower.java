@@ -1,6 +1,8 @@
 package org.brokers.guiders.web.member.follower;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.guider.Guider;
@@ -14,8 +16,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "follower")
-@Getter
 @DiscriminatorValue("follower")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follower extends Member {
 
     @OneToMany

@@ -6,7 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.util.NaverLoginBO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,7 +29,7 @@ public class AuthController {
         return "main/join";
     }
 
-    @GetMapping("/joinform")
+    @GetMapping("/joinForm")
     public ModelAndView joinForm(String type) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("type", type);
@@ -35,7 +38,6 @@ public class AuthController {
     }
 
     @PostMapping("/join")
-    @ResponseBody
     public ResponseEntity<?> join(@RequestBody AuthDto.JoinRequest joinDto) {
         Long id = authService.join(joinDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -46,7 +48,6 @@ public class AuthController {
     }
 
     @PostMapping("/api/login")
-    @ResponseBody
     public ResponseEntity<?> login(@RequestBody AuthDto.LoginRequest loginDto) {
         authService.login(loginDto);
 //        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);

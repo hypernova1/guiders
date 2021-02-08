@@ -10,18 +10,21 @@ import org.brokers.guiders.web.member.guider.GuiderDto;
 import org.brokers.guiders.web.member.guider.GuiderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MentoringService {
 
     private final MentoringRepository mentoringRepository;
     private final GuiderRepository guiderRepository;
     private final ModelMapper modelMapper;
 
+    @Transactional
     public void question(MentoringDto.Request request, Member member) {
         Guider guider = guiderRepository.findById(request.getGuiderId())
                 .orElseThrow(MemberNotFoundException::new);
@@ -36,6 +39,7 @@ public class MentoringService {
         mentoringRepository.save(mentoring);
     }
 
+    @Transactional
     public void registerAnswer(MentoringDto.AnswerRequest request) {
         Mentoring mentoring = mentoringRepository.findById(request.getId())
                 .orElseThrow(MentoringNotFoundException::new);
@@ -45,7 +49,6 @@ public class MentoringService {
 
     public MentoringDto.Response getMentoring(Long id) {
         Mentoring mentoring = mentoringRepository.findById(id).orElseThrow(MentoringNotFoundException::new);
-
         MentoringDto.Response mentoringDto = modelMapper.map(mentoring, MentoringDto.Response.class);
         GuiderDto guiderDto = modelMapper.map(mentoring.getGuider(), GuiderDto.class);
         mentoringDto.setGuider(guiderDto);
@@ -55,7 +58,6 @@ public class MentoringService {
     public List<MentoringDto.Response> getMyQuestions(String email) {
         Guider guider = guiderRepository.findByEmail(email)
                 .orElseThrow(MemberNotFoundException::new);
-
         List<Mentoring> mentoringList =  mentoringRepository.findByGuider(guider);
         return mentoringList.stream()
                 .map(mentoring -> modelMapper.map(mentoring, MentoringDto.Response.class))

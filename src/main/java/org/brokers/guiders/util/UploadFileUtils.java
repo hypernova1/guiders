@@ -1,15 +1,14 @@
 package org.brokers.guiders.util;
 
+import org.imgscalr.Scalr;
+import org.springframework.util.FileCopyUtils;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.UUID;
-
-import javax.imageio.ImageIO;
-
-import org.imgscalr.Scalr;
-import org.springframework.util.FileCopyUtils;
 
 public class UploadFileUtils {
 

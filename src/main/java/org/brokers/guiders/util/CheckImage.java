@@ -1,9 +1,9 @@
 package org.brokers.guiders.util;
 
+import org.springframework.http.MediaType;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.springframework.http.MediaType;
 
 public class CheckImage {
 

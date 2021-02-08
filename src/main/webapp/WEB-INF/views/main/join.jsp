@@ -19,7 +19,7 @@
       <h3>여러분의 도움을 필요로 하는 멘티들이 있습니다.</h3>
       <div class="row">
         <div class="col three">
-          <a href="/joinform?type=guider" class="btn btn-sunflower">바로가기</a>
+          <a href="/joinForm?type=guider" class="btn btn-sunflower">바로가기</a>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
       <h3>원하는 멘토와 팔로우를 맺고, 도움을 받아보세요.</h3>
       <div class="row">
         <div class="col three">
-          <a href="joinform?type=follower" class="btn btn-sunflower">바로가기</a>
+          <a href="joinForm?type=follower" class="btn btn-sunflower">바로가기</a>
         </div>
       </div>
     </div>

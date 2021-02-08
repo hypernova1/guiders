@@ -70,14 +70,12 @@ public class EssayController {
     }
 
     @PutMapping("/{id}/like")
-    @ResponseBody
-    public ResponseEntity<Integer> addLikeCount(@PathVariable Long id, @AuthUser Member member) {
+    public ResponseEntity<?> addLikeCount(@PathVariable Long id, @AuthUser Member member) {
         return ResponseEntity.ok(essayService.toggleLikeEssay(id, member)); // 갱신된 '좋아요' 갯수를 전달
     }
 
     @GetMapping("/top6")
-    @ResponseBody
-    public ResponseEntity<List<EssayDto.Response>> getEssays() {
+    public ResponseEntity<?> getEssays() {
         return ResponseEntity.ok(essayService.getTopEssay());
     }
 

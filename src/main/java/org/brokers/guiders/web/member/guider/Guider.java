@@ -1,19 +1,21 @@
 package org.brokers.guiders.web.member.guider;
 
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberDto;
-import org.brokers.guiders.web.mentoring.Mentoring;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "guider")
-@Getter @Setter
 @DiscriminatorValue("guider")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Guider extends Member {
 
     @Lob
