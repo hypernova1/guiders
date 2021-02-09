@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration package="log4j.test"
+			   status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{dd/MM/yyyy HH:mm:ss} %c %m%n"/>
+		</Console>
+		<RandomAccessFile  name="FILE" fileName="${sys:log4j.saveDirectory}/CMSAutomation.${date:yyyy-MM-dd_hh-mm-ss}.log" append="true" immediateFlush="false">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss}  %-6p  %C{1}.%t:%L  >>> %m%n"/>
+		</RandomAccessFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="log4j.test.Log4jTest" level="debug">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Root level="error">
+			<AppenderRef ref="Console"/>
+		</Root>
+	</Loggers>
+</Configuration>

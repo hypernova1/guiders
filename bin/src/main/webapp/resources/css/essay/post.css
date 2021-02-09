@@ -1,0 +1,122 @@
+*, *::before, *::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+section{
+  margin: 10% 20%;
+}
+#title{
+  text-align: center;
+  margin-top: 20px;
+  font-size: 2rem;
+}
+#mtr-info{
+  float: right;
+  margin-right: 40px;
+}
+#mtr-info>img{
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+}
+.mtr-name{
+  text-align: center;
+  font-weight: bold;
+}
+#field, #lang{
+  display: inline-block;
+  border: 1px solid #ff2d55;
+  border-radius: 4px;
+  text-align: center;
+  padding: 4px;
+  cursor: unset;
+  user-select: none;
+}
+#content{
+  margin-top: 30px;
+  border-top: 1px solid #bdc3c7;
+  padding-top: 30px;
+}
+#like{
+  margin-top: 100px;
+  text-align: center;
+  color: red;
+  font-size: 1.3rem;
+}
+#like>span{
+  display: inline-block;
+  padding: 4px;
+  width: 120px;
+  border: 1px solid #b2bec3;
+  border-radius: 8px;
+}
+.mtr-name>span:nth-child(2){
+  font-size: 1rem;
+  color: #6d6d72;
+}
+#mtr-detail{
+  margin: 30px 0;
+  padding: 20px;
+  height: 160px;
+  border-top: 1.5px solid #b2bec3; 
+  border-bottom: 1.5px solid #b2bec3; 
+}
+#mtr-detail>div:not(#button-wrap){
+  float: left;
+  font-size: 1.5em;
+  margin: 3px;
+}
+.mtr-name>.follow-btn, .mtr-name>.qna-btn{
+  display: inline-block;
+  border: 2px solid red;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+#mtr-img{
+  float: right;
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+#mtr-btn-wrap{
+  margin-top: 20px;
+  text-align: left;
+}
+#mtr-essay-btn, #mtr-page-btn{
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 10px;
+  cursor: pointer;
+}
+#mtr-essay-btn:hover, #mtr-page-btn:hover{
+  text-decoration: underline;
+}
+
+#modifyBtn, #removeBtn, #beforeBtn, #listBtn{
+	all: unset;
+	margin-left: 10px;
+  display: inline-block;
+  font-size: 0.8rem;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  border-color: white;
+  background-color: #ff2d55;
+  user-select: none;
+  cursor: pointer;
+	float: right;
+}
+
+#likeSpan:hover{
+	cursor: pointer;
+}
+#essayPostForm{
+	all: unset;
+}
+#button-wrap{
+	
+}
