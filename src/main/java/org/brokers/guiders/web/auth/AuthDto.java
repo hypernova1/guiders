@@ -12,6 +12,7 @@ public class AuthDto {
         private String name;
         private String password;
         private String phone;
+        private String photoUrl;
         private String birth;
         private String city;
         private String currentJob;

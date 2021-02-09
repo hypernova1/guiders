@@ -3,6 +3,7 @@ package org.brokers.guiders.web.member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.brokers.guiders.web.auth.role.Role;
 import org.brokers.guiders.web.auth.role.RoleName;
 import org.brokers.guiders.web.common.DateAudit;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Table(name = "member")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
+@Setter
 @DiscriminatorColumn(columnDefinition = "DTYPE")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends DateAudit {

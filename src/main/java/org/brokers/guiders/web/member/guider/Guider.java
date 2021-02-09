@@ -3,6 +3,7 @@ package org.brokers.guiders.web.member.guider;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.brokers.guiders.web.auth.AuthDto;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberDto;
 
@@ -29,7 +30,23 @@ public class Guider extends Member {
 
     private String field;
 
-    private String lang;
+    private String language;
+
+    public static Guider create(AuthDto.JoinRequest request) {
+        Guider guider = new Guider();
+        guider.email = request.getEmail();
+        guider.password = request.getPassword();
+        guider.name = request.getName();
+        guider.phone = request.getPhone();
+        guider.photoUrl = request.getPhotoUrl();
+        guider.introduction = request.getIntroduction();
+        guider.currentJob = request.getCurrentJob();
+        guider.department = request.getDepartment();
+        guider.quote = request.getQuote();
+        guider.field = request.getField();
+        guider.language = request.getLanguage();
+        return guider;
+    }
 
     @Override
     public void update(MemberDto.Update memberDto) {
@@ -39,6 +56,6 @@ public class Guider extends Member {
         this.department = memberDto.getDepartment();
         this.quote = memberDto.getQuote();
         this.field = memberDto.getField();
-        this.lang = memberDto.getLang();
+        this.language = memberDto.getLang();
     }
 }

@@ -9,7 +9,6 @@ import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberRepository;
 import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,7 +26,6 @@ public class AuthService {
     private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
-    private final ModelMapper modelMapper;
 
     @Transactional
     public Long join(AuthDto.JoinRequest joinDto) {
@@ -37,9 +35,9 @@ public class AuthService {
         if (joinDto.getType().equals("guider")) {
             role = roleRepository.findByName(RoleName.ROLE_GUIDER)
                     .orElseGet(() -> Role.builder().name(RoleName.ROLE_GUIDER).build());
-            member = modelMapper.map(joinDto, Guider.class);
+            member = Guider.create(joinDto);
         } else {
-            member = modelMapper.map(joinDto, Follower.class);
+            member = Follower.create(joinDto);
             role = roleRepository.findByName(RoleName.ROLE_MEMBER)
                     .orElseGet(() -> Role.builder().name(RoleName.ROLE_MEMBER).build());
         }
