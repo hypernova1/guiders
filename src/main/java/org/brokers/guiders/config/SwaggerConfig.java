@@ -26,5 +26,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
 //	      .paths(PathSelectors.ant("/foos/*"))                     
 //	      .build();
 //	}
+	
+	// TODO: API 설명 추가 메소드 추가 필요
 
 }
