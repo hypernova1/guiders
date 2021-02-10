@@ -28,7 +28,7 @@ public class Follower extends Member {
     @OneToMany
     private final List<Essay> likeEssay = new ArrayList<>();
 
-    public static Member create(AuthDto.JoinRequest request) {
+    public static Follower create(AuthDto.JoinRequest request) {
         Follower follower = new Follower();
         follower.email = request.getEmail();
         follower.password = request.getPassword();
