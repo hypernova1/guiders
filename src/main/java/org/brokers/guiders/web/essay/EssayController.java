@@ -69,6 +69,12 @@ public class EssayController {
         return "redirect:/essay/list";
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getEssay(@PathVariable Long id) {
+        EssayDto.DetailResponse essay = essayService.getEssay(id);
+        return ResponseEntity.ok(essay);
+    }
+
     @PutMapping("/{id}/like")
     public ResponseEntity<?> addLikeCount(@PathVariable Long id, @AuthUser Member member) {
         return ResponseEntity.ok(essayService.toggleLikeEssay(id, member)); // 갱신된 '좋아요' 갯수를 전달

@@ -15,7 +15,7 @@ document.querySelector('article>ul').addEventListener('click', ({target}) => {
       const div = document.createElement('DIV');
       div.className = 'essay-body';
       
-      ajax('/api/essay/' + id, 'get', id).then((essay) => {
+      ajax('/essay/' + id, 'get', id).then((essay) => {
           div.innerHTML = `<div class="essay">
               <div class="essay-content">${essay.content}</div>
               <div class="like">♥</div>
