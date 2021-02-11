@@ -31,7 +31,7 @@
 					<div class="essay">
 						<div>
 							<h2 class="title">
-								<a href="/essay/${essay.id}">${essay.title}</a>
+								<a href="/essay/detail/${essay.id}">${essay.title}</a>
 							</h2>
 							<span class="like">♥ ${essay.likeCount}</span>
 							<span class="regDate">${essay.createdDate}</span>

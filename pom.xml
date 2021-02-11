@@ -47,6 +47,7 @@
 			<version>${springframework-version}</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
@@ -56,7 +57,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>${springframework-version}}</version>
+			<version>${springframework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>

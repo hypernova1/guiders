@@ -26,7 +26,7 @@ public class EssayController {
     @PostMapping("/write")
     public String writeEssay(EssayDto.Request request, @AuthUser Member member) {
         Long id = essayService.writeEssay(request, member);
-        return "redirect:/essay/" + id;
+        return "redirect:/essay/detail/" + id;
     }
 
     @GetMapping("/list")
@@ -38,7 +38,7 @@ public class EssayController {
         return "/essay/list";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detail/{id}")
     public String readEssay(@PathVariable Long id, Model model, @AuthUser Member member) {
         EssayDto.DetailResponse essay = essayService.getEssay(id);
         if (member != null) {
@@ -60,7 +60,7 @@ public class EssayController {
     @PostMapping("/modify/{id}")
     public String modifyEssay(@PathVariable Long id, EssayDto.Request request, @AuthUser Member member) {
         essayService.modifyEssay(id, request, member);
-        return "redirect:/essay/" + id;
+        return "redirect:/essay/detail/" + id;
     }
 
     @GetMapping("/delete/{id}")

@@ -118,7 +118,7 @@
   
   document.querySelector('#article').addEventListener('click', ({target}) => {
       if(target.className === 'article-title'){
-          location.href = '/essay/' + target.getAttribute('data-id');
+          location.href = '/essay/detail/' + target.getAttribute('data-id');
       }
   })
   
