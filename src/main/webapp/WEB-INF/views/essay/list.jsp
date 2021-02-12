@@ -44,7 +44,9 @@
 			</c:forEach>
 		</ul>
 
-		<button id="writeBtn" type="button">글쓰기</button>
+		<sec:authorize access="hasRole('GUIDER')">
+			<button id="writeBtn" type="button">글쓰기</button>
+		</sec:authorize>
 
 		<c:set var="start" value="${(essayPage.number / 5) * 5 + 1}" />
 		<c:set var="end" value="${(essayPage.totalPages == 0) ? 1 : (start + (5 - 1) < essayPage.totalPages ? start + (5 - 1) : essayPage.totalPages)}" />
