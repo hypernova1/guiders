@@ -49,6 +49,4 @@
     <button id="cancleBtn" type="button">취소</button>
   </div>
 </form>
-
-
 <%@ include file="../include/footer.jsp" %>

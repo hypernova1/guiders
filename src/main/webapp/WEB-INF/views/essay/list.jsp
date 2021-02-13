@@ -74,11 +74,5 @@
 		</div>
 	</article>
 </section>
-
-<script>
-	document.querySelector('#writeBtn').addEventListener('click', function() {
-		location.href = '/essay/write';
-	});
-</script>
-
+<script src="/js/essay/list.js"></script>
 <%@ include file="../include/footer.jsp"%>

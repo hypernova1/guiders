@@ -41,7 +41,7 @@
         <button id="listBtn">목록으로</button>
         <button id="beforeBtn">뒤로가기</button>
     </div>
-    </sectio
+    </section>
 
     <script>
         const modifyBtn = document.querySelector('#modifyBtn');
@@ -56,7 +56,7 @@
 
         document.querySelector('#likeSpan').addEventListener('click', function(e){
             const email = '${userInfo.email}';
-            if(!email){
+            if (!email){
                 alert('로그인이 필요합니다.');
                 let i = 1;
                 modal.style.display = 'block';
