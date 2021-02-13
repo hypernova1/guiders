@@ -66,15 +66,14 @@
 								<li><a href="/signout">Logout</a></li>
 							</ul>
 						</c:when>
-						
 						<c:when test="${naver != null}">
-              <ul id="mypage-list">
-                <li><a href="/mypage/myGuider">My Guiders</a></li>
-                <li><a href="/mypage/likeEssay">Like Essay</a></li>
-                <li><a href="/mypage/edit">정보수정</a></li>
-                <li id="naverLogout"><a href="/signout">Logout</a></li>
-              </ul>
-            </c:when>
+						  <ul id="mypage-list">
+							<li><a href="/mypage/myGuider">My Guiders</a></li>
+							<li><a href="/mypage/likeEssay">Like Essay</a></li>
+							<li><a href="/mypage/edit">정보수정</a></li>
+							<li id="naverLogout"><a href="/signout">Logout</a></li>
+						  </ul>
+            			</c:when>
 						
 						<c:otherwise>
 							<ul id="mypage-list">
@@ -103,14 +102,14 @@
 			<h1 id="modal-title">Login</h1>
 			<form id="form" action="./j_spring_security_check" method="post">
 				<div id="email-wrap">
-					<label>아이디</label> <input type="text" name="email" id="email">
+					<label>아이디</label> <input type="text" name="email" id="apiEmail">
 				</div>
 				<div id="password-wrap">
-					<label>비밀번호</label> <input type="password" name="password" id="password">
+					<label>비밀번호</label> <input type="password" name="password" id="apiPassword">
 				</div>
 				<div>
-						<button type="button" onclick="signin()">로그인</button>
-					</div>
+					<button type="button" id="apiLoginButton">로그인</button>
+				</div>
 				<div style="margin-top: 10px;">
 	        <img src="/img/naverLogin.png" id="naver-login">
 	      </div>

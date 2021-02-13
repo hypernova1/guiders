@@ -73,7 +73,7 @@
 			아이디 : <input type="text" id="user_id" name="email"> 비밀번호 :
 			<input type="password" id="password" name="password">
 			<input id="loginRedirect"  type="hidden" name="loginRedirect" value="${loginRedirect}" />
-			<button type="button" onclick="signin();">Ajax Sign in</button>
+			<button type="button" onclick="signIn();">Ajax Sign in</button>
 			<button type="submit">Submit Sign in</button>
 		</form>
 	</div>

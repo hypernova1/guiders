@@ -60,26 +60,6 @@ document.querySelector('#login-fail-modal-content>button').addEventListener('cli
     document.querySelector('#login-fail-modal').style.display = 'none';
 });
 
-function signin() {
-	const email = document.getElementById('email').value;
-	const password = document.getElementById('password').value;
-
-	fetch('/api/login',{
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ email, password })
-	}).then((res) => {
-		if (res.status === 404) {
-			document.querySelector('#login-fail-modal').style.display = 'block';
-			return;
-		}
-		location.reload();
-	});
-}
-
-
 document.querySelector('.search-btn').addEventListener('click', function(e){
 	let keyword = document.querySelector('.search-txt').value;
 	if(!keyword){
@@ -106,6 +86,33 @@ if (naverLogoutTag != null) {
 	});
 }
 
-document.querySelector('#naver-login').addEventListener('click', function(){
+document.getElementById('naver-login').addEventListener('click', () => {
 	location.href = '${url}';
 });
+
+document.getElementById('apiLoginButton').addEventListener('click', signIn);
+
+document.getElementById('apiPassword').addEventListener('keyup', () => {
+	if (event.keyCode === 13) {
+		signIn();
+	}
+});
+
+function signIn() {
+	const email = document.getElementById('apiEmail').value;
+	const password = document.getElementById('apiPassword').value;
+
+	fetch('/api/login',{
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ email, password })
+	}).then((res) => {
+		if (res.status === 404) {
+			document.querySelector('#login-fail-modal').style.display = 'block';
+			return;
+		}
+		location.reload();
+	});
+}

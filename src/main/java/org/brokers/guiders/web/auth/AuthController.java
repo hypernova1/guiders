@@ -53,7 +53,6 @@ public class AuthController {
 //        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 //        model.addAttribute("url", naverAuthUrl);
         return ResponseEntity.ok().build();
-
     }
 
     @GetMapping("/login")
