@@ -50,19 +50,20 @@ document.querySelector('.title').addEventListener("click", ({target}) => {
     switch(target.className){
         case 'profile-img':
             const guiderId = target.parentElement.parentElement.lastElementChild.value;
-            ajax(`/guider?email=${guiderId}`, 'GET', {}).then((result) => {
-                const guider = JSON.parse(result);
-                document.querySelector('.modal-content-title>img').src = guider.photo;
-                document.querySelector('div>strong').innerText = guider.name;
-                document.querySelector('.modal-content-title>div:nth-child(4)>span:nth-child(2)').innerText
-                    = guider.currentJob;
-                document.querySelector('.modal-content-title>div:nth-child(5)>span:nth-child(2)').innerText
-                    = guider.department;
-                document.querySelector('.modal-content-title>div:nth-child(6)>span:nth-child(2)').innerText
-                = guider.field;
-                document.querySelector('.modal-content-body > div').innerHTML = guider.introduction;
-                guiderModal.style.display = "block";
-            });
+            fetch(`/guider?email=${guiderId}`)
+                .then((res) => res.json())
+                .then((guider) => {
+                    document.querySelector('.modal-content-title>img').src = guider.photo;
+                    document.querySelector('div>strong').innerText = guider.name;
+                    document.querySelector('.modal-content-title>div:nth-child(4)>span:nth-child(2)').innerText
+                        = guider.currentJob;
+                    document.querySelector('.modal-content-title>div:nth-child(5)>span:nth-child(2)').innerText
+                        = guider.department;
+                    document.querySelector('.modal-content-title>div:nth-child(6)>span:nth-child(2)').innerText
+                        = guider.field;
+                    document.querySelector('.modal-content-body > div').innerHTML = guider.introduction;
+                    guiderModal.style.display = "block";
+                })
             break;
         case 'question-btn':
             const hiddenList = target.parentElement.parentElement.querySelectorAll('input[type="hidden"]');
