@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <header th:fragment="headerFragment">
         <div id="header-content">
             <form th:action="@{/essay/list}" id="search-form" method="get">
@@ -29,17 +29,17 @@
                 <div class="menu-content">
                     <img th:src="@{/img/iconmonstr-user-circle-thin.svg}" id="mypage">
                     <ul sec:authorize="isAuthenticated()" id="mypage-list">
-                        <li sec:authorize="hasRole('GUIDER')"><a href="/mypage/questions">Questions</a></li>
-                        <li sec:authorize="hasRole('MEMBER')"><a href="/mypage/myGuider">My Guiders</a></li>
-                        <li><a href="/mypage/likeEssay">Like Essay</a></li>
-                        <li><a href="/mypage/edit">정보수정</a></li>
-                        <li><a href="/signout">Logout</a></li>
+                        <li sec:authorize="hasRole('GUIDER')"><a th:href="@{/mypage/questions}">Questions</a></li>
+                        <li sec:authorize="hasRole('MEMBER')"><a th:href="@{/mypage/myGuider}">My Guiders</a></li>
+                        <li><a th:href="@{/mypage/likeEssay}">Like Essay</a></li>
+                        <li><a th:href="@{/mypage/edit}">정보수정</a></li>
+                        <li><a th:href="@{/signout}">Logout</a></li>
                     </ul>
                     <ul th:if="${naver != null}" id="mypage-list">
-                        <li><a href="/mypage/myGuider">My Guiders</a></li>
-                        <li><a href="/mypage/likeEssay">Like Essay</a></li>
-                        <li><a href="/mypage/edit">정보수정</a></li>
-                        <li id="naverLogout"><a href="/signout">Logout</a></li>
+                        <li><a th:href="@{/mypage/myGuider}">My Guiders</a></li>
+                        <li><a th:href="@{/mypage/likeEssay}">Like Essay</a></li>
+                        <li><a th:href="@{/mypage/edit}">정보수정</a></li>
+                        <li id="naverLogout"><a th:href="@{/signout}">Logout</a></li>
                     </ul>
 
                     <ul sec:authorize="isAnonymous()" id="mypage-list">
@@ -47,13 +47,13 @@
                     </ul>
                 </div>
                 <div sec:authorize="isAuthenticated()" class="menu-content">
-                    <span>${pageContext.request.userPrincipal.name}님</span>
+                    <span th:text="${#authentication.getName()}"></span>
                 </div>
                 <div th:if="${naver != null}" class="menu-content">
                     <span id="naverName">님</span>
                 </div>
             </nav>
-            <a href="/"><img src="/img/logo.png" id="logo"></a>
+            <a href="/"><img th:src="@{/img/logo.png}" id="logo"></a>
         </div>
 
         <div id="login-modal">
@@ -70,7 +70,7 @@
                         <button type="button" id="apiLoginButton">로그인</button>
                     </div>
                     <div style="margin-top: 10px;">
-                        <img src="/img/naverLogin.png" id="naver-login">
+                        <img th:src="@{/img/naverLogin.png}" id="naver-login">
                     </div>
                 </form>
                 <!-- 			<div id="etc">
@@ -111,4 +111,6 @@
             </section>
         </form>
     </header>
+
+
 </html>

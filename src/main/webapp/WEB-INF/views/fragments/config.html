@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head th:fragment="configFragment">
-    <meta charset="UTF-8"/> <!-- 공통으로 쓰이는 css파일을넣는다.-->
-    <th:block layout:fragment="css">
-        <link rel="icon" type="image/png"  href="/img/guiders.png"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/css/include/header.css">
-        <link rel="stylesheet"
-              href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-              integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
-              crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" th:href="/css/include/footer.css">
-    </th:block>
-    <th:block layout:fragment="script">
-        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        <script src="/js/include/header.js" defer></script>
-        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        <script src="/js/include/header.js" defer></script>
-    </th:block>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/png" th:href="@{/img/guiders.png}"/>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet"
+          th:href="@{https://use.fontawesome.com/releases/v5.6.3/css/all.css}"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/include/header.css}">
+    <link rel="stylesheet" th:href="@{/css/include/footer.css}">
+    <script th:src="@{http://code.jquery.com/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{http://code.jquery.com/jquery-migrate-1.2.1.min.js}"></script>
+    <script th:src="@{http://code.jquery.com/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{http://code.jquery.com/jquery-migrate-1.2.1.min.js}"></script>
+    <script th:src="@{/js/include/header.js}" defer></script>
 </head>
 </html>
