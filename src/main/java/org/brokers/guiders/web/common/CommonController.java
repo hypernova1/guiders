@@ -28,7 +28,7 @@ public class CommonController {
 
     @GetMapping("/")
     public String main() {
-        return "main/main";
+        return "main.html";
     }
 
     @PostMapping("/doA")
