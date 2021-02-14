@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp" %>
-
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default" lang="ko">
+<div layout:fragment="content">
 <link rel="stylesheet" href="/css/main/join.css">
 
 <section>
@@ -19,7 +20,7 @@
       <h3>여러분의 도움을 필요로 하는 멘티들이 있습니다.</h3>
       <div class="row">
         <div class="col three">
-          <a href="/joinForm?type=guider" class="btn btn-sunflower">바로가기</a>
+          <a th:href="@{/joinForm(type=guider)}" class="btn btn-sunflower">바로가기</a>
         </div>
       </div>
     </div>
@@ -28,7 +29,7 @@
       <h3>원하는 멘토와 팔로우를 맺고, 도움을 받아보세요.</h3>
       <div class="row">
         <div class="col three">
-          <a href="joinForm?type=follower" class="btn btn-sunflower">바로가기</a>
+          <a th:href="@{joinForm(type=follower)}" class="btn btn-sunflower">바로가기</a>
         </div>
       </div>
     </div>
@@ -55,5 +56,5 @@
         </dl>
       </div></div></li></ul> -->
     </section>
-
-<%@ include file="../include/footer.jsp" %>
+</div>
+</html>

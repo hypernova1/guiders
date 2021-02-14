@@ -26,14 +26,14 @@ public class AuthController {
 
     @GetMapping("/join")
     public String join() {
-        return "main/join";
+        return "main/join.html";
     }
 
     @GetMapping("/joinForm")
     public ModelAndView joinForm(String type) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("type", type);
-        mav.setViewName("main/joinForm");
+        mav.setViewName("main/joinForm.html");
         return mav;
     }
 

@@ -77,6 +77,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         templateEngine.setEnableSpringELCompiler(true);
         templateEngine.addDialect(new LayoutDialect());
         templateEngine.addDialect(new SpringSecurityDialect());
+
         return templateEngine;
     }
 
@@ -87,6 +88,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         viewResolver.setCharacterEncoding("UTF-8");
         viewResolver.setOrder(1);
         viewResolver.setViewNames(new String[] { "*.html" });
+
         return viewResolver;
     }
 
