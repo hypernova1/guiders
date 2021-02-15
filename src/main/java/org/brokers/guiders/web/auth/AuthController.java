@@ -26,14 +26,14 @@ public class AuthController {
 
     @GetMapping("/join")
     public String join() {
-        return "main/join.html";
+        return "main/join";
     }
 
     @GetMapping("/joinForm")
     public ModelAndView joinForm(String type) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("type", type);
-        mav.setViewName("main/joinForm.html");
+        mav.setViewName("main/joinForm");
         return mav;
     }
 
@@ -57,7 +57,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login() {
-        return "main/invalid_login";
+        return "main/login";
     }
 
     @GetMapping("/callback")

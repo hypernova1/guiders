@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/default" lang="ko">
+<div layout:fragment="content">
+	<link rel="stylesheet" th:href="@{/css/main/login.css}">
+
+	<form th:action="@{/loginProcess}" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<h1 id="msg">로그인 해주세요.</h1>
+		<div id="login-body">
+			<div>
+				<div id="email">
+					<label>아이디</label> <input type="text" name="username">
+				</div>
+				<div id="password">
+					<label>비밀번호</label> <input type="password" name="password">
+				</div>
+			</div>
+			<div>
+				<button type="submit" value="Login">로그인</button>
+			</div>
+			<div style="margin-top: 10px;">
+				<img th:src="@{/img/naverLogin.png}" id="naver-login">
+			</div>
+		</div>
+	</form>
+	<th:block layout:fragment="script">
+		<script>
+			// document.querySelector('#naver-login').addEventListener('click', function(){
+			// 	location.href = '${url}';
+			// });
+			// if('${pageContext.request.userPrincipal}'){
+			// 	alert('이미 로그인 되어 있습니다.');
+			// 	history.back();
+			// }
+		</script>
+	</th:block>
+</div>
+</html>

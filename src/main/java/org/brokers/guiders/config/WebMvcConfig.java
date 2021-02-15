@@ -87,7 +87,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setCharacterEncoding("UTF-8");
         viewResolver.setOrder(1);
-        viewResolver.setViewNames(new String[] { "*.html" });
 
         return viewResolver;
     }
