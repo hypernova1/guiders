@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.util.NaverLoginBO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,15 +27,13 @@ public class AuthController {
 
     @GetMapping("/join")
     public String join() {
-        return "main/join";
+        return "auth/join";
     }
 
     @GetMapping("/joinForm")
-    public ModelAndView joinForm(String type) {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("type", type);
-        mav.setViewName("main/joinForm");
-        return mav;
+    public String joinForm(String type, Model model) {
+        model.addAttribute("type", type);
+        return "auth/joinForm";
     }
 
     @PostMapping("/join")
@@ -57,7 +56,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login() {
-        return "main/login";
+        return "auth/login";
     }
 
     @GetMapping("/callback")
@@ -66,7 +65,7 @@ public class AuthController {
         OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
         String apiResult = naverLoginBO.getUserProfile(oauthToken);
         session.setAttribute("naver", apiResult);
-        return new ModelAndView("callback", "result", apiResult);
+        return new ModelAndView("/WEB-INF/views/callback.jsp", "result", apiResult);
     }
 
 }

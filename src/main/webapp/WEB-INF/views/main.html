@@ -5,10 +5,7 @@
           layout:decorator="layout/default" lang="ko">
 
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/main/main.css}">
-</th:block>
-<th:block layout:fragment="script">
-    <script th:src="@{/js/main/main.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
 </th:block>
 
 <div layout:fragment="content">
@@ -94,6 +91,7 @@
 </div>
 
 <th:block layout:fragment="script">
+    <script th:src="@{/js/main.js}"></script>
     <script>
         window.addEventListener('load', () => {
             fetch('/essay/top6')
