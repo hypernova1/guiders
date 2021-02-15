@@ -46,7 +46,7 @@ public class MyPageController {
     @PostMapping("/edit")
     public String edit(MemberDto.Update memberDto, @AuthUser Member member) {
         memberService.modifyMember(memberDto, member);
-        return "redirect:/mypage/edit";
+        return "/WEB-INF/views/mypage/edit.html";
     }
 
     @GetMapping("/myGuider")
@@ -56,7 +56,7 @@ public class MyPageController {
 
     @GetMapping("/guiders")
     public String guiders() {
-        return "guiders.html";
+        return "/guiders/guiders";
     }
 
     @GetMapping("/questions")

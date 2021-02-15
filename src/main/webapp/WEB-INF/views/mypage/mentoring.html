@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default" lang="ko">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/mypage/mentoring.css}">
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{https://code.jquery.com/jquery-latest.js}"></script>
+    <script th:src="@{/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
+    <script th:src="@{/js/mypage/mentoring.js}"></script>
+</th:block>
+
+<section layout:fragment="content">
+    <input type="hidden" value="${mentoring.id}" id="id">
+    <div id="question">
+        <h1 id="title" th:text="|Q. ${mentoring.title}|"></h1>
+        <div id="field" th:text="${mentoring.field}"></div>
+        <div id="lang" th:text="${mentoring.lang}"></div>
+        <div id="regDate" th:text="|등록일: ${mentoring.createdDate}|"></div>
+        <div class="content" th:text="${mentoring.content}">
+        </div>
+    </div>
+    <h2 id="answer-title">Guider's Answer..</h2>
+    <th:block th:if="${mentoring.answer != null}">
+        <div id="answerDate" th:text="|답변일: ${mentoring.answerDate}|"></div>
+    </th:block>
+    <div id="answer">
+        <th:block th:if="${#authentication.getName() == mentoring.guider.name and mentoring.answer == null}">
+            <form action="/mentoring/answer" method="post" id="answer-form">
+                <textarea name="mreply" id="editor" placeholder="답변을 달아주세요."></textarea>
+                <input type="hidden" name="mtrno" value="${mentoring.id}">
+            </form>
+        </th:block>
+        <th:block th:if="${mentoring.answer != null}">
+            <div class="content" th:text="${mentoring.answer}"></div>
+        </th:block>
+        <th:block th:unless="${mentoring.answer != null}">
+            <div class="content">아직 답변이 등록되지 않았습니다.</div>
+        </th:block>
+        <th:block th:if="${#authentication.getName() == mentoring.guider.email and mentoring.answer == null}">
+            <div id="btn-wrap">
+                <button class="btn" id="answer`-btn">등록</button>
+            </div>
+        </th:block>
+    </div>
+    <div id="mtr-detail">
+        <img id="mtr-img" th:src="${mentoring.guider.photoUrl}">
+        <div class="mtr-name">
+            <span th:text="${mentoring.guider.name}"></span>
+            <span>멘토</span>
+            <div id="mtr-btn-wrap">
+                <div id="mtr-essay-btn">작성 에세이 보기</div>
+                <div id="mtr-page-btn">멘토 상세정보</div>
+            </div>
+        </div>
+    </div>
+    <button class="btn" id="return-page">돌아가기</button>
+</section>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript">
+        //전역변수
+        const obj = [];
+        //스마트에디터 프레임생성
+        nhn.husky.EZCreator.createInIFrame({
+            oAppRef: obj,
+            elPlaceHolder: "editor",
+            sSkinURI: "/editor/SmartEditor2Skin.html",
+            htParams: {
+                // 툴바 사용 여부
+                bUseToolbar: true,
+                // 입력창 크기 조절바 사용 여부
+                bUseVerticalResizer: true,
+                // 모드 탭(Editor | HTML | TEXT) 사용 여부
+                bUseModeChanger: true,
+            }
+        });
+        //전송버튼
+        $("#answer-btn").click(function () {
+            //id가 editor인 textarea에 에디터에서 대입
+            obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
+            //폼 submit
+            $("#answer-form").submit();
+        });
+    </script>
+</th:block>
+</html>
+

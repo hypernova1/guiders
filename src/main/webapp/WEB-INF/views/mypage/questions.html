@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default" lang="ko">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/mypage/question.css}">
+</th:block>
+
+<section layout:fragment="content">
+    <article>
+        <ul>
+            <li id="li-head">
+                <div class="writer">팔로워</div>
+                <div class="field">분야</div>
+                <div class="lang">언어</div>
+                <div class="title">제목</div>
+                <div class="regDate">질문날짜</div>
+            </li>
+            <th:block th:each="mentoring: ${mentoringList}">
+                <li data-mtrno="${mentoring.id}">
+                    <div class="writer" th:text="${mentoring.writer}"></div>
+                    <div class="field" th:text="${mentoring.field}"></div>
+                    <div class="lang" th:text="${mentoring.lang}"></div>
+                    <div class="title">
+                        <span>
+                            <a th:href="@{/mentoring/{id}(id=${mentoring.id})}" th:text="${mentoring.title}"></a>
+                        </span>
+                        <th:block th:if="${mentoring.answerDate == null}">
+                            <span class="answer-waiting">[답변대기 중]</span>
+                        </th:block>
+                        <th:block th:unless="${mentoring.answerDate == null}">
+                            <span class="answer-complete">[답변 완료]</span>
+                        </th:block>
+                    </div>
+                    <div class="regDate" th:text="${mentoring.createdDate}"></div>
+                </li>
+            </th:block>
+        </ul>
+    </article>
+</section>
+</html>

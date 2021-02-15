@@ -1,11 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp"%>
-<link rel="stylesheet" href="/css/mypage/myGuider.css">
-<link rel="stylesheet" href="/css/guiders/modal.css">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/default" lang="ko">
 
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/mypage/myGuider.css}">
+	<link rel="stylesheet" th:href="@{/css/guiders/modal.css}">
+</th:block>
 
-<section>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/mypage/myGuider.js}"></script>
+</th:block>
+
+<section layout:fragment="content">
 	<div class="filter">
 		<ul>
 			<li class="all"><a> <span>전체</span>
@@ -52,9 +59,4 @@
 		</div>
 	</div>
 </section>
-
-<script src="/js/mypage/myGuider.js" defer></script>
-
-</body>
-
 </html>
