@@ -5,7 +5,6 @@ import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.essay.EssayDto;
 import org.brokers.guiders.web.member.guider.Guider;
-import org.brokers.guiders.web.member.guider.GuiderRepository;
 import org.brokers.guiders.web.member.guider.GuiderService;
 import org.brokers.guiders.web.mentoring.MentoringDto;
 import org.modelmapper.ModelMapper;
@@ -57,7 +56,7 @@ public class MyPageController {
 
     @GetMapping("/guiders")
     public String guiders() {
-        return "guiders/guiders";
+        return "guiders.html";
     }
 
     @GetMapping("/questions")
