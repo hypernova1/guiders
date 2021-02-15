@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  layout:decorator="layout/default" lang="ko">
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/essay/list.css}">
+</th:block>
+
+<section layout:fragment="content">
+	<h1>Essay</h1>
+	<div id="select-wrap">
+		<select name="field">
+			<option value="" selected>분야</option>
+			<option value="진로">진로</option>
+			<option value="팁">팁</option>
+			<option value="하하">하하</option>
+			<option value="오호라">오호라..</option>
+		</select>
+		<select name="lang">
+			<option value="" selected>언어</option>
+			<option value="C">C</option>
+			<option value="C++">C++</option>
+			<option value="Java">Java</option>
+			<option value="JavaScript">JavaScript</option>
+		</select>
+	</div>
+	<article>
+		<ul id="essay-list">
+			<th:block th:each="essay: ${essayPage.content}">
+				<li>
+					<div class="mtr-info">
+						<img class="mtr-img" th:src="${essay.writerPhotoUrl}">
+						<span class="guider" th:text="${essay.writer}"></span> <span class="etype" th:text="${essay.field}"></span>
+					</div>
+					<div class="essay">
+						<div>
+							<h2 class="title">
+								<a th:href="@{/essay/detail/{id}(id=${essay.id})}" th:text="${essay.title}"></a>
+							</h2>
+							<span class="like" th:text="|♥ ${essay.likeCount}|"></span>
+							<span class="regDate" th:text="${essay.createdDate}"></span>
+						</div>
+						<div class="content" th:text="${essay.content}"></div>
+					</div>
+				</li>
+			</th:block>
+		</ul>
+
+		<th:block sec:authorize="hasRole('GUIDER')">
+			<button id="writeBtn" type="button">글쓰기</button>
+		</th:block>
+
+		<div th:with="start=${(essayPage.number/ 5)* 5 + 1}, end=(${(essayPage.totalPages == 0) ? 1 : (start + (5 - 1) < essayPage.totalPages ? start + (5 - 1) : essayPage.totalPages)})" >
+
+		<div id="pagination">
+			<ul class="pagination">
+				<th:block th:if="${!essayPage.first and essayPage.number != 0}">
+					<li class="pagination-li prev">
+						<a th:href="@{/essay/list(page=${param.page}, keyword=${param.keyword})}">prev</a>
+					</li>
+				</th:block>
+
+				<li class="pagination-li" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${essayPage.number eq page-1}?'active':''">
+					<a th:href="@{/essay/list(page=${page})}" th:inline="text" class="page-link">[[${page}]]</a>
+				</li>
+
+				<th:block th:if="${!essayPage.last}">
+					<li class="pagination-li next"><a th:href="@{/essay/list(page=${essayPage.number + 1}, keyword=${param.keyword})}">next</a></li>
+				</th:block>
+			</ul>
+		</div>
+	</article>
+</section>
+
+<<th:block layout:fragment="script">
+	<script th:src="@{/js/essay/list.js}"></script>
+</th:block>
+
+</html>

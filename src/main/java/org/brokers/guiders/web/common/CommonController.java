@@ -49,7 +49,7 @@ public class CommonController {
 //        URLConn conn = new URLConn("http://127.0.0.1", 1516);
 //        conn.urlPost(parent);
 
-        return "/";
+        return "main";
     }
 
     // 다중파일업로드

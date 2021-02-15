@@ -1,33 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp" %>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default" lang="ko">
 
-<link rel="stylesheet" href="/css/essay/post.css">
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/essay/post.css}">
+</th:block>
 
-<section>
+<section layout:fragment="content">
     <article>
-        <div id="field">${essay.field}</div>
-        <div id="lang">${essay.lang}</div>
-        <h1 id="title">${essay.title}</h1>
-        <div id="content">${essay.content}</div>
+        <div id="field" th:text="${essay.field}"></div>
+        <div id="lang" th:text="${essay.lang}"></div>
+        <h1 id="title" th:text="${essay.title}"></h1>
+        <div id="content" th:text="${essay.content}"></div>
     </article>
     <div id="like">
     <span id="likeSpan" style="font-weight: bold;">
-	    <c:if test="${confirmLike == true}">♥</c:if>
-	    <c:if test="${confirmLike == false}">♡</c:if>
-	    ${essay.likeCount}
+        <th:block th:if="${confirmLike == true}">♥</th:block>
+        <th:block th:if="${confirmLike == false}">♡</th:block>
+	    <span th:text="${essay.likeCount}"></span>
     </span>
-
-    <c:if test="${pageContext.request.userPrincipal.name == essay.email}">
+    <th:block th:if="${#authentication.getName() == essay.email}">
         <button id="removeBtn" type="button">삭제</button>
         <button id="modifyBtn" type="button">수정</button>
-    </c:if>
+    </th:block>
 
     </div>
     <div id="mtr-detail">
-        <img id="mtr-img" src="${essay.writerPhotoUrl}">
+        <img id="mtr-img" th:src="${essay.writerPhotoUrl}">
         <div class="mtr-name">
-            <span>${essay.writer}</span>
+            <span th:text="${essay.writer}"></span>
             <span>멘토</span>
             <div class="follow-btn">팔로우</div>
             <div class="qna-btn">질문하기</div>
@@ -41,8 +43,8 @@
         <button id="listBtn">목록으로</button>
         <button id="beforeBtn">뒤로가기</button>
     </div>
-    </section>
-
+</section>
+<th:block layout:fragment="script">
     <script>
         const modifyBtn = document.querySelector('#modifyBtn');
         const removeBtn = document.querySelector('#removeBtn');
@@ -108,5 +110,6 @@
             }
         });
     </script>
+</th:block>
+</html>
 
-<%@ include file="../include/footer.jsp" %>

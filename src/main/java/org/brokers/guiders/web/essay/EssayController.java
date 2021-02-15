@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/essay")
 @RequiredArgsConstructor
@@ -20,7 +18,7 @@ public class EssayController {
 
     @GetMapping("/write")
     public String writeEssay() {
-        return "/essay/write";
+        return "essay/write";
     }
 
     @PostMapping("/write")
@@ -35,7 +33,7 @@ public class EssayController {
                                   @RequestParam(defaultValue = "") String keyword) {
         Page<EssayDto.Response> essayPage = essayService.getEssayList(page - 1, keyword);
         model.addAttribute("essayPage", essayPage);
-        return "/essay/list";
+        return "essay/list";
     }
 
     @GetMapping("/detail/{id}")
@@ -47,14 +45,14 @@ public class EssayController {
             model.addAttribute("confirmLike", confirmLike);
         }
         model.addAttribute("essay", essay);
-        return "/essay/post";
+        return "essay/post";
     }
 
     @GetMapping("/modify")
     public String modifyEssay(Long id, Model model) {
         EssayDto.DetailResponse essay = essayService.getEssay(id);
         model.addAttribute("essay", essay);
-        return "/essay/modify";
+        return "essay/modify";
     }
 
     @PostMapping("/modify/{id}")
@@ -66,7 +64,7 @@ public class EssayController {
     @GetMapping("/delete/{id}")
     public String removeEssay(@PathVariable Long id, @AuthUser Member member) {
         essayService.removeEssay(id, member);
-        return "redirect:/essay/list";
+        return "essay/list";
     }
 
     @GetMapping("/{id}")

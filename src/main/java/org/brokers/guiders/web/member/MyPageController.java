@@ -46,7 +46,7 @@ public class MyPageController {
     @PostMapping("/edit")
     public String edit(MemberDto.Update memberDto, @AuthUser Member member) {
         memberService.modifyMember(memberDto, member);
-        return "/WEB-INF/views/mypage/edit.html";
+        return "mypage/edit";
     }
 
     @GetMapping("/myGuider")

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default" lang="ko">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/essay/write.css}">
+</th:block>
+
+<form th:action="@{/essay/write}" method="post" id="insertEssayForm" layout:fragment="content">
+    <h1>에세이 작성</h1>
+    <div id="title-wrap">
+        <input id="title" name="title" type="text" placeholder="제목">
+    </div>
+    <div id="content-wrap">
+        <textarea id="editor" name="content" placeholder="내용"></textarea>
+    </div>
+    <div id="btn-wrap">
+        <button id="writeBtn" type="button">등록</button>
+        <button id="cancelBtn" type="button">취소</button>
+    </div>
+</form>
+
+<th:block layout:fragment="script">
+    <script th:src="@{https://code.jquery.com/jquery-latest.js}"></script>
+    <script th:src="@{/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
+    <script th:src="@{/js/essay/write.js}"></script>
+</th:block>
+
+</html>
