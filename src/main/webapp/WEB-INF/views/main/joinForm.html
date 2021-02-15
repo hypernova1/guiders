@@ -2,10 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/default" lang="ko">
-<section layout:fragment="content" id="join_form">
-    <link rel="stylesheet" th:href="@{/css/main/joinForm.css}">
-    <script th:src="@{/js/main/joinForm.js}" defer></script>
 
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/main/joinForm.css}">
+</th:block>
+<th:block layout:fragment="script">
+    <script th:src="@{/js/main/joinForm.js}"></script>
+</th:block>
+
+<section layout:fragment="content" id="join_form">
     <input type="hidden" th:value="${param.type}" id="type">
     <h2 th:if="${#httpServletRequest.getParameter('type') == 'guider'}">Guider Join</h2>
     <h2 th:if="${#httpServletRequest.getParameter('type') == 'follower'}">Follower Join</h2>
@@ -100,11 +105,12 @@
         <button type="button" id="join-btn2" disabled="disabled">확인</button>
 
     </div>
-    <th:block layout:fragment="script">
-        <script>
-            const joinType = "[[${param.type}]]";
-        </script>
-
-    </th:block>
 </section>
+
+<th:block layout:fragment="script">
+    <script>
+        const joinType = "[[${param.type}]]";
+    </script>
+</th:block>
+
 </html>

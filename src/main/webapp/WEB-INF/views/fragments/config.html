@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="ko">
 
 <head th:fragment="configFragment">
     <meta charset="UTF-8"/>
@@ -13,10 +13,7 @@
     <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
     <link rel="stylesheet" th:href="@{/css/include/header.css}">
     <link rel="stylesheet" th:href="@{/css/include/footer.css}">
-    <script th:src="@{http://code.jquery.com/jquery-1.11.1.min.js}"></script>
-    <script th:src="@{http://code.jquery.com/jquery-migrate-1.2.1.min.js}"></script>
-    <script th:src="@{http://code.jquery.com/jquery-1.11.1.min.js}"></script>
-    <script th:src="@{http://code.jquery.com/jquery-migrate-1.2.1.min.js}"></script>
-    <script th:src="@{/js/include/header.js}" defer></script>
+    <th:block layout:fragment="css"></th:block>
+
 </head>
 </html>

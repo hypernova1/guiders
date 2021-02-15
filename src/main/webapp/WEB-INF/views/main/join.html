@@ -2,19 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/default" lang="ko">
+<th:block layout:fragment="css">
+  <link rel="stylesheet" href="/css/main/join.css">
+</th:block>
 <div layout:fragment="content">
-<link rel="stylesheet" href="/css/main/join.css">
-
 <section>
-  <h1 class="join">
-    회원가입
-  </h1>
-
+  <h1 class="join">회원가입</h1>
   <div class="grid-container">
-    <div class="item1">
-
-      회원 유형에 따라 가입 절차가 다르니, 본인에 해당하는 유형을 선택하여 주세요.
-    </div>
+    <div class="item1">회원 유형에 따라 가입 절차가 다르니, 본인에 해당하는 유형을 선택하여 주세요.</div>
     <div class="item2">
       <h1>가이더로 가입하기</h1>
       <h3>여러분의 도움을 필요로 하는 멘티들이 있습니다.</h3>

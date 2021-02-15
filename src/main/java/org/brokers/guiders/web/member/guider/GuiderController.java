@@ -19,7 +19,7 @@ public class GuiderController {
 
     @GetMapping("/guiders")
     public String guiders() {
-        return "guiders.html";
+        return "guiders/guiders";
     }
 
     @GetMapping("/guider")
