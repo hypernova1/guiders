@@ -4,7 +4,7 @@ const obj = [];
 nhn.husky.EZCreator.createInIFrame({
     oAppRef: obj,
     elPlaceHolder: "editor",
-    sSkinURI: "/editor/SmartEditor2Skin.html",
+    sSkinURI: "/resources/editor/SmartEditor2Skin.html",
     htParams : {
         // 툴바 사용 여부
         bUseToolbar : true,

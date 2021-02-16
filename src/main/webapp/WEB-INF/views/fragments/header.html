@@ -27,7 +27,7 @@
                 </span>
                 </div>
                 <div class="menu-content">
-                    <img th:src="@{/img/iconmonstr-user-circle-thin.svg}" id="mypage">
+                    <img th:src="@{/resources/img/iconmonstr-user-circle-thin.svg}" id="mypage">
                     <ul sec:authorize="isAuthenticated()" id="mypage-list">
                         <li sec:authorize="hasRole('GUIDER')"><a th:href="@{/mypage/questions}">Questions</a></li>
                         <li sec:authorize="hasRole('MEMBER')"><a th:href="@{/mypage/myGuider}">My Guiders</a></li>
@@ -53,7 +53,7 @@
                     <span id="naverName">님</span>
                 </div>
             </nav>
-            <a href="/"><img th:src="@{/img/logo.png}" id="logo"></a>
+            <a href="/"><img th:src="@{/resources/img/logo.png}" id="logo"></a>
         </div>
 
         <div id="login-modal">
@@ -70,7 +70,7 @@
                         <button type="button" id="apiLoginButton">로그인</button>
                     </div>
                     <div style="margin-top: 10px;">
-                        <img th:src="@{/img/naverLogin.png}" id="naver-login">
+                        <img th:src="@{/resources/img/naverLogin.png}" id="naver-login">
                     </div>
                 </form>
                 <!-- 			<div id="etc">

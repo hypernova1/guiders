@@ -5,7 +5,7 @@
           layout:decorator="layout/default" lang="ko">
 
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/main.css}">
 </th:block>
 
 <div layout:fragment="content">
@@ -30,13 +30,13 @@
         <div class="maker">
             <div class="card">
                 <div class="face front">
-                    <img src="/img/maker/june.jpg">
+                    <img th:src="@{/resources/img/maker/june.jpg}">
                     <div class="name">정원준</div>
                     <div class="role-title">ROLE</div>
                     <div class="role">시큐리티, 스케쥴 관리</div>
                 </div>
                 <div class="face back">
-                    <img src="/img/maker/a.png" class="back-img">
+                    <img th:src="@{/resources/img/maker/a.png}" class="back-img">
                     <div>피카츄 라이츄 파이리 꼬부기</div>
                     <div>버터플 야도란 피죤투 또가스</div>
                 </div>
@@ -45,13 +45,13 @@
         <div class="maker">
             <div class="card">
                 <div class="face front">
-                    <img src="/img/maker/sam.jpg">
+                    <img th:src="@{/resources/img/maker/sam.jpg}">
                     <div class="name">권샘찬</div>
                     <div class="role-title">ROLE</div>
                     <div class="role">회원 관리, 화면 디자인</div>
                 </div>
                 <div class="face back">
-                    <img src="/img/maker/b.png" class="back-img">
+                    <img th:src="@{/resources/img/maker/b.png}" class="back-img">
                     <div>야돈..</div>
                     <div>야돈..</div>
                 </div>
@@ -60,13 +60,13 @@
         <div class="maker">
             <div class="card">
                 <div class="face front">
-                    <img src="/img/maker/jeon.jpg">
+                    <img th:src="@{/resources/img/maker/jeon.jpg}">
                     <div class="name">전지영</div>
                     <div class="role-title">ROLE</div>
                     <div class="role">게시판, 화면 디자인</div>
                 </div>
                 <div class="face back">
-                    <img src="/img/maker/c.png" class="back-img">
+                    <img th:src="@{/resources/img/maker/c.png}" class="back-img">
                     <div>자 이제 시작이야 내 꿈을</div>
                     <div>내 꿈을 위한 여행</div>
                 </div>
@@ -75,13 +75,13 @@
         <div class="maker">
             <div class="card">
                 <div class="face front">
-                    <img src="/img/maker/hune.jpg">
+                    <img th:src="@{/resources/img/maker/hune.jpg}">
                     <div class="name">김정훈</div>
                     <div class="role-title">ROLE</div>
                     <div class="role">회원검색, 화면 디자인</div>
                 </div>
                 <div class="face back">
-                    <img src="/img/maker/d.png" class="back-img">
+                    <img th:src="@{/resources/img/maker/d.png}" class="back-img">
                     <div>자 이제 시작이야 내 꿈을</div>
                     <div>내 꿈을 위한 여행</div>
                 </div>
@@ -91,7 +91,7 @@
 </div>
 
 <th:block layout:fragment="script">
-    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/resources/js/main.js}"></script>
     <script>
         window.addEventListener('load', () => {
             fetch('/essay/top6')
