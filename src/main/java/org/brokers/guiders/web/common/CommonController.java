@@ -2,6 +2,8 @@ package org.brokers.guiders.web.common;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.util.UploadFileUtils;
+import org.brokers.guiders.web.essay.EssayDto;
+import org.brokers.guiders.web.essay.EssayService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -25,9 +28,12 @@ import java.util.UUID;
 public class CommonController {
 
     private final ServletContext servletContext;
+    private final EssayService essayService;
 
     @GetMapping("/")
-    public String main() {
+    public String main(Model model) {
+        List<EssayDto.Response> topEssay = essayService.getTopEssay();
+        model.addAttribute("topEssayList", topEssay);
         return "main";
     }
 

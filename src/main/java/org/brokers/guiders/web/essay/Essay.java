@@ -2,15 +2,19 @@ package org.brokers.guiders.web.essay;
 
 import lombok.*;
 import org.brokers.guiders.web.common.DateAudit;
+import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.guider.Guider;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "essay")
 @Getter @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(callSuper = true, of = "id")
 public class Essay extends DateAudit {
 
     @Id
@@ -19,6 +23,7 @@ public class Essay extends DateAudit {
     protected Long id;
 
     @ManyToOne
+    @JoinColumn(name = "writer_id")
     private Guider writer;
 
     private String field;

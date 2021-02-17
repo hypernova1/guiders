@@ -1,18 +1,12 @@
 package org.brokers.guiders.web.member;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.brokers.guiders.web.auth.role.Role;
 import org.brokers.guiders.web.auth.role.RoleName;
 import org.brokers.guiders.web.common.DateAudit;
-import org.brokers.guiders.web.essay.Essay;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,10 +16,12 @@ import java.util.Set;
 @Setter
 @DiscriminatorColumn(columnDefinition = "DTYPE")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = "id", callSuper = false)
 public class Member extends DateAudit {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     protected Long id;
 
     @Column(unique = true, nullable = false)
@@ -41,14 +37,6 @@ public class Member extends DateAudit {
     protected String phone;
 
     protected String photoUrl;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "member_essay",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "essay_id")
-    )
-    protected final List<Essay> likeEssay = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -76,18 +64,4 @@ public class Member extends DateAudit {
                 .anyMatch((role) -> role.getName().equals(RoleName.ROLE_GUIDER));
     }
 
-    public boolean isMyLikeEssay(Long id) {
-        return this.likeEssay.stream().map(Essay::getId)
-                .anyMatch(essayId -> essayId.equals(id));
-    };
-
-    public void toggleLikeEssay(Essay essay) {
-        if (this.likeEssay.contains(essay)) {
-            essay.decrementLikeCount();
-            likeEssay.remove(essay);
-            return;
-        }
-        essay.incrementLikeCount();
-        this.likeEssay.add(essay);
-    }
 }

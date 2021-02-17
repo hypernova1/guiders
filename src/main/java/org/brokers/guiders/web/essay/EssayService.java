@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +25,7 @@ public class EssayService {
     private final EssayRepository essayRepository;
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
+    private final LikeEssayRepository likeEssayRepository;
 
     @Transactional
     public Long writeEssay(EssayDto.Request request, Member member) {
@@ -75,8 +78,18 @@ public class EssayService {
     public int toggleLikeEssay(Long id, Member member) {
         Essay essay = essayRepository.findById(id)
                 .orElseThrow(() -> new EssayNotFoundException(id));
-        member.toggleLikeEssay(essay);
-        memberRepository.save(member);
+        LikeEssay savedLikeEssay = likeEssayRepository.findByMemberAndEssay(member, essay);
+        if (savedLikeEssay != null) {
+            likeEssayRepository.delete(savedLikeEssay);
+            essay.decrementLikeCount();
+        } else {
+            LikeEssay likeEssay = LikeEssay.builder()
+                    .member(member)
+                    .essay(essay)
+                    .build();
+            likeEssayRepository.save(likeEssay);
+            essay.incrementLikeCount();
+        }
         return essay.getLikeCount();
     }
 
@@ -93,9 +106,32 @@ public class EssayService {
 
     public List<EssayDto.Response> getTopEssay() {
         List<Essay> topEssayList = essayRepository.findTop6ByOrderByLikeCountDesc();
+        Pattern pattern = Pattern.compile("\\< ?img(.*?)\\>");
         return topEssayList.stream()
-                .map(essay -> modelMapper.map(essay, EssayDto.Response.class))
+                .map(essay -> {
+                    essay.setContent(essay.getContent().replaceAll("\\< ?img(.*?)\\>", ""));
+                    EssayDto.Response essayDto = modelMapper.map(essay, EssayDto.Response.class);
+                    Matcher matcher = pattern.matcher(essayDto.getContent());
+                    String image = "https://t1.daumcdn.net/cfile/tistory/1112763C4F78EAB610";
+                    if (matcher.find()) {
+                        image = matcher.group();
+                    }
+                    essayDto.setImage(image);
+                    return essayDto;
+                })
                 .collect(Collectors.toList());
     }
 
+    public List<EssayDto.DetailResponse> getLikeEssayList(Member member) {
+        List<LikeEssay> likeEssayList = likeEssayRepository.findByMember(member);
+        return likeEssayList.stream()
+                .map(likeEssay -> modelMapper.map(likeEssay.getEssay(), EssayDto.DetailResponse.class))
+                .collect(Collectors.toList());
+    }
+
+    public boolean isMyLikeEssay(Member member, Long id) {
+        Essay essay = essayRepository.findById(id)
+                .orElseThrow(() -> new EssayNotFoundException(id));
+        return likeEssayRepository.existsByMemberAndEssay(member, essay);
+    }
 }

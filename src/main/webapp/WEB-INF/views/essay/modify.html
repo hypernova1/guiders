@@ -14,11 +14,11 @@
         <input name="title" type="text" placeholder="제목" th:value="${essay.title}">
     </div>
     <div id="content">
-        <textarea id="editor" name="content" placeholder="내용" th:value="${essay.content}"></textarea>
+        <textarea id="editor" name="content" placeholder="내용" th:utext="${essay.content}"></textarea>
     </div>
     <div id="btn-wrap">
         <button id="writeBtn" type="button">수정</button>
-        <button id="cancleBtn" type="button">취소</button>
+        <button id="cancelBtn" type="button">취소</button>
     </div>
 </form>
 
@@ -44,11 +44,15 @@
             }
         });
         //전송버튼
-        $("#writeBtn").click(function(){
+        document.getElementById("writeBtn").addEventListener('click', () => {
             //id가 editor인 textarea에 에디터에서 대입
-            obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
+            obj.getById["editor"].exec('UPDATE_CONTENTS_FIELD', []);
             //폼 submit
-            $("#modifyEssayForm").submit();
+            document.getElementById('modifyEssayForm').submit();
+        });
+
+        document.getElementById('cancelBtn').addEventListener('click', () => {
+            history.back();
         });
     </script>
 </th:block>
