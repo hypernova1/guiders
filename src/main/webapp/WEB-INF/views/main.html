@@ -20,6 +20,14 @@
         </div>
     </div>
     <section id="article">
+        <h2>인기 에세이</h2>
+        <th:block th:each="essay: ${topEssayList}">
+            <article>
+                <img class="article-img" th:src="${essay.image}">
+                <h3 class="article-title" th:data-id="${essay.id}" th:text="${essay.title}"></h3>
+                <div class="article-content" th:utext="${essay.content}"></div>
+            </article>
+        </th:block>
     </section>
     <div class="line">
         <div></div>
@@ -93,31 +101,6 @@
 <th:block layout:fragment="script">
     <script th:src="@{/resources/js/main.js}"></script>
     <script>
-        window.addEventListener('load', () => {
-            fetch('/essay/top6')
-                .then((res) => res.json())
-                .then((essayList) => {
-                    let article = '<h2>인기 에세이</h2>';
-                    const regex = /<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/i;
-                    essayList.forEach((essay) => {
-                        const img = essay.content.match(regex);
-
-                        article += '<article>';
-                        if(img){
-                            const src = img[1];
-                            article += '<img class="article-img" src="' + src + '">';
-                        } else {
-                            article += '<img class="article-img" src="https://t1.daumcdn.net/cfile/tistory/1112763C4F78EAB610">';
-                        }
-                        article += '<h3 class="article-title" data-id="' + essay.id + '">' + essay.title + '</h3>';
-                        article += '<div class="article-content">' + essay.content.replace(/(<([^>]+)>)/ig,""); + '</div>';
-                        article += '</article>';
-                    });
-                    document.querySelector('#article').innerHTML = article;
-                })
-
-        });
-
         document.querySelector('#article').addEventListener('click', ({target}) => {
             if (target.className === 'article-title'){
                 location.href = '/essay/detail/' + target.getAttribute('data-id');

@@ -33,7 +33,7 @@ public class CommonController {
     @GetMapping("/")
     public String main(Model model) {
         List<EssayDto.Response> topEssay = essayService.getTopEssay();
-        model.addAttribute("topEssay", topEssay);
+        model.addAttribute("topEssayList", topEssay);
         return "main";
     }
 

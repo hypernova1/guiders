@@ -1,5 +1,6 @@
 package org.brokers.guiders.web.essay;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,6 +23,8 @@ public class EssayDto {
         private String writerPhotoUrl;
         private int likeCount;
         private String createdDate;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String image;
     }
 
     @Getter @Setter

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -104,8 +106,19 @@ public class EssayService {
 
     public List<EssayDto.Response> getTopEssay() {
         List<Essay> topEssayList = essayRepository.findTop6ByOrderByLikeCountDesc();
+        Pattern pattern = Pattern.compile("\\< ?img(.*?)\\>");
         return topEssayList.stream()
-                .map(essay -> modelMapper.map(essay, EssayDto.Response.class))
+                .map(essay -> {
+                    essay.setContent(essay.getContent().replaceAll("\\< ?img(.*?)\\>", ""));
+                    EssayDto.Response essayDto = modelMapper.map(essay, EssayDto.Response.class);
+                    Matcher matcher = pattern.matcher(essayDto.getContent());
+                    String image = "https://t1.daumcdn.net/cfile/tistory/1112763C4F78EAB610";
+                    if (matcher.find()) {
+                        image = matcher.group();
+                    }
+                    essayDto.setImage(image);
+                    return essayDto;
+                })
                 .collect(Collectors.toList());
     }
 
