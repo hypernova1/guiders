@@ -23,6 +23,7 @@ public class EssayService {
     private final EssayRepository essayRepository;
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
+    private final LikeEssayRepository likeEssayRepository;
 
     @Transactional
     public Long writeEssay(EssayDto.Request request, Member member) {
@@ -75,8 +76,18 @@ public class EssayService {
     public int toggleLikeEssay(Long id, Member member) {
         Essay essay = essayRepository.findById(id)
                 .orElseThrow(() -> new EssayNotFoundException(id));
-        member.toggleLikeEssay(essay);
-        memberRepository.save(member);
+        LikeEssay savedLikeEssay = likeEssayRepository.findByMemberAndEssay(member, essay);
+        if (savedLikeEssay != null) {
+            likeEssayRepository.delete(savedLikeEssay);
+            essay.decrementLikeCount();
+        } else {
+            LikeEssay likeEssay = LikeEssay.builder()
+                    .member(member)
+                    .essay(essay)
+                    .build();
+            likeEssayRepository.save(likeEssay);
+            essay.incrementLikeCount();
+        }
         return essay.getLikeCount();
     }
 
@@ -98,4 +109,16 @@ public class EssayService {
                 .collect(Collectors.toList());
     }
 
+    public List<EssayDto.DetailResponse> getLikeEssayList(Member member) {
+        List<LikeEssay> likeEssayList = likeEssayRepository.findByMember(member);
+        return likeEssayList.stream()
+                .map(likeEssay -> modelMapper.map(likeEssay.getEssay(), EssayDto.DetailResponse.class))
+                .collect(Collectors.toList());
+    }
+
+    public boolean isMyLikeEssay(Member member, Long id) {
+        Essay essay = essayRepository.findById(id)
+                .orElseThrow(() -> new EssayNotFoundException(id));
+        return likeEssayRepository.existsByMemberAndEssay(member, essay);
+    }
 }

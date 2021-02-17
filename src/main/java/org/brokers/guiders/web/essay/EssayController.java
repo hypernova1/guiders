@@ -40,7 +40,7 @@ public class EssayController {
     public String readEssay(@PathVariable Long id, Model model, @AuthUser Member member) {
         EssayDto.DetailResponse essay = essayService.getEssay(id);
         if (member != null) {
-            boolean confirmLike = member.isMyLikeEssay(essay.getId());
+            boolean confirmLike = essayService.isMyLikeEssay(member, essay.getId());
             model.addAttribute("userInfo", member);
             model.addAttribute("confirmLike", confirmLike);
         }
