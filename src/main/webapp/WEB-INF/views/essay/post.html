@@ -12,7 +12,7 @@
         <div id="field" th:text="${essay.field}"></div>
         <div id="lang" th:text="${essay.lang}"></div>
         <h1 id="title" th:text="${essay.title}"></h1>
-        <div id="content" th:text="${essay.content}"></div>
+        <div id="content" th:utext="${essay.content}"></div>
     </article>
     <div id="like">
     <span id="likeSpan" style="font-weight: bold;">
@@ -51,14 +51,14 @@
 
         if(modifyBtn){
             modifyBtn.addEventListener('click', function(){
-                const id = '${essay.id}';
+                const id = '[[${essay.id}]]';
                 location.href = "/essay/modify?id=" + id;
             });
         }
 
         document.querySelector('#likeSpan').addEventListener('click', function(e){
-            const email = '${userInfo.email}';
-            if (!email){
+            const email = '[[${#authentication.getName()}]]';
+            if (email === 'anonymousUser'){
                 alert('로그인이 필요합니다.');
                 let i = 1;
                 modal.style.display = 'block';
@@ -72,10 +72,9 @@
                 }, 10);
                 return;
             }
-            const id = '${param.id}';
-            const data = { email , id };
+            const data = { email };
 
-            fetch(`/essay/${id}/like`, {
+            fetch(`/essay/[[${id}]]/like`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
