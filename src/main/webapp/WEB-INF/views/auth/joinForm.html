@@ -4,7 +4,7 @@
       layout:decorator="layout/default" lang="ko">
 
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/resources/css/auth/joinForm.css}">
+    <link rel="stylesheet" th:href="@{/css/auth/joinForm.css}">
 </th:block>
 
 <section layout:fragment="content" id="join_form">
@@ -105,7 +105,7 @@
 </section>
 
 <th:block layout:fragment="script">
-    <script th:src="@{/resources/js/auth/joinForm.js}"></script>
+    <script th:src="@{/js/auth/joinForm.js}"></script>
     <script>
         const joinType = "[[${param.type}]]";
     </script>

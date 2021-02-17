@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'yoon';
-  src: url('/resources/font/HANYOONGOTHIC760.TTF') format('truetype');
+  src: url('/font/HANYOONGOTHIC760.TTF') format('truetype');
 }
 
 *,
@@ -42,11 +42,8 @@ nav {
   display: inline-block;
   margin: 10px 5px 0;
   font-size: 1.3rem;
-  user-select: none;
-}
-
-.menu-content > img {
   cursor: pointer;
+  user-select: none;
 }
 
 .menu-content:nth-child(4) {
@@ -54,7 +51,7 @@ nav {
   color: #747d8c;
 }
 
-.menu-content a:hover {
+.menu-content>span:hover:not(.menu-content > span:nth-child(5)) {
   color: #ff2d55;
   transition: 0.3s;
 }

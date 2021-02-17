@@ -65,7 +65,7 @@ public class AuthController {
         OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
         String apiResult = naverLoginBO.getUserProfile(oauthToken);
         session.setAttribute("naver", apiResult);
-        return new ModelAndView("callback", "result", apiResult);
+        return new ModelAndView("/WEB-INF/views/callback.jsp", "result", apiResult);
     }
 
 }

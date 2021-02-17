@@ -4,7 +4,7 @@
       layout:decorator="layout/default" lang="ko">
 
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/resources/css/essay/write.css}">
+    <link rel="stylesheet" th:href="@{/css/essay/write.css}">
 </th:block>
 
 <form th:action="@{/essay/modify/{id}(id=${essay.id})}" method="post" id="modifyEssayForm" enctype="multipart/form-data" layout:fragment="content">
@@ -24,7 +24,7 @@
 
 <th:block layout:fragment="script">
     <script th:src="@{https://code.jquery.com/jquery-latest.js}"></script>
-    <script th:src="@{/resources/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
+    <script th:src="@{/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
 
     <script type="text/javascript">
         //전역변수
@@ -33,7 +33,7 @@
         nhn.husky.EZCreator.createInIFrame({
             oAppRef: obj,
             elPlaceHolder: "editor",
-            sSkinURI: "/resources/editor/SmartEditor2Skin.html",
+            sSkinURI: "/editor/SmartEditor2Skin.html",
             htParams : {
                 // 툴바 사용 여부
                 bUseToolbar : true,
