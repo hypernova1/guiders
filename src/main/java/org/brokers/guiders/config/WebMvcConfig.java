@@ -48,22 +48,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/editor/**").addResourceLocations("/resources/editor/");
     }
 
-    @Bean
-    public NaverLoginBO naverLoginBO() {
-        return new NaverLoginBO();
-    }
-
-    @Bean
-    public CommonsMultipartResolver multipartResolver() {
-        return new CommonsMultipartResolver();
-    }
-
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setTemplateMode("HTML");
         templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setCacheable(false);
 
@@ -89,6 +79,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
         viewResolver.setOrder(1);
 
         return viewResolver;
+    }
+
+    @Bean
+    public NaverLoginBO naverLoginBO() {
+        return new NaverLoginBO();
+    }
+
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        return new CommonsMultipartResolver();
     }
 
 }
