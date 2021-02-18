@@ -3,6 +3,7 @@ package org.brokers.guiders.web.essay;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.member.MemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class EssayController {
 
     private final EssayService essayService;
+    private final MemberService memberService;
 
     @GetMapping("/write")
     public String writeEssay() {
@@ -40,7 +42,7 @@ public class EssayController {
     public String readEssay(@PathVariable Long id, Model model, @AuthUser Member member) {
         EssayDto.DetailResponse essay = essayService.getEssay(id);
         if (member != null) {
-            boolean confirmLike = essayService.isMyLikeEssay(member, essay.getId());
+            boolean confirmLike = member.isMyLikeEssay(essay.getId());
             model.addAttribute("userInfo", member);
             model.addAttribute("confirmLike", confirmLike);
         }
@@ -75,7 +77,7 @@ public class EssayController {
 
     @PutMapping("/{id}/like")
     public ResponseEntity<?> addLikeCount(@PathVariable Long id, @AuthUser Member member) {
-        return ResponseEntity.ok(essayService.toggleLikeEssay(id, member)); // 갱신된 '좋아요' 갯수를 전달
+        return ResponseEntity.ok(memberService.toggleLikeEssay(id, member)); // 갱신된 '좋아요' 갯수를 전달
     }
 
 }

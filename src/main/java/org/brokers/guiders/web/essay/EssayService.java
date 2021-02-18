@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.EssayNotFoundException;
 import org.brokers.guiders.exception.EssayOwnershipException;
 import org.brokers.guiders.web.member.Member;
-import org.brokers.guiders.web.member.MemberRepository;
 import org.brokers.guiders.web.member.guider.Guider;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -23,9 +22,7 @@ import java.util.stream.Collectors;
 public class EssayService {
 
     private final EssayRepository essayRepository;
-    private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
-    private final LikeEssayRepository likeEssayRepository;
 
     @Transactional
     public Long writeEssay(EssayDto.Request request, Member member) {
@@ -75,25 +72,6 @@ public class EssayService {
     }
 
     @Transactional
-    public int toggleLikeEssay(Long id, Member member) {
-        Essay essay = essayRepository.findById(id)
-                .orElseThrow(() -> new EssayNotFoundException(id));
-        LikeEssay savedLikeEssay = likeEssayRepository.findByMemberAndEssay(member, essay);
-        if (savedLikeEssay != null) {
-            likeEssayRepository.delete(savedLikeEssay);
-            essay.decrementLikeCount();
-        } else {
-            LikeEssay likeEssay = LikeEssay.builder()
-                    .member(member)
-                    .essay(essay)
-                    .build();
-            likeEssayRepository.save(likeEssay);
-            essay.incrementLikeCount();
-        }
-        return essay.getLikeCount();
-    }
-
-    @Transactional
     public void removeEssay(Long id, Member member) {
         Essay essay = essayRepository.findById(id)
                 .orElseThrow(() -> new EssayNotFoundException(id));
@@ -123,15 +101,10 @@ public class EssayService {
     }
 
     public List<EssayDto.DetailResponse> getLikeEssayList(Member member) {
-        List<LikeEssay> likeEssayList = likeEssayRepository.findByMember(member);
+        List<Essay> likeEssayList = member.getLikeEssayList();
         return likeEssayList.stream()
-                .map(likeEssay -> modelMapper.map(likeEssay.getEssay(), EssayDto.DetailResponse.class))
+                .map(likeEssay -> modelMapper.map(likeEssay, EssayDto.DetailResponse.class))
                 .collect(Collectors.toList());
     }
 
-    public boolean isMyLikeEssay(Member member, Long id) {
-        Essay essay = essayRepository.findById(id)
-                .orElseThrow(() -> new EssayNotFoundException(id));
-        return likeEssayRepository.existsByMemberAndEssay(member, essay);
-    }
 }

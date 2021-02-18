@@ -4,10 +4,11 @@ import lombok.*;
 import org.brokers.guiders.web.auth.role.Role;
 import org.brokers.guiders.web.auth.role.RoleName;
 import org.brokers.guiders.web.common.DateAudit;
+import org.brokers.guiders.web.essay.Essay;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "member")
@@ -38,6 +39,14 @@ public class Member extends DateAudit {
 
     protected String photoUrl;
 
+    @OneToMany
+    @JoinTable(
+            name = "like_essay",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "essay_id")
+    )
+    private final List<Essay> likeEssayList = new ArrayList<>();
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "member_role",
@@ -64,4 +73,16 @@ public class Member extends DateAudit {
                 .anyMatch((role) -> role.getName().equals(RoleName.ROLE_GUIDER));
     }
 
+    public boolean isMyLikeEssay(Long id) {
+        return this.likeEssayList.stream()
+                .anyMatch(essay -> essay.getId().equals(id));
+    }
+
+    public void removeLikeEssay(Long id) {
+        this.likeEssayList.removeIf(essay -> essay.getId().equals(id));
+    }
+
+    public void addLikeEssay(Essay essay) {
+        this.likeEssayList.add(essay);
+    }
 }
