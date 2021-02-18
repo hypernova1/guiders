@@ -8,10 +8,7 @@ import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.guider.Guider;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +20,12 @@ import java.util.List;
 public class Follower extends Member {
 
     @OneToMany
+    @JoinTable(
+            name = "follower_follow_list",
+            joinColumns = @JoinColumn(name = "follow_id"),
+            inverseJoinColumns = @JoinColumn(name = "guider_id")
+    )
     private final List<Guider> followList = new ArrayList<>();
-
-    @OneToMany
-    private final List<Essay> likeEssay = new ArrayList<>();
 
     public static Follower create(AuthDto.JoinRequest request) {
         Follower follower = new Follower();

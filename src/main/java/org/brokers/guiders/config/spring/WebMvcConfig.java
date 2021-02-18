@@ -1,9 +1,8 @@
-package org.brokers.guiders.config;
+package org.brokers.guiders.config.spring;
 
 import lombok.RequiredArgsConstructor;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.brokers.guiders.util.NaverLoginBO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -52,22 +51,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/editor/**").addResourceLocations("/resources/editor/");
     }
 
-    @Bean
-    public NaverLoginBO naverLoginBO() {
-        return new NaverLoginBO();
-    }
-
-    @Bean
-    public CommonsMultipartResolver multipartResolver() {
-        return new CommonsMultipartResolver();
-    }
-
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setTemplateMode("HTML");
         templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setCacheable(false);
 
@@ -93,6 +82,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
         viewResolver.setOrder(1);
 
         return viewResolver;
+    }
+
+    @Bean
+    public NaverLoginBO naverLoginBO() {
+        return new NaverLoginBO();
+    }
+
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        return new CommonsMultipartResolver();
     }
 
 }
