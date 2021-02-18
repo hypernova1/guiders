@@ -71,15 +71,28 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 }
 
+//ext.profile = (!project.hasProperty('profile') || !profile) ? 'local' : profile
+
 def querydslDir = "$buildDir/generated/querydsl"
+
+sourceSets {
+    if (!project.hasProperty('profile') || !profile) {
+        ext.profile = 'prod'
+    }
+
+    main {
+        java {
+            srcDir querydslDir
+        }
+        resources {
+            srcDirs "src/main/resources", "src/main/resources/${profile}"
+        }
+    }
+}
 
 querydsl {
     jpa = true
     querydslSourcesDir = querydslDir
-}
-
-sourceSets {
-    main.java.srcDir querydslDir
 }
 
 configurations {
@@ -90,10 +103,6 @@ compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }
 
-sourceSets {
-    main.java.srcDirs=['src/main/java', querydslDir]
-    main.resources.srcDirs=['src/main/resources', 'src/main/resources-' + target]
-}
 
 war {
     archiveName 'ROOT.war'
