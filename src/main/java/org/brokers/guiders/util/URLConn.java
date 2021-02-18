@@ -1,6 +1,6 @@
 package org.brokers.guiders.util;
 
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +21,7 @@ public class URLConn {
 		}
 	}
 
-	public void urlPost(JSONObject jsonObject) {
+	public void urlPost(JSONPObject jsonObject) {
 		conn.setDoOutput(true);
 		conn.setUseCaches(false);
 		conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");

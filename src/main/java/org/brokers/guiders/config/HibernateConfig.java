@@ -1,6 +1,7 @@
 package org.brokers.guiders.config;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,6 @@ import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
@@ -53,13 +53,20 @@ public class HibernateConfig {
     }
 
     @Bean
-    public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-        dataSource.setUrl("jdbc:mariadb://localhost:3306/guiders?useSSL=false&serverTimezone=Asia/Seoul");
-        dataSource.setUsername("root");
-        dataSource.setPassword("1111");
-        return dataSource;
+    public HikariDataSource dataSource() {
+        return new HikariDataSource(hikariConfig());
+    }
+
+    @Bean
+    public HikariConfig hikariConfig() {
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName("org.mariadb.jdbc.Driver");
+        config.setJdbcUrl("jdbc:mariadb://localhost:3306/guiders?useSSL=false&serverTimezone=Asia/Seoul");
+        config.setUsername("root");
+        config.setPassword("1111");
+        config.setIdleTimeout(10000);
+
+        return config;
     }
 
     @Bean

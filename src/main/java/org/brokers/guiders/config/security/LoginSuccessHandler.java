@@ -1,7 +1,6 @@
 package org.brokers.guiders.config.security;
 
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -9,12 +8,15 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -43,12 +45,13 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
 
-            JSONObject responseInfo = new JSONObject();
+            Map<String, Object> responseInfo = new HashMap<>();
             responseInfo.put("error", false);
             responseInfo.put("url", targetUrl);
 
+            String json = new ObjectMapper().writeValueAsString(responseInfo);
             PrintWriter out = response.getWriter();
-            out.print(responseInfo);
+            out.print(json);
             out.flush();
             out.close();
         }
