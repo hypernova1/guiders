@@ -1,4 +1,4 @@
-package org.brokers.guiders.config;
+package org.brokers.guiders.config.spring;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -9,6 +9,7 @@ import javax.servlet.*;
 import java.util.EnumSet;
 
 public class WebInitializer implements WebApplicationInitializer {
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
@@ -21,6 +22,5 @@ public class WebInitializer implements WebApplicationInitializer {
         characterEncodingFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
         characterEncodingFilter.setInitParameter("encoding", "UTF-8");
         characterEncodingFilter.setInitParameter("forceEncoding", "true");
-
     }
 }

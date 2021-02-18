@@ -62,6 +62,7 @@ public class MemberService {
                 .orElseThrow(MemberNotFoundException::new);
         Follower follower = (Follower) member;
         follower.unfollow(guider);
+        memberRepository.save(follower);
     }
 
     public MemberDto.InfoResponse findById(Long id) {

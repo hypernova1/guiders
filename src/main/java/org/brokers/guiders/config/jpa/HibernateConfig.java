@@ -1,4 +1,4 @@
-package org.brokers.guiders.config;
+package org.brokers.guiders.config.jpa;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

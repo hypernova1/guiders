@@ -27,7 +27,6 @@ public class LikeEssay extends DateAudit {
     @JoinColumn(name = "essay_id")
     private Essay essay;
 
-
     @Builder
     public LikeEssay(Essay essay, Member member) {
         this.essay = essay;

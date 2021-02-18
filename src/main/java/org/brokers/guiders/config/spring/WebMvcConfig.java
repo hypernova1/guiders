@@ -1,9 +1,8 @@
-package org.brokers.guiders.config;
+package org.brokers.guiders.config.spring;
 
 import lombok.RequiredArgsConstructor;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.brokers.guiders.util.NaverLoginBO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

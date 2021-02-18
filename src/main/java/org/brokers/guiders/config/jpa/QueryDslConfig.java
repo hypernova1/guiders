@@ -1,4 +1,4 @@
-package org.brokers.guiders.config;
+package org.brokers.guiders.config.jpa;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;
