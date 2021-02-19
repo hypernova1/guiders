@@ -63,7 +63,7 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 }
 
-ext.profile = (!project.hasProperty('profile') || !profile) ? 'local' : profile
+ext.profile = (!project.hasProperty('profile') || !profile) ? 'dev' : profile
 
 def querydslDir = "$buildDir/generated/querydsl"
 
@@ -73,7 +73,7 @@ sourceSets {
             srcDir querydslDir
         }
         resources {
-            srcDirs "src/main/resources", "src/main/resources/${profile}"
+            srcDirs "src/main/resources", "src/main/resources-${profile}"
         }
     }
 }

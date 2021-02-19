@@ -7,10 +7,7 @@ import org.brokers.guiders.web.auth.AuthDto;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.MemberDto;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "guider")
@@ -20,16 +17,22 @@ import javax.persistence.Table;
 public class Guider extends Member {
 
     @Lob
+    @Column(name = "introduction")
     private String introduction;
 
+    @Column(name = "current_job")
     private String currentJob;
 
+    @Column(name = "department")
     private String department;
 
+    @Column(name = "quote")
     private String quote;
 
+    @Column(name = "field")
     private String field;
 
+    @Column(name = "language")
     private String language;
 
     public static Guider create(AuthDto.JoinRequest request) {

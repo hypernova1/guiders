@@ -22,21 +22,25 @@ public class Member extends DateAudit {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
     protected Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     protected String email;
 
+    @Column(name = "password")
     protected String password;
 
+    @Column(name = "name")
     protected String name;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
     protected Gender gender;
 
+    @Column(name = "phone")
     protected String phone;
 
+    @Column(name = "photo_url")
     protected String photoUrl;
 
     @OneToMany

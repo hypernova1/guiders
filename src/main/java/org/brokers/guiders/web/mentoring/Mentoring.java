@@ -16,37 +16,47 @@ public class Mentoring extends DateAudit {
 
     @Id
     @GeneratedValue
-    @Column(name = "mentoring_id")
     protected Long id;
 
-    @ManyToOne
+    @OneToOne
+    @Column(name = "guider_id", nullable = false, updatable = false)
     private Guider guider;
 
-    @ManyToOne
+    @OneToOne
+    @Column(name = "follower_id", nullable = false, updatable = false)
     private Follower follower;
 
-    private String field;
-
-    private String lang;
-
+    @Column(name = "title")
     private String title;
 
+    @Lob
+    @Column(name = "content")
     private String content;
 
+    @Lob
+    @Column(name = "answer")
     private String answer;
 
+    @Column(name = "field")
+    private String field;
+
+    @Column(name = "lang")
+    private String language;
+
+    @Column(name = "like_count")
     private Integer likeCount;
 
+    @Column(name = "answer_date")
     private LocalDateTime answerDate;
 
     @Builder
-    public Mentoring(String title, String content, Guider guider, Follower follower, String field, String lang) {
+    public Mentoring(String title, String content, Guider guider, Follower follower, String field, String language) {
         this.title = title;
         this.content = content;
         this.guider = guider;
         this.follower = follower;
         this.field = field;
-        this.lang = lang;
+        this.language = language;
     }
 
     public void setAnswer(String answer) {

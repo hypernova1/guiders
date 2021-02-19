@@ -2,12 +2,9 @@ package org.brokers.guiders.web.essay;
 
 import lombok.*;
 import org.brokers.guiders.web.common.DateAudit;
-import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.guider.Guider;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "essay")
@@ -19,29 +16,33 @@ public class Essay extends DateAudit {
 
     @Id
     @GeneratedValue
-    @Column(name = "essay_id")
     protected Long id;
 
     @ManyToOne
     @JoinColumn(name = "writer_id")
     private Guider writer;
 
+    @Column(name = "field")
     private String field;
 
-    private String lang;
+    @Column(name = "language")
+    private String language;
 
+    @Column(name = "title")
     private String title;
 
     @Lob
+    @Column(name = "content")
     private String content;
 
+    @Column(name = "like_count")
     private int likeCount;
 
     @Builder
-    public Essay(Guider writer, String field, String lang, String title, String content) {
+    public Essay(Guider writer, String field, String language, String title, String content) {
         this.writer = writer;
         this.field = field;
-        this.lang = lang;
+        this.language = language;
         this.title = title;
         this.content = content;
     }

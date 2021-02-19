@@ -18,12 +18,12 @@ public abstract class DateAudit {
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_date", nullable = false, updatable = false)
     protected Date createdDate;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = true, updatable = false)
+    @Column(name = "updated_date", nullable = true, updatable = false)
     protected Date updatedDate;
 
 }

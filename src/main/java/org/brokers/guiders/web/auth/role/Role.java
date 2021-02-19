@@ -1,5 +1,6 @@
 package org.brokers.guiders.web.auth.role;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,13 +11,12 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "role")
 public class Role extends DateAudit {
 
     @Id
     @GeneratedValue
-    @Column(name = "role_id")
     protected Long id;
 
     @Enumerated(EnumType.STRING)
