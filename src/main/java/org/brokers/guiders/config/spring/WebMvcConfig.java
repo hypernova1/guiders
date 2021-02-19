@@ -29,11 +29,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
-        registry.addResourceHandler("/img/**").addResourceLocations( "/resources/img/");
-        registry.addResourceHandler("/font/**").addResourceLocations("/resources/font/");
-        registry.addResourceHandler("/editor/**").addResourceLocations("/resources/editor/");
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
     public SpringResourceTemplateResolver templateResolver() {

@@ -88,7 +88,7 @@ public class CommonController {
             // 정보 출력
             sb = new StringBuffer();
             sb.append("&bNewLine=true").append("&sFileName=").append(oldName).append("&sFileURL=")
-                    .append("/img/photoUpload/").append(saveName); // 서버쪽 주소를 기준으로...
+                    .append("/resources/img/photoUpload/").append(saveName); // 서버쪽 주소를 기준으로...
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,7 +103,7 @@ public class CommonController {
         /*String fixPath = uploadPath.replaceAll("\\\\", "/");*/
         String fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 
-        return "/img/photoUpload" + fileName;
+        return "/resources/img/photoUpload" + fileName;
 
     }
 
