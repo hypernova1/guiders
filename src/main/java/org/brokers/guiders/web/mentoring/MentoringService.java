@@ -32,7 +32,7 @@ public class MentoringService {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .field(request.getField())
-                .lang(request.getLang())
+                .language(request.getLang())
                 .follower((Follower) member)
                 .guider(guider)
                 .build();

@@ -21,7 +21,7 @@ public class Follower extends Member {
 
     @OneToMany
     @JoinTable(
-            name = "follower_follow_list",
+            name = "follow",
             joinColumns = @JoinColumn(name = "follow_id"),
             inverseJoinColumns = @JoinColumn(name = "guider_id")
     )

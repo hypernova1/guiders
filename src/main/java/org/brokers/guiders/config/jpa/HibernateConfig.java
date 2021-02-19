@@ -15,7 +15,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import java.util.Properties;
 
@@ -24,6 +23,9 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = "org.brokers.guiders")
 @EnableTransactionManagement
 public class HibernateConfig {
+
+    @Value("${db.driverClassName}")
+    public String driverClassName;
 
     @Value("${db.url}")
     private String url;
@@ -71,7 +73,7 @@ public class HibernateConfig {
     @Bean
     public HikariConfig hikariConfig() {
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName("org.mariadb.jdbc.Driver");
+        config.setDriverClassName(driverClassName);
         config.setJdbcUrl(url);
         config.setUsername(username);
         config.setPassword(password);

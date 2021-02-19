@@ -31,7 +31,7 @@ public class EssayController {
 
     @GetMapping("/list")
     public String goEssayListPage(Model model,
-                                  @RequestParam(defaultValue = "1") Integer page,
+                                  @RequestParam(defaultValue = "1") int page,
                                   @RequestParam(defaultValue = "") String keyword) {
         Page<EssayDto.Response> essayPage = essayService.getEssayList(page - 1, keyword);
         model.addAttribute("essayPage", essayPage);

@@ -1,6 +1,9 @@
 package org.brokers.guiders.web.mentoring;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
@@ -19,11 +22,9 @@ public class Mentoring extends DateAudit {
     protected Long id;
 
     @OneToOne
-    @Column(name = "guider_id", nullable = false, updatable = false)
     private Guider guider;
 
     @OneToOne
-    @Column(name = "follower_id", nullable = false, updatable = false)
     private Follower follower;
 
     @Column(name = "title")
@@ -40,11 +41,11 @@ public class Mentoring extends DateAudit {
     @Column(name = "field")
     private String field;
 
-    @Column(name = "lang")
+    @Column(name = "language")
     private String language;
 
     @Column(name = "like_count")
-    private Integer likeCount;
+    private int likeCount;
 
     @Column(name = "answer_date")
     private LocalDateTime answerDate;
