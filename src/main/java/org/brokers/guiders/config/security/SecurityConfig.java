@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable();
 
         http.authorizeRequests()
-            .antMatchers("/essay/write", "/essay/modify", "/mypage/questions")
+            .antMatchers("/essay/write", "/essay/modify/**", "/mypage/questions")
                 .hasRole("GUIDER")
             .antMatchers("/follow")
                 .hasRole("MEMBER")

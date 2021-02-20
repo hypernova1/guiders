@@ -1,0 +1,18 @@
+spring:
+  mvc:
+    static-path-pattern: /resources/**
+  datasource:
+    url: jdbc:mariadb://localhost:3306/guiders?useSSL=false&serverTimezone=Asia/Seoul
+    username: root
+    password: 1111
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDB53Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+    show-sql: true

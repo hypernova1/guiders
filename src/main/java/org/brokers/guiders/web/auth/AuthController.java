@@ -22,7 +22,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final NaverLoginBO naverLoginBO;
+//    private final NaverLoginBO naverLoginBO;
     private final AuthService authService;
 
     @GetMapping("/join")
@@ -59,13 +59,13 @@ public class AuthController {
         return "auth/login";
     }
 
-    @GetMapping("/callback")
-    public ModelAndView naverCallback(
-            HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
-        OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
-        String apiResult = naverLoginBO.getUserProfile(oauthToken);
-        session.setAttribute("naver", apiResult);
-        return new ModelAndView("/callback", "result", apiResult);
-    }
+//    @GetMapping("/callback")
+//    public ModelAndView naverCallback(
+//            HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
+//        OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+//        String apiResult = naverLoginBO.getUserProfile(oauthToken);
+//        session.setAttribute("naver", apiResult);
+//        return new ModelAndView("/callback", "result", apiResult);
+//    }
 
 }

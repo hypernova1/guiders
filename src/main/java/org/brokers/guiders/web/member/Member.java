@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "member")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "DTYPE")
 @Getter
 @Setter
-@DiscriminatorColumn(columnDefinition = "DTYPE")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Member extends DateAudit {
@@ -43,7 +43,7 @@ public class Member extends DateAudit {
     @Column(name = "photo_url")
     protected String photoUrl;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "like_essay",
             joinColumns = @JoinColumn(name = "member_id"),

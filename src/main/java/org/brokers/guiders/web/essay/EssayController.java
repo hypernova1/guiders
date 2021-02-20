@@ -50,8 +50,8 @@ public class EssayController {
         return "essay/post";
     }
 
-    @GetMapping("/modify")
-    public String modifyEssay(Long id, Model model) {
+    @GetMapping("/modify/{id}")
+    public String modifyEssay(@PathVariable Long id, Model model) {
         EssayDto.DetailResponse essay = essayService.getEssay(id);
         model.addAttribute("essay", essay);
         return "essay/modify";
