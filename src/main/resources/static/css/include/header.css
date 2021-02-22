@@ -261,56 +261,6 @@ a {
   float: left;
 }
 
-#mtr-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none;
-  z-index: 1;
-}
-
-#mtr-modal-body {
-  position: fixed;
-  left: 50%;
-  bottom: 50%;
-  width: 600px;
-  height: 700px;
-  border: 1px solid white;
-  box-shadow: 2px 2px 3px black;
-  border-radius: 4px;
-  text-align: center;
-  background: #f5f6fa;
-  transform: translate(-85%, 67%);
-  animation: 0.5s up-modal;
-}
-
-#title>input {
-  all: unset;
-  margin: 15px 5px 10px;
-  padding: 0 5px;
-  width: 90%;
-  height: 35px;
-  border: 1px solid #b2bec3;
-  border-radius: 4px;
-  text-align: left;
-  background: white;
-}
-
-#content>textarea {
-  all: unset;
-  width: 90%;
-  height: 450px;
-  margin: 5px 0 15px;
-  padding: 5px;
-  border: 1px solid #b2bec3;
-  border-radius: 4px;
-  resize: none;
-  text-align: left;
-  background: white;
-}
-
 #btn-wrap>button, .login-fail-modal-content>button {
   all: unset;
   display: inline-block;
@@ -346,7 +296,7 @@ form h2 {
 	margin: 3px;
 	padding: 3px;
 	border: 1.5px solid #ff2d55;
-  border-radius: 4px;	
+  border-radius: 4px;
   background-color: white;
 }
 
@@ -384,7 +334,7 @@ form h2 {
 }
 
 #naver-login{
-  height: 45px; 
+  height: 45px;
   width: 200px;
   cursor: pointer;
 }

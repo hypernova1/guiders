@@ -44,18 +44,6 @@ window.addEventListener('click', function(e) {
   }
 });
 
-function get_msg(message) {
-	var move = '70px';
-	jQuery('#message').text(message);
-	jQuery('#message').animate({
-		top : '+=' + move
-	}, 'slow', function() {
-		jQuery('#message').delay(1000).animate({
-			top : '-=' + move
-		}, 'slow');
-	});
-}
-
 document.querySelector('#login-fail-modal-content>button').addEventListener('click', () => {
     document.querySelector('#login-fail-modal').style.display = 'none';
 });

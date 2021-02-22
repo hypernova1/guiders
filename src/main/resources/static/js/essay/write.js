@@ -1,23 +1,19 @@
-//전역변수
-const obj = [];
-//스마트에디터 프레임생성
-nhn.husky.EZCreator.createInIFrame({
-    oAppRef: obj,
-    elPlaceHolder: "editor",
-    sSkinURI: "/resources/editor/SmartEditor2Skin.html",
-    htParams : {
-        // 툴바 사용 여부
-        bUseToolbar : true,
-        // 입력창 크기 조절바 사용 여부
-        bUseVerticalResizer : true,
-        // 모드 탭(Editor | HTML | TEXT) 사용 여부
-        bUseModeChanger : true,
-    }
+const content = [].join('\n');
+
+const editor = new toastui.Editor({
+    el: document.querySelector('#editor'),
+    previewStyle: 'vertical',
+    initialEditType: "wysiwyg",
+    height: '500px',
+    initialValue: content
 });
 
-//전송버튼
 document.getElementById("writeBtn").addEventListener('click', function(){
-    //id가 editor인 textarea에 에디터에서 대입
-    obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
-    document.getElementById("insertEssayForm").submit();
+    const content = editor.getMarkdown();
+    const title = document.getElementById('title').value;
+
+    document.getElementById('h_title').value = title;
+    document.getElementById('h_content').value = content;
+
+    document.getElementById("essayForm").submit();
 });

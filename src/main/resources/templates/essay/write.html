@@ -5,25 +5,30 @@
 
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/resources/css/essay/write.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css}">
+    <link rel="stylesheet" th:href="@{https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css}">
 </th:block>
 
-<form th:action="@{/essay/write}" method="post" id="insertEssayForm" layout:fragment="content">
+<section id="write-wrapper" layout:fragment="content">
     <h1>에세이 작성</h1>
     <div id="title-wrap">
         <input id="title" name="title" type="text" placeholder="제목">
     </div>
-    <div id="content-wrap">
-        <textarea id="editor" name="content" placeholder="내용"></textarea>
+    <div id="editor">
     </div>
     <div id="btn-wrap">
         <button id="writeBtn" type="button">등록</button>
         <button id="cancelBtn" type="button">취소</button>
     </div>
-</form>
+
+    <form th:action="@{/essay/write}" method="post" id="essayForm">
+        <input hidden name="title" id="h_title">
+        <input hidden name="content" id="h_content">
+    </form>
+</section>
 
 <th:block layout:fragment="script">
-    <script th:src="@{https://code.jquery.com/jquery-latest.js}"></script>
-    <script th:src="@{/resources/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
+    <script th:src="@{https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js}"></script>
     <script th:src="@{/resources/js/essay/write.js}"></script>
 </th:block>
 

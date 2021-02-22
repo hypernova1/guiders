@@ -5,49 +5,44 @@
 
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/resources/css/essay/write.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css}">
+    <link rel="stylesheet" th:href="@{https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css}">
 </th:block>
 
-<form th:action="@{/essay/modify/{id}(id=${essay.id})}" method="post" id="modifyEssayForm" enctype="multipart/form-data" layout:fragment="content">
+<section id="write-wrapper" layout:fragment="content">
     <h1>에세이 작성</h1>
     <input type="hidden" name="id" th:value="${essay.id}">
-    <div id="title">
-        <input name="title" type="text" placeholder="제목" th:value="${essay.title}">
+    <div id="title-wrap">
+        <input name="title" id="title" type="text" placeholder="제목" th:value="${essay.title}">
     </div>
-    <div id="content">
-        <textarea id="editor" name="content" placeholder="내용" th:utext="${essay.content}"></textarea>
-    </div>
+    <div id="editor"></div>
     <div id="btn-wrap">
         <button id="writeBtn" type="button">수정</button>
         <button id="cancelBtn" type="button">취소</button>
     </div>
-</form>
+
+    <form th:action="@{/essay/modify/{id}(id=${essay.id})}" method="post" enctype="multipart/form-data" id="modifyEssayForm">
+        <input type="hidden" id="h_title" name="title">
+        <input type="hidden" id="h_content" name="content">
+    </form>
+</section>
 
 <th:block layout:fragment="script">
-    <script th:src="@{https://code.jquery.com/jquery-latest.js}"></script>
-    <script th:src="@{/resources/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
 
+    <script th:src="@{https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js}"></script>
     <script type="text/javascript">
-        //전역변수
-        const obj = [];
-        //스마트에디터 프레임생성
-        nhn.husky.EZCreator.createInIFrame({
-            oAppRef: obj,
-            elPlaceHolder: "editor",
-            sSkinURI: "/resources/editor/SmartEditor2Skin.html",
-            htParams : {
-                // 툴바 사용 여부
-                bUseToolbar : true,
-                // 입력창 크기 조절바 사용 여부
-                bUseVerticalResizer : true,
-                // 모드 탭(Editor | HTML | TEXT) 사용 여부
-                bUseModeChanger : true,
-            }
+        const content = [].join('\n');
+
+        const editor = new toastui.Editor({
+            el: document.querySelector('#editor'),
+            previewStyle: 'vertical',
+            initialEditType: "wysiwyg",
+            height: '500px',
+            initialValue: content
         });
+
         //전송버튼
         document.getElementById("writeBtn").addEventListener('click', () => {
-            //id가 editor인 textarea에 에디터에서 대입
-            obj.getById["editor"].exec('UPDATE_CONTENTS_FIELD', []);
-            //폼 submit
             document.getElementById('modifyEssayForm').submit();
         });
 
