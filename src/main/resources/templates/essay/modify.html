@@ -11,9 +11,9 @@
 
 <section id="write-wrapper" layout:fragment="content">
     <h1>에세이 작성</h1>
-    <input type="hidden" name="id" th:value="${essay.id}">
+    <input type="hidden" name="id" th:value="__${id}__">
     <div id="title-wrap">
-        <input name="title" id="title" type="text" placeholder="제목" th:value="${essay.title}">
+        <input name="title" id="title" type="text" placeholder="제목">
     </div>
     <div id="editor"></div>
     <div id="btn-wrap">
@@ -21,28 +21,33 @@
         <button id="cancelBtn" type="button">취소</button>
     </div>
 
-    <form th:action="@{/essay/modify/{id}(id=${essay.id})}" method="post" enctype="multipart/form-data" id="modifyEssayForm">
+    <form th:action="@{/essay/modify/{id}(id=__${id}__)}" method="post" enctype="multipart/form-data" id="modifyEssayForm">
         <input type="hidden" id="h_title" name="title">
         <input type="hidden" id="h_content" name="content">
     </form>
 </section>
 
 <th:block layout:fragment="script">
-
     <script th:src="@{https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js}"></script>
     <script type="text/javascript">
-        const content = [].join('\n');
-
         const editor = new toastui.Editor({
             el: document.querySelector('#editor'),
             previewStyle: 'vertical',
             initialEditType: "wysiwyg",
             height: '500px',
-            initialValue: content
         });
+
+        fetch('/essay/[[__${id}__]]')
+        .then((res) => res.json())
+        .then((data) => {
+            document.getElementById('title').value = data.title;
+            editor.setMarkdown(data.content);
+        })
 
         //전송버튼
         document.getElementById("writeBtn").addEventListener('click', () => {
+            document.getElementById('h_title').value = document.getElementById('title').value;
+            document.getElementById('h_content').value = editor.getMarkdown();
             document.getElementById('modifyEssayForm').submit();
         });
 

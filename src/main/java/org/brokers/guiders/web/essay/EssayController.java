@@ -50,10 +50,9 @@ public class EssayController {
         return "essay/post";
     }
 
-    @GetMapping("/modify/{id}")
-    public String modifyEssay(@PathVariable Long id, Model model) {
+    @GetMapping("/modifyForm/{id}")
+    public String goModifyForm(@PathVariable Long id) {
         EssayDto.DetailResponse essay = essayService.getEssay(id);
-        model.addAttribute("essay", essay);
         return "essay/modify";
     }
 

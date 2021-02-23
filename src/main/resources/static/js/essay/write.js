@@ -9,11 +9,8 @@ const editor = new toastui.Editor({
 });
 
 document.getElementById("writeBtn").addEventListener('click', function(){
-    const content = editor.getMarkdown();
-    const title = document.getElementById('title').value;
-
-    document.getElementById('h_title').value = title;
-    document.getElementById('h_content').value = content;
+    document.getElementById('h_title').value = document.getElementById('title').value;
+    document.getElementById('h_content').value = editor.getMarkdown();
 
     document.getElementById("essayForm").submit();
 });
