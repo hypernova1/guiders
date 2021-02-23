@@ -5,6 +5,8 @@
 
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/resources/css/essay/post.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css}">
+    <link rel="stylesheet" th:href="@{https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css}">
 </th:block>
 
 <section layout:fragment="content">
@@ -12,7 +14,7 @@
         <div id="field" th:text="${essay.field}"></div>
         <div id="lang" th:text="${essay.lang}"></div>
         <h1 id="title" th:text="${essay.title}"></h1>
-        <div id="content" th:utext="${essay.content}"></div>
+        <div id="content"></div>
     </article>
     <div id="like">
     <span id="likeSpan" style="font-weight: bold;">
@@ -45,14 +47,21 @@
     </div>
 </section>
 <th:block layout:fragment="script">
+    <script th:src="@{https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js}"></script>
     <script>
+        const viewer = toastui.Editor.factory({
+            el: document.querySelector('#content'),
+            viewer: true,
+            height: '500px',
+            initialValue: `[[${essay.content}]]`
+        });
+
         const modifyBtn = document.querySelector('#modifyBtn');
         const removeBtn = document.querySelector('#removeBtn');
 
         if(modifyBtn){
             modifyBtn.addEventListener('click', function(){
-                const id = '[[${essay.id}]]';
-                location.href = "/essay/modifyForm/" + id;
+                location.href = '/essay/modifyForm/[[${essay.id}]]';
             });
         }
 

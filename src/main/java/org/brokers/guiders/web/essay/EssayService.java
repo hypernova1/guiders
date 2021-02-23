@@ -39,6 +39,7 @@ public class EssayService {
         EssayDto.DetailResponse essayDto = modelMapper.map(essay, EssayDto.DetailResponse.class);
         essayDto.setWriter(essay.getWriter().getName());
         essayDto.setEmail(essay.getWriter().getEmail());
+        essayDto.setContent(essay.getContent().replace("<br>", "\n"));
         return essayDto;
     }
 
