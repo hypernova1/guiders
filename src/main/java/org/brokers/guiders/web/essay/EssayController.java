@@ -42,7 +42,7 @@ public class EssayController {
     public String readEssay(@PathVariable Long id, Model model, @AuthUser Member member) {
         EssayDto.DetailResponse essay = essayService.getEssay(id);
         if (member != null) {
-            boolean confirmLike = member.isMyLikeEssay(essay.getId());
+            boolean confirmLike = member.getLikeEssayList().stream().anyMatch((likeEssay) -> likeEssay.getId().equals(id));
             model.addAttribute("userInfo", member);
             model.addAttribute("confirmLike", confirmLike);
         }
@@ -76,7 +76,7 @@ public class EssayController {
 
     @PutMapping("/{id}/like")
     public ResponseEntity<?> addLikeCount(@PathVariable Long id, @AuthUser Member member) {
-        return ResponseEntity.ok(memberService.toggleLikeEssay(id, member)); // 갱신된 '좋아요' 갯수를 전달
+        return ResponseEntity.ok(essayService.toggleLikeEssay(id, member)); // 갱신된 '좋아요' 갯수를 전달
     }
 
 }

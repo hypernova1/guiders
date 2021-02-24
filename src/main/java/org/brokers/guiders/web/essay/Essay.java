@@ -2,16 +2,18 @@ package org.brokers.guiders.web.essay;
 
 import lombok.*;
 import org.brokers.guiders.web.common.DateAudit;
+import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.guider.Guider;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "essay")
-@Getter @Setter
-@ToString
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EqualsAndHashCode(callSuper = true, of = "id")
+@EqualsAndHashCode(callSuper = false, of = "id")
 public class Essay extends DateAudit {
 
     @Id
@@ -34,6 +36,14 @@ public class Essay extends DateAudit {
     @Lob
     @Column(name = "content")
     private String content;
+
+    @JoinTable(
+            name = "like_essay",
+            joinColumns = @JoinColumn(name = "essay_id"),
+            inverseJoinColumns = @JoinColumn(name = "member_id")
+    )
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private final Set<Member> likes = new HashSet<>();
 
     @Column(name = "like_count")
     private int likeCount;
@@ -58,5 +68,21 @@ public class Essay extends DateAudit {
     public void update(EssayDto.Request request) {
         this.title = request.getTitle();
         this.content = request.getContent();
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void addLikes(Member member) {
+        likes.remove(member);
+        member.getLikeEssayList().remove(this);
+        this.decrementLikeCount();
+    }
+
+    public void removeLikes(Member member) {
+        likes.add(member);
+        member.getLikeEssayList().add(this);
+        this.incrementLikeCount();
     }
 }

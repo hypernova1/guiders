@@ -1,9 +1,7 @@
 package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
-import org.brokers.guiders.exception.EssayNotFoundException;
 import org.brokers.guiders.exception.MemberNotFoundException;
-import org.brokers.guiders.web.essay.Essay;
 import org.brokers.guiders.web.essay.EssayRepository;
 import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
@@ -94,21 +92,6 @@ public class MemberService {
             }
         }
         return guiderDtoList;
-    }
-
-    @Transactional
-    public int toggleLikeEssay(Long id, Member member) {
-        Essay essay = essayRepository.findById(id)
-                .orElseThrow(() -> new EssayNotFoundException(id));
-        if (member.isMyLikeEssay(essay.getId())) {
-            member.removeLikeEssay(id);
-            essay.decrementLikeCount();
-        } else {
-            member.addLikeEssay(essay);
-            essay.incrementLikeCount();
-        }
-        memberRepository.save(member);
-        return essay.getLikeCount();
     }
 
 }

@@ -1,21 +1,23 @@
 package org.brokers.guiders.web.member;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.brokers.guiders.web.auth.role.Role;
 import org.brokers.guiders.web.auth.role.RoleName;
 import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.essay.Essay;
 
 import javax.persistence.*;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "member")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "DTYPE")
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Member extends DateAudit {
@@ -43,20 +45,15 @@ public class Member extends DateAudit {
     @Column(name = "photo_url")
     protected String photoUrl;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "like_essay",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "essay_id")
-    )
-    private final List<Essay> likeEssayList = new ArrayList<>();
+    @ManyToMany(mappedBy = "likes", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private final Set<Essay> likeEssayList = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "member_role",
             joinColumns = @JoinColumn(name = "member_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @OneToMany(fetch = FetchType.EAGER)
     protected final Set<Role> roles = new HashSet<>();
 
     public void update(MemberDto.Update memberDto) {
@@ -77,16 +74,4 @@ public class Member extends DateAudit {
                 .anyMatch((role) -> role.getName().equals(RoleName.ROLE_GUIDER));
     }
 
-    public boolean isMyLikeEssay(Long id) {
-        return this.likeEssayList.stream()
-                .anyMatch(essay -> essay.getId().equals(id));
-    }
-
-    public void removeLikeEssay(Long id) {
-        this.likeEssayList.removeIf(essay -> essay.getId().equals(id));
-    }
-
-    public void addLikeEssay(Essay essay) {
-        this.likeEssayList.add(essay);
-    }
 }

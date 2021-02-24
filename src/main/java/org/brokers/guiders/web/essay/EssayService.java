@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -102,10 +103,26 @@ public class EssayService {
     }
 
     public List<EssayDto.DetailResponse> getLikeEssayList(Member member) {
-        List<Essay> likeEssayList = member.getLikeEssayList();
+        Set<Essay> likeEssayList = member.getLikeEssayList();
         return likeEssayList.stream()
                 .map(likeEssay -> modelMapper.map(likeEssay, EssayDto.DetailResponse.class))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public int toggleLikeEssay(Long id, Member member) {
+        Essay essay = essayRepository.findById(id)
+                .orElseThrow(() -> new EssayNotFoundException(id));
+        Set<Member> likes = essay.getLikes();
+
+        if (likes.contains(member)) {
+            essay.addLikes(member);
+
+        } else {
+            essay.removeLikes(member);
+        }
+        essayRepository.save(essay);
+        return essay.getLikeCount();
     }
 
 }
