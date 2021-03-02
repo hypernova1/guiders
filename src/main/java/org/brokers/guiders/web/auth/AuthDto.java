@@ -22,6 +22,10 @@ public class AuthDto {
         private String quote;
         private String field;
         private String type;
+
+        public boolean isGuider() {
+            return this.type.equals("guider");
+        }
     }
 
     @Getter @Setter

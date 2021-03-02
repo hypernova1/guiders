@@ -32,7 +32,7 @@ public class AuthService {
         joinDto.setPassword(passwordEncoder.encode(joinDto.getPassword()));
         Member member;
         Role role;
-        if (joinDto.getType().equals("guider")) {
+        if (joinDto.isGuider()) {
             role = roleRepository.findByName(RoleName.ROLE_GUIDER)
                     .orElseGet(() -> Role.builder().name(RoleName.ROLE_GUIDER).build());
             member = Guider.create(joinDto);
