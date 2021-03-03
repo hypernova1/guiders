@@ -28,23 +28,25 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public Long join(AuthDto.JoinRequest joinDto) {
+    public Long joinGuider(AuthDto.GuiderJoinRequest joinDto) {
         joinDto.setPassword(passwordEncoder.encode(joinDto.getPassword()));
-        Member member;
-        Role role;
-        if (joinDto.isGuider()) {
-            role = roleRepository.findByName(RoleName.ROLE_GUIDER)
-                    .orElseGet(() -> Role.builder().name(RoleName.ROLE_GUIDER).build());
-            member = Guider.create(joinDto);
-        } else {
-            member = Follower.create(joinDto);
-            role = roleRepository.findByName(RoleName.ROLE_MEMBER)
-                    .orElseGet(() -> Role.builder().name(RoleName.ROLE_MEMBER).build());
-        }
+        Role role = roleRepository.findByName(RoleName.ROLE_GUIDER)
+                .orElseGet(() -> Role.builder().name(RoleName.ROLE_GUIDER).build());
+        Member member = Guider.create(joinDto);
+        member.addRole(role);
+        roleRepository.save(role);
+        return memberRepository.save(member).getId();
+    }
+
+    @Transactional
+    public Long joinFollower(AuthDto.FollowerJoinRequest joinDto) {
+        Member member = Follower.create(joinDto);
+        Role role = roleRepository.findByName(RoleName.ROLE_MEMBER)
+                .orElseGet(() -> Role.builder().name(RoleName.ROLE_MEMBER).build());
+
         roleRepository.save(role);
         member.addRole(role);
-        Member savedMember = memberRepository.save(member);
-        return savedMember.getId();
+        return memberRepository.save(member).getId();
     }
 
     public Member getMember(String email) {

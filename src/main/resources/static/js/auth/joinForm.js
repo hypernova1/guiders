@@ -234,7 +234,7 @@
     });
     
     document.querySelector('#join-btn2').addEventListener('click', () => {
-
+        let url = '/join/guider';
         if (joinType === 'follower') {
             confirm.currentJob = true;
             confirm.department = true;
@@ -242,6 +242,7 @@
             confirm.lang = true;
             confirm.introduction = true;
             confirm.quote = true;
+            url = '/join/follower';
         }
 
         for (let key in confirm) {
@@ -261,7 +262,7 @@
             member.photo = document.querySelector('#photo').value;
         }
         member.type = document.querySelector('#type').value;
-        fetch('/join', {
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

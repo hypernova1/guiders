@@ -35,7 +35,7 @@ public class Guider extends Member {
     @Column(name = "language")
     private String language;
 
-    public static Guider create(AuthDto.JoinRequest request) {
+    public static Guider create(AuthDto.GuiderJoinRequest request) {
         Guider guider = new Guider();
         guider.email = request.getEmail();
         guider.password = request.getPassword();

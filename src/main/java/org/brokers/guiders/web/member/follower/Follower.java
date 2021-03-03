@@ -27,7 +27,7 @@ public class Follower extends Member {
     )
     private final List<Guider> followList = new ArrayList<>();
 
-    public static Follower create(AuthDto.JoinRequest request) {
+    public static Follower create(AuthDto.FollowerJoinRequest request) {
         Follower follower = new Follower();
         follower.email = request.getEmail();
         follower.password = request.getPassword();
