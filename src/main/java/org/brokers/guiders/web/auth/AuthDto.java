@@ -4,34 +4,94 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class AuthDto {
 
     @Getter @Setter
     public static class GuiderJoinRequest {
+
+        @Email
+        @NotBlank
+        @Size(min = 5, max = 30)
         private String email;
+
+        @NotBlank
+        @Size(min = 2, max = 20)
         private String name;
+
+        @NotBlank
+        @Size(min = 8, max = 20)
         private String password;
+
+        @NotBlank
+        @Size(min = 9, max = 20)
         private String phone;
-        private String photoUrl;
+
+        @NotBlank
+        @Size(min = 6, max = 6)
         private String birth;
+
+        @NotBlank
+        @Size(min = 1, max = 1)
+        private int gender;
+
+        @NotBlank
+        @Size(min = 1, max = 20)
         private String city;
+
+        @NotBlank
         private String currentJob;
+
+        @NotBlank
         private String introduction;
+
+        @NotBlank
         private String language;
+
+        @NotBlank
         private String department;
+
+        @NotBlank
         private String quote;
+
+        @NotBlank
         private String field;
-        private String type;
+
+        private String photoUrl;
+
     }
 
     @Getter @Setter
     public static class FollowerJoinRequest {
+
+        @Email
+        @NotBlank
+        @Size(min = 5, max = 30)
         private String email;
+
+        @NotBlank
+        @Size(min = 2, max = 20)
         private String name;
+
+        @NotBlank
+        @Size(min = 8, max = 20)
         private String password;
+
+        @NotBlank
+        @Size(min = 9, max = 20)
         private String phone;
-        private String photoUrl;
+
+        @NotBlank
         private String birth;
+
+        @NotBlank
+        private String city;
+
+        private String photoUrl;
+
     }
 
     @Getter @Setter

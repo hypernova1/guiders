@@ -34,7 +34,6 @@ public class AuthService {
                 .orElseGet(() -> Role.builder().name(RoleName.ROLE_GUIDER).build());
         Member member = Guider.create(joinDto);
         member.addRole(role);
-        roleRepository.save(role);
         return memberRepository.save(member).getId();
     }
 
@@ -43,8 +42,6 @@ public class AuthService {
         Member member = Follower.create(joinDto);
         Role role = roleRepository.findByName(RoleName.ROLE_MEMBER)
                 .orElseGet(() -> Role.builder().name(RoleName.ROLE_MEMBER).build());
-
-        roleRepository.save(role);
         member.addRole(role);
         return memberRepository.save(member).getId();
     }

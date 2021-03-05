@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @Controller
@@ -31,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/join/guider")
-    public ResponseEntity<?> joinGuider(@RequestBody AuthDto.GuiderJoinRequest joinDto) {
+    public ResponseEntity<?> joinGuider(@Valid @RequestBody AuthDto.GuiderJoinRequest joinDto) {
         Long id = authService.joinGuider(joinDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/user/{id}")
@@ -41,7 +42,7 @@ public class AuthController {
     }
 
     @PostMapping("/join/follower")
-    public ResponseEntity<?> joinFollower(@RequestBody AuthDto.FollowerJoinRequest joinDto) {
+    public ResponseEntity<?> joinFollower(@Valid @RequestBody AuthDto.FollowerJoinRequest joinDto) {
         Long id = authService.joinFollower(joinDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/user/{id}")
