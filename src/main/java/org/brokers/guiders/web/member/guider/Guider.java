@@ -40,6 +40,8 @@ public class Guider extends Member {
         guider.email = request.getEmail();
         guider.password = request.getPassword();
         guider.name = request.getName();
+        guider.birth = request.getBirth();
+        guider.gender = request.getGender();
         guider.phone = request.getPhone();
         guider.photoUrl = request.getPhotoUrl();
         guider.introduction = request.getIntroduction();

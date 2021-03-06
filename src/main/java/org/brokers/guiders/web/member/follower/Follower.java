@@ -32,6 +32,8 @@ public class Follower extends Member {
         follower.email = request.getEmail();
         follower.password = request.getPassword();
         follower.name = request.getName();
+        follower.birth = request.getBirth();
+        follower.gender = request.getGender();
         follower.phone = request.getPhone();
         follower.photoUrl = request.getPhotoUrl();
         return follower;
