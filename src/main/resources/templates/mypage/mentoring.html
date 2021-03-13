@@ -24,7 +24,7 @@
     <div id="answer">
         <th:block th:if="${#authentication.getName() == mentoring.guider.name and mentoring.answer == null}">
             <form action="/mentoring/answer" method="post" id="answer-form">
-                <textarea name="mreply" id="editor" placeholder="답변을 달아주세요."></textarea>
+                <textarea name="answer" id="editor" placeholder="답변을 달아주세요."></textarea>
                 <input type="hidden" name="mtrno" value="${mentoring.id}">
             </form>
         </th:block>

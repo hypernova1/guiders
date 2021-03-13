@@ -2,6 +2,17 @@ document.querySelector('#return-page').addEventListener('click', () => {
     history.back();
 });
 
+const content = [].join('\n');
+
+const editor = new toastui.Editor({
+    el: document.querySelector('#editor'),
+    previewStyle: 'vertical',
+    initialEditType: "wysiwyg",
+    height: '500px',
+    initialValue: content
+});
+
+
 /*document.querySelector('#answer-btn').addEventListener('click', () => {
    const form = document.createElement('form');
    form.setAttribute('method', 'post');

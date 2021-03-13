@@ -6,9 +6,12 @@
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/resources/css/mypage/myGuider.css}">
 	<link rel="stylesheet" th:href="@{/resources/css/guiders/modal.css}">
+	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css}">
+	<link rel="stylesheet" th:href="@{https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css}">
 </th:block>
 
 <th:block layout:fragment="script">
+	<script th:src="@{https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js}"></script>
 	<script th:src="@{/resources/js/mypage/myGuider.js}"></script>
 </th:block>
 
@@ -58,12 +61,12 @@
 			</div>
 		</div>
 	</div>
-	<form id="mtr-modal">
-		<section id="mtr-modal-body">
+	<div id="mtr-modal">
+		<div id="mtr-modal-body">
 			<h2>
 				<span></span>에게 질문
 			</h2>
-			<article>
+			<div>
 				<div id="select-wrap">
 					<div id="field"></div>
 					<div id="lang"></div>
@@ -72,15 +75,15 @@
 					<input type="text" name="title">
 				</div>
 				<div id="content">
-					<textarea name="content"></textarea>
+					<div id="editor"></div>
 				</div>
-			</article>
+			</div>
 			<div id="btn-wrap">
 				<button type="button" id="mtr-submit">등록</button>
 				<button type="button" id="mtr-cancel">취소</button>
 			</div>
 			<input type="hidden" id="guider-id">
-		</section>
-	</form>
+		</div>
+	</div>
 </section>
 </html>

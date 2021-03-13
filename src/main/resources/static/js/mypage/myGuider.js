@@ -1,3 +1,14 @@
+const content = [].join('\n');
+
+const editor = new toastui.Editor({
+    el: document.querySelector('#editor'),
+    previewStyle: 'vertical',
+    initialEditType: "wysiwyg",
+    height: '500px',
+    initialValue: content
+});
+
+
 const body = document.body;
 const guiderModal = document.getElementById("modal");
 const modalSpan = document.getElementsByClassName("close")[0];
@@ -93,14 +104,12 @@ document.querySelector('.title').addEventListener("click", ({target}) => {
 });
 
 document.querySelector('#mtr-submit').addEventListener('click', function({target}) {
-    let content = document.querySelector('textarea[name="content"]').value;
-    content = content.replace(/(?:\r\n|\r|\n)/g, '<br />');
     const mentoring = {
         guiderId: document.querySelector('#guider-id').value,
         field: document.querySelector('#field').innerText,
         lang: document.querySelector('#lang').innerText,
         title: document.querySelector('input[name="title"]').value,
-        content: content,
+        content: editor.getMarkdown(),
     }
 
     fetch('/mentoring', {
