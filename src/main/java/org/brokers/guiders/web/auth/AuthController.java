@@ -1,21 +1,16 @@
 package org.brokers.guiders.web.auth;
 
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
 import lombok.RequiredArgsConstructor;
-import org.brokers.guiders.util.NaverLoginBO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import javax.validation.Valid;
 import java.net.URI;
 
 @Controller
@@ -36,9 +31,19 @@ public class AuthController {
         return "auth/joinForm";
     }
 
-    @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestBody AuthDto.JoinRequest joinDto) {
-        Long id = authService.join(joinDto);
+    @PostMapping("/join/guider")
+    public ResponseEntity<?> joinGuider(@Valid @RequestBody AuthDto.GuiderJoinRequest joinDto) {
+        Long id = authService.joinGuider(joinDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/api/user/{id}")
+                .buildAndExpand(id)
+                .toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
+    @PostMapping("/join/follower")
+    public ResponseEntity<?> joinFollower(@Valid @RequestBody AuthDto.FollowerJoinRequest joinDto) {
+        Long id = authService.joinFollower(joinDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/user/{id}")
                 .buildAndExpand(id)

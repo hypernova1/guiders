@@ -27,11 +27,13 @@ public class Follower extends Member {
     )
     private final List<Guider> followList = new ArrayList<>();
 
-    public static Follower create(AuthDto.JoinRequest request) {
+    public static Follower create(AuthDto.FollowerJoinRequest request) {
         Follower follower = new Follower();
         follower.email = request.getEmail();
         follower.password = request.getPassword();
         follower.name = request.getName();
+        follower.birth = request.getBirth();
+        follower.gender = request.getGender();
         follower.phone = request.getPhone();
         follower.photoUrl = request.getPhotoUrl();
         return follower;

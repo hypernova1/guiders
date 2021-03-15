@@ -35,6 +35,9 @@ public class Member extends DateAudit {
     @Column(name = "name")
     protected String name;
 
+    @Column(name = "birth")
+    protected String birth;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     protected Gender gender;

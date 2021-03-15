@@ -234,7 +234,7 @@
     });
     
     document.querySelector('#join-btn2').addEventListener('click', () => {
-
+        let url = '/join/guider';
         if (joinType === 'follower') {
             confirm.currentJob = true;
             confirm.department = true;
@@ -242,6 +242,7 @@
             confirm.lang = true;
             confirm.introduction = true;
             confirm.quote = true;
+            url = '/join/follower';
         }
 
         for (let key in confirm) {
@@ -253,15 +254,16 @@
         if(document.querySelector('#introduction')){
             let introduction = document.querySelector('#introduction').value;
             introduction = introduction.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-            member.introduction = introduction;
-            
             let quote = document.querySelector('#quote').value;
+
+            member.introduction = introduction;
             quote = quote.replace(/(?:\r\n|\r|\n)/g, '<br/>');
             member.quote = quote;
             member.photo = document.querySelector('#photo').value;
+            member.gender = document.querySelector('#gender').value;
         }
-        member.type = document.querySelector('#type').value;
-        fetch('/join', {
+
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -269,6 +271,7 @@
             body: JSON.stringify(member)
         }).then((res) => {
             if (res.status === 201) {
+                alert('가입이 완료되었습니다.');
                 location.href = '/';
             }
         })
