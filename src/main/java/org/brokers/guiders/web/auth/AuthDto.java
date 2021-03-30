@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.brokers.guiders.web.member.Gender;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Arrays;
@@ -36,8 +37,7 @@ public class AuthDto {
         @Size(min = 6, max = 6)
         private String birth;
 
-        @NotBlank
-        @Size(min = 1, max = 1)
+        @Max(6)
         private int gender;
 
         @NotBlank

@@ -37,7 +37,7 @@
         introduction: null,
         quote: null,
         field: null,
-        lang: null,
+        language: null,
         currentJob: null,
         department: null,
         type: null,
@@ -56,7 +56,7 @@
         introduction: false,
         quote: false,
         field: false,
-        lang: false,
+        language: false,
     }
 
     const exp = {
@@ -79,7 +79,7 @@
         introduction: '상세 정보를 입력해주세요.',
         quote: '인용문을 입력해주세요.',
         field: '분야를 선택해주세요.',
-        lang: '언어를 선택해주세요.',
+        language: '언어를 선택해주세요.',
         currentJob: '최근 근무지를 입력해주세요.',
         department: '부서를 입력해주세요.',
     }
@@ -211,7 +211,7 @@
                 warnMaker(warnMsg.repassword);
             }
             break;
-        case "field": case "lang":
+        case "field": case "language":
             confirm[target.name] = true;
             if(checkedInput.length === 2){
                 checkedInput[0].checked = false;
@@ -239,7 +239,7 @@
             confirm.currentJob = true;
             confirm.department = true;
             confirm.field = true;
-            confirm.lang = true;
+            confirm.language = true;
             confirm.introduction = true;
             confirm.quote = true;
             url = '/join/follower';
