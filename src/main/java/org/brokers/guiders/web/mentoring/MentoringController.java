@@ -3,6 +3,7 @@ package org.brokers.guiders.web.mentoring;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.mentoring.payload.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,29 +17,29 @@ public class MentoringController {
     private final MentoringService mentoringService;
 
     @PostMapping("/answer")
-    public String answer(MentoringDto.AnswerRequest request) {
-        mentoringService.registerAnswer(request);
-        return "redirect:/mentoring/" + request.getId();
+    public String answer(AnswerForm answerForm) {
+        mentoringService.registerAnswer(answerForm);
+        return "redirect:/mentoring/" + answerForm.getId();
     }
 
     @GetMapping("/{id}")
     public String questionAndAnswer(@PathVariable Long id, Model model) {
-        MentoringDto.Response mentoring = mentoringService.getMentoring(id);
+        MentoringDetail mentoring = mentoringService.getMentoring(id);
         model.addAttribute("mentoring", mentoring);
         return "mypage/mentoring";
     }
 
     @GetMapping("/list")
     public String mentoringList(@AuthUser Member member, Long guiderId, Model model) {
-        MentoringDto.ListResponse mentoring = mentoringService.getMentoringList(member, guiderId);
-        model.addAttribute("mentoringInfo", mentoring);
+        MentoringDetailList mentoringDetailList = mentoringService.getMentoringList(member, guiderId);
+        model.addAttribute("mentoringInfo", mentoringDetailList);
         return "mypage/mentoringList";
     }
 
     @PostMapping
-    public ResponseEntity<?> question(@RequestBody MentoringDto.Request request,
+    public ResponseEntity<?> question(@RequestBody MentoringForm mentoringForm,
                                             @AuthUser Member member) {
-        mentoringService.question(request, member);
+        mentoringService.question(mentoringForm, member);
         return ResponseEntity.ok().build();
     }
 }

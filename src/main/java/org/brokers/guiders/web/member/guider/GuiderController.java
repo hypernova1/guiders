@@ -3,6 +3,7 @@ package org.brokers.guiders.web.member.guider;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.member.guider.payload.GuiderDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +24,15 @@ public class GuiderController {
     }
 
     @GetMapping("/guider")
-    public ResponseEntity<List<GuiderDto>> getGuiderList(
+    public ResponseEntity<List<GuiderDetail>> getGuiderList(
             @RequestParam(defaultValue = "1") Integer page, @AuthUser Member member) {
-        List<GuiderDto> guiderList = guiderService.getGuiderList(page, member);
+        List<GuiderDetail> guiderList = guiderService.getGuiderList(page, member);
         return ResponseEntity.ok(guiderList);
     }
 
     @GetMapping("/guider/{id}")
-    public ResponseEntity<GuiderDto> getGuiderInfo(@PathVariable Long id) {
-        GuiderDto guider = guiderService.getGuider(id);
+    public ResponseEntity<GuiderDetail> getGuiderInfo(@PathVariable Long id) {
+        GuiderDetail guider = guiderService.getGuider(id);
         return ResponseEntity.ok(guider);
     }
 

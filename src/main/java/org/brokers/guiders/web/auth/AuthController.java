@@ -2,6 +2,9 @@ package org.brokers.guiders.web.auth;
 
 
 import lombok.RequiredArgsConstructor;
+import org.brokers.guiders.web.auth.payload.FollowerJoinForm;
+import org.brokers.guiders.web.auth.payload.GuiderJoinForm;
+import org.brokers.guiders.web.auth.payload.LoginForm;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +35,8 @@ public class AuthController {
     }
 
     @PostMapping("/join/guider")
-    public ResponseEntity<?> joinGuider(@Valid @RequestBody AuthDto.GuiderJoinRequest joinDto) {
-        Long id = authService.joinGuider(joinDto);
+    public ResponseEntity<?> joinGuider(@Valid @RequestBody GuiderJoinForm joinForm) {
+        Long id = authService.joinGuider(joinForm);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/user/{id}")
                 .buildAndExpand(id)
@@ -42,8 +45,8 @@ public class AuthController {
     }
 
     @PostMapping("/join/follower")
-    public ResponseEntity<?> joinFollower(@Valid @RequestBody AuthDto.FollowerJoinRequest joinDto) {
-        Long id = authService.joinFollower(joinDto);
+    public ResponseEntity<?> joinFollower(@Valid @RequestBody FollowerJoinForm joinForm) {
+        Long id = authService.joinFollower(joinForm);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/user/{id}")
                 .buildAndExpand(id)
@@ -52,8 +55,8 @@ public class AuthController {
     }
 
     @PostMapping("/api/login")
-    public ResponseEntity<?> login(@RequestBody AuthDto.LoginRequest loginDto) {
-        authService.login(loginDto);
+    public ResponseEntity<?> login(@RequestBody LoginForm loginForm) {
+        authService.login(loginForm);
 //        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 //        model.addAttribute("url", naverAuthUrl);
         return ResponseEntity.ok().build();

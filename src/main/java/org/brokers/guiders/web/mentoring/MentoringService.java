@@ -6,8 +6,12 @@ import org.brokers.guiders.exception.MentoringNotFoundException;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
-import org.brokers.guiders.web.member.guider.GuiderDto;
+import org.brokers.guiders.web.member.guider.payload.GuiderDetail;
 import org.brokers.guiders.web.member.guider.GuiderRepository;
+import org.brokers.guiders.web.mentoring.payload.AnswerForm;
+import org.brokers.guiders.web.mentoring.payload.MentoringDetail;
+import org.brokers.guiders.web.mentoring.payload.MentoringDetailList;
+import org.brokers.guiders.web.mentoring.payload.MentoringForm;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,14 +29,14 @@ public class MentoringService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public void question(MentoringDto.Request request, Member member) {
-        Guider guider = guiderRepository.findById(request.getGuiderId())
+    public void question(MentoringForm mentoringForm, Member member) {
+        Guider guider = guiderRepository.findById(mentoringForm.getGuiderId())
                 .orElseThrow(MemberNotFoundException::new);
         Mentoring mentoring = Mentoring.builder()
-                .title(request.getTitle())
-                .content(request.getContent())
-                .field(request.getField())
-                .language(request.getLang())
+                .title(mentoringForm.getTitle())
+                .content(mentoringForm.getContent())
+                .field(mentoringForm.getField())
+                .language(mentoringForm.getLang())
                 .follower((Follower) member)
                 .guider(guider)
                 .build();
@@ -40,41 +44,41 @@ public class MentoringService {
     }
 
     @Transactional
-    public void registerAnswer(MentoringDto.AnswerRequest request) {
+    public void registerAnswer(AnswerForm request) {
         Mentoring mentoring = mentoringRepository.findById(request.getId())
                 .orElseThrow(MentoringNotFoundException::new);
         mentoring.setAnswer(request.getAnswer());
         mentoringRepository.save(mentoring);
     }
 
-    public MentoringDto.Response getMentoring(Long id) {
+    public MentoringDetail getMentoring(Long id) {
         Mentoring mentoring = mentoringRepository.findById(id).orElseThrow(MentoringNotFoundException::new);
-        MentoringDto.Response mentoringDto = modelMapper.map(mentoring, MentoringDto.Response.class);
-        GuiderDto guiderDto = modelMapper.map(mentoring.getGuider(), GuiderDto.class);
-        mentoringDto.setGuider(guiderDto);
-        return mentoringDto;
+        MentoringDetail mentoringDetail = modelMapper.map(mentoring, MentoringDetail.class);
+        GuiderDetail guiderDetail = modelMapper.map(mentoring.getGuider(), GuiderDetail.class);
+        mentoringDetail.setGuider(guiderDetail);
+        return mentoringDetail;
     }
 
-    public List<MentoringDto.Response> getMyQuestions(String email) {
+    public List<MentoringDetail> getMyQuestions(String email) {
         Guider guider = guiderRepository.findByEmail(email)
                 .orElseThrow(MemberNotFoundException::new);
         List<Mentoring> mentoringList =  mentoringRepository.findByGuider(guider);
         return mentoringList.stream()
-                .map(mentoring -> modelMapper.map(mentoring, MentoringDto.Response.class))
+                .map(mentoring -> modelMapper.map(mentoring, MentoringDetail.class))
                 .collect(Collectors.toList());
     }
 
-    public MentoringDto.ListResponse getMentoringList(Member member, Long guiderId) {
+    public MentoringDetailList getMentoringList(Member member, Long guiderId) {
         Guider guider = guiderRepository.findById(guiderId)
                 .orElseThrow(MemberNotFoundException::new);
-        MentoringDto.ListResponse listDto = new MentoringDto.ListResponse();
-        listDto.setGuiderName(guider.getName());
-        List<Mentoring> mentoringList = mentoringRepository.findByGuiderAndFollower(guider, (Follower) member);
-        List<MentoringDto.Response> mentoringDtoList = mentoringList.stream()
-                .map(mentoring -> modelMapper.map(mentoring, MentoringDto.Response.class))
+        MentoringDetailList mentoringList = new MentoringDetailList();
+        mentoringList.setGuiderName(guider.getName());
+        List<MentoringDetail> mentoringDetailList = mentoringRepository.findByGuiderAndFollower(guider, (Follower) member)
+                .stream()
+                .map(mentoring -> modelMapper.map(mentoring, MentoringDetail.class))
                 .collect(Collectors.toList());
-        listDto.setMentoringList(mentoringDtoList);
-        return listDto;
+        mentoringList.setMentoringList(mentoringDetailList);
+        return mentoringList;
     }
 
 }

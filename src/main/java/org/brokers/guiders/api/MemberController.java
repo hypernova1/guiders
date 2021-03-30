@@ -1,8 +1,8 @@
 package org.brokers.guiders.api;
 
 import lombok.RequiredArgsConstructor;
-import org.brokers.guiders.web.member.MemberDto;
 import org.brokers.guiders.web.member.MemberService;
+import org.brokers.guiders.web.member.payload.MemberSummary;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +18,8 @@ public class MemberController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getMemberInfo(@PathVariable Long id) {
-        MemberDto.InfoResponse memberDto = memberService.findById(id);
-        return ResponseEntity.ok(memberDto);
+        MemberSummary memberSummary = memberService.findById(id);
+        return ResponseEntity.ok(memberSummary);
     }
 
 }

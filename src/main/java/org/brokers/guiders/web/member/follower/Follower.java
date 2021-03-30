@@ -3,8 +3,7 @@ package org.brokers.guiders.web.member.follower;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.brokers.guiders.web.auth.AuthDto;
-import org.brokers.guiders.web.essay.Essay;
+import org.brokers.guiders.web.auth.payload.FollowerJoinForm;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.guider.Guider;
 
@@ -27,7 +26,7 @@ public class Follower extends Member {
     )
     private final List<Guider> followList = new ArrayList<>();
 
-    public static Follower create(AuthDto.FollowerJoinRequest request) {
+    public static Follower create(FollowerJoinForm request) {
         Follower follower = new Follower();
         follower.email = request.getEmail();
         follower.password = request.getPassword();

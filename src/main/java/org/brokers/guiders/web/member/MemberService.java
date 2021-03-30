@@ -3,13 +3,15 @@ package org.brokers.guiders.web.member;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.web.essay.EssayRepository;
+import org.brokers.guiders.web.member.guider.payload.GuiderWithMentoringList;
+import org.brokers.guiders.web.member.payload.MemberSummary;
+import org.brokers.guiders.web.member.payload.MemberUpdateForm;
 import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
-import org.brokers.guiders.web.member.guider.GuiderDto;
 import org.brokers.guiders.web.member.guider.GuiderRepository;
 import org.brokers.guiders.web.mentoring.Mentoring;
-import org.brokers.guiders.web.mentoring.MentoringDto;
 import org.brokers.guiders.web.mentoring.MentoringRepository;
+import org.brokers.guiders.web.mentoring.payload.MentoringDetail;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,17 +33,17 @@ public class MemberService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public void modifyMember(MemberDto.Update memberDto, Member member) {
-        String password = memberDto.getPassword();
+    public void modifyMember(MemberUpdateForm updateForm, Member member) {
+        String password = updateForm.getPassword();
         if (!password.isEmpty()) {
-            memberDto.setPassword(passwordEncoder.encode(password));
+            updateForm.setPassword(passwordEncoder.encode(password));
         }
-        member.update(memberDto);
+        member.update(updateForm);
         memberRepository.save(member);
     }
 
-    public MemberDto.Update getInfo(Member member) {
-        return modelMapper.map(member, MemberDto.Update.class);
+    public MemberUpdateForm getInfo(Member member) {
+        return modelMapper.map(member, MemberUpdateForm.class);
     }
 
     public Member findByEmail(String email) {
@@ -67,31 +69,31 @@ public class MemberService {
         memberRepository.save(follower);
     }
 
-    public MemberDto.InfoResponse findById(Long id) {
+    public MemberSummary findById(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(MemberNotFoundException::new);
 
-        return modelMapper.map(member, MemberDto.InfoResponse.class);
+        return modelMapper.map(member, MemberSummary.class);
     }
 
-    public List<GuiderDto.WithMentoring> getMyGuiderAndQuestion(Member member) {
+    public List<GuiderWithMentoringList> getMyGuiderAndQuestion(Member member) {
         Follower follower = (Follower) member;
         List<Guider> guiderList = follower.getFollowList();
-        List<GuiderDto.WithMentoring> guiderDtoList = guiderList.stream()
-                .map(guider -> modelMapper.map(guider, GuiderDto.WithMentoring.class))
+        List<GuiderWithMentoringList> guiderWithMentoringList = guiderList.stream()
+                .map(guider -> modelMapper.map(guider, GuiderWithMentoringList.class))
                 .collect(Collectors.toList());
 
         List<Mentoring> mentoringList = mentoringRepository.findByGuiderInAndFollower(guiderList, follower);
 
         for (Mentoring mentoring : mentoringList) {
-            for (GuiderDto.WithMentoring guider : guiderDtoList) {
+            for (GuiderWithMentoringList guider : guiderWithMentoringList) {
                 if (mentoring.getGuider().getEmail().equals(guider.getEmail())) {
-                    MentoringDto.Response mentoringDto = modelMapper.map(mentoring, MentoringDto.Response.class);
-                    guider.addMentoring(mentoringDto);
+                    MentoringDetail mentoringDetail = modelMapper.map(mentoring, MentoringDetail.class);
+                    guider.addMentoring(mentoringDetail);
                 }
             }
         }
-        return guiderDtoList;
+        return guiderWithMentoringList;
     }
 
 }

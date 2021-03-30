@@ -2,6 +2,7 @@ package org.brokers.guiders.web.essay;
 
 import lombok.*;
 import org.brokers.guiders.web.common.DateAudit;
+import org.brokers.guiders.web.essay.payload.EssayForm;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.guider.Guider;
 
@@ -65,9 +66,9 @@ public class Essay extends DateAudit {
         this.likeCount--;
     }
 
-    public void update(EssayDto.Request request) {
-        this.title = request.getTitle();
-        this.content = request.getContent();
+    public void update(EssayForm essayForm) {
+        this.title = essayForm.getTitle();
+        this.content = essayForm.getContent();
     }
 
     public void setContent(String content) {

@@ -2,7 +2,7 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
-import org.brokers.guiders.web.member.guider.GuiderDto;
+import org.brokers.guiders.web.member.guider.payload.GuiderWithMentoringList;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +30,8 @@ public class MemberController {
     }
 
     @GetMapping("/following")
-    public ResponseEntity<List<GuiderDto.WithMentoring>> getFollowingList(@AuthUser Member member) {
-        List<GuiderDto.WithMentoring> followList = memberService.getMyGuiderAndQuestion(member);
+    public ResponseEntity<List<GuiderWithMentoringList>> getFollowingList(@AuthUser Member member) {
+        List<GuiderWithMentoringList> followList = memberService.getMyGuiderAndQuestion(member);
 
         return ResponseEntity.ok(followList);
     }

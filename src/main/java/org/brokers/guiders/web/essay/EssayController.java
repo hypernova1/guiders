@@ -2,6 +2,9 @@ package org.brokers.guiders.web.essay;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
+import org.brokers.guiders.web.essay.payload.EssayDetail;
+import org.brokers.guiders.web.essay.payload.EssaySummary;
+import org.brokers.guiders.web.essay.payload.EssayForm;
 import org.brokers.guiders.web.member.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +25,8 @@ public class EssayController {
     }
 
     @PostMapping("/write")
-    public String writeEssay(EssayDto.Request request, @AuthUser Member member) {
-        Long id = essayService.writeEssay(request, member);
+    public String writeEssay(EssayForm essayForm, @AuthUser Member member) {
+        Long id = essayService.writeEssay(essayForm, member);
         return "redirect:/essay/detail/" + id;
     }
 
@@ -31,14 +34,14 @@ public class EssayController {
     public String goEssayListPage(Model model,
                                   @RequestParam(defaultValue = "1") int page,
                                   @RequestParam(defaultValue = "") String keyword) {
-        Page<EssayDto.Response> essayPage = essayService.getEssayList(page - 1, keyword);
+        Page<EssaySummary> essayPage = essayService.getEssayList(page - 1, keyword);
         model.addAttribute("essayPage", essayPage);
         return "essay/list";
     }
 
     @GetMapping("/detail/{id}")
     public String readEssay(@PathVariable Long id, Model model, @AuthUser Member member) {
-        EssayDto.DetailResponse essay = essayService.getEssay(id);
+        EssayDetail essay = essayService.getEssay(id);
         if (member != null) {
             boolean confirmLike = member.getLikeEssayList().stream().anyMatch((likeEssay) -> likeEssay.getId().equals(id));
             model.addAttribute("userInfo", member);
@@ -54,8 +57,8 @@ public class EssayController {
     }
 
     @PostMapping("/modify/{id}")
-    public String modifyEssay(@PathVariable Long id, EssayDto.Request request, @AuthUser Member member) {
-        essayService.modifyEssay(id, request, member);
+    public String modifyEssay(@PathVariable Long id, EssayForm essayForm, @AuthUser Member member) {
+        essayService.modifyEssay(id, essayForm, member);
         return "redirect:/essay/detail/" + id;
     }
 
@@ -67,7 +70,7 @@ public class EssayController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getEssay(@PathVariable Long id) {
-        EssayDto.DetailResponse essay = essayService.getEssay(id);
+        EssayDetail essay = essayService.getEssay(id);
         return ResponseEntity.ok(essay);
     }
 

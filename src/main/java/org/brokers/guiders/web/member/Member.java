@@ -8,6 +8,7 @@ import org.brokers.guiders.web.auth.role.Role;
 import org.brokers.guiders.web.auth.role.RoleName;
 import org.brokers.guiders.web.common.DateAudit;
 import org.brokers.guiders.web.essay.Essay;
+import org.brokers.guiders.web.member.payload.MemberUpdateForm;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -59,13 +60,13 @@ public class Member extends DateAudit {
     @ManyToMany(fetch = FetchType.EAGER)
     protected final Set<Role> roles = new HashSet<>();
 
-    public void update(MemberDto.Update memberDto) {
-        this.name = memberDto.getName();
-        if (!memberDto.getPassword().isEmpty()) {
-            this.password = memberDto.getPassword();
+    public void update(MemberUpdateForm updateForm) {
+        this.name = updateForm.getName();
+        if (!updateForm.getPassword().isEmpty()) {
+            this.password = updateForm.getPassword();
         }
-        this.phone = memberDto.getPhone();
-        this.photoUrl = memberDto.getPhotoUrl();
+        this.phone = updateForm.getPhone();
+        this.photoUrl = updateForm.getPhotoUrl();
     }
 
     public void addRole(Role role) {

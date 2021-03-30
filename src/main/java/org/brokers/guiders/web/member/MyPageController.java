@@ -2,11 +2,12 @@ package org.brokers.guiders.web.member;
 
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
-import org.brokers.guiders.web.essay.EssayDto;
 import org.brokers.guiders.web.essay.EssayService;
+import org.brokers.guiders.web.essay.payload.EssayDetail;
+import org.brokers.guiders.web.member.payload.MemberUpdateForm;
 import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.member.guider.GuiderService;
-import org.brokers.guiders.web.mentoring.MentoringDto;
+import org.brokers.guiders.web.mentoring.payload.MentoringDetail;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,21 +29,21 @@ public class MyPageController {
 
     @GetMapping("/likeEssay")
     public String likeEssay(@AuthUser Member member, Model model) {
-        List<EssayDto.DetailResponse> likeEssayList = essayService.getLikeEssayList(member);
+        List<EssayDetail> likeEssayList = essayService.getLikeEssayList(member);
         model.addAttribute("essayList", likeEssayList);
         return "mypage/likeEssay";
     }
 
     @GetMapping("/edit")
     public String edit(Model model, @AuthUser Member member) {
-        MemberDto.Update dto = memberService.getInfo(member);
-        model.addAttribute("member", dto);
+        MemberUpdateForm updateForm = memberService.getInfo(member);
+        model.addAttribute("member", updateForm);
         return "mypage/edit";
     }
 
     @PostMapping("/edit")
-    public String edit(MemberDto.Update memberDto, @AuthUser Member member) {
-        memberService.modifyMember(memberDto, member);
+    public String edit(MemberUpdateForm updateForm, @AuthUser Member member) {
+        memberService.modifyMember(updateForm, member);
         return "mypage/edit";
     }
 
@@ -58,7 +59,7 @@ public class MyPageController {
 
     @GetMapping("/questions")
     public String questions(@AuthUser Member member, Model model) {
-        List<MentoringDto.Response> mentoringList = guiderService.getMentoringList((Guider) member);
+        List<MentoringDetail> mentoringList = guiderService.getMentoringList((Guider) member);
         model.addAttribute("mentoringList", mentoringList);
         return "mypage/questions";
     }

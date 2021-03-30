@@ -2,7 +2,7 @@ package org.brokers.guiders.config;
 
 
 import org.brokers.guiders.web.mentoring.Mentoring;
-import org.brokers.guiders.web.mentoring.MentoringDto;
+import org.brokers.guiders.web.mentoring.payload.MentoringDetail;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ public class ModelMapperConfig {
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
-        modelMapper.addMappings(new PropertyMap<Mentoring, MentoringDto.Response>() {
+        modelMapper.addMappings(new PropertyMap<Mentoring, MentoringDetail>() {
             @Override
             protected void configure() {
                 map().setWriter(source.getFollower().getName());

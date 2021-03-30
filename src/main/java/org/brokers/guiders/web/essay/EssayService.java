@@ -3,6 +3,9 @@ package org.brokers.guiders.web.essay;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.EssayNotFoundException;
 import org.brokers.guiders.exception.EssayOwnershipException;
+import org.brokers.guiders.web.essay.payload.EssayDetail;
+import org.brokers.guiders.web.essay.payload.EssaySummary;
+import org.brokers.guiders.web.essay.payload.EssayForm;
 import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.guider.Guider;
 import org.modelmapper.ModelMapper;
@@ -26,36 +29,36 @@ public class EssayService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public Long writeEssay(EssayDto.Request request, Member member) {
+    public Long writeEssay(EssayForm essayForm, Member member) {
         Essay essay = Essay.builder()
-                .title(request.getTitle())
-                .content(request.getContent())
+                .title(essayForm.getTitle())
+                .content(essayForm.getContent())
                 .writer((Guider) member)
                 .build();
         return essayRepository.save(essay).getId();
     }
 
-    public EssayDto.DetailResponse getEssay(Long id) {
+    public EssayDetail getEssay(Long id) {
         Essay essay = essayRepository.findById(id).orElseThrow(() -> new EssayNotFoundException(id));
-        EssayDto.DetailResponse essayDto = modelMapper.map(essay, EssayDto.DetailResponse.class);
-        essayDto.setWriter(essay.getWriter().getName());
-        essayDto.setEmail(essay.getWriter().getEmail());
-        essayDto.setContent(essay.getContent().replace("<br>", "\n"));
-        return essayDto;
+        EssayDetail essayDetail = modelMapper.map(essay, EssayDetail.class);
+        essayDetail.setWriter(essay.getWriter().getName());
+        essayDetail.setEmail(essay.getWriter().getEmail());
+        essayDetail.setContent(essay.getContent().replace("<br>", "\n"));
+        return essayDetail;
     }
 
     @Transactional
-    public void modifyEssay(Long id, EssayDto.Request request, Member member) {
+    public void modifyEssay(Long id, EssayForm essayForm, Member member) {
         Essay essay = essayRepository.findById(id)
                 .orElseThrow(() -> new EssayNotFoundException(id));
         if (!essay.getWriter().equals(member)) {
             throw new EssayOwnershipException();
         }
-        essay.update(request);
+        essay.update(essayForm);
     }
 
     @Transactional
-    public Page<EssayDto.Response> getEssayList(int page, String keyword) {
+    public Page<EssaySummary> getEssayList(int page, String keyword) {
         PageRequest pageRequest = PageRequest.of(page, 10);
         Page<Essay> essayPage = essayRepository.searchByKeyword(keyword, pageRequest);
 
@@ -67,9 +70,9 @@ public class EssayService {
             content = content.replaceAll("&gt;", ">");
             content = content.replaceAll("&amp;", "&");
             essay.setContent(content);
-            EssayDto.Response essayDto = modelMapper.map(essay, EssayDto.Response.class);
-            essayDto.setWriter(essay.getWriter().getName());
-            return essayDto;
+            EssaySummary essaySummary = modelMapper.map(essay, EssaySummary.class);
+            essaySummary.setWriter(essay.getWriter().getName());
+            return essaySummary;
         });
     }
 
@@ -84,28 +87,28 @@ public class EssayService {
         essayRepository.delete(essay);
     }
 
-    public List<EssayDto.Response> getTopEssay() {
+    public List<EssaySummary> getTopEssay() {
         List<Essay> topEssayList = essayRepository.findTop6ByOrderByLikeCountDesc();
         Pattern pattern = Pattern.compile("\\< ?img(.*?)\\>");
         return topEssayList.stream()
                 .map(essay -> {
                     essay.setContent(essay.getContent().replaceAll("\\< ?img(.*?)\\>", ""));
-                    EssayDto.Response essayDto = modelMapper.map(essay, EssayDto.Response.class);
-                    Matcher matcher = pattern.matcher(essayDto.getContent());
+                    EssaySummary essaySummary = modelMapper.map(essay, EssaySummary.class);
+                    Matcher matcher = pattern.matcher(essaySummary.getContent());
                     String image = "https://t1.daumcdn.net/cfile/tistory/1112763C4F78EAB610";
                     if (matcher.find()) {
                         image = matcher.group();
                     }
-                    essayDto.setImage(image);
-                    return essayDto;
+                    essaySummary.setImage(image);
+                    return essaySummary;
                 })
                 .collect(Collectors.toList());
     }
 
-    public List<EssayDto.DetailResponse> getLikeEssayList(Member member) {
+    public List<EssayDetail> getLikeEssayList(Member member) {
         Set<Essay> likeEssayList = member.getLikeEssayList();
         return likeEssayList.stream()
-                .map(likeEssay -> modelMapper.map(likeEssay, EssayDto.DetailResponse.class))
+                .map(likeEssay -> modelMapper.map(likeEssay, EssayDetail.class))
                 .collect(Collectors.toList());
     }
 
