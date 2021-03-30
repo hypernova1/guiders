@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.management.relation.RoleNotFoundException;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -31,7 +33,7 @@ public class AuthService {
     public Long joinGuider(AuthDto.GuiderJoinRequest joinDto) {
         joinDto.setPassword(passwordEncoder.encode(joinDto.getPassword()));
         Role role = roleRepository.findByName(RoleName.ROLE_GUIDER)
-                .orElseGet(() -> Role.builder().name(RoleName.ROLE_GUIDER).build());
+                .orElseThrow(RuntimeException::new);
         Member member = Guider.create(joinDto);
         member.addRole(role);
         return memberRepository.save(member).getId();

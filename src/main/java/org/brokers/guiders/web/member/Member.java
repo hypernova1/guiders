@@ -56,7 +56,7 @@ public class Member extends DateAudit {
             joinColumns = @JoinColumn(name = "member_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     protected final Set<Role> roles = new HashSet<>();
 
     public void update(MemberDto.Update memberDto) {
