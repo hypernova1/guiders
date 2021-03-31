@@ -75,12 +75,6 @@ section{
   font-size: 0.8rem;
 }
 
-#editor{
-	all: unset;
-	resize: none;
-	width: 99.5%;
-	height: 400px;
-}
 #btn-wrap{
 	text-align: center;
 }

@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="layout/default" lang="ko">
 
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/resources/css/mypage/mentoring.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css}">
+    <link rel="stylesheet" th:href="@{https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css}">
 </th:block>
 
 <section layout:fragment="content">
@@ -18,28 +21,36 @@
         </div>
     </div>
     <h2 id="answer-title">Guider's Answer..</h2>
+
     <th:block th:if="${mentoring.answer != null}">
         <div id="answerDate" th:text="|답변일: ${mentoring.answerDate}|"></div>
     </th:block>
+
     <div id="answer">
-        <th:block th:if="${#authentication.getName() == mentoring.guider.name and mentoring.answer == null}">
-            <form action="/mentoring/answer" method="post" id="answer-form">
-                <textarea name="answer" id="editor" placeholder="답변을 달아주세요."></textarea>
-                <input type="hidden" name="mtrno" value="${mentoring.id}">
-            </form>
-        </th:block>
         <th:block th:if="${mentoring.answer != null}">
             <div class="content" th:text="${mentoring.answer}"></div>
         </th:block>
-        <th:block th:unless="${mentoring.answer != null}">
-            <div class="content">아직 답변이 등록되지 않았습니다.</div>
-        </th:block>
+
         <th:block th:if="${#authentication.getName() == mentoring.guider.email and mentoring.answer == null}">
+            <form action="/mentoring/answer" method="post" id="answer-form">
+                <input type="hidden" name="id" th:value="${mentoring.id}">
+                <input type="hidden" id="h_answer" name="answer">
+            </form>
+
+            <div id="editor"></div>
+
             <div id="btn-wrap">
-                <button class="btn" id="answer`-btn">등록</button>
+                <button class="btn" id="answer-btn">등록</button>
             </div>
         </th:block>
+
+        <th:block sec:authorize="hasRole('MEMBER')">
+            <th:block th:unless="${mentoring.answer != null}">
+                <div class="content">아직 답변이 등록되지 않았습니다.</div>
+            </th:block>
+        </th:block>
     </div>
+
     <div id="mtr-detail">
         <img id="mtr-img" th:src="${mentoring.guider.photoUrl}">
         <div class="mtr-name">
@@ -55,13 +66,8 @@
 </section>
 
 <th:block layout:fragment="script">
+    <script th:src="@{https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js}"></script>
     <script th:src="@{/resources/js/mypage/mentoring.js}"></script>
-    <script type="text/javascript">
-
-        document.getElementById('answer-btn').addEventListener('click' ,function () {
-            document.getElementById('answer-form').submit();
-        });
-    </script>
 </th:block>
 </html>
 

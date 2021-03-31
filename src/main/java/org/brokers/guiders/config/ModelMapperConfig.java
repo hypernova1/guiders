@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Configuration
@@ -20,7 +22,7 @@ public class ModelMapperConfig {
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
-        Converter<Date, String> toStringDate = new AbstractConverter<>() {
+        Converter<Date, String> dateToString = new AbstractConverter<>() {
             @Override
             protected String convert(Date source) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
@@ -28,7 +30,15 @@ public class ModelMapperConfig {
             }
         };
 
-        modelMapper.addConverter(toStringDate);
+        Converter<LocalDateTime, String> localDateTimeToString = new AbstractConverter<>() {
+            @Override
+            protected String convert(LocalDateTime source) {
+                return source.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm"));
+            }
+        };
+
+        modelMapper.addConverter(dateToString);
+        modelMapper.addConverter(localDateTimeToString);
 
         modelMapper.addMappings(new PropertyMap<Mentoring, MentoringDetail>() {
             @Override

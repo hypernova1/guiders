@@ -12,6 +12,10 @@ const editor = new toastui.Editor({
     initialValue: content
 });
 
+document.getElementById("answer-btn").addEventListener('click', function(){
+    document.getElementById('h_answer').value = editor.getMarkdown();
+    document.getElementById("answer-form").submit();
+});
 
 /*document.querySelector('#answer-btn').addEventListener('click', () => {
    const form = document.createElement('form');

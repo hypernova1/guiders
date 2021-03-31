@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.brokers.guiders.web.member.guider.payload.GuiderDetail;
 
-import java.time.LocalDateTime;
-
 @Getter @Setter
 public class MentoringDetail {
 
