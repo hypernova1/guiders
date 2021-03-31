@@ -19,7 +19,7 @@ public class MentoringDetail {
     private GuiderDetail guider;
     private String field;
     private String lang;
-    private LocalDateTime answerDate;
-    private LocalDateTime createdDate;
+    private String answerDate;
+    private String createdDate;
 
 }

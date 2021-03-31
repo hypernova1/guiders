@@ -17,7 +17,7 @@
                 <div class="title">제목</div>
                 <div class="regDate">질문날짜</div>
             </li>
-            <th:block th:each="mentoring: ${mentoringDetailList}">
+            <th:block th:each="mentoring: ${mentoringList}">
                 <li data-mtrno="${mentoring.id}">
                     <div class="writer" th:text="${mentoring.writer}"></div>
                     <div class="field" th:text="${mentoring.field}"></div>

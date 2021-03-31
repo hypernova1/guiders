@@ -38,8 +38,8 @@ public class MentoringController {
     }
 
     @GetMapping("/list")
-    public String mentoringList(@AuthUser Follower member, Long guiderId, Model model) {
-        MentoringDetailList mentoringDetailList = mentoringService.getMentoringList(member, guiderId);
+    public String mentoringList(@AuthUser Follower follower, Long guiderId, Model model) {
+        MentoringDetailList mentoringDetailList = mentoringService.getMentoringList(follower, guiderId);
         model.addAttribute("mentoringInfo", mentoringDetailList);
         return "mypage/mentoringList";
     }

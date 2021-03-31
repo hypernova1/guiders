@@ -68,15 +68,17 @@ public class MentoringService {
                 .collect(Collectors.toList());
     }
 
-    public MentoringDetailList getMentoringList(Member member, Long guiderId) {
+    public MentoringDetailList getMentoringList(Follower follower, Long guiderId) {
         Guider guider = guiderRepository.findById(guiderId)
                 .orElseThrow(MemberNotFoundException::new);
-        MentoringDetailList mentoringList = new MentoringDetailList();
-        mentoringList.setGuiderName(guider.getName());
-        List<MentoringDetail> mentoringDetailList = mentoringRepository.findByGuiderAndFollower(guider, (Follower) member)
+
+        List<MentoringDetail> mentoringDetailList = mentoringRepository.findByGuiderAndFollower(guider, follower)
                 .stream()
                 .map(mentoring -> modelMapper.map(mentoring, MentoringDetail.class))
                 .collect(Collectors.toList());
+
+        MentoringDetailList mentoringList = new MentoringDetailList();
+        mentoringList.setGuiderName(guider.getName());
         mentoringList.setMentoringList(mentoringDetailList);
         return mentoringList;
     }
