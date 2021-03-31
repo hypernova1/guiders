@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.brokers.guiders.web.member.Gender;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Arrays;
@@ -33,7 +34,7 @@ public class FollowerJoinForm {
     @NotBlank
     private String birth;
 
-    @NotBlank
+    @Max(6)
     private int gender;
 
     @NotBlank

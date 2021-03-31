@@ -29,7 +29,7 @@ public class MentoringService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public void question(MentoringForm mentoringForm, Member member) {
+    public void registerQuestion(MentoringForm mentoringForm, Member member) {
         Guider guider = guiderRepository.findById(mentoringForm.getGuiderId())
                 .orElseThrow(MemberNotFoundException::new);
         Mentoring mentoring = Mentoring.builder()
@@ -44,14 +44,14 @@ public class MentoringService {
     }
 
     @Transactional
-    public void registerAnswer(AnswerForm request) {
-        Mentoring mentoring = mentoringRepository.findById(request.getId())
+    public void registerAnswer(AnswerForm answerForm, Guider guider) {
+        Mentoring mentoring = mentoringRepository.findById(answerForm.getId())
                 .orElseThrow(MentoringNotFoundException::new);
-        mentoring.setAnswer(request.getAnswer());
+        mentoring.registerAnswer(answerForm.getAnswer(), guider);
         mentoringRepository.save(mentoring);
     }
 
-    public MentoringDetail getMentoring(Long id) {
+    public MentoringDetail getMentoringDetail(Long id) {
         Mentoring mentoring = mentoringRepository.findById(id).orElseThrow(MentoringNotFoundException::new);
         MentoringDetail mentoringDetail = modelMapper.map(mentoring, MentoringDetail.class);
         GuiderDetail guiderDetail = modelMapper.map(mentoring.getGuider(), GuiderDetail.class);

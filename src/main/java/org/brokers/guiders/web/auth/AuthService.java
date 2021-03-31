@@ -42,9 +42,11 @@ public class AuthService {
 
     @Transactional
     public Long joinFollower(FollowerJoinForm joinForm) {
-        Member member = Follower.create(joinForm);
+        joinForm.setPassword(passwordEncoder.encode(joinForm.getPassword()));
         Role role = roleRepository.findByName(RoleName.ROLE_MEMBER)
-                .orElseGet(() -> Role.builder().name(RoleName.ROLE_MEMBER).build());
+                .orElseThrow(RuntimeException::new);
+
+        Member member = Follower.create(joinForm);
         member.addRole(role);
         return memberRepository.save(member).getId();
     }

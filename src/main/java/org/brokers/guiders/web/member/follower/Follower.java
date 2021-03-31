@@ -26,15 +26,15 @@ public class Follower extends Member {
     )
     private final List<Guider> followList = new ArrayList<>();
 
-    public static Follower create(FollowerJoinForm request) {
+    public static Follower create(FollowerJoinForm joinForm) {
         Follower follower = new Follower();
-        follower.email = request.getEmail();
-        follower.password = request.getPassword();
-        follower.name = request.getName();
-        follower.birth = request.getBirth();
-        follower.gender = request.getGender();
-        follower.phone = request.getPhone();
-        follower.photoUrl = request.getPhotoUrl();
+        follower.email = joinForm.getEmail();
+        follower.password = joinForm.getPassword();
+        follower.name = joinForm.getName();
+        follower.birth = joinForm.getBirth();
+        follower.gender = joinForm.getGender();
+        follower.phone = joinForm.getPhone();
+        follower.photoUrl = joinForm.getPhotoUrl();
         return follower;
     }
 

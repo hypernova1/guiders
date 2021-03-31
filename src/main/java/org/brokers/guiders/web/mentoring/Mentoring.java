@@ -60,8 +60,9 @@ public class Mentoring extends DateAudit {
         this.language = language;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void registerAnswer(String content, Guider guider) {
+        this.answer = content;
+        this.guider = guider;
         this.answerDate = LocalDateTime.now();
     }
 }
