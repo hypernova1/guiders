@@ -3,11 +3,10 @@ package org.brokers.guiders.web.mentoring;
 import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.exception.MemberNotFoundException;
 import org.brokers.guiders.exception.MentoringNotFoundException;
-import org.brokers.guiders.web.member.Member;
 import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
-import org.brokers.guiders.web.member.guider.payload.GuiderDetail;
 import org.brokers.guiders.web.member.guider.GuiderRepository;
+import org.brokers.guiders.web.member.guider.payload.GuiderDetail;
 import org.brokers.guiders.web.mentoring.payload.AnswerForm;
 import org.brokers.guiders.web.mentoring.payload.MentoringDetail;
 import org.brokers.guiders.web.mentoring.payload.MentoringDetailList;
@@ -29,7 +28,7 @@ public class MentoringService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public void registerQuestion(MentoringForm mentoringForm, Member member) {
+    public void registerQuestion(MentoringForm mentoringForm, Follower follower) {
         Guider guider = guiderRepository.findById(mentoringForm.getGuiderId())
                 .orElseThrow(MemberNotFoundException::new);
         Mentoring mentoring = Mentoring.builder()
@@ -37,7 +36,7 @@ public class MentoringService {
                 .content(mentoringForm.getContent())
                 .field(mentoringForm.getField())
                 .language(mentoringForm.getLang())
-                .follower((Follower) member)
+                .follower(follower)
                 .guider(guider)
                 .build();
         mentoringRepository.save(mentoring);

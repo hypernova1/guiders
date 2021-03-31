@@ -11,7 +11,7 @@
 </th:block>
 
 <section layout:fragment="content">
-    <input type="hidden" value="${mentoring.id}" id="id">
+    <input type="hidden" th:value="${mentoring.id}" id="id">
     <div id="question">
         <h1 id="title" th:text="|Q. ${mentoring.title}|"></h1>
         <div id="field" th:text="${mentoring.field}"></div>

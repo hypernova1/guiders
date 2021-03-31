@@ -4,11 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.essay.EssayService;
 import org.brokers.guiders.web.essay.payload.EssayDetail;
-import org.brokers.guiders.web.member.payload.MemberUpdateForm;
 import org.brokers.guiders.web.member.guider.Guider;
 import org.brokers.guiders.web.member.guider.GuiderService;
+import org.brokers.guiders.web.member.payload.MemberUpdateForm;
 import org.brokers.guiders.web.mentoring.payload.MentoringDetail;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +24,6 @@ public class MyPageController {
     private final MemberService memberService;
     private final GuiderService guiderService;
     private final EssayService essayService;
-    private final ModelMapper modelMapper;
 
     @GetMapping("/likeEssay")
     public String likeEssay(@AuthUser Member member, Model model) {

@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.brokers.guiders.config.security.AuthUser;
 import org.brokers.guiders.web.member.follower.Follower;
 import org.brokers.guiders.web.member.guider.Guider;
-import org.brokers.guiders.web.mentoring.payload.*;
+import org.brokers.guiders.web.mentoring.payload.AnswerForm;
+import org.brokers.guiders.web.mentoring.payload.MentoringDetail;
+import org.brokers.guiders.web.mentoring.payload.MentoringDetailList;
+import org.brokers.guiders.web.mentoring.payload.MentoringForm;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +22,8 @@ public class MentoringController {
 
     @PostMapping
     public ResponseEntity<?> registerQuestion(@RequestBody MentoringForm mentoringForm,
-                                              @AuthUser Follower member) {
-        mentoringService.registerQuestion(mentoringForm, member);
+                                              @AuthUser Follower follower) {
+        mentoringService.registerQuestion(mentoringForm, follower);
         return ResponseEntity.ok().build();
     }
 

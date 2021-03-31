@@ -29,11 +29,11 @@ public class EssayService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public Long writeEssay(EssayForm essayForm, Member member) {
+    public Long writeEssay(EssayForm essayForm, Guider guider) {
         Essay essay = Essay.builder()
                 .title(essayForm.getTitle())
                 .content(essayForm.getContent())
-                .writer((Guider) member)
+                .writer(guider)
                 .build();
         return essayRepository.save(essay).getId();
     }
@@ -48,10 +48,10 @@ public class EssayService {
     }
 
     @Transactional
-    public void modifyEssay(Long id, EssayForm essayForm, Member member) {
+    public void modifyEssay(Long id, EssayForm essayForm, Guider guider) {
         Essay essay = essayRepository.findById(id)
                 .orElseThrow(() -> new EssayNotFoundException(id));
-        if (!essay.getWriter().equals(member)) {
+        if (!essay.getWriter().equals(guider)) {
             throw new EssayOwnershipException();
         }
         essay.update(essayForm);
@@ -77,11 +77,11 @@ public class EssayService {
     }
 
     @Transactional
-    public void removeEssay(Long id, Member member) {
+    public void removeEssay(Long id, Guider guider) {
         Essay essay = essayRepository.findById(id)
                 .orElseThrow(() -> new EssayNotFoundException(id));
 
-        if (!essay.getWriter().equals(member)) {
+        if (!essay.getWriter().equals(guider)) {
             throw new EssayOwnershipException();
         }
         essayRepository.delete(essay);

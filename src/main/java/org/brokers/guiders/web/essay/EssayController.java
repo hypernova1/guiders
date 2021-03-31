@@ -6,6 +6,7 @@ import org.brokers.guiders.web.essay.payload.EssayDetail;
 import org.brokers.guiders.web.essay.payload.EssaySummary;
 import org.brokers.guiders.web.essay.payload.EssayForm;
 import org.brokers.guiders.web.member.Member;
+import org.brokers.guiders.web.member.guider.Guider;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,8 +26,8 @@ public class EssayController {
     }
 
     @PostMapping("/write")
-    public String writeEssay(EssayForm essayForm, @AuthUser Member member) {
-        Long id = essayService.writeEssay(essayForm, member);
+    public String writeEssay(EssayForm essayForm, @AuthUser Guider guider) {
+        Long id = essayService.writeEssay(essayForm, guider);
         return "redirect:/essay/detail/" + id;
     }
 
@@ -48,7 +49,7 @@ public class EssayController {
             model.addAttribute("confirmLike", confirmLike);
         }
         model.addAttribute("essay", essay);
-        return "essay/post";
+        return "essay/detail";
     }
 
     @GetMapping("/modifyForm/{id}")
@@ -57,15 +58,15 @@ public class EssayController {
     }
 
     @PostMapping("/modify/{id}")
-    public String modifyEssay(@PathVariable Long id, EssayForm essayForm, @AuthUser Member member) {
-        essayService.modifyEssay(id, essayForm, member);
+    public String modifyEssay(@PathVariable Long id, EssayForm essayForm, @AuthUser Guider guider) {
+        essayService.modifyEssay(id, essayForm, guider);
         return "redirect:/essay/detail/" + id;
     }
 
-    @GetMapping("/delete/{id}")
-    public String removeEssay(@PathVariable Long id, @AuthUser Member member) {
-        essayService.removeEssay(id, member);
-        return "essay/list";
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> removeEssay(@PathVariable Long id, @AuthUser Guider guider) {
+        essayService.removeEssay(id, guider);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")

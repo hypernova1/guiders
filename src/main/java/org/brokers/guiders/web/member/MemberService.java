@@ -52,19 +52,17 @@ public class MemberService {
     }
 
     @Transactional
-    public void followGuider(Long guiderId, Member member) {
+    public void followGuider(Long guiderId, Follower follower) {
         Guider guider = guiderRepository.findById(guiderId)
                 .orElseThrow(MemberNotFoundException::new);
-        Follower follower = (Follower) member;
         follower.follow(guider);
-        memberRepository.save(member);
+        memberRepository.save(follower);
     }
 
     @Transactional
-    public void unfollowGuider(Long guiderId, Member member) {
+    public void unfollowGuider(Long guiderId, Follower follower) {
         Guider guider = guiderRepository.findById(guiderId)
                 .orElseThrow(MemberNotFoundException::new);
-        Follower follower = (Follower) member;
         follower.unfollow(guider);
         memberRepository.save(follower);
     }
@@ -76,8 +74,7 @@ public class MemberService {
         return modelMapper.map(member, MemberSummary.class);
     }
 
-    public List<GuiderWithMentoringList> getMyGuiderAndQuestion(Member member) {
-        Follower follower = (Follower) member;
+    public List<GuiderWithMentoringList> getMyGuiderAndQuestion(Follower follower) {
         List<Guider> guiderList = follower.getFollowList();
         List<GuiderWithMentoringList> guiderWithMentoringList = guiderList.stream()
                 .map(guider -> modelMapper.map(guider, GuiderWithMentoringList.class))

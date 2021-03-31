@@ -105,7 +105,16 @@
             removeBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 if(confirm('정말 삭제하시겠습니까?')){
-                    location.href = '/essay/delete/${essay.id}';
+                    fetch('/essay/[[${essay.id}]]', {
+                        method: 'DELETE'
+                    }).then((res) => {
+                        if (res.status !== 200) {
+                            alert('서버에 오류가 발생했습니다. 새로고침 후 다시 시도해주세요.');
+                            return;
+                        }
+                        alert('삭제되었습니다.');
+                        location.href = '/essay/list';
+                    });
                 }
             });
         }
