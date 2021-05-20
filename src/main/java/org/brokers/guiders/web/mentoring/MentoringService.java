@@ -51,7 +51,8 @@ public class MentoringService {
     }
 
     public MentoringDetail getMentoringDetail(Long id) {
-        Mentoring mentoring = mentoringRepository.findById(id).orElseThrow(MentoringNotFoundException::new);
+        Mentoring mentoring = mentoringRepository.findById(id)
+                .orElseThrow(MentoringNotFoundException::new);
         MentoringDetail mentoringDetail = modelMapper.map(mentoring, MentoringDetail.class);
         GuiderDetail guiderDetail = modelMapper.map(mentoring.getGuider(), GuiderDetail.class);
         mentoringDetail.setGuider(guiderDetail);
