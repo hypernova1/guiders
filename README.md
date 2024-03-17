@@ -1,3 +1,2 @@
 # guiders
-bitcamp newdeal final project
-1:1 멘토링 서비스 제공 목적 
+레거시 스프링 프로젝트를 스프링 부트로 변경
